@@ -1,0 +1,111 @@
+<ui version="4.0" >
+ <class>DataViewer</class>
+ <widget class="QMainWindow" name="DataViewer" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>598</width>
+    <height>397</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Data Viewer</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QGridLayout" >
+    <property name="margin" >
+     <number>9</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item row="0" column="0" >
+     <widget class="QSplitter" name="splitter" >
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="QTableView" name="tableView" >
+       <property name="minimumSize" >
+        <size>
+         <width>0</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="alternatingRowColors" >
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="statusText" >
+       <property name="minimumSize" >
+        <size>
+         <width>0</width>
+         <height>100</height>
+        </size>
+       </property>
+       <property name="readOnly" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QToolBar" name="toolBar" >
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <attribute name="toolBarArea" >
+    <number>4</number>
+   </attribute>
+   <addaction name="actionNew_Row" />
+   <addaction name="actionRemove_Row" />
+   <addaction name="actionTruncate_Table" />
+   <addaction name="separator" />
+   <addaction name="actionCommit" />
+   <addaction name="actionRollback" />
+   <addaction name="separator" />
+   <addaction name="actionExport_Data" />
+  </widget>
+  <action name="actionNew_Row" >
+   <property name="text" >
+    <string>New Row</string>
+   </property>
+  </action>
+  <action name="actionRemove_Row" >
+   <property name="text" >
+    <string>Remove Row</string>
+   </property>
+  </action>
+  <action name="actionTruncate_Table" >
+   <property name="text" >
+    <string>Truncate Table</string>
+   </property>
+  </action>
+  <action name="actionExport_Data" >
+   <property name="text" >
+    <string>Export Data</string>
+   </property>
+  </action>
+  <action name="actionCommit" >
+   <property name="text" >
+    <string>Commit</string>
+   </property>
+   <property name="toolTip" >
+    <string>Commit the current transaction in the result table</string>
+   </property>
+  </action>
+  <action name="actionRollback" >
+   <property name="text" >
+    <string>Rollback</string>
+   </property>
+   <property name="toolTip" >
+    <string>Rollback the current transaction in the result table</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="icons/icons.qrc" />
+ </resources>
+ <connections/>
+</ui>

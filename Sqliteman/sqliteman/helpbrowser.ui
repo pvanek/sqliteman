@@ -1,0 +1,100 @@
+<ui version="4.0" >
+ <class>HelpBrowser</class>
+ <widget class="QMainWindow" name="HelpBrowser" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>826</width>
+    <height>669</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Sqliteman Help</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QGridLayout" >
+    <property name="margin" >
+     <number>9</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item row="0" column="0" >
+     <widget class="QSplitter" name="splitter" >
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QTextBrowser" name="menuBrowser" >
+       <property name="minimumSize" >
+        <size>
+         <width>200</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize" >
+        <size>
+         <width>400</width>
+         <height>16777215</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QTextBrowser" name="textBrowser" >
+       <property name="openExternalLinks" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>826</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_Document" >
+    <property name="title" >
+     <string>&amp;Document</string>
+    </property>
+    <addaction name="actionBack" />
+    <addaction name="actionForward" />
+    <addaction name="separator" />
+    <addaction name="action_Close" />
+   </widget>
+   <addaction name="menu_Document" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <widget class="QToolBar" name="toolBar" >
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <attribute name="toolBarArea" >
+    <number>4</number>
+   </attribute>
+   <addaction name="actionBack" />
+   <addaction name="actionForward" />
+  </widget>
+  <action name="actionBack" >
+   <property name="text" >
+    <string>&amp;Back</string>
+   </property>
+  </action>
+  <action name="actionForward" >
+   <property name="text" >
+    <string>&amp;Forward</string>
+   </property>
+  </action>
+  <action name="action_Close" >
+   <property name="text" >
+    <string>&amp;Close</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

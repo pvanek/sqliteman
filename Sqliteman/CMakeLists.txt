@@ -1,0 +1,67 @@
+CMAKE_MINIMUM_REQUIRED( VERSION 2.4.3 )
+
+#PROJECT SETUP
+PROJECT(sqliteman)
+SET (VERSION_MAJOR "1")
+SET (VERSION_MINOR "0")
+SET (VERSION_PATCH "0")
+SET (VERSION_SUFFIX "")
+SET (VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_SUFFIX})
+ADD_DEFINITIONS("-DSQLITEMAN_VERSION=\\\"${VERSION}\\\"")
+MESSAGE(STATUS "Sqliteman ${VERSION} will be built to install into ${CMAKE_INSTALL_PREFIX}")
+
+SET(TRANSLATION_DIR "share/sqliteman/")
+ADD_DEFINITIONS("-DTRANSLATION_DIR=\\\"${CMAKE_INSTALL_PREFIX}/${TRANSLATION_DIR}\\\"")
+
+#SET(DOC_DIR "share/sqliteman/doc/en")
+SET(DOC_DIR "share/sqliteman/doc/")
+ADD_DEFINITIONS("-DDOC_DIR=\\\"${CMAKE_INSTALL_PREFIX}/${DOC_DIR}\\\"")
+
+SET(ICON_DIR "share/sqliteman/icons")
+ADD_DEFINITIONS("-DICON_DIR=\\\"${CMAKE_INSTALL_PREFIX}/${ICON_DIR}\\\"")
+
+ADD_DEFINITIONS("-DSQLITE_BINARY=\\\"sqlite3\\\"")
+
+#uninstall
+CONFIGURE_FILE(
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+  IMMEDIATE @ONLY)
+
+ADD_CUSTOM_TARGET(uninstall
+  "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+
+IF(WANT_DEBUG)
+  SET(CMAKE_BUILD_TYPE Debug)
+  MESSAGE(STATUS " *** Debug build ***")
+ELSE(WANT_DEBUG)
+  SET(CMAKE_BUILD_TYPE RELEASE)
+  MESSAGE(STATUS " *** Release build (use -DWANT_DEBUG=1 for debug one) ***")
+ENDIF(WANT_DEBUG)
+
+SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall")
+SET(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -Wall")
+SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall")
+SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall")
+
+
+SET (QT_MT_REQUIRED true)
+SET (QT_MIN_VERSION "4.2.0")
+SET( QT_USE_QTSQL TRUE )
+FIND_PACKAGE( Qt4 REQUIRED )
+
+# FIND_PACKAGE(SelfPackers)
+
+INCLUDE( ${QT_USE_FILE} )
+
+ADD_SUBDIRECTORY( sqliteman )
+
+# install desktop
+INSTALL(FILES
+    sqliteman.desktop
+    DESTINATION "share/applications"
+)
+INSTALL(FILES
+    sqliteman/icons/sqliteman.png
+    DESTINATION "share/icons"
+)

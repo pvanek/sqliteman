@@ -1,0 +1,44 @@
+Sqliteman is simple but powerfull Sqlite3 GUI database manager.
+
+see: http://sqliteman.sourceforge.net
+
+
+REQUIREMENTS
+
+For using binaries:
+ - allow your OS distributor to solve requirements automatically
+
+
+BUILDING FROM SOURCES
+
+MS Windows:
+
+ - Full Qt4.2 (4.3 suggested) or later properly installed on path
+ - building procedure (in the Sqliteman root directory):
+1) qmake
+2) make
+
+
+UN*X:
+
+Requirements:
+ - cmake (http://cmake.org)
+ - Qt toolkit, at least version 4.2 or later required (http://trolltech.com)
+   with sqlite3 module. 4.3 is strongly suggested.
+ - standard building environment (C++ compiler etc.)
+
+ - Sqliteman uses cmake building procedure:
+1) cmake .
+2) make
+3) make install
+
+
+Hints for cmake:
+
+- install into specified directory:
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/foo/bar .
+
+- cmake cannot find my Qt (e.g. Arch's /opt/qt):
+export PATH=/opt/qt/bin:$path
+cmake .
+...etc.

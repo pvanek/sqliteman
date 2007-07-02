@@ -1,0 +1,50 @@
+<qt>
+<h1>Run the Application</h1>
+
+<p>The main window of the application:</p>
+<p><img src="main_window.png"/></p>
+<p>
+<ol>
+<li>Menu bar. Most of the actions are started here.</li>
+<li>Object tree. Database objects are stored in the
+    logical hierarchy here. "Main" is the
+    core database (opened), all others databases can be
+    "attached" only.</li>
+<li>SQL editor. Write your queries and the others commands here.</li>
+<li>Result table. All queries results and related stuff is shown here.</li>
+<li>Error log. Error messages and status is written here.</li>
+</p>
+
+<h2>Start the Application</h2>
+
+<p>The most common way how to start <b>Sqliteman</b> is
+to run it from your desktop menu. But there are some
+command line options you can use too.</p>
+
+<p>Usage in command line: <code>sqliteman [options] [databasefile]</code></p>
+
+<dl>
+<dt>databasefile</dt>
+<dd>An optional argument. A Sqlite3 file with absolute or relative path.
+This file will be loaded into the application directly.</dd>
+</dl>
+
+<dt>options</dt>
+<dd>Optional arguments. You can specify some switches to setup
+the application. Option list:
+<ul>
+<li><code>--help</code> or <code>-h</code> &ndash; displays small help and exits</li>
+<li><code>--version</code> or <code>-v</code> &ndash; prints version and exits</li>
+<li><code>--lang</code> or <code>-l</code> &ndash; sets a GUI language.
+                         E.g. <code>--lang cs</code> for Czech. See note [1].</li>
+<li><code>--langs</code> or <code>-la</code> &ndash; lists available languages and exists</li>
+</ul>
+<p>There are standard Qt options available too.</p>
+</dd>
+
+<p>Note [1]: <b>Sqliteman</b> checks your environment and tries to setup iself
+by your locale settings. It affects the GUI language &ndash; it should be in your
+language if there is a translation available. If you wish to use this application
+in English use <code>--lang en</code>.</p>
+
+</qt>

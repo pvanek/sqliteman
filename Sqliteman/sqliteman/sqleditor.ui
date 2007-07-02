@@ -1,0 +1,121 @@
+<ui version="4.0" >
+ <class>SqlEditor</class>
+ <widget class="QMainWindow" name="SqlEditor" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>479</width>
+    <height>375</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>SqlEditor</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QGridLayout" >
+    <property name="margin" >
+     <number>9</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item row="0" column="1" >
+     <widget class="QTextEdit" name="sqlTextEdit" >
+      <property name="minimumSize" >
+       <size>
+        <width>0</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="lineWrapMode" >
+       <enum>QTextEdit::NoWrap</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QToolBar" name="toolBar" >
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <attribute name="toolBarArea" >
+    <number>4</number>
+   </attribute>
+   <addaction name="action_Run_SQL" />
+   <addaction name="actionRun_Explain" />
+   <addaction name="separator" />
+   <addaction name="actionCreateView" />
+   <addaction name="separator" />
+   <addaction name="action_New" />
+   <addaction name="action_Open" />
+   <addaction name="action_Save" />
+   <addaction name="actionSave_As" />
+  </widget>
+  <widget class="QStatusBar" name="statusBar" />
+  <action name="action_Run_SQL" >
+   <property name="text" >
+    <string>&amp;Run SQL</string>
+   </property>
+   <property name="toolTip" >
+    <string>Run SQL (F9)</string>
+   </property>
+   <property name="shortcut" >
+    <string>F9</string>
+   </property>
+  </action>
+  <action name="actionRun_Explain" >
+   <property name="text" >
+    <string>Run &amp;Explain</string>
+   </property>
+   <property name="toolTip" >
+    <string>Run Explain (F6)</string>
+   </property>
+   <property name="shortcut" >
+    <string>F6</string>
+   </property>
+  </action>
+  <action name="action_Open" >
+   <property name="text" >
+    <string>&amp;Open...</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="action_Save" >
+   <property name="text" >
+    <string>&amp;Save</string>
+   </property>
+   <property name="toolTip" >
+    <string>Save (Ctrl+S)</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="action_New" >
+   <property name="text" >
+    <string>&amp;New</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionSave_As" >
+   <property name="text" >
+    <string>Save &amp;As...</string>
+   </property>
+  </action>
+  <action name="actionCreateView" >
+   <property name="text" >
+    <string>Create View</string>
+   </property>
+   <property name="toolTip" >
+    <string>Create view from the current select statement</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

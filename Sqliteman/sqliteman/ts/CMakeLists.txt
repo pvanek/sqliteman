@@ -1,0 +1,7 @@
+INSTALL(FILES
+    sqliteman_cs.qm
+    sqliteman_de.qm
+    sqliteman_pl.qm
+    sqliteman_ru.qm
+  DESTINATION ${TRANSLATION_DIR}
+)
