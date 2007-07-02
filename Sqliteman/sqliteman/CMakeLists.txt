@@ -21,6 +21,7 @@ SET( SQLITEMAN_SRC
     preferencesdialog.cpp
     queryeditordialog.cpp
     sqleditor.cpp
+    sqleditorwidget.cpp
     sqlparser.cpp
     sqlmodels.cpp
     tableeditordialog.cpp
@@ -45,6 +46,7 @@ SET( SQLITEMAN_MOC
     preferencesdialog.h
     queryeditordialog.h
     sqleditor.h
+    sqleditorwidget.h
     sqlparser.h
     sqlmodels.h
     tableeditordialog.h

@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QAbstractTextDocumentLayout>
 
 #include "createviewdialog.h"
+#include "preferencesdialog.h"
 #include "sqlparser.h"
 #include "sqleditor.h"
 
@@ -29,6 +30,7 @@ SqlEditor::SqlEditor(QWidget * parent)
 	mGluter = new SqlEditorTools::Gluter(ui.sqlTextEdit);
 	ui.gridLayout->setSpacing(1);
 	ui.gridLayout->addWidget(mGluter, 0, 0, 1, 1);
+	ui.sqlTextEdit->setCurrentFont(PreferencesDialog::sqlFont());
 
 	changedLabel = new QLabel(this);
 	cursorTemplate = tr("Col: %1 Row: %2/%3");
@@ -54,6 +56,7 @@ SqlEditor::SqlEditor(QWidget * parent)
 	connect(ui.actionCreateView, SIGNAL(triggered()), this, SLOT(actionCreateView_triggered()));
 	connect(ui.sqlTextEdit, SIGNAL(cursorPositionChanged()), this, SLOT(sqlTextEdit_cursorPositionChanged()));
 	connect(ui.sqlTextEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(documentChanged(bool)));
+	connect(parent, SIGNAL(prefsChanged()), this, SLOT(prefsChanged()));
 }
 
 void SqlEditor::setStatusMessage(const QString & message)
@@ -224,6 +227,16 @@ void SqlEditor::documentChanged(bool state)
 void SqlEditor::setFileName(const QString & fname)
 {
 	open(fname);
+}
+
+void SqlEditor::prefsChanged()
+{
+	ui.sqlTextEdit->selectAll();
+	ui.sqlTextEdit->setCurrentFont(PreferencesDialog::sqlFont());
+	QTextCursor textCursor = ui.sqlTextEdit->textCursor();
+	textCursor.clearSelection();
+	ui.sqlTextEdit->setTextCursor(textCursor);
+	update();
 }
 
 

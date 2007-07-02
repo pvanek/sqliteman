@@ -157,6 +157,7 @@ class SqlEditor : public QMainWindow
 		void actionCreateView_triggered();
 		void sqlTextEdit_cursorPositionChanged();
 		void documentChanged(bool state);
+		void prefsChanged();
 };
 
 #endif

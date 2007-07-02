@@ -45,6 +45,7 @@ HEADERS += sqliteman/altertabledialog.h \
            sqliteman/preferencesdialog.h \
            sqliteman/queryeditordialog.h \
            sqliteman/sqleditor.h \
+           sqliteman/sqleditorwidget.h \
            sqliteman/sqlmodels.h \
            sqliteman/sqlparser.h \
            sqliteman/tableeditordialog.h \
@@ -80,6 +81,7 @@ SOURCES += sqliteman/altertabledialog.cpp \
            sqliteman/preferencesdialog.cpp \
            sqliteman/queryeditordialog.cpp \
            sqliteman/sqleditor.cpp \
+           sqliteman/sqleditorwidget.cpp \
            sqliteman/sqlmodels.cpp \
            sqliteman/sqlparser.cpp \
            sqliteman/tableeditordialog.cpp \

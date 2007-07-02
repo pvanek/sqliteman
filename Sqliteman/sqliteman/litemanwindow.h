@@ -41,6 +41,9 @@ class LiteManWindow : public QMainWindow
 
 		//! \brief Set the chosen language (used in the translator) to localize help too.
 		void setLanguage(QString l) { m_lang = l; };
+
+	signals:
+		void prefsChanged();
 	
 	private:
 		void initUI();

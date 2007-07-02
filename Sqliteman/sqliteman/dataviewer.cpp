@@ -38,6 +38,7 @@ DataViewer::DataViewer(QWidget * parent) : QMainWindow(parent)
 	connect(ui.actionCommit, SIGNAL(triggered()), this, SLOT(commit()));
 	connect(ui.actionRollback, SIGNAL(triggered()), this, SLOT(rollback()));
 	connect(keyPressEater, SIGNAL(copyRequest()), this, SLOT(copyHandler()));
+// 	connect(parent, SIGNAL(prefsChanged()), ui.tableView, SLOT(repaint()));
 }
 
 bool DataViewer::setTableModel(QAbstractItemModel * model)

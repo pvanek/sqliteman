@@ -92,8 +92,8 @@ void LiteManWindow::initUI()
 	splitter = new QSplitter(this);
 	splitterSql = new QSplitter(Qt::Vertical, this);
 
-	tableTree = new TableTree();
-	dataViewer = new DataViewer();
+	tableTree = new TableTree(this);
+	dataViewer = new DataViewer(this);
 	sqlEditor = new SqlEditor(this);
 
 	splitterSql->addWidget(sqlEditor);
@@ -949,5 +949,6 @@ void LiteManWindow::preferences()
 {
 	PreferencesDialog prefs(this);
 	if (prefs.exec())
-		prefs.saveSettings();
+		if (prefs.saveSettings())
+			emit prefsChanged();
 }

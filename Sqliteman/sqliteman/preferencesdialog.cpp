@@ -22,6 +22,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	connect(ui.blobCheckBox, SIGNAL(stateChanged(int)), this, SLOT(blobCheckBox_stateChanged(int)));
 	connect(ui.nullBgButton, SIGNAL(clicked()), this, SLOT(nullBgButton_clicked()));
 	connect(ui.blobBgButton, SIGNAL(clicked()), this, SLOT(blobBgButton_clicked()));
+	connect(ui.activeHighlightButton, SIGNAL(clicked()), this, SLOT(activeHighlightButton_clicked()));
 	connect(ui.buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), this, SLOT(restoreDefaults()));
 
 	// avail langs
@@ -47,14 +48,22 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	ui.blobBgButton->setPalette(blobHighlightColor());
 
 	ui.recentlyUsedSpinBox->setValue(recentlyUsedCount());
+
+	ui.fontComboBox->setCurrentFont(sqlFont());
+	ui.useActiveHighlightCheckBox->setChecked(useActiveHighlighting());
+	ui.activeHighlightButton->setPalette(activeHighlightColor());
+	ui.useTextWidthMarkCheckBox->setChecked(useTextWidthMark());
+	ui.textWidthMarkSpinBox->setValue(textWidthMark());
 }
 
 bool PreferencesDialog::saveSettings()
 {
 	QSettings settings("yarpen.cz", "sqliteman");
 
+	// lnf
 	settings.setValue("prefs/languageComboBox", ui.languageComboBox->currentIndex());
 	settings.setValue("prefs/styleComboBox", ui.styleComboBox->currentIndex());
+	// data results
 	settings.setValue("prefs/nullCheckBox", ui.nullCheckBox->isChecked());
 	settings.setValue("prefs/nullAliasEdit", ui.nullAliasEdit->text());
 	settings.setValue("prefs/nullBgButton", ui.nullBgButton->palette().color(QPalette::Background));
@@ -62,6 +71,13 @@ bool PreferencesDialog::saveSettings()
 	settings.setValue("prefs/blobAliasEdit", ui.blobAliasEdit->text());
 	settings.setValue("prefs/blobBgButton", ui.blobBgButton->palette().color(QPalette::Background));
 	settings.setValue("prefs/recentlyUsedSpinBox", ui.recentlyUsedSpinBox->value());
+	// sql editor
+	settings.setValue("prefs/sqleditor/font", ui.fontComboBox->currentFont());
+	settings.setValue("prefs/sqleditor/useActiveHighlightCheckBox", ui.useActiveHighlightCheckBox->isChecked());
+	settings.setValue("prefs/sqleditor/activeHighlightButton", ui.activeHighlightButton->palette().color(QPalette::Background));
+	settings.setValue("prefs/sqleditor/useTextWidthMarkCheckBox", ui.useTextWidthMarkCheckBox->isChecked());
+	settings.setValue("prefs/sqleditor/textWidthMarkSpinBox", ui.textWidthMarkSpinBox->value());
+
 	if (settings.status() != QSettings::NoError)
 		return false;
 	return true;
@@ -69,16 +85,24 @@ bool PreferencesDialog::saveSettings()
 
 void PreferencesDialog::restoreDefaults()
 {
+	QColor defCol(255, 254, 205);
+
 	ui.languageComboBox->setCurrentIndex(0);
 	ui.styleComboBox->setCurrentIndex(0);
 
 	ui.nullCheckBox->setChecked(true);
 	ui.nullAliasEdit->setText("{null}");
-	ui.nullBgButton->setPalette(QColor(255, 254, 205));
+	ui.nullBgButton->setPalette(defCol);
 
 	ui.blobCheckBox->setChecked(true);
 	ui.blobAliasEdit->setText("{blob}");
-	ui.blobBgButton->setPalette(QColor(255, 254, 205));
+	ui.blobBgButton->setPalette(defCol);
+
+	ui.fontComboBox->setCurrentFont(QFont());
+	ui.useActiveHighlightCheckBox->setChecked(true);
+	ui.activeHighlightButton->setPalette(defCol);
+	ui.useTextWidthMarkCheckBox->setChecked(true);
+	ui.textWidthMarkSpinBox->setValue(75);
 }
 
 void PreferencesDialog::nullCheckBox_stateChanged(int)
@@ -105,6 +129,13 @@ void PreferencesDialog::nullBgButton_clicked()
 	QColor nCol = QColorDialog::getColor(ui.nullBgButton->palette().color(QPalette::Background), this);
 	if (nCol.isValid())
 		ui.nullBgButton->setPalette(nCol);
+}
+
+void PreferencesDialog::activeHighlightButton_clicked()
+{
+	QColor nCol = QColorDialog::getColor(ui.activeHighlightButton->palette().color(QPalette::Background), this);
+	if (nCol.isValid())
+		ui.activeHighlightButton->setPalette(nCol);
 }
 
 bool PreferencesDialog::useNullHighlight()
@@ -159,4 +190,34 @@ int PreferencesDialog::GUIstyle()
 {
 	QSettings s("yarpen.cz", "sqliteman");
 	return s.value("prefs/styleComboBox", 0).toInt();
+}
+
+QFont PreferencesDialog::sqlFont()
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/sqleditor/font", QFont()).value<QFont>();
+}
+
+bool PreferencesDialog::useActiveHighlighting()
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/sqleditor/useActiveHighlightCheckBox", true).toBool();
+}
+
+QColor PreferencesDialog::activeHighlightColor()
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/sqleditor/activeHighlightButton", QColor(255, 254, 205)).value<QColor>();
+}
+
+bool PreferencesDialog::useTextWidthMark()
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/sqleditor/useTextWidthMarkCheckBox", true).toBool();
+}
+
+int PreferencesDialog::textWidthMark()
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/sqleditor/textWidthMarkSpinBox", 80).toInt();
 }

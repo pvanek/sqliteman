@@ -21,7 +21,7 @@
      <number>6</number>
     </property>
     <item row="0" column="1" >
-     <widget class="QTextEdit" name="sqlTextEdit" >
+     <widget class="SqlEditorWidget" name="sqlTextEdit" >
       <property name="minimumSize" >
        <size>
         <width>0</width>
@@ -116,6 +116,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SqlEditorWidget</class>
+   <extends>QTextEdit</extends>
+   <header>sqleditorwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -39,6 +39,12 @@ class PreferencesDialog : public QDialog//, public Ui::PreferencesDialog
 		static int GUItranslator();
 		static int GUIstyle();
 
+		static QFont sqlFont();
+		static bool useActiveHighlighting();
+		static QColor activeHighlightColor();
+		static bool useTextWidthMark();
+		static int textWidthMark();
+
 	private:
 		Ui::PreferencesDialog ui;
 
@@ -48,6 +54,7 @@ class PreferencesDialog : public QDialog//, public Ui::PreferencesDialog
 		void restoreDefaults();
 		void blobBgButton_clicked();
 		void nullBgButton_clicked();
+		void activeHighlightButton_clicked();
 };
 
 
