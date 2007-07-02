@@ -11,7 +11,7 @@ QT += sql
 win32:CONFIG += windows
 #win32:DEFINES += DOC_DIR=\\\"./doc/en/\\\"
 win32:DEFINES += DOC_DIR=\\\"./doc/\\\"
-win32:DEFINES += SQLITEMAN_VERSION=\\\"1.0\\\"
+win32:DEFINES += SQLITEMAN_VERSION=\\\"1.1svn\\\"
 win32:DEFINES += TRANSLATION_DIR=\\\"./ts\\\"
 win32:DEFINES += ICON_DIR=\\\":/icons/\\\"
 win32:DEFINES += SQLITE_BINARY=\\\"sqlite3.exe\\\"
