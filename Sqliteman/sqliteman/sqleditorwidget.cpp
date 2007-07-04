@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Sqliteman
 for which a new license (GPL+exception) is in place.
 */
 #include <QPainter>
-
+#include <QScrollBar>
 #include "sqleditorwidget.h"
 #include "preferencesdialog.h"
 
@@ -13,9 +13,10 @@ for which a new license (GPL+exception) is in place.
 SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	: QTextEdit(parent)
 {
+	ensureCursorVisible();
 }
 
-void SqlEditorWidget::paintEvent( QPaintEvent* const e )
+void SqlEditorWidget::paintEvent(QPaintEvent* e)
 {
 	QPainter p(viewport());
 
@@ -23,7 +24,7 @@ void SqlEditorWidget::paintEvent( QPaintEvent* const e )
 	if (PreferencesDialog::useActiveHighlighting())
 	{
 		QRect currLine = cursorRect();
-		currLine.setLeft(0);
+		currLine.setX(0);
 		currLine.setWidth(viewport()->width());
 		p.fillRect(currLine, QBrush(PreferencesDialog::activeHighlightColor()));
 	}
@@ -39,5 +40,20 @@ void SqlEditorWidget::paintEvent( QPaintEvent* const e )
 		p.setPen(prevPen);
 	}
 	p.end();
+
 	QTextEdit::paintEvent(e);
+}
+
+void SqlEditorWidget::keyPressEvent(QKeyEvent * e)
+{
+	viewport()->update();
+	ensureCursorVisible();
+	QTextEdit::keyPressEvent(e);
+}
+
+void SqlEditorWidget::mousePressEvent(QMouseEvent * e)
+{
+	viewport()->update();
+	ensureCursorVisible();
+	QTextEdit::mousePressEvent(e);
 }

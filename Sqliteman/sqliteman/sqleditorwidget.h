@@ -24,6 +24,8 @@ class SqlEditorWidget : public QTextEdit
 
 	private:
 		void paintEvent(QPaintEvent * e);
+		void keyPressEvent(QKeyEvent * e);
+		void mousePressEvent(QMouseEvent * e);
 };
 
 #endif
