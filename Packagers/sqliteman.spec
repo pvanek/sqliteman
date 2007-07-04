@@ -11,7 +11,7 @@ URL:          http://www.assembla.com/space/sqliteman
 License:      GPL
 Group:        Development/Databases
 Summary:      Lightweigth but powerfull Sqlite3 manager
-Version:      0.99
+Version:      1.1
 Release:      %{builddate}
 Source:       %{name}-%{version}.tar.gz
 
