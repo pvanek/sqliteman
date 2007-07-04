@@ -47,12 +47,12 @@
         <translation>&amp;Verändern</translation>
     </message>
     <message>
-        <location filename="../altertriggerdialog.cpp" line="31"/>
+        <location filename="../altertriggerdialog.cpp" line="32"/>
         <source>Cannot get trigger from the database.</source>
         <translation>Kann keine Trigger in der Datenbank finden.</translation>
     </message>
     <message>
-        <location filename="../altertriggerdialog.cpp" line="51"/>
+        <location filename="../altertriggerdialog.cpp" line="52"/>
         <source>Cannot drop trigger: %1.
 
 %2</source>
@@ -61,7 +61,7 @@
 %2</translation>
     </message>
     <message>
-        <location filename="../altertriggerdialog.cpp" line="60"/>
+        <location filename="../altertriggerdialog.cpp" line="61"/>
         <source>Error while creating trigger: %2.
 
 %3</source>
@@ -70,7 +70,7 @@
 %3</translation>
     </message>
     <message>
-        <location filename="../altertriggerdialog.cpp" line="63"/>
+        <location filename="../altertriggerdialog.cpp" line="64"/>
         <source>Trigger created successfully</source>
         <translation>Trigger erfolgreich erstellt</translation>
     </message>
@@ -91,12 +91,12 @@
 %3</translation>
     </message>
     <message>
-        <location filename="../alterviewdialog.cpp" line="75"/>
+        <location filename="../alterviewdialog.cpp" line="76"/>
         <source>View altered successfully</source>
         <translation>View erfolgreich geändert</translation>
     </message>
     <message>
-        <location filename="../alterviewdialog.cpp" line="59"/>
+        <location filename="../alterviewdialog.cpp" line="60"/>
         <source>Error while altering view (drop phase): %1.
 
 %2</source>
@@ -105,7 +105,7 @@
 %2</translation>
     </message>
     <message>
-        <location filename="../alterviewdialog.cpp" line="71"/>
+        <location filename="../alterviewdialog.cpp" line="72"/>
         <source>Error while altering view: %1.
 
 %2</source>
@@ -535,22 +535,22 @@
 <context>
     <name>DataViewer</name>
     <message>
-        <location filename="../dataviewer.cpp" line="152"/>
+        <location filename="../dataviewer.cpp" line="161"/>
         <source>Sqliteman</source>
         <translation>Sqliteman</translation>
     </message>
     <message>
-        <location filename="../dataviewer.cpp" line="109"/>
+        <location filename="../dataviewer.cpp" line="118"/>
         <source>Are you sure you want to remove all content from this table?</source>
         <translation>Sind sie sicher, das sie den gesamten Inhalt der Tabelle löschen wollen?</translation>
     </message>
     <message>
-        <location filename="../dataviewer.cpp" line="123"/>
+        <location filename="../dataviewer.cpp" line="132"/>
         <source>Export Error</source>
         <translation>Export Fehler</translation>
     </message>
     <message>
-        <location filename="../dataviewer.cpp" line="123"/>
+        <location filename="../dataviewer.cpp" line="132"/>
         <source>Data export failed</source>
         <translation>Datenexport fehlgeschlagen</translation>
     </message>
@@ -580,7 +580,7 @@
         <translation>Daten exportieren</translation>
     </message>
     <message>
-        <location filename="../dataviewer.cpp" line="155"/>
+        <location filename="../dataviewer.cpp" line="164"/>
         <source>There is a pending transaction in progress. That cannot be commited now.
 Error: %1
 Perform rollback?</source>
@@ -609,7 +609,7 @@ Rollback durchführen?</translation>
         <translation>Aktuelle Transaktion des Abfrageergebnis zurückhilen</translation>
     </message>
     <message>
-        <location filename="../dataviewer.cpp" line="43"/>
+        <location filename="../dataviewer.cpp" line="52"/>
         <source>There is a pending transaction in progress. Perform commit?
 
 Help:
@@ -695,22 +695,22 @@ Abbrechen=Operation überspringen und in der aktuellen Tabelle verbleiben</trans
         <translation>Sqliteman Hilfe</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.ui" line="63"/>
+        <location filename="../helpbrowser.ui" line="62"/>
         <source>&amp;Document</source>
         <translation>&amp;Dokument</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.ui" line="85"/>
+        <location filename="../helpbrowser.ui" line="84"/>
         <source>&amp;Back</source>
         <translation>&amp;Zurück</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.ui" line="90"/>
+        <location filename="../helpbrowser.ui" line="89"/>
         <source>&amp;Forward</source>
         <translation>&amp;Vorwärts</translation>
     </message>
     <message>
-        <location filename="../helpbrowser.ui" line="95"/>
+        <location filename="../helpbrowser.ui" line="94"/>
         <source>&amp;Close</source>
         <translation>B&amp;enden</translation>
     </message>
@@ -928,32 +928,32 @@ Abbrechen=Operation überspringen und in der aktuellen Tabelle verbleiben</trans
         <translation>H&amp;ilfe</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="376"/>
+        <location filename="../litemanwindow.cpp" line="373"/>
         <source>New Database</source>
         <translation>Neue Datenbank</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="853"/>
+        <location filename="../litemanwindow.cpp" line="850"/>
         <source>SQLite database (*)</source>
         <translation>SQLite Datenbank (*)</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="396"/>
+        <location filename="../litemanwindow.cpp" line="393"/>
         <source>Open Database</source>
         <translation>Datenbank öffnen</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="871"/>
+        <location filename="../litemanwindow.cpp" line="868"/>
         <source>Unable to open or create file %1. It is probably not a database</source>
         <translation>Kann datei %1 nicht öffnen oder erstellen. Vermutlich keine Datenbankdatei</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="448"/>
+        <location filename="../litemanwindow.cpp" line="445"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="451"/>
+        <location filename="../litemanwindow.cpp" line="448"/>
         <source>Sqliteman - SQLite databases made easy
 
 Version %1
@@ -964,12 +964,12 @@ Version %1
 (c) 2007 Übersetzung: J. Bernau</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="494"/>
+        <location filename="../litemanwindow.cpp" line="491"/>
         <source>No SQL statement</source>
         <translation>Keine SQl Abfrage</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="517"/>
+        <location filename="../litemanwindow.cpp" line="514"/>
         <source>Query Error: %1
 
 %2</source>
@@ -978,7 +978,7 @@ Version %1
 %2</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="520"/>
+        <location filename="../litemanwindow.cpp" line="517"/>
         <source>Query OK
 Row(s) returned: %1
 
@@ -988,54 +988,54 @@ Row(s) returned: %1
 %2</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="538"/>
+        <location filename="../litemanwindow.cpp" line="535"/>
         <source>SQL File (*.sql)</source>
         <translation>SQL Datei (*.sql)</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="607"/>
+        <location filename="../litemanwindow.cpp" line="604"/>
         <source>Are you sure that you wish to drop the table &quot;%1&quot;?</source>
         <translation>Sind sie sicher, das sie die Tabelle &quot;%1&quot; löschen wollen?</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="644"/>
+        <location filename="../litemanwindow.cpp" line="641"/>
         <source>Are you sure that you wish to drop the view &quot;%1&quot;?</source>
         <translation>Sind sie sicher, das sie die Sicht &quot;%1&quot; löschen wollen?</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="673"/>
+        <location filename="../litemanwindow.cpp" line="670"/>
         <source>Are you sure that you wish to drop the index &quot;%1&quot;?</source>
         <translation>Sind sie sicher, das sie den Index &quot;%1&quot; löschen wollen?</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="826"/>
+        <location filename="../litemanwindow.cpp" line="823"/>
         <source>Query Error: %1</source>
         <translation>Abfrage Fehler: %1</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="828"/>
+        <location filename="../litemanwindow.cpp" line="825"/>
         <source>Query OK
 Row(s) returned: %1</source>
         <translation>Abfrage OK
 %1 Zeile(n) zurückgegeben</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="858"/>
+        <location filename="../litemanwindow.cpp" line="855"/>
         <source>Attach Database</source>
         <translation>Datenbank anhängen</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="859"/>
+        <location filename="../litemanwindow.cpp" line="856"/>
         <source>Enter a Schema Alias:</source>
         <translation>Bitte Schema Alias eingeben:</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="922"/>
+        <location filename="../litemanwindow.cpp" line="919"/>
         <source>Are you sure that you wish to drop the trigger &quot;%1&quot;?</source>
         <translation>Sind sie sicher, das sie den Trigger &quot;%1&quot; löschen wollen?</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="494"/>
+        <location filename="../litemanwindow.cpp" line="491"/>
         <source>You are trying to run an undefined SQL query. Hint: select your query in the editor</source>
         <translation>Sie versuchen eine undefenierte SQL Abfrage Abzusetzen.
 Hinweis: Bauen Sie Ihre Abfrage im Editor</translation>
@@ -1061,47 +1061,47 @@ Hinweis: Bauen Sie Ihre Abfrage im Editor</translation>
         <translation>&amp;Dump Database...</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="528"/>
+        <location filename="../litemanwindow.cpp" line="525"/>
         <source>Export Schema</source>
         <translation>Schema exportieren</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="538"/>
+        <location filename="../litemanwindow.cpp" line="535"/>
         <source>Export Database</source>
         <translation>Datenbank exportieren</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="552"/>
+        <location filename="../litemanwindow.cpp" line="549"/>
         <source>The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program.</source>
         <translation>Prozeß schlug fehl. Entweder fehlt das benötigte Programm, oder sie haben nicht das Recht es auszuführen.</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="555"/>
+        <location filename="../litemanwindow.cpp" line="552"/>
         <source>The process crashed some time after starting successfully.</source>
         <translation>Das Programm stürzte nach einiger Zeit ab.</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="558"/>
+        <location filename="../litemanwindow.cpp" line="555"/>
         <source>An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel.</source>
         <translation>Fehler beim Schreiben zum Prozeß. Entweder wurde er nicht gestartet, oder der Eingabekanal worde geschlossen.</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="561"/>
+        <location filename="../litemanwindow.cpp" line="558"/>
         <source>An error occurred when attempting to read from the process. For example, the process may not be running.</source>
         <translation>Fehler beim Lesen vom Prozeß. Entweder wurde er nicht gestartet, oder der Eingabekanal worde geschlossen.</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="564"/>
+        <location filename="../litemanwindow.cpp" line="561"/>
         <source>An unknown error occurred.</source>
         <translation>Unbekannter Fehler.</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="566"/>
+        <location filename="../litemanwindow.cpp" line="563"/>
         <source>Error creating the dump. Reason: %1</source>
         <translation>Fehler beim erzeugen des Dumps. Grund: %1</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="569"/>
+        <location filename="../litemanwindow.cpp" line="566"/>
         <source>Dump written into: %1</source>
         <translation>Dump geschrieben nach: %1</translation>
     </message>
@@ -1121,7 +1121,7 @@ Hinweis: Bauen Sie Ihre Abfrage im Editor</translation>
         <translation>Objektbaum &amp;neu aufbauen</translation>
     </message>
     <message>
-        <location filename="../litemanwindow.cpp" line="513"/>
+        <location filename="../litemanwindow.cpp" line="510"/>
         <source>Duration: %1 seconds</source>
         <translation>Dauer: %1 Sekunden</translation>
     </message>
@@ -1134,12 +1134,12 @@ Hinweis: Bauen Sie Ihre Abfrage im Editor</translation>
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="../preferencesdialog.cpp" line="29"/>
+        <location filename="../preferencesdialog.cpp" line="30"/>
         <source>From Locales</source>
         <translation>Systemeinstellung</translation>
     </message>
     <message>
-        <location filename="../preferencesdialog.cpp" line="35"/>
+        <location filename="../preferencesdialog.cpp" line="36"/>
         <source>System Predefined</source>
         <translation>Systemeinstellung</translation>
     </message>
@@ -1273,6 +1273,31 @@ Hinweis: Bauen Sie Ihre Abfrage im Editor</translation>
         <source>{blob}</source>
         <translation>[BLOB]</translation>
     </message>
+    <message>
+        <location filename="../preferencesdialog.ui" line="289"/>
+        <source>&amp;SQL Editor</source>
+        <translation type="unfinished">SQL &amp;Editor</translation>
+    </message>
+    <message>
+        <location filename="../preferencesdialog.ui" line="324"/>
+        <source>&amp;Font:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../preferencesdialog.ui" line="334"/>
+        <source>Use Maximum Text Width Mark:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../preferencesdialog.ui" line="341"/>
+        <source>Use &amp;Active Line Highlighting:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../preferencesdialog.ui" line="348"/>
+        <source>Color...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QueryEditorDialog</name>
@@ -1340,47 +1365,47 @@ Hinweis: Bauen Sie Ihre Abfrage im Editor</translation>
 <context>
     <name>SqlEditor</name>
     <message>
-        <location filename="../sqleditor.cpp" line="34"/>
+        <location filename="../sqleditor.cpp" line="36"/>
         <source>Col: %1 Row: %2/%3</source>
         <translation>Spalte: %1 Zeile: %2/%3</translation>
     </message>
     <message>
-        <location filename="../sqleditor.cpp" line="128"/>
+        <location filename="../sqleditor.cpp" line="131"/>
         <source>Open SQL Script</source>
         <translation>SQL Script öffnen</translation>
     </message>
     <message>
-        <location filename="../sqleditor.cpp" line="162"/>
+        <location filename="../sqleditor.cpp" line="165"/>
         <source>SQL file (*.sql);;All Files (*)</source>
         <translation>SQL Datei (*.sql);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../sqleditor.cpp" line="128"/>
+        <location filename="../sqleditor.cpp" line="131"/>
         <source>Cannot open file %1</source>
         <translation>Kann Datei %1 nicht öffnen</translation>
     </message>
     <message>
-        <location filename="../sqleditor.cpp" line="174"/>
+        <location filename="../sqleditor.cpp" line="177"/>
         <source>Save SQL Script</source>
         <translation>SQL Script speichern</translation>
     </message>
     <message>
-        <location filename="../sqleditor.cpp" line="174"/>
+        <location filename="../sqleditor.cpp" line="177"/>
         <source>Cannot write into file %1</source>
         <translation>Kann Datei %1 nicht schreiben</translation>
     </message>
     <message>
-        <location filename="../sqleditor.cpp" line="187"/>
+        <location filename="../sqleditor.cpp" line="190"/>
         <source>New File</source>
         <translation>Neue Datei</translation>
     </message>
     <message>
-        <location filename="../sqleditor.cpp" line="188"/>
+        <location filename="../sqleditor.cpp" line="191"/>
         <source>All you changes will be lost. Are you sure?</source>
         <translation>Alle Änderungen gehen verloren. Sind sie sicher?</translation>
     </message>
     <message>
-        <location filename="../sqleditor.cpp" line="202"/>
+        <location filename="../sqleditor.cpp" line="205"/>
         <source>Document has been changed. Do you want do save its content?</source>
         <translation>Dokument wurde verändert. Änderungen Speichern?</translation>
     </message>
@@ -1470,7 +1495,7 @@ Hinweis: Bauen Sie Ihre Abfrage im Editor</translation>
         <translation>Vom aktuellen SELECT Statement eine Sicht erstellen</translation>
     </message>
     <message>
-        <location filename="../sqleditor.cpp" line="201"/>
+        <location filename="../sqleditor.cpp" line="204"/>
         <source>Closing SQL Editor</source>
         <translation>SQL Editor schließen</translation>
     </message>

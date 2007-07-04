@@ -23,10 +23,11 @@ win32 {
 }
 
 # translations
-TRANSLATIONS += sqliteman/ts/sqliteman_cs.ts \
+TRANSLATIONS += sqliteman/ts/sqliteman_en.ts \
+                sqliteman/ts/sqliteman_cs.ts \
                 sqliteman/ts/sqliteman_de.ts \
                 sqliteman/ts/sqliteman_pl.ts \
-		sqliteman/ts/sqliteman_ru.ts
+                sqliteman/ts/sqliteman_ru.ts
 # Input
 HEADERS += sqliteman/altertabledialog.h \
            sqliteman/altertriggerdialog.h \

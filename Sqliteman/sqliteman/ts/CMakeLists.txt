@@ -1,4 +1,5 @@
 INSTALL(FILES
+    sqliteman_en.qm
     sqliteman_cs.qm
     sqliteman_de.qm
     sqliteman_pl.qm
