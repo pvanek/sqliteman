@@ -110,7 +110,8 @@ bool SqlEditorTools::SqlParser::updateTree(const QString & sql)
 {
 	if (sql.isNull())
 		return false;
-	if (sql.trimmed().left(4).toUpper() == "DROP" || sql.trimmed().left(6).toUpper() == "CREATE")
+	QString tmp(sql.trimmed().toUpper());
+	if (tmp.left(4) == "DROP" || tmp.left(6) == "CREATE" || tmp.left(5) == "ALTER")
 		return true;
 	return false;
 }
