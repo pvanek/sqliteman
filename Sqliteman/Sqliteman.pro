@@ -45,6 +45,7 @@ HEADERS += sqliteman/altertabledialog.h \
            sqliteman/litemanwindow.h \
            sqliteman/preferencesdialog.h \
            sqliteman/queryeditordialog.h \
+           sqliteman/schemabrowser.h \
            sqliteman/sqleditor.h \
            sqliteman/sqleditorwidget.h \
            sqliteman/sqlmodels.h \
@@ -61,6 +62,7 @@ FORMS += sqliteman/analyzedialog.ui \
          sqliteman/dataviewer.ui \
          sqliteman/helpbrowser.ui \
          sqliteman/preferencesdialog.ui \
+         sqliteman/schemabrowser.ui \
          sqliteman/sqleditor.ui \
          sqliteman/tableeditordialog.ui \
          sqliteman/vacuumdialog.ui
@@ -81,6 +83,7 @@ SOURCES += sqliteman/altertabledialog.cpp \
            sqliteman/main.cpp \
            sqliteman/preferencesdialog.cpp \
            sqliteman/queryeditordialog.cpp \
+           sqliteman/schemabrowser.cpp \
            sqliteman/sqleditor.cpp \
            sqliteman/sqleditorwidget.cpp \
            sqliteman/sqlmodels.cpp \

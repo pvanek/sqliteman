@@ -228,3 +228,19 @@ QString Database::hex(const QByteArray & val)
 	}
 	return ret + "'";
 }
+
+QString Database::pragma(const QString & name)
+{
+	QString statement("PRAGMA main.%1;");
+	QSqlQuery query(statement.arg(name), QSqlDatabase::database(SESSION_NAME));
+	if (query.lastError().isValid())
+	{
+		exception(tr("Error executing: %1.").arg(query.lastError().databaseText()));
+		return "error";
+	}
+
+	while(query.next())
+		return query.value(0).toString();
+	return tr("Not Set");
+}
+

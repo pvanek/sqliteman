@@ -148,6 +148,12 @@ class Database
 		*/
 		static QString hex(const QByteArray & val);
 
+		/*! \brief Query the DB for its specified PRAGMA setting.
+		\param name a pragma name (PRAGMA name;)
+		\retval QString pragma value or "n/a" string if it is not set at all.
+		*/
+		static QString pragma(const QString & name);
+
 	private:
 		//! \brief Error feedback to the user.
 		static void exception(const QString & message);

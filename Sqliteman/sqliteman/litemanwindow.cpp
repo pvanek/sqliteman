@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "altertabledialog.h"
 #include "altertriggerdialog.h"
 #include "dataviewer.h"
-#include "tabletree.h"
+#include "schemabrowser.h"
 #include "database.h"
 #include "sqleditor.h"
 #include "sqlmodels.h"
@@ -92,7 +92,7 @@ void LiteManWindow::initUI()
 	splitter = new QSplitter(this);
 	splitterSql = new QSplitter(Qt::Vertical, this);
 
-	tableTree = new TableTree(this);
+	schemaBrowser = new SchemaBrowser(this);
 	dataViewer = new DataViewer(this);
 	sqlEditor = new SqlEditor(this);
 
@@ -101,7 +101,7 @@ void LiteManWindow::initUI()
 	splitterSql->setCollapsible(0, false);
 	splitterSql->setCollapsible(1, false);
 
-	splitter->addWidget(tableTree);
+	splitter->addWidget(schemaBrowser);
 	splitter->addWidget(splitterSql);
 	splitter->setCollapsible(0, false);
 	splitter->setCollapsible(1, false);
@@ -109,23 +109,23 @@ void LiteManWindow::initUI()
 	setCentralWidget(splitter);
 
 	// Disable the UI, as long as there is no open database
-	tableTree->setEnabled(false);
+	schemaBrowser->setEnabled(false);
 	dataViewer->setEnabled(false);
 	sqlEditor->setEnabled(false);
 	sqlEditor->hide();
 
-	connect(tableTree, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
+	connect(schemaBrowser->tableTree, SIGNAL(itemActivated(QTreeWidgetItem *, int)),
 		this, SLOT(treeItemActivated(QTreeWidgetItem *, int)));
 
-	connect(tableTree, SIGNAL(customContextMenuRequested(const QPoint &)),
+	connect(schemaBrowser->tableTree, SIGNAL(customContextMenuRequested(const QPoint &)),
 		this, SLOT(treeContextMenuOpened(const QPoint &)));
-	connect(tableTree, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
+	connect(schemaBrowser->tableTree, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
 			this, SLOT(tableTree_currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
 
 	// sql editor
 	connect(sqlEditor, SIGNAL(showSqlResult(QString)), this, SLOT(execSql(QString)));
 	connect(sqlEditor, SIGNAL(rebuildViewTree(QString, QString)),
-			tableTree, SLOT(buildViewTree(QString,QString)));
+			schemaBrowser->tableTree, SLOT(buildViewTree(QString,QString)));
 }
 
 void LiteManWindow::initActions()
@@ -243,7 +243,7 @@ void LiteManWindow::initActions()
 	connect(detachAct, SIGNAL(triggered()), this, SLOT(detachDatabase()));
 
 	refreshTreeAct = new QAction(tr("&Refresh Object Tree"), this);
-	connect(refreshTreeAct, SIGNAL(triggered()), tableTree, SLOT(buildTree()));
+	connect(refreshTreeAct, SIGNAL(triggered()), schemaBrowser->tableTree, SLOT(buildTree()));
 
 	consTriggAct = new QAction(tr("&Constraint Triggers..."), this);
 	connect(consTriggAct, SIGNAL(triggered()), this, SLOT(constraintTriggers()));
@@ -339,7 +339,7 @@ void LiteManWindow::readSettings()
 	dataViewer->restoreSplitter(settings.value("dataviewer/splitter").toByteArray());
 
 	sqlEditor->setVisible(settings.value("sqleditor/show", true).toBool());
-	tableTree->setVisible(settings.value("objectbrowser/show", true).toBool());
+	schemaBrowser->setVisible(settings.value("objectbrowser/show", true).toBool());
 	objectBrowserAct->setChecked(settings.value("objectbrowser/show", false).toBool());
 	execSqlAct->setChecked(settings.value("sqleditor/show", false).toBool());
 
@@ -358,7 +358,7 @@ void LiteManWindow::writeSettings()
 	settings.setValue("window/geometry", saveGeometry());
 	settings.setValue("window/size", size());
 	settings.setValue("window/splitter", splitter->saveState());
-	settings.setValue("objectbrowser/show", tableTree->isVisible());
+	settings.setValue("objectbrowser/show", schemaBrowser->isVisible());
 	settings.setValue("sqleditor/show", sqlEditor->isVisible());
 	settings.setValue("sqleditor/splitter", splitterSql->saveState());
 	settings.setValue("sqleditor/filename", sqlEditor->fileName());
@@ -420,14 +420,15 @@ void LiteManWindow::openDatabase(const QString & fileName)
 	updateRecent(fileName);
 
 	// Build tree & clean model
-	tableTree->buildTree();
+	schemaBrowser->tableTree->buildTree();
+	schemaBrowser->buildPragmasTree();
 	dataViewer->setTableModel(new QSqlQueryModel());
 
 	// Update the title
 	setWindowTitle(QString("%1 - %2").arg(fi.fileName()).arg(m_appName));
 
 	// Enable UI (Only the tree, the data viewer will be enabled upon demand)
-	tableTree->setEnabled(true);
+	schemaBrowser->setEnabled(true);
 	databaseMenu->setEnabled(true);
 	adminMenu->setEnabled(true);
 	sqlEditor->setEnabled(true);
@@ -476,12 +477,11 @@ void LiteManWindow::handleSqlEditor()
 	sqlEditor->setVisible(!sqlEditor->isVisible());
 	execSqlAct->setChecked(sqlEditor->isVisible());
 }
-#include <QtDebug>
+
 void LiteManWindow::handleObjectBrowser()
 {
-	qDebug() << "1";
-	tableTree->setVisible(!tableTree->isVisible());
-	objectBrowserAct->setChecked(tableTree->isVisible());
+	schemaBrowser->setVisible(!schemaBrowser->isVisible());
+	objectBrowserAct->setChecked(schemaBrowser->isVisible());
 }
 
 void LiteManWindow::execSql(QString query)
@@ -516,7 +516,7 @@ void LiteManWindow::execSql(QString query)
 	{
 		dataViewer->setStatusText(tr("Query OK\nRow(s) returned: %1\n\n%2").arg(model->rowCount()).arg(query));
 		if (SqlEditorTools::SqlParser::updateTree(query))
-			tableTree->buildTree();
+			schemaBrowser->tableTree->buildTree();
 	}
 }
 
@@ -572,17 +572,17 @@ void LiteManWindow::createTable()
 	dlg.exec();
 	if (dlg.update)
 	{
-		foreach (QTreeWidgetItem* item, tableTree->searchMask(tableTree->trTables))
+		foreach (QTreeWidgetItem* item, schemaBrowser->tableTree->searchMask(schemaBrowser->tableTree->trTables))
 		{
 			if (item->type() == TableTree::TablesItemType)
-				tableTree->buildTables(item, item->text(1));
+				schemaBrowser->tableTree->buildTables(item, item->text(1));
 		}
 	}
 }
 
 void LiteManWindow::alterTable()
 {
-	QTreeWidgetItem * item = tableTree->currentItem();
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
 
 	if(!item)
 		return;
@@ -590,12 +590,12 @@ void LiteManWindow::alterTable()
 	AlterTableDialog dlg(this, item->text(0), item->text(1));
 	dlg.exec();
 	if (dlg.update)
-		tableTree->buildTables(item->parent(), item->text(1));
+		schemaBrowser->tableTree->buildTables(item->parent(), item->text(1));
 }
 
 void LiteManWindow::dropTable()
 {
-	QTreeWidgetItem * item = tableTree->currentItem();
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
 
 	if(!item)
 		return;
@@ -607,7 +607,7 @@ void LiteManWindow::dropTable()
 	if(ret == QMessageBox::Yes)
 	{
 		if (Database::dropTable(item->text(0), item->text(1)))
-			tableTree->buildTables(item->parent(), item->text(1));
+			schemaBrowser->tableTree->buildTables(item->parent(), item->text(1));
 	}
 }
 
@@ -617,21 +617,21 @@ void LiteManWindow::createView()
 
 	dia.exec();
 	if(dia.update)
-		tableTree->buildViewTree(dia.schema(), dia.name());
+		schemaBrowser->tableTree->buildViewTree(dia.schema(), dia.name());
 }
 
 void LiteManWindow::alterView()
 {
-	QTreeWidgetItem * item = tableTree->currentItem();
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
 	AlterViewDialog dia(item->text(0), item->text(1), this);
 	dia.exec();
 	if (dia.update)
-		tableTree->buildViewTree(item->text(1), item->text(0));
+		schemaBrowser->tableTree->buildViewTree(item->text(1), item->text(0));
 }
 
 void LiteManWindow::dropView()
 {
-	QTreeWidgetItem * item = tableTree->currentItem();
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
 
 	if(!item)
 		return;
@@ -644,23 +644,23 @@ void LiteManWindow::dropView()
 	if(ret == QMessageBox::Yes)
 	{
 		if (Database::dropView(item->text(0), item->text(1)))
-			tableTree->buildViews(item->parent(), item->text(1));
+			schemaBrowser->tableTree->buildViews(item->parent(), item->text(1));
 	}
 }
 
 void LiteManWindow::createIndex()
 {
-	QString table(tableTree->currentItem()->parent()->text(0));
-	QString schema(tableTree->currentItem()->parent()->text(1));
+	QString table(schemaBrowser->tableTree->currentItem()->parent()->text(0));
+	QString schema(schemaBrowser->tableTree->currentItem()->parent()->text(1));
 	CreateIndexDialog dia(table, schema, this);
 	dia.exec();
 	if (dia.update)
-		tableTree->buildIndexes(tableTree->currentItem(), schema, table);
+		schemaBrowser->tableTree->buildIndexes(schemaBrowser->tableTree->currentItem(), schema, table);
 }
 
 void LiteManWindow::dropIndex()
 {
-	QTreeWidgetItem * item = tableTree->currentItem();
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
 
 	if(!item)
 		return;
@@ -673,7 +673,7 @@ void LiteManWindow::dropIndex()
 	if(ret == QMessageBox::Yes)
 	{
 		if (Database::dropIndex(item->text(0), item->text(1)))
-			tableTree->buildIndexes(item->parent(), item->text(1), item->text(0));
+			schemaBrowser->tableTree->buildIndexes(item->parent(), item->text(1), item->text(0));
 	}
 }
 
@@ -777,35 +777,35 @@ void LiteManWindow::buildContextMenu(QTreeWidgetItem * item)
 void LiteManWindow::treeContextMenuOpened(const QPoint & pos)
 {
 	if (contextMenu->actions().count() != 0)
-		contextMenu->exec(tableTree->viewport()->mapToGlobal(pos));
+		contextMenu->exec(schemaBrowser->tableTree->viewport()->mapToGlobal(pos));
 }
 
 void LiteManWindow::describeTable()
 {
 	runQuery(QString("pragma \"%1\".table_info (\"%2\");")
-			.arg(tableTree->currentItem()->text(1))
-			.arg(tableTree->currentItem()->text(0)));
+			.arg(schemaBrowser->tableTree->currentItem()->text(1))
+			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
 }
 
 void LiteManWindow::describeView()
 {
 	runQuery(QString("select sql from \"%1\".sqlite_master where name = '%2';")
-			.arg(tableTree->currentItem()->text(1))
-			.arg(tableTree->currentItem()->text(0)));
+			.arg(schemaBrowser->tableTree->currentItem()->text(1))
+			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
 }
 
 void LiteManWindow::describeIndex()
 {
 	runQuery(QString("pragma \"%1\".index_info (\"%2\");")
-			.arg(tableTree->currentItem()->text(1))
-			.arg(tableTree->currentItem()->text(0)));
+			.arg(schemaBrowser->tableTree->currentItem()->text(1))
+			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
 }
 
 void LiteManWindow::describeTrigger()
 {
 	runQuery(QString("select sql from \"%1\".sqlite_master where name = '%2';")
-			.arg(tableTree->currentItem()->text(1))
-			.arg(tableTree->currentItem()->text(0)));
+			.arg(schemaBrowser->tableTree->currentItem()->text(1))
+			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
 }
 
 void LiteManWindow::runQuery(QString statement)
@@ -830,10 +830,10 @@ void LiteManWindow::analyzeDialog()
 	AnalyzeDialog *dia = new AnalyzeDialog(this);
 	dia->exec();
 	delete dia;
-	foreach (QTreeWidgetItem* item, tableTree->searchMask(tableTree->trSys))
+	foreach (QTreeWidgetItem* item, schemaBrowser->tableTree->searchMask(schemaBrowser->tableTree->trSys))
 	{
 		if (item->type() == TableTree::SystemItemType)
-			tableTree->buildCatalogue(item, item->text(1));
+			schemaBrowser->tableTree->buildCatalogue(item, item->text(1));
 	}
 }
 
@@ -870,12 +870,12 @@ void LiteManWindow::attachDatabase()
 		return;
 	}
 
-	tableTree->buildDatabase(schema);
+	schemaBrowser->tableTree->buildDatabase(schema);
 }
 
 void LiteManWindow::detachDatabase()
 {
-	QString dbname(tableTree->currentItem()->text(0));
+	QString dbname(schemaBrowser->tableTree->currentItem()->text(0));
 	if (!Database::execSql(QString("detach database \"%1\";").arg(dbname)))
 		return;
 
@@ -883,24 +883,24 @@ void LiteManWindow::detachDatabase()
 	QSqlDatabase::database(attachedDb[dbname]).close();
 	attachedDb.remove(dbname);
 
-	delete tableTree->currentItem();
+	delete schemaBrowser->tableTree->currentItem();
 }
 
 void LiteManWindow::createTrigger()
 {
-	QString table(tableTree->currentItem()->parent()->text(0));
-	QString schema(tableTree->currentItem()->parent()->text(1));
+	QString table(schemaBrowser->tableTree->currentItem()->parent()->text(0));
+	QString schema(schemaBrowser->tableTree->currentItem()->parent()->text(1));
 	CreateTriggerDialog *dia = new CreateTriggerDialog(table, schema, this);
 	dia->exec();
 	if (dia->update)
-		tableTree->buildTriggers(tableTree->currentItem(), schema, table);
+		schemaBrowser->tableTree->buildTriggers(schemaBrowser->tableTree->currentItem(), schema, table);
 	delete dia;
 }
 
 void LiteManWindow::alterTrigger()
 {
-	QString table(tableTree->currentItem()->text(0));
-	QString schema(tableTree->currentItem()->text(1));
+	QString table(schemaBrowser->tableTree->currentItem()->text(0));
+	QString schema(schemaBrowser->tableTree->currentItem()->text(1));
 	AlterTriggerDialog *dia = new AlterTriggerDialog(table, schema, this);
 	dia->exec();
 	delete dia;
@@ -909,7 +909,7 @@ void LiteManWindow::alterTrigger()
 
 void LiteManWindow::dropTrigger()
 {
-	QTreeWidgetItem * item = tableTree->currentItem();
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
 
 	if(!item)
 		return;
@@ -922,23 +922,23 @@ void LiteManWindow::dropTrigger()
 	if(ret == QMessageBox::Yes)
 	{
 		if (Database::dropTrigger(item->text(0), item->text(1)))
-			tableTree->buildTriggers(item->parent(), item->text(1), item->parent()->parent()->text(0));
+			schemaBrowser->tableTree->buildTriggers(item->parent(), item->text(1), item->parent()->parent()->text(0));
 	}
 }
 
 void LiteManWindow::constraintTriggers()
 {
-	QString table(tableTree->currentItem()->parent()->text(0));
-	QString schema(tableTree->currentItem()->parent()->text(1));
+	QString table(schemaBrowser->tableTree->currentItem()->parent()->text(0));
+	QString schema(schemaBrowser->tableTree->currentItem()->parent()->text(1));
 	ConstraintsDialog dia(table, schema, this);
 	dia.exec();
 	if (dia.update)
-		tableTree->buildTriggers(tableTree->currentItem(), schema, table);
+		schemaBrowser->tableTree->buildTriggers(schemaBrowser->tableTree->currentItem(), schema, table);
 }
 
 void LiteManWindow::reindex()
 {
-	QTreeWidgetItem * item = tableTree->currentItem();
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
 	if(!item)
 		return;
 	QString sql(QString("REINDEX \"%1\".\"%2\";").arg(item->text(1)).arg(item->text(0)));

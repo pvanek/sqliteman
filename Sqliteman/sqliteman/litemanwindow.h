@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 class QTreeWidgetItem;
 class DataViewer;
 class QSplitter;
-class TableTree;
+class SchemaBrowser;
 class SqlEditor;
 class HelpBrowser;
 
@@ -149,7 +149,7 @@ class LiteManWindow : public QMainWindow
 		QMap<QString,QString> attachedDb;
 
 		QSplitter * splitter;
-		TableTree * tableTree;
+		SchemaBrowser * schemaBrowser;
 		DataViewer * dataViewer;
 		SqlEditor* sqlEditor;
 		QSplitter* splitterSql;
