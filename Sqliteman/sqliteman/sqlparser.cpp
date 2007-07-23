@@ -74,7 +74,11 @@ QString SqlEditorTools::SqlParser::getStatement(int cursorPosition)
 						 || currLine.mid(column, 6).toUpper() == "ATTACH"
 						 || currLine.mid(column, 6).toUpper() == "DETACH"
 						 || currLine.mid(column, 7).toUpper() == "ANALYZE"
-						 || currLine.mid(column, 7).toUpper() == "REINDEX")
+						 || currLine.mid(column, 7).toUpper() == "REINDEX"
+						 || currLine.mid(column, 6).toUpper() == "INSERT"
+						 || currLine.mid(column, 6).toUpper() == "UPDATE"
+						 || currLine.mid(column, 6).toUpper() == "DELETE"
+						 || currLine.mid(column, 7).toUpper() == "REPLACE")
 			   )
 			{
 				started = true;
