@@ -26,6 +26,7 @@ win32 {
 TRANSLATIONS += sqliteman/ts/sqliteman_en.ts \
                 sqliteman/ts/sqliteman_cs.ts \
                 sqliteman/ts/sqliteman_de.ts \
+                sqliteman/ts/sqliteman_it.ts \
                 sqliteman/ts/sqliteman_pl.ts \
                 sqliteman/ts/sqliteman_ru.ts
 # Input
