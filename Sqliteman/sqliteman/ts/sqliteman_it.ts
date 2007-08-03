@@ -267,7 +267,7 @@
     <message>
         <location filename="../createindexdialog.ui" line="146"/>
         <source>Asc/Desc</source>
-        <translation type="unfinished"></translation>
+        <translation>Asc/Desc</translation>
     </message>
     <message>
         <location filename="../createindexdialog.ui" line="164"/>
@@ -357,7 +357,7 @@
     <message>
         <location filename="../createviewdialog.ui" line="78"/>
         <source>&amp;Select Statement (AS)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dichisazione &amp;Select</translation>
     </message>
     <message>
         <location filename="../createviewdialog.ui" line="96"/>
@@ -916,7 +916,7 @@ Eseguo il rollback?</translation>
     <message>
         <location filename="../litemanwindow.cpp" line="248"/>
         <source>&amp;Constraint Triggers...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Costruizione Triggers...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="254"/>
@@ -926,7 +926,7 @@ Eseguo il rollback?</translation>
     <message>
         <location filename="../litemanwindow.cpp" line="263"/>
         <source>&amp;Context</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Contesto</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="266"/>
@@ -982,7 +982,7 @@ Version %1
     <message>
         <location filename="../litemanwindow.cpp" line="491"/>
         <source>No SQL statement</source>
-        <translation type="unfinished"></translation>
+        <translation>No Dichiarazione SQL</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="491"/>
@@ -1112,7 +1112,7 @@ Record Trovati: %1</translation>
     <message>
         <location filename="../preferencesdialog.cpp" line="30"/>
         <source>From Locales</source>
-        <translation>Localizzazione</translation>
+        <translation>Localizazione</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.cpp" line="36"/>
@@ -1177,102 +1177,102 @@ Record Trovati: %1</translation>
     <message>
         <location filename="../preferencesdialog.ui" line="190"/>
         <source>Highlight the NULL values in the data result table</source>
-        <translation type="unfinished"></translation>
+        <translation>Evidenzia i valori NULL nella tabella dei risultati</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="193"/>
         <source>&amp;Use NULL highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Usa NULL evidenziati</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="200"/>
         <source>Background color of the NULL value cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Colore di sfondo nelle celle NULL</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="203"/>
         <source>B&amp;ackground</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;fondo</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="210"/>
         <source>&amp;NULL alias:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;NULL alias:</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="220"/>
         <source>Text to be used as a NULL mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Testo da usare per marcare i NULL</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="223"/>
         <source>{null}</source>
-        <translation type="unfinished"></translation>
+        <translation>{null}</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="233"/>
         <source>BLOB handling</source>
-        <translation type="unfinished"></translation>
+        <translation>Trattamento dei BLOB</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="245"/>
         <source>Highlight the BLOB values in the data result table</source>
-        <translation type="unfinished"></translation>
+        <translation>Evidenzia i valori BLOB nella tabella dei risultati</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="248"/>
         <source>&amp;Use BLOB highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Usa l&apos;evidenziazione dei BLOB</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="255"/>
         <source>Background color of the BLOB value cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Colore di sfondo delle celle con valore BLOB</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="258"/>
         <source>Ba&amp;ckground</source>
-        <translation type="unfinished"></translation>
+        <translation>Sf&amp;ondo</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="265"/>
         <source>&amp;BLOB alias:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;BLOB alias:</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="275"/>
         <source>Text to be used as a BLOB mark</source>
-        <translation type="unfinished"></translation>
+        <translation>Testo da usare per marcare le celle BLOB</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="278"/>
         <source>{blob}</source>
-        <translation type="unfinished"></translation>
+        <translation>{blob}</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="289"/>
         <source>&amp;SQL Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;SQL Editor</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="324"/>
         <source>&amp;Font:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Font:</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="334"/>
         <source>Use Maximum Text Width Mark:</source>
-        <translation type="unfinished"></translation>
+        <translation>Marca usando testo con massima grandezza:</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="341"/>
         <source>Use &amp;Active Line Highlighting:</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa linea &amp;Attiva evidenziata:</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="348"/>
         <source>Color...</source>
-        <translation type="unfinished"></translation>
+        <translation>Colore...</translation>
     </message>
 </context>
 <context>
@@ -1320,12 +1320,12 @@ Record Trovati: %1</translation>
     <message>
         <location filename="../queryeditordialog.cpp" line="192"/>
         <source>More</source>
-        <translation>Ancora</translation>
+        <translation>Di più</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="193"/>
         <source>Less</source>
-        <translation type="unfinished"></translation>
+        <translation>Di meno</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="216"/>
@@ -1413,17 +1413,17 @@ Record Trovati: %1</translation>
     <message>
         <location filename="../sqleditor.ui" line="69"/>
         <source>Run &amp;Explain</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia &amp;Passo Passo</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="72"/>
         <source>Run Explain (F6)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia Passo Passo (F6)</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="75"/>
         <source>F6</source>
-        <translation type="unfinished"></translation>
+        <translation>F6</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="80"/>
@@ -1433,7 +1433,7 @@ Record Trovati: %1</translation>
     <message>
         <location filename="../sqleditor.ui" line="83"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="88"/>
@@ -1448,7 +1448,7 @@ Record Trovati: %1</translation>
     <message>
         <location filename="../sqleditor.ui" line="94"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="99"/>
@@ -1458,7 +1458,7 @@ Record Trovati: %1</translation>
     <message>
         <location filename="../sqleditor.ui" line="102"/>
         <source>Ctrl+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="107"/>
@@ -1517,7 +1517,7 @@ Record Trovati: %1</translation>
     <message>
         <location filename="../tableeditordialog.ui" line="72"/>
         <source>De&amp;sign</source>
-        <translation type="unfinished"></translation>
+        <translation>De&amp;sign</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="84"/>
