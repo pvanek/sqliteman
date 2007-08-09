@@ -709,18 +709,13 @@ void LiteManWindow::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
 	}
 }
 
-void LiteManWindow::tableTree_currentItemChanged(QTreeWidgetItem* cur, QTreeWidgetItem* prev)
-{
-	buildContextMenu(cur);
-}
-
-void LiteManWindow::buildContextMenu(QTreeWidgetItem * item)
+void LiteManWindow::tableTree_currentItemChanged(QTreeWidgetItem* cur, QTreeWidgetItem* /*prev*/)
 {
 	contextMenu->clear();
-	if (!item)
+	if (!cur)
 		return;
 
-	switch(item->type())
+	switch(cur->type())
 	{
 		case TableTree::TablesItemType:
 			contextMenu->addAction(createTableAct);
@@ -755,7 +750,7 @@ void LiteManWindow::buildContextMenu(QTreeWidgetItem * item)
 
 		case TableTree::DatabaseItemType:
 			contextMenu->addAction(refreshTreeAct);
-			if (item->text(0) != "main")
+			if (cur->text(0) != "main")
 				contextMenu->addAction(detachAct);
 			break;
 

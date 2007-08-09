@@ -50,6 +50,8 @@ class DataViewer : public QMainWindow
 	private:
 		Ui::DataViewer ui;
 
+		void resizeViewToContents();
+
 	private slots:
 		void addRow();
 		void removeRow();

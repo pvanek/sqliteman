@@ -74,9 +74,14 @@ bool DataViewer::setTableModel(QAbstractItemModel * model)
 		}
 	}
 	ui.tableView->setModel(model);
-	ui.tableView->resizeRowsToContents();
-	ui.tableView->resizeColumnsToContents();
+	resizeViewToContents();
 	return true;
+}
+
+void DataViewer::resizeViewToContents()
+{
+	ui.tableView->resizeColumnsToContents();
+	ui.tableView->resizeRowsToContents();
 }
 
 void DataViewer::setStatusText(const QString & text)
@@ -168,6 +173,7 @@ void DataViewer::commit()
 		return;
 	}
 	model->setPendingTransaction(false);
+	resizeViewToContents();
 }
 
 void DataViewer::rollback()
@@ -179,6 +185,7 @@ void DataViewer::rollback()
 	SqlTableModel * model = qobject_cast<SqlTableModel *>(ui.tableView->model());
 	model->revertAll();
 	model->setPendingTransaction(false);
+	resizeViewToContents();
 }
 
 void DataViewer::copyHandler()

@@ -79,8 +79,7 @@ class LiteManWindow : public QMainWindow
 	protected:
 		/*! \brief This method handles closing of the main window by saving the window's state and accepting
 		the event. */
-		 void closeEvent(QCloseEvent * e);
-		 void buildContextMenu(QTreeWidgetItem * item);
+		void closeEvent(QCloseEvent * e);
 
 	private slots:
 		/*! \brief A slot to handle a new database file createion action */
