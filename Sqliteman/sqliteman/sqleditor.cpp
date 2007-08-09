@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextStream>
 #include <QFileDialog>
 #include <QLabel>
+#include <QProgressDialog>
 
 // Guter guts
 #include <QPainter>
@@ -131,13 +132,53 @@ void SqlEditor::open(const QString &  newFile)
 		QMessageBox::warning(this, tr("Open SQL Script"), tr("Cannot open file %1").arg(newFile));
 		return;
 	}
+
+	canceled = false;
+	int prgTmp = 0;
+	progress = new QProgressDialog(tr("Opening: %1").arg(newFile), tr("Abort"), 0, f.size(), this);
+	connect(progress, SIGNAL(canceled()), this, SLOT(cancel()));
+	progress->setWindowModality(Qt::WindowModal);
+	progress->setMinimumDuration(1000);
+	ui.sqlTextEdit->clear();
+
 	QTextStream in(&f);
+	QString line;
+	QStringList strList;
 	while (!in.atEnd())
-		ui.sqlTextEdit->append(in.readLine());
+	{
+		line = in.readLine();
+		strList.append(line);
+		prgTmp += line.length();
+		if (!setProgress(prgTmp))
+		{
+			strList.clear();
+			break;
+		}
+	}
 
 	f.close();
 	m_fileName = newFile;
+
+	progress->setLabelText(tr("Formatting the text. Please wait."));
+	ui.sqlTextEdit->append(strList.join("\n"));
 	ui.sqlTextEdit->document()->setModified(false);
+
+	delete progress;
+	progress = 0;
+}
+
+void SqlEditor::cancel()
+{
+	canceled = true;
+}
+
+bool SqlEditor::setProgress(int p)
+{
+	if (canceled)
+		return false;
+	progress->setValue(p);
+	qApp->processEvents();
+	return true;
 }
 
 void SqlEditor::action_Save_triggered()

@@ -15,6 +15,8 @@ for which a new license (GPL+exception) is in place.
 
 class QTextDocument;
 class QLabel;
+class QProgressDialog;
+
 
 //! \brief Support tools for SqlEditor class
 namespace SqlEditorTools
@@ -137,6 +139,15 @@ class SqlEditor : public QMainWindow
 		QLabel * cursorLabel;
 		QString cursorTemplate;
 
+		//! \brief True when user cancel file opening
+		bool canceled;
+		//! \brief Handle long files (prevent app "freezing")
+		QProgressDialog * progress;
+		/*! \brief A helper method for progress.
+		It check the canceled flag. If user cancel the file opening
+		it will stop it. */
+		bool setProgress(int p);
+
 		void showEvent(QShowEvent * event);
 		bool changedConfirm();
 		void saveFile();
@@ -158,6 +169,7 @@ class SqlEditor : public QMainWindow
 		void sqlTextEdit_cursorPositionChanged();
 		void documentChanged(bool state);
 		void prefsChanged();
+		void cancel();
 };
 
 #endif
