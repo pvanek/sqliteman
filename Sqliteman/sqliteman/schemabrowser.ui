@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>271</width>
-    <height>647</height>
+    <height>721</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -63,16 +63,6 @@
           <property name="spacing" >
            <number>6</number>
           </property>
-          <item row="3" column="0" >
-           <widget class="QLineEdit" name="pragmaValue" >
-            <property name="text" >
-             <string/>
-            </property>
-            <property name="readOnly" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
           <item row="1" column="0" >
            <widget class="QLineEdit" name="pragmaName" >
             <property name="text" >
@@ -94,6 +84,23 @@
            <widget class="QLabel" name="label_2" >
             <property name="text" >
              <string>Pragma:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" >
+           <widget class="QLineEdit" name="pragmaValue" >
+            <property name="text" >
+             <string/>
+            </property>
+            <property name="readOnly" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" >
+           <widget class="QPushButton" name="setPragmaButton" >
+            <property name="text" >
+             <string>Change &amp;Value...</string>
             </property>
            </widget>
           </item>

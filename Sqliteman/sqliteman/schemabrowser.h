@@ -35,6 +35,8 @@ class SchemaBrowser : public QWidget, public Ui::SchemaBrowser
 	private slots:
 		//! \brief Show currently selected pragma in the detail widget.
 		void pragmaTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
+		//! \brief Set new value for the chosen pragma.
+		void setPragmaButton_clicked();
 };
 
 #endif
