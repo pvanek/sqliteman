@@ -10,7 +10,7 @@ Name:         sqliteman
 URL:          http://www.assembla.com/space/sqliteman
 License:      GPL
 Group:        Development/Databases
-Summary:      Lightweigth but powerfull Sqlite3 manager
+Summary:      Lightweigth but powerfull Sqlite3 manager. Development snapshot.
 Version:      1.1
 Release:      %{builddate}
 Source:       %{name}-%{version}.tar.gz
@@ -30,9 +30,12 @@ BuildRequires: qt4-devel >= 4.2.0 qt4-sqlite cmake gcc-c++
 BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 
 %description
+Warning: this is a bleeding edge development version. You
+can use stable 1.0 version if you observe any problems.
 The best developer's and/or admin's GUI tool for Sqlite3
 in the world. No joking here (or just a bit only) - it
 contains the most complette feature set of all tools available.
+
 
 Authors:
 --------
