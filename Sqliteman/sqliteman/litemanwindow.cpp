@@ -310,6 +310,7 @@ void LiteManWindow::rebuildRecentFileMenu()
 	recentFilesMenu->clear();
 	uint max = qMin(PreferencesDialog::recentlyUsedCount(), recentDocs.count());
 	QFile fi;
+	QString accel("&");
 
 	for (uint i = 0; i < max; ++i)
 	{
@@ -319,7 +320,10 @@ void LiteManWindow::rebuildRecentFileMenu()
 			removeRecent(recentDocs.at(i));
 			break;
 		}
-		QAction *a = new QAction(QString("&%1 %2").arg(i+1).arg(recentDocs.at(i)), this);
+		// &10 collides with &1
+		if (i > 8)
+			accel = "";
+		QAction *a = new QAction(QString("%1%2 %3").arg(accel).arg(i+1).arg(recentDocs.at(i)), this);
 		a->setData(QVariant(recentDocs.at(i)));
 		connect(a, SIGNAL(triggered()), this, SLOT(openRecent()));
 		recentFilesMenu->addAction(a);
