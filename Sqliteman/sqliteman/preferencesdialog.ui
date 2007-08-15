@@ -13,10 +13,22 @@
    <string>Preferences</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="margin" >
+   <property name="leftMargin" >
     <number>9</number>
    </property>
-   <property name="spacing" >
+   <property name="topMargin" >
+    <number>9</number>
+   </property>
+   <property name="rightMargin" >
+    <number>9</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>9</number>
+   </property>
+   <property name="horizontalSpacing" >
+    <number>6</number>
+   </property>
+   <property name="verticalSpacing" >
     <number>6</number>
    </property>
    <item row="0" column="0" >
@@ -37,19 +49,40 @@
        <string>&amp;Look and Feel</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="margin" >
+       <property name="leftMargin" >
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>6</number>
+       </property>
+       <property name="verticalSpacing" >
         <number>6</number>
        </property>
        <item row="1" column="0" >
         <layout class="QHBoxLayout" >
-         <property name="margin" >
-          <number>0</number>
-         </property>
          <property name="spacing" >
           <number>6</number>
+         </property>
+         <property name="leftMargin" >
+          <number>0</number>
+         </property>
+         <property name="topMargin" >
+          <number>0</number>
+         </property>
+         <property name="rightMargin" >
+          <number>0</number>
+         </property>
+         <property name="bottomMargin" >
+          <number>0</number>
          </property>
          <item>
           <widget class="QLabel" name="label_4" >
@@ -82,10 +115,22 @@
           <string>These features require application restart</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="margin" >
+          <property name="leftMargin" >
            <number>9</number>
           </property>
-          <property name="spacing" >
+          <property name="topMargin" >
+           <number>9</number>
+          </property>
+          <property name="rightMargin" >
+           <number>9</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>9</number>
+          </property>
+          <property name="horizontalSpacing" >
+           <number>6</number>
+          </property>
+          <property name="verticalSpacing" >
            <number>6</number>
           </property>
           <item row="1" column="1" >
@@ -145,18 +190,30 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>465</width>
-        <height>271</height>
+        <width>288</width>
+        <height>250</height>
        </rect>
       </property>
       <attribute name="label" >
        <string>&amp;Data Display</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="margin" >
+       <property name="leftMargin" >
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>6</number>
+       </property>
+       <property name="verticalSpacing" >
         <number>6</number>
        </property>
        <item row="2" column="0" >
@@ -178,10 +235,22 @@
           <string>NULL handling</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="margin" >
+          <property name="leftMargin" >
            <number>9</number>
           </property>
-          <property name="spacing" >
+          <property name="topMargin" >
+           <number>9</number>
+          </property>
+          <property name="rightMargin" >
+           <number>9</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>9</number>
+          </property>
+          <property name="horizontalSpacing" >
+           <number>6</number>
+          </property>
+          <property name="verticalSpacing" >
            <number>6</number>
           </property>
           <item row="0" column="0" colspan="3" >
@@ -233,10 +302,22 @@
           <string>BLOB handling</string>
          </property>
          <layout class="QGridLayout" >
-          <property name="margin" >
+          <property name="leftMargin" >
            <number>9</number>
           </property>
-          <property name="spacing" >
+          <property name="topMargin" >
+           <number>9</number>
+          </property>
+          <property name="rightMargin" >
+           <number>9</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>9</number>
+          </property>
+          <property name="horizontalSpacing" >
+           <number>6</number>
+          </property>
+          <property name="verticalSpacing" >
            <number>6</number>
           </property>
           <item row="0" column="0" colspan="3" >
@@ -285,39 +366,18 @@
       </layout>
      </widget>
      <widget class="QWidget" name="page_3" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>437</width>
+        <height>279</height>
+       </rect>
+      </property>
       <attribute name="label" >
        <string>&amp;SQL Editor</string>
       </attribute>
       <layout class="QGridLayout" >
-       <property name="margin" >
-        <number>9</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-       <item row="1" column="0" colspan="2" >
-        <widget class="QFontComboBox" name="fontComboBox" >
-         <property name="editable" >
-          <bool>false</bool>
-         </property>
-         <property name="fontFilters" >
-          <set>QFontComboBox::MonospacedFonts</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" >
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" >
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
        <item row="0" column="0" >
         <widget class="QLabel" name="label_5" >
          <property name="text" >
@@ -328,10 +388,13 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0" >
-        <widget class="QCheckBox" name="useTextWidthMarkCheckBox" >
-         <property name="text" >
-          <string>Use Maximum Text Width Mark:</string>
+       <item row="1" column="0" colspan="2" >
+        <widget class="QFontComboBox" name="fontComboBox" >
+         <property name="editable" >
+          <bool>false</bool>
+         </property>
+         <property name="fontFilters" >
+          <set>QFontComboBox::MonospacedFonts</set>
          </property>
         </widget>
        </item>
@@ -349,18 +412,55 @@
          </property>
         </widget>
        </item>
+       <item row="3" column="0" >
+        <widget class="QCheckBox" name="useTextWidthMarkCheckBox" >
+         <property name="text" >
+          <string>Use &amp;Maximum Text Width Mark:</string>
+         </property>
+        </widget>
+       </item>
        <item row="3" column="1" >
         <widget class="QSpinBox" name="textWidthMarkSpinBox" >
-         <property name="maximum" >
-          <number>139</number>
-         </property>
          <property name="minimum" >
           <number>1</number>
+         </property>
+         <property name="maximum" >
+          <number>139</number>
          </property>
          <property name="value" >
           <number>75</number>
          </property>
         </widget>
+       </item>
+       <item row="4" column="0" >
+        <widget class="QCheckBox" name="useCompletionCheck" >
+         <property name="text" >
+          <string>Use &amp;Code Completion With Length:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" >
+        <widget class="QSpinBox" name="completionLengthBox" >
+         <property name="minimum" >
+          <number>1</number>
+         </property>
+         <property name="value" >
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>280</width>
+           <height>61</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>

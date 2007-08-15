@@ -44,6 +44,8 @@ class PreferencesDialog : public QDialog//, public Ui::PreferencesDialog
 		static QColor activeHighlightColor();
 		static bool useTextWidthMark();
 		static int textWidthMark();
+		static bool useCodeCompletion();
+		static int codeCompletionLength();
 
 	private:
 		Ui::PreferencesDialog ui;

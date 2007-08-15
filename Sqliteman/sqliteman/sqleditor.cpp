@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "preferencesdialog.h"
 #include "sqlparser.h"
 #include "sqleditor.h"
+#include "sqlkeywords.h"
 
 
 SqlEditor::SqlEditor(QWidget * parent)
@@ -277,6 +278,8 @@ void SqlEditor::prefsChanged()
 	QTextCursor textCursor = ui.sqlTextEdit->textCursor();
 	textCursor.clearSelection();
 	ui.sqlTextEdit->setTextCursor(textCursor);
+	ui.sqlTextEdit->setCompletion(PreferencesDialog::useCodeCompletion(),
+								  PreferencesDialog::codeCompletionLength());
 	update();
 }
 
@@ -288,60 +291,12 @@ SqlEditorTools::SqlHighlighter::SqlHighlighter(QTextDocument *parent)
 
 	keywordFormat.setForeground(Qt::darkBlue);
 	keywordFormat.setFontWeight(QFont::Bold);
-	QStringList keywordPatterns;
 	// select
-	keywordPatterns << "\\bselect\\b" << "\\bfrom\\b" << "\\bwhere\\b"
-					<< "\\bor\\b" << "\\band\\b" << "\\bjoin\\b"
-					<< "\\bouter\\b" << "\\bleft\\b" << "\\bright\\b"
-					<< "\\ball\\b" << "\\bdistinct\\b" << "\\bgroup by\\b"
-					<< "\\bhaving\\b" << "\\border by\\b" << "\\blimit\\b"
-					<< "\\boffset\\b" << "\\bas\\b" << "\\bnatural\\b"
-					<< "\\bleft\\b" << "\\bright\\b" << "\\bfull\\b"
-					<< "\\bouter\\b" << "\\binner\\b" << "\\bcross\\b"
-					<< "\\bon\\b" << "\\busing\\b" << "\\bcollate\\b"
-					<< "\\basc\\b" << "\\bdesc\\b" << "\\bunion\\b"
-					<< "\\bunion all\\b" << "\\bintersect\\b" << "\\bexcept\\b"
-					<< "\\bexplain\\b"
-	// alter table
-					<< "\\balter\\b" << "\\btable\\b" << "\\brename\\b"
-					<< "\\bto\\b" << "\\badd\\b" << "\\bcolumn\\b"
-	// analyze
-					<< "\\banalyze\\b" << "\\bvacuum\\b"
-	// attach/detach
-					<< "\\battach\\b" << "\\bdatabase\\b" << "\\bdetach\\b"
-	// transaction
-					<< "\\bbegin\\b" << "\\bdeferred\\b" << "\\bimmediate\\b"
-					<< "\\bexclusive\\b" << "\\btransaction\\b" << "\\bend\\b"
-					<< "\\bcommit\\b" << "\\brollback\\b"
-	// create ix
-					<< "\\bcreate\\b" << "\\bunique\\b" << "\\bindex\\b"
-					<< "\\bif\\b" << "\\bnot\\b" << "\\bexists\\b"
-	// drop foo / insert
-					<< "\\bdrop\\b" << "\\binto\\b" << "\\bvalues\\b" << "\\breplace\\b"
-					<< "\\bset\\b"
-	// create table
-					<< "\\btemp\\b" << "\\btemporary\\b" << "\\btable\\b" << "\\bconstraint\\b"
-					<< "\\bnull\\b" << "\\bprimary\\b" << "\\bkey\\b" << "\\bautoincrement\\b"
-					<< "\\bunique\\b" << "\\bcheck\\b" << "\\bdefault\\b" << "\\bcollate\\b"
-					<< "\\bconflict\\b" << "\\bvirtual\\b"
-	// create trigger
-					<< "\\btrigger\\b" << "\\bbefore\\b" << "\\bafter\\b"
-					<< "\\binstead of\\b" << "\\bdelete\\b" << "\\binsert\\b"
-					<< "\\bupdate\\b" << "\\bfor\\b" << "\\beach\\b" << "\\brow\\b"
-					<< "\\bstatement\\b"
-					<< "\\babort\\b" << "\\bfail\\b" << "\\bignore\\b" << "\\breplace\\b"
-	// create view
-					<< "\\bview\\b"
-	// expressions
-					<< "\\bescape\\b" << "\\bisnull\\b" << "\\bnotnull\\b"
-					<< "\\bbetween\\b" << "\\bcase\\b" << "\\bthen\\b"
-					<< "\\belse\\b" << "\\bcast\\b" << "\\blike\\b"
-					<< "\\bglob\\b" << "\\bregexp\\b" << "\\bmatch\\b"
-					<< "\\bpragma\\b" << "\\breindex\\b";
+	QStringList keywordPatterns(sqlKeywords());
 
 	foreach (QString pattern, keywordPatterns)
 	{
-		rule.pattern = QRegExp(pattern, Qt::CaseInsensitive);
+		rule.pattern = QRegExp("\\b" + pattern + "\\b", Qt::CaseInsensitive);
 		rule.format = keywordFormat;
 		highlightingRules.append(rule);
 	}

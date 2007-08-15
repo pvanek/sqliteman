@@ -6,14 +6,36 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QPainter>
 #include <QScrollBar>
+#include <QCompleter>
+#include <QKeyEvent>
+#include <QAbstractItemView>
+#include <QStringListModel>
+
 #include "sqleditorwidget.h"
 #include "preferencesdialog.h"
+#include "sqlkeywords.h"
 
 
 SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	: QTextEdit(parent)
 {
+	m_completer = new QCompleter(this);
+	m_completer->setModel(new QStringListModel(sqlKeywords(), m_completer));
+	m_completer->setWidget(this);
+	m_completer->setCaseSensitivity(Qt::CaseInsensitive);
+
 	ensureCursorVisible();
+	setCompletion(PreferencesDialog::useCodeCompletion(),
+				  PreferencesDialog::codeCompletionLength());
+
+	connect(m_completer, SIGNAL(activated(const QString&)),
+			this, SLOT(insertCompletion(const QString&)));
+}
+
+void SqlEditorWidget::setCompletion(bool useCompletion, int minLength)
+{
+	m_useCompleter = useCompletion;
+	m_completerLength = minLength;
 }
 
 void SqlEditorWidget::paintEvent(QPaintEvent* e)
@@ -48,7 +70,58 @@ void SqlEditorWidget::keyPressEvent(QKeyEvent * e)
 {
 	viewport()->update();
 	ensureCursorVisible();
+
+	if (m_useCompleter && m_completer->popup()->isVisible())
+	{
+		// The following keys are forwarded by the completer to the widget
+		switch (e->key())
+		{
+			case Qt::Key_Enter:
+			case Qt::Key_Return:
+			case Qt::Key_Escape:
+			case Qt::Key_Tab:
+			case Qt::Key_Backtab:
+					e->ignore();
+					return; // let the completer do default behavior
+			default:
+				break;
+		}
+	}
+
 	QTextEdit::keyPressEvent(e);
+
+	if (!m_useCompleter)
+		return;
+
+	// completion popup handling
+	const bool ctrlOrShift = e->modifiers() & (Qt::ControlModifier | Qt::ShiftModifier);
+	if (!m_completer || (ctrlOrShift && e->text().isEmpty()))
+		return;
+
+	static QString eow("~!@#$%^&*()_+{}|:\"<>?,./;'[]\\-="); // end of word
+	bool hasModifier = (e->modifiers() != Qt::NoModifier) && !ctrlOrShift;
+	QTextCursor tc = textCursor();
+	tc.select(QTextCursor::WordUnderCursor);
+	QString completionPrefix(tc.selectedText());
+
+	if (hasModifier || e->text().isEmpty()
+		|| completionPrefix.length() < m_completerLength
+		|| eow.contains(e->text().right(1))
+	   )
+	{
+		m_completer->popup()->hide();
+		return;
+	}
+
+	if (completionPrefix != m_completer->completionPrefix())
+	{
+		m_completer->setCompletionPrefix(completionPrefix);
+		m_completer->popup()->setCurrentIndex(m_completer->completionModel()->index(0, 0));
+	}
+	QRect cr = cursorRect();
+	cr.setWidth(m_completer->popup()->sizeHintForColumn(0)
+				+ m_completer->popup()->verticalScrollBar()->sizeHint().width());
+	m_completer->complete(cr);
 }
 
 void SqlEditorWidget::mousePressEvent(QMouseEvent * e)
@@ -56,4 +129,14 @@ void SqlEditorWidget::mousePressEvent(QMouseEvent * e)
 	viewport()->update();
 	ensureCursorVisible();
 	QTextEdit::mousePressEvent(e);
+}
+
+void SqlEditorWidget::insertCompletion(const QString& str)
+{
+	QTextCursor cur(textCursor());
+	int offset = str.length() - m_completer->completionPrefix().length();
+	cur.movePosition(QTextCursor::Left);
+	cur.movePosition(QTextCursor::EndOfWord);
+	cur.insertText(str.right(offset));
+	setTextCursor(cur);
 }

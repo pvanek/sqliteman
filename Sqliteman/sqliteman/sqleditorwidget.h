@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <QTextEdit>
 
+class QCompleter;
+
 
 /*! \brief A customized QTextEdit.
 It handles the current line highlighting and max line width mark.
@@ -22,10 +24,19 @@ class SqlEditorWidget : public QTextEdit
 	public:
 		SqlEditorWidget(QWidget * parent = 0);
 
+		void setCompletion(bool useCompletion, int minLength);
+
 	private:
+		QCompleter *m_completer;
+		bool m_useCompleter;
+		int m_completerLength;
+
 		void paintEvent(QPaintEvent * e);
 		void keyPressEvent(QKeyEvent * e);
 		void mousePressEvent(QMouseEvent * e);
+
+	private slots:
+		void insertCompletion(const QString&);
 };
 
 #endif

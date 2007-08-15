@@ -23,6 +23,7 @@ SET( SQLITEMAN_SRC
     schemabrowser.cpp
     sqleditor.cpp
     sqleditorwidget.cpp
+    sqlkeywords.cpp
     sqlparser.cpp
     sqlmodels.cpp
     tableeditordialog.cpp

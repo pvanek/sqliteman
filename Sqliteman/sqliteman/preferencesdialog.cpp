@@ -54,6 +54,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	ui.activeHighlightButton->setPalette(activeHighlightColor());
 	ui.useTextWidthMarkCheckBox->setChecked(useTextWidthMark());
 	ui.textWidthMarkSpinBox->setValue(textWidthMark());
+	ui.useCompletionCheck->setChecked(useCodeCompletion());
+	ui.completionLengthBox->setValue(codeCompletionLength());
 }
 
 bool PreferencesDialog::saveSettings()
@@ -77,6 +79,8 @@ bool PreferencesDialog::saveSettings()
 	settings.setValue("prefs/sqleditor/activeHighlightButton", ui.activeHighlightButton->palette().color(QPalette::Background));
 	settings.setValue("prefs/sqleditor/useTextWidthMarkCheckBox", ui.useTextWidthMarkCheckBox->isChecked());
 	settings.setValue("prefs/sqleditor/textWidthMarkSpinBox", ui.textWidthMarkSpinBox->value());
+	settings.setValue("prefs/sqleditor/useCodeCompletion", ui.useCompletionCheck->isChecked());
+	settings.setValue("prefs/sqleditor/completionLengthBox", ui.completionLengthBox->value());
 
 	if (settings.status() != QSettings::NoError)
 		return false;
@@ -103,6 +107,8 @@ void PreferencesDialog::restoreDefaults()
 	ui.activeHighlightButton->setPalette(defCol);
 	ui.useTextWidthMarkCheckBox->setChecked(true);
 	ui.textWidthMarkSpinBox->setValue(75);
+	ui.useCompletionCheck->setChecked(false);
+	ui.completionLengthBox->setValue(3);
 }
 
 void PreferencesDialog::nullCheckBox_stateChanged(int)
@@ -220,4 +226,16 @@ int PreferencesDialog::textWidthMark()
 {
 	QSettings s("yarpen.cz", "sqliteman");
 	return s.value("prefs/sqleditor/textWidthMarkSpinBox", 80).toInt();
+}
+
+bool PreferencesDialog::useCodeCompletion()
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/sqleditor/useCodeCompletion", false).toBool();
+}
+
+int PreferencesDialog::codeCompletionLength()
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/sqleditor/completionLengthBox", 3).toInt();
 }
