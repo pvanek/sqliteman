@@ -25,11 +25,14 @@ class SqlEditorWidget : public QTextEdit
 		SqlEditorWidget(QWidget * parent = 0);
 
 		void setCompletion(bool useCompletion, int minLength);
+		void setShortcuts(bool useShortcuts, QMap<QString,QVariant> shortcuts);
 
 	private:
 		QCompleter *m_completer;
 		bool m_useCompleter;
 		int m_completerLength;
+		bool m_useShortcuts;
+		QMap<QString,QVariant> m_shortcuts;
 
 		void paintEvent(QPaintEvent * e);
 		void keyPressEvent(QKeyEvent * e);

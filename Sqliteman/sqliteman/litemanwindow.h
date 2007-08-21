@@ -44,7 +44,7 @@ class LiteManWindow : public QMainWindow
 
 	signals:
 		void prefsChanged();
-	
+
 	private:
 		void initUI();
 		void initActions();

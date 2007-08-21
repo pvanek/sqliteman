@@ -47,16 +47,19 @@ class PreferencesDialog : public QDialog//, public Ui::PreferencesDialog
 		static bool useCodeCompletion();
 		static int codeCompletionLength();
 
+		static bool useShortcuts();
+		static QMap<QString,QVariant> shortcuts();
+		static bool saveShortcuts(QMap<QString,QVariant> map);
+
 	private:
 		Ui::PreferencesDialog ui;
 
 	private slots:
-		void nullCheckBox_stateChanged(int);
-		void blobCheckBox_stateChanged(int);
 		void restoreDefaults();
 		void blobBgButton_clicked();
 		void nullBgButton_clicked();
 		void activeHighlightButton_clicked();
+		void shortcutsButton_clicked();
 };
 
 

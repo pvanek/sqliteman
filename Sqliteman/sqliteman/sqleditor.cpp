@@ -280,6 +280,8 @@ void SqlEditor::prefsChanged()
 	ui.sqlTextEdit->setTextCursor(textCursor);
 	ui.sqlTextEdit->setCompletion(PreferencesDialog::useCodeCompletion(),
 								  PreferencesDialog::codeCompletionLength());
+	ui.sqlTextEdit->setShortcuts(PreferencesDialog::useShortcuts(),
+								 PreferencesDialog::shortcuts());
 	update();
 }
 

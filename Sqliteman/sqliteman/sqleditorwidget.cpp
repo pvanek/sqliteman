@@ -27,6 +27,8 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	ensureCursorVisible();
 	setCompletion(PreferencesDialog::useCodeCompletion(),
 				  PreferencesDialog::codeCompletionLength());
+	setShortcuts(PreferencesDialog::useShortcuts(),
+				 PreferencesDialog::shortcuts());
 
 	connect(m_completer, SIGNAL(activated(const QString&)),
 			this, SLOT(insertCompletion(const QString&)));
@@ -36,6 +38,12 @@ void SqlEditorWidget::setCompletion(bool useCompletion, int minLength)
 {
 	m_useCompleter = useCompletion;
 	m_completerLength = minLength;
+}
+
+void SqlEditorWidget::setShortcuts(bool useShortcuts, QMap<QString,QVariant> shortcuts)
+{
+	m_useShortcuts = useShortcuts;
+	m_shortcuts = shortcuts;
 }
 
 void SqlEditorWidget::paintEvent(QPaintEvent* e)
@@ -85,6 +93,22 @@ void SqlEditorWidget::keyPressEvent(QKeyEvent * e)
 					return; // let the completer do default behavior
 			default:
 				break;
+		}
+	}
+
+	// handle editor shortcuts with TAB
+	if (m_useShortcuts && e->key() == Qt::Key_Tab)
+	{
+		QTextCursor tc = textCursor();
+		tc.select(QTextCursor::WordUnderCursor);
+		QString currWord(tc.selectedText());
+		if (m_shortcuts.contains(currWord))
+		{
+			QString val(m_shortcuts.value(currWord).toString());
+			tc.removeSelectedText();
+			tc.insertText(val);
+			setTextCursor(tc);
+			return;
 		}
 	}
 

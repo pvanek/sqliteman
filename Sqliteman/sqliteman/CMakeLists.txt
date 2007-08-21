@@ -21,6 +21,8 @@ SET( SQLITEMAN_SRC
     preferencesdialog.cpp
     queryeditordialog.cpp
     schemabrowser.cpp
+    shortcuteditordialog.cpp
+    shortcutmodel.cpp
     sqleditor.cpp
     sqleditorwidget.cpp
     sqlkeywords.cpp
@@ -48,6 +50,8 @@ SET( SQLITEMAN_MOC
     preferencesdialog.h
     queryeditordialog.h
     schemabrowser.h
+    shortcuteditordialog.h
+    shortcutmodel.h
     sqleditor.h
     sqleditorwidget.h
     sqlparser.h
@@ -68,6 +72,7 @@ SET( SQLITEMAN_UI
     helpbrowser.ui
     preferencesdialog.ui
     schemabrowser.ui
+    shortcuteditordialog.ui
     sqleditor.ui
     tableeditordialog.ui
     vacuumdialog.ui

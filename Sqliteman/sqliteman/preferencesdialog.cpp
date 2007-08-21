@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QColorDialog>
 
 #include "preferencesdialog.h"
+#include "shortcuteditordialog.h"
 
 
 PreferencesDialog::PreferencesDialog(QWidget * parent)
@@ -18,12 +19,11 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 {
 	ui.setupUi(this);
 
-	connect(ui.nullCheckBox, SIGNAL(stateChanged(int)), this, SLOT(nullCheckBox_stateChanged(int)));
-	connect(ui.blobCheckBox, SIGNAL(stateChanged(int)), this, SLOT(blobCheckBox_stateChanged(int)));
 	connect(ui.nullBgButton, SIGNAL(clicked()), this, SLOT(nullBgButton_clicked()));
 	connect(ui.blobBgButton, SIGNAL(clicked()), this, SLOT(blobBgButton_clicked()));
 	connect(ui.activeHighlightButton, SIGNAL(clicked()), this, SLOT(activeHighlightButton_clicked()));
 	connect(ui.buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), this, SLOT(restoreDefaults()));
+	connect(ui.shortcutsButton, SIGNAL(clicked()), this, SLOT(shortcutsButton_clicked()));
 
 	// avail langs
 	QDir d(TRANSLATION_DIR, "*.qm");
@@ -56,6 +56,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	ui.textWidthMarkSpinBox->setValue(textWidthMark());
 	ui.useCompletionCheck->setChecked(useCodeCompletion());
 	ui.completionLengthBox->setValue(codeCompletionLength());
+	ui.useShortcutsBox->setChecked(useShortcuts());
 }
 
 bool PreferencesDialog::saveSettings()
@@ -81,6 +82,7 @@ bool PreferencesDialog::saveSettings()
 	settings.setValue("prefs/sqleditor/textWidthMarkSpinBox", ui.textWidthMarkSpinBox->value());
 	settings.setValue("prefs/sqleditor/useCodeCompletion", ui.useCompletionCheck->isChecked());
 	settings.setValue("prefs/sqleditor/completionLengthBox", ui.completionLengthBox->value());
+	settings.setValue("prefs/sqleditor/useShortcuts", ui.useShortcutsBox->isChecked());
 
 	if (settings.status() != QSettings::NoError)
 		return false;
@@ -109,18 +111,8 @@ void PreferencesDialog::restoreDefaults()
 	ui.textWidthMarkSpinBox->setValue(75);
 	ui.useCompletionCheck->setChecked(false);
 	ui.completionLengthBox->setValue(3);
-}
-
-void PreferencesDialog::nullCheckBox_stateChanged(int)
-{
-	ui.nullAliasEdit->setEnabled(ui.nullCheckBox->isChecked());
-	ui.nullBgButton->setEnabled(ui.nullCheckBox->isChecked());
-}
-
-void PreferencesDialog::blobCheckBox_stateChanged(int)
-{
-	ui.blobAliasEdit->setEnabled(ui.blobCheckBox->isChecked());
-	ui.blobBgButton->setEnabled(ui.blobCheckBox->isChecked());
+	ui.useShortcutsBox->setChecked(false);
+	saveShortcuts(QMap<QString,QVariant>());
 }
 
 void PreferencesDialog::blobBgButton_clicked()
@@ -142,6 +134,12 @@ void PreferencesDialog::activeHighlightButton_clicked()
 	QColor nCol = QColorDialog::getColor(ui.activeHighlightButton->palette().color(QPalette::Background), this);
 	if (nCol.isValid())
 		ui.activeHighlightButton->setPalette(nCol);
+}
+
+void PreferencesDialog::shortcutsButton_clicked()
+{
+	ShortcutEditorDialog d;
+	d.exec();
 }
 
 bool PreferencesDialog::useNullHighlight()
@@ -238,4 +236,25 @@ int PreferencesDialog::codeCompletionLength()
 {
 	QSettings s("yarpen.cz", "sqliteman");
 	return s.value("prefs/sqleditor/completionLengthBox", 3).toInt();
+}
+
+bool PreferencesDialog::useShortcuts()
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/sqleditor/useShortcuts", false).toBool();
+}
+
+QMap<QString,QVariant> PreferencesDialog::shortcuts()
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/sqleditor/shortcuts", QMap<QString,QVariant>()).toMap();
+}
+
+bool PreferencesDialog::saveShortcuts(QMap<QString,QVariant> map)
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	s.setValue("prefs/sqleditor/shortcuts", map);
+	if (s.status() != QSettings::NoError)
+		return false;
+	return true;
 }
