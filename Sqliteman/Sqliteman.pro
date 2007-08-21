@@ -8,6 +8,7 @@ win32:TARGET = sqliteman
 DEPENDPATH += . sqliteman
 INCLUDEPATH += . sqliteman
 QT += sql
+QT += xml
 win32:CONFIG += windows
 #win32:DEFINES += DOC_DIR=\\\"./doc/en/\\\"
 win32:DEFINES += DOC_DIR=\\\"./doc/\\\"

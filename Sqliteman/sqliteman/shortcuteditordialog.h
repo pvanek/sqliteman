@@ -38,6 +38,9 @@ class ShortcutEditorDialog : public QDialog, public Ui::ShortcutEditorDialog
 		void acceptDialog();
 
 		void keysNotUnique(QString value);
+
+		void exportButton_clicked();
+		void importButton_clicked();
 };
 
 #endif

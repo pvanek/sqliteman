@@ -5,6 +5,10 @@ a copyright and/or license notice that predates the release of Sqliteman
 for which a new license (GPL+exception) is in place.
 */
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QTextStream>
+#include <QXmlStreamReader>
+
 #include "shortcuteditordialog.h"
 #include "shortcutmodel.h"
 
@@ -23,6 +27,9 @@ ShortcutEditorDialog::ShortcutEditorDialog(QWidget * parent)
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addButton_clicked()));
 	connect(model, SIGNAL(keysNotUnique(QString)), this, SLOT(keysNotUnique(QString)));
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(acceptDialog()));
+
+	connect(exportButton, SIGNAL(clicked()), this, SLOT(exportButton_clicked()));
+	connect(importButton, SIGNAL(clicked()), this, SLOT(importButton_clicked()));
 }
 
 ShortcutEditorDialog::~ShortcutEditorDialog()
@@ -67,4 +74,75 @@ void ShortcutEditorDialog::acceptDialog()
 	}
 	model->saveValues();
 	accept();
+}
+
+void ShortcutEditorDialog::exportButton_clicked()
+{
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save Shortcuts"),
+			QDir::currentPath(), tr("Sqliteman Shortcuts XML (*.xml);;All Files (*)"));
+	if (fileName.isEmpty())
+		return;
+
+	QFile file(fileName);
+	if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+		QMessageBox::warning(this, tr("Export Error"), tr("Cannot open file %1 for writting.").arg(fileName));
+		return;
+	}
+
+	QXmlStreamWriter xml(&file);
+	xml.writeStartDocument();
+	xml.writeStartElement("sqliteman-shortcuts");
+
+	QPair<QString,QString> p;
+	foreach (p, model->values())
+	{
+		xml.writeStartElement("pair");
+		xml.writeAttribute("key", p.first);
+		xml.writeAttribute("value", p.second);
+		xml.writeEndElement();
+	}
+	xml.writeEndElement(); //"sqliteman-shortcuts"
+	xml.writeEndDocument();
+
+	file.close();
+}
+
+void ShortcutEditorDialog::importButton_clicked()
+{
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Load Shortcuts"),
+			QDir::currentPath(), tr("Sqliteman Shortcuts XML (*.xml);;All Files (*)"));
+	if (fileName.isEmpty())
+		return;
+
+	QFile file(fileName);
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		QMessageBox::warning(this, tr("Load Error"), tr("Cannot open file %1 for reading.").arg(fileName));
+		return;
+	}
+
+	QXmlStreamReader xml(&file);
+	bool isXML = false;
+
+	while (!xml.atEnd())
+	{
+		xml.readNext();
+		if (xml.isStartElement())
+		{
+			if (xml.name() == "sqliteman-shortcuts")
+				isXML = true;
+			if (isXML && xml.name() == "pair")
+			{
+				model->insertRow(xml.attributes().value("key").toString(),
+								 xml.attributes().value("value").toString());
+			}
+		}
+	}
+	if (xml.error() && xml.error() != QXmlStreamReader::PrematureEndOfDocumentError)
+	{
+//         qWarning() << "XML ERROR:" << xml.lineNumber() << ": " << xml.errorString();
+    }
+
+	file.close();
 }

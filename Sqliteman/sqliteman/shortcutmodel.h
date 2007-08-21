@@ -42,6 +42,7 @@ class ShortcutModel : public QAbstractTableModel
 		bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex());
 		bool insertRows( int row, int count, const QModelIndex & parent = QModelIndex());
 		void insertRow();
+		void insertRow(QString key, QString value);
 
 		QList<QPair<QString,QString> > values() { return m_values; };
 		//! \brief Check emptiness of keys and save it by Preferences.

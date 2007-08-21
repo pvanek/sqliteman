@@ -88,7 +88,7 @@ QVariant ShortcutModel::headerData(int section, Qt::Orientation orientation, int
          return QVariant();
 
 	if (orientation == Qt::Horizontal)
-		return section == 0 ? tr("Shortcut") : tr("Full Text");
+		return section == 0 ? tr("Shortcut") : tr("Expanded Text");
 	else
 		return QString("%1").arg(section + 1);
 }
@@ -117,6 +117,13 @@ bool ShortcutModel::insertRows( int row, int count, const QModelIndex & parent)
 void ShortcutModel::insertRow()
 {
 	insertRows(rowCount(), 1);
+}
+
+void ShortcutModel::insertRow(QString key, QString value)
+{
+	beginInsertRows(QModelIndex(), rowCount(), rowCount());
+	m_values.insert(rowCount(), qMakePair(key, value));
+	endInsertRows();
 }
 
 bool ShortcutModel::saveValues()
