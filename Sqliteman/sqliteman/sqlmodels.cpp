@@ -24,6 +24,7 @@ SqlTableModel::SqlTableModel(QObject * parent, QSqlDatabase db)
 	m_useBlob = PreferencesDialog::useBlobHighlight();
 	m_blobColor = PreferencesDialog::blobHighlightColor();
 	m_blobText = PreferencesDialog::blobHighlightText();
+	m_cropColumns = PreferencesDialog::cropColumns();
 
 	connect(this, SIGNAL(primeInsert(int, QSqlRecord &)),
 			this, SLOT(doPrimeInsert(int, QSqlRecord &)));
@@ -64,7 +65,11 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 
 	// advanced tooltips
 	if (role == Qt::ToolTipRole)
-		return QVariant(curr.length() > 6 ? curr.left(6)+"..." : "");
+		return QVariant("<qt>" + curr + "</qt>");
+
+	if (role == Qt::DisplayRole && m_cropColumns)
+		return QVariant(curr.length() > 20 ? curr.left(20)+"..." : curr);
+
 	return QSqlTableModel::data(item, role);
 }
 
@@ -144,6 +149,7 @@ SqlQueryModel::SqlQueryModel( QObject * parent)
 	m_useBlob = PreferencesDialog::useBlobHighlight();
 	m_blobColor = PreferencesDialog::blobHighlightColor();
 	m_blobText = PreferencesDialog::blobHighlightText();
+	m_cropColumns = PreferencesDialog::cropColumns();
 }
 
 QVariant SqlQueryModel::data(const QModelIndex & item, int role) const
@@ -169,8 +175,14 @@ QVariant SqlQueryModel::data(const QModelIndex & item, int role) const
 		if (role == Qt::DisplayRole)
 			return QVariant(m_blobText);
 	}
+
+	// advanced tooltips
 	if (role == Qt::ToolTipRole)
-		return QVariant(curr.length() > 6 ? curr.left(6)+"..." : "");
+		return QVariant("<qt>" + curr + "</qt>");
+
+	if (role == Qt::DisplayRole && m_cropColumns)
+		return QVariant(curr.length() > 20 ? curr.left(20)+"..." : curr);
+
 	return QSqlQueryModel::data(item, role);
 }
 

@@ -38,6 +38,7 @@ class PreferencesDialog : public QDialog//, public Ui::PreferencesDialog
 		static int recentlyUsedCount();
 		static int GUItranslator();
 		static int GUIstyle();
+		static bool cropColumns();
 
 		static QFont sqlFont();
 		static bool useActiveHighlighting();

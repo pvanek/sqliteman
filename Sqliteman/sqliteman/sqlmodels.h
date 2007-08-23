@@ -47,6 +47,7 @@ class SqlTableModel : public QSqlTableModel
 		bool m_pending;
 		QString m_schema;
 		QList<int> m_deleteCache;
+		bool m_cropColumns;
 
 		QVariant data(const QModelIndex & item, int role = Qt::DisplayRole) const;
 		bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
@@ -76,6 +77,7 @@ class SqlQueryModel : public QSqlQueryModel
 		QColor m_blobColor;
 		QString m_blobText;
 		QSqlRecord info;
+		bool m_cropColumns;
 
 		QVariant data(const QModelIndex & item, int role = Qt::DisplayRole) const;
 };

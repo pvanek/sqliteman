@@ -38,6 +38,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	sl.sort();
 	ui.styleComboBox->addItems(sl);
 	ui.styleComboBox->setCurrentIndex(GUIstyle());
+	ui.recentlyUsedSpinBox->setValue(recentlyUsedCount());
 
 	ui.nullCheckBox->setChecked(useNullHighlight());
 	ui.nullAliasEdit->setText(nullHighlightText());
@@ -47,7 +48,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	ui.blobAliasEdit->setText(blobHighlightText());
 	ui.blobBgButton->setPalette(blobHighlightColor());
 
-	ui.recentlyUsedSpinBox->setValue(recentlyUsedCount());
+	ui.cropColumnsCheckBox->setChecked(cropColumns());
 
 	ui.fontComboBox->setCurrentFont(sqlFont());
 	ui.useActiveHighlightCheckBox->setChecked(useActiveHighlighting());
@@ -66,6 +67,7 @@ bool PreferencesDialog::saveSettings()
 	// lnf
 	settings.setValue("prefs/languageComboBox", ui.languageComboBox->currentIndex());
 	settings.setValue("prefs/styleComboBox", ui.styleComboBox->currentIndex());
+	settings.setValue("prefs/recentlyUsedSpinBox", ui.recentlyUsedSpinBox->value());
 	// data results
 	settings.setValue("prefs/nullCheckBox", ui.nullCheckBox->isChecked());
 	settings.setValue("prefs/nullAliasEdit", ui.nullAliasEdit->text());
@@ -73,7 +75,7 @@ bool PreferencesDialog::saveSettings()
 	settings.setValue("prefs/blobCheckBox", ui.blobCheckBox->isChecked());
 	settings.setValue("prefs/blobAliasEdit", ui.blobAliasEdit->text());
 	settings.setValue("prefs/blobBgButton", ui.blobBgButton->palette().color(QPalette::Background));
-	settings.setValue("prefs/recentlyUsedSpinBox", ui.recentlyUsedSpinBox->value());
+	settings.setValue("prefs/cropColumnsCheckBox", ui.cropColumnsCheckBox->isChecked());
 	// sql editor
 	settings.setValue("prefs/sqleditor/font", ui.fontComboBox->currentFont());
 	settings.setValue("prefs/sqleditor/useActiveHighlightCheckBox", ui.useActiveHighlightCheckBox->isChecked());
@@ -103,6 +105,8 @@ void PreferencesDialog::restoreDefaults()
 	ui.blobCheckBox->setChecked(true);
 	ui.blobAliasEdit->setText("{blob}");
 	ui.blobBgButton->setPalette(defCol);
+
+	ui.cropColumnsCheckBox->setChecked(false);
 
 	ui.fontComboBox->setCurrentFont(QFont());
 	ui.useActiveHighlightCheckBox->setChecked(true);
@@ -194,6 +198,12 @@ int PreferencesDialog::GUIstyle()
 {
 	QSettings s("yarpen.cz", "sqliteman");
 	return s.value("prefs/styleComboBox", 0).toInt();
+}
+
+bool PreferencesDialog::cropColumns()
+{
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/cropColumnsCheckBox", false).toBool();
 }
 
 QFont PreferencesDialog::sqlFont()

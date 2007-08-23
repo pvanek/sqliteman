@@ -6,420 +6,480 @@
     <x>0</x>
     <y>0</y>
     <width>455</width>
-    <height>447</height>
+    <height>483</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Preferences</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox" >
-   <property name="geometry" >
-    <rect>
-     <x>9</x>
-     <y>405</y>
-     <width>437</width>
-     <height>33</height>
-    </rect>
-   </property>
-   <property name="orientation" >
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons" >
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::RestoreDefaults|QDialogButtonBox::Save</set>
-   </property>
-  </widget>
-  <widget class="QToolBox" name="toolBox" >
-   <property name="geometry" >
-    <rect>
-     <x>9</x>
-     <y>9</y>
-     <width>437</width>
-     <height>390</height>
-    </rect>
-   </property>
-   <property name="currentIndex" >
-    <number>2</number>
-   </property>
-   <widget class="QWidget" name="page" >
-    <property name="geometry" >
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>437</width>
-      <height>279</height>
-     </rect>
-    </property>
-    <attribute name="label" >
-     <string>&amp;Look and Feel</string>
-    </attribute>
-    <layout class="QGridLayout" >
-     <property name="margin" >
-      <number>9</number>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QToolBox" name="toolBox" >
+     <property name="currentIndex" >
+      <number>0</number>
      </property>
-     <property name="spacing" >
-      <number>6</number>
-     </property>
-     <item row="1" column="0" >
-      <layout class="QHBoxLayout" >
-       <property name="margin" >
-        <number>0</number>
+     <widget class="QWidget" name="page" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>437</width>
+        <height>310</height>
+       </rect>
+      </property>
+      <attribute name="label" >
+       <string>&amp;Look and Feel</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <property name="leftMargin" >
+        <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
+       </property>
+       <property name="horizontalSpacing" >
         <number>6</number>
        </property>
-       <item>
-        <widget class="QLabel" name="label_4" >
-         <property name="text" >
-          <string>&amp;Recently Used Databases:</string>
+       <property name="verticalSpacing" >
+        <number>6</number>
+       </property>
+       <item row="1" column="0" >
+        <layout class="QHBoxLayout" >
+         <property name="spacing" >
+          <number>6</number>
          </property>
-         <property name="buddy" >
-          <cstring>recentlyUsedSpinBox</cstring>
+         <property name="leftMargin" >
+          <number>0</number>
+         </property>
+         <property name="topMargin" >
+          <number>0</number>
+         </property>
+         <property name="rightMargin" >
+          <number>0</number>
+         </property>
+         <property name="bottomMargin" >
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_4" >
+           <property name="text" >
+            <string>&amp;Recently Used Databases:</string>
+           </property>
+           <property name="buddy" >
+            <cstring>recentlyUsedSpinBox</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="recentlyUsedSpinBox" >
+           <property name="toolTip" >
+            <string>Count of the items in the Recent menu</string>
+           </property>
+           <property name="minimum" >
+            <number>1</number>
+           </property>
+           <property name="value" >
+            <number>5</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="groupBox_3" >
+         <property name="title" >
+          <string>These features require application restart</string>
+         </property>
+         <layout class="QGridLayout" >
+          <property name="leftMargin" >
+           <number>9</number>
+          </property>
+          <property name="topMargin" >
+           <number>9</number>
+          </property>
+          <property name="rightMargin" >
+           <number>9</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>9</number>
+          </property>
+          <property name="horizontalSpacing" >
+           <number>6</number>
+          </property>
+          <property name="verticalSpacing" >
+           <number>6</number>
+          </property>
+          <item row="1" column="1" >
+           <widget class="QComboBox" name="styleComboBox" >
+            <property name="toolTip" >
+             <string>Select the application look/GUI theme</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" >
+           <widget class="QLabel" name="label_3" >
+            <property name="text" >
+             <string>GUI &amp;Language:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>languageComboBox</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QComboBox" name="languageComboBox" >
+            <property name="toolTip" >
+             <string>Select the application interface language</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="textLabel3" >
+            <property name="text" >
+             <string>GUI &amp;Style:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>styleComboBox</cstring>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_2" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>437</width>
+        <height>310</height>
+       </rect>
+      </property>
+      <attribute name="label" >
+       <string>&amp;Data Display</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="groupBox" >
+         <property name="title" >
+          <string>NULL handling</string>
+         </property>
+         <layout class="QGridLayout" >
+          <property name="leftMargin" >
+           <number>9</number>
+          </property>
+          <property name="topMargin" >
+           <number>9</number>
+          </property>
+          <property name="rightMargin" >
+           <number>9</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>9</number>
+          </property>
+          <property name="horizontalSpacing" >
+           <number>6</number>
+          </property>
+          <property name="verticalSpacing" >
+           <number>6</number>
+          </property>
+          <item row="0" column="0" colspan="3" >
+           <widget class="QCheckBox" name="nullCheckBox" >
+            <property name="toolTip" >
+             <string>Highlight the NULL values in the data result table</string>
+            </property>
+            <property name="text" >
+             <string>&amp;Use NULL highlighting</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2" >
+           <widget class="QPushButton" name="nullBgButton" >
+            <property name="toolTip" >
+             <string>Background color of the NULL value cell</string>
+            </property>
+            <property name="text" >
+             <string>B&amp;ackground</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="label" >
+            <property name="text" >
+             <string>&amp;NULL alias:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>nullAliasEdit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QLineEdit" name="nullAliasEdit" >
+            <property name="toolTip" >
+             <string>Text to be used as a NULL mark</string>
+            </property>
+            <property name="text" >
+             <string>{null}</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QGroupBox" name="groupBox_2" >
+         <property name="title" >
+          <string>BLOB handling</string>
+         </property>
+         <layout class="QGridLayout" >
+          <property name="leftMargin" >
+           <number>9</number>
+          </property>
+          <property name="topMargin" >
+           <number>9</number>
+          </property>
+          <property name="rightMargin" >
+           <number>9</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>9</number>
+          </property>
+          <property name="horizontalSpacing" >
+           <number>6</number>
+          </property>
+          <property name="verticalSpacing" >
+           <number>6</number>
+          </property>
+          <item row="0" column="0" colspan="3" >
+           <widget class="QCheckBox" name="blobCheckBox" >
+            <property name="toolTip" >
+             <string>Highlight the BLOB values in the data result table</string>
+            </property>
+            <property name="text" >
+             <string>&amp;Use BLOB highlighting</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2" >
+           <widget class="QPushButton" name="blobBgButton" >
+            <property name="toolTip" >
+             <string>Background color of the BLOB value cell</string>
+            </property>
+            <property name="text" >
+             <string>Ba&amp;ckground</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="label_2" >
+            <property name="text" >
+             <string>&amp;BLOB alias:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>nullAliasEdit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QLineEdit" name="blobAliasEdit" >
+            <property name="toolTip" >
+             <string>Text to be used as a BLOB mark</string>
+            </property>
+            <property name="text" >
+             <string>{blob}</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <widget class="QCheckBox" name="cropColumnsCheckBox" >
+         <property name="text" >
+          <string>Limit Text Length Display</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QSpinBox" name="recentlyUsedSpinBox" >
-         <property name="toolTip" >
-          <string>Count of the items in the Recent menu</string>
+       <item row="3" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
          </property>
+         <property name="sizeHint" >
+          <size>
+           <width>419</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_3" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>437</width>
+        <height>279</height>
+       </rect>
+      </property>
+      <attribute name="label" >
+       <string>&amp;SQL Editor</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <property name="leftMargin" >
+        <number>9</number>
+       </property>
+       <property name="topMargin" >
+        <number>9</number>
+       </property>
+       <property name="rightMargin" >
+        <number>9</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>9</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>6</number>
+       </property>
+       <property name="verticalSpacing" >
+        <number>6</number>
+       </property>
+       <item row="5" column="0" >
+        <widget class="QCheckBox" name="useShortcutsBox" >
+         <property name="text" >
+          <string>Use Editor &amp;Shortcuts:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>280</width>
+           <height>61</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="5" column="1" >
+        <widget class="QPushButton" name="shortcutsButton" >
+         <property name="text" >
+          <string>&amp;Define...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" >
+        <widget class="QSpinBox" name="completionLengthBox" >
          <property name="minimum" >
           <number>1</number>
          </property>
          <property name="value" >
-          <number>5</number>
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" >
+        <widget class="QCheckBox" name="useCompletionCheck" >
+         <property name="text" >
+          <string>Use &amp;Code Completion With Length:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" >
+        <widget class="QSpinBox" name="textWidthMarkSpinBox" >
+         <property name="minimum" >
+          <number>1</number>
+         </property>
+         <property name="maximum" >
+          <number>139</number>
+         </property>
+         <property name="value" >
+          <number>75</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" >
+        <widget class="QCheckBox" name="useTextWidthMarkCheckBox" >
+         <property name="text" >
+          <string>Use &amp;Maximum Text Width Mark:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
+        <widget class="QPushButton" name="activeHighlightButton" >
+         <property name="text" >
+          <string>Color...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <widget class="QCheckBox" name="useActiveHighlightCheckBox" >
+         <property name="text" >
+          <string>Use &amp;Active Line Highlighting:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2" >
+        <widget class="QFontComboBox" name="fontComboBox" >
+         <property name="editable" >
+          <bool>false</bool>
+         </property>
+         <property name="fontFilters" >
+          <set>QFontComboBox::MonospacedFonts</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="label_5" >
+         <property name="text" >
+          <string>&amp;Font:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>fontComboBox</cstring>
          </property>
         </widget>
        </item>
       </layout>
-     </item>
-     <item row="0" column="0" >
-      <widget class="QGroupBox" name="groupBox_3" >
-       <property name="title" >
-        <string>These features require application restart</string>
-       </property>
-       <layout class="QGridLayout" >
-        <property name="margin" >
-         <number>9</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item row="1" column="1" >
-         <widget class="QComboBox" name="styleComboBox" >
-          <property name="toolTip" >
-           <string>Select the application look/GUI theme</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" >
-         <widget class="QLabel" name="label_3" >
-          <property name="text" >
-           <string>GUI &amp;Language:</string>
-          </property>
-          <property name="buddy" >
-           <cstring>languageComboBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" >
-         <widget class="QComboBox" name="languageComboBox" >
-          <property name="toolTip" >
-           <string>Select the application interface language</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="textLabel3" >
-          <property name="text" >
-           <string>GUI &amp;Style:</string>
-          </property>
-          <property name="buddy" >
-           <cstring>styleComboBox</cstring>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="2" column="0" >
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="page_2" >
-    <property name="geometry" >
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>306</width>
-      <height>254</height>
-     </rect>
-    </property>
-    <attribute name="label" >
-     <string>&amp;Data Display</string>
-    </attribute>
-    <layout class="QGridLayout" >
-     <property name="margin" >
-      <number>9</number>
+     </widget>
+    </widget>
+   </item>
+   <item row="1" column="0" >
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="spacing" >
-      <number>6</number>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::RestoreDefaults|QDialogButtonBox::Save</set>
      </property>
-     <item row="2" column="0" >
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="0" column="0" >
-      <widget class="QGroupBox" name="groupBox" >
-       <property name="title" >
-        <string>NULL handling</string>
-       </property>
-       <layout class="QGridLayout" >
-        <property name="margin" >
-         <number>9</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item row="0" column="0" colspan="3" >
-         <widget class="QCheckBox" name="nullCheckBox" >
-          <property name="toolTip" >
-           <string>Highlight the NULL values in the data result table</string>
-          </property>
-          <property name="text" >
-           <string>&amp;Use NULL highlighting</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2" >
-         <widget class="QPushButton" name="nullBgButton" >
-          <property name="toolTip" >
-           <string>Background color of the NULL value cell</string>
-          </property>
-          <property name="text" >
-           <string>B&amp;ackground</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="label" >
-          <property name="text" >
-           <string>&amp;NULL alias:</string>
-          </property>
-          <property name="buddy" >
-           <cstring>nullAliasEdit</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" >
-         <widget class="QLineEdit" name="nullAliasEdit" >
-          <property name="toolTip" >
-           <string>Text to be used as a NULL mark</string>
-          </property>
-          <property name="text" >
-           <string>{null}</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="1" column="0" >
-      <widget class="QGroupBox" name="groupBox_2" >
-       <property name="title" >
-        <string>BLOB handling</string>
-       </property>
-       <layout class="QGridLayout" >
-        <property name="margin" >
-         <number>9</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item row="0" column="0" colspan="3" >
-         <widget class="QCheckBox" name="blobCheckBox" >
-          <property name="toolTip" >
-           <string>Highlight the BLOB values in the data result table</string>
-          </property>
-          <property name="text" >
-           <string>&amp;Use BLOB highlighting</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2" >
-         <widget class="QPushButton" name="blobBgButton" >
-          <property name="toolTip" >
-           <string>Background color of the BLOB value cell</string>
-          </property>
-          <property name="text" >
-           <string>Ba&amp;ckground</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="label_2" >
-          <property name="text" >
-           <string>&amp;BLOB alias:</string>
-          </property>
-          <property name="buddy" >
-           <cstring>nullAliasEdit</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" >
-         <widget class="QLineEdit" name="blobAliasEdit" >
-          <property name="toolTip" >
-           <string>Text to be used as a BLOB mark</string>
-          </property>
-          <property name="text" >
-           <string>{blob}</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="page_3" >
-    <property name="geometry" >
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>437</width>
-      <height>279</height>
-     </rect>
-    </property>
-    <attribute name="label" >
-     <string>&amp;SQL Editor</string>
-    </attribute>
-    <layout class="QGridLayout" >
-     <property name="margin" >
-      <number>9</number>
-     </property>
-     <property name="spacing" >
-      <number>6</number>
-     </property>
-     <item row="5" column="0" >
-      <widget class="QCheckBox" name="useShortcutsBox" >
-       <property name="text" >
-        <string>Use Editor &amp;Shortcuts:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0" >
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" >
-        <size>
-         <width>280</width>
-         <height>61</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="5" column="1" >
-      <widget class="QPushButton" name="shortcutsButton" >
-       <property name="text" >
-        <string>&amp;Define...</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1" >
-      <widget class="QSpinBox" name="completionLengthBox" >
-       <property name="minimum" >
-        <number>1</number>
-       </property>
-       <property name="value" >
-        <number>3</number>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0" >
-      <widget class="QCheckBox" name="useCompletionCheck" >
-       <property name="text" >
-        <string>Use &amp;Code Completion With Length:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1" >
-      <widget class="QSpinBox" name="textWidthMarkSpinBox" >
-       <property name="maximum" >
-        <number>139</number>
-       </property>
-       <property name="minimum" >
-        <number>1</number>
-       </property>
-       <property name="value" >
-        <number>75</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0" >
-      <widget class="QCheckBox" name="useTextWidthMarkCheckBox" >
-       <property name="text" >
-        <string>Use &amp;Maximum Text Width Mark:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1" >
-      <widget class="QPushButton" name="activeHighlightButton" >
-       <property name="text" >
-        <string>Color...</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0" >
-      <widget class="QCheckBox" name="useActiveHighlightCheckBox" >
-       <property name="text" >
-        <string>Use &amp;Active Line Highlighting:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" colspan="2" >
-      <widget class="QFontComboBox" name="fontComboBox" >
-       <property name="editable" >
-        <bool>false</bool>
-       </property>
-       <property name="fontFilters" >
-        <set>QFontComboBox::MonospacedFonts</set>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0" >
-      <widget class="QLabel" name="label_5" >
-       <property name="text" >
-        <string>&amp;Font:</string>
-       </property>
-       <property name="buddy" >
-        <cstring>fontComboBox</cstring>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections>
