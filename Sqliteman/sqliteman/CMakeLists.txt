@@ -16,6 +16,7 @@ SET( SQLITEMAN_SRC
     dataexportdialog.cpp
     dataviewer.cpp
     helpbrowser.cpp
+    importtabledialog.cpp
     litemanwindow.cpp
     main.cpp
     preferencesdialog.cpp
@@ -25,6 +26,7 @@ SET( SQLITEMAN_SRC
     shortcutmodel.cpp
     sqleditor.cpp
     sqleditorwidget.cpp
+    sqliteprocess.cpp
     sqlkeywords.cpp
     sqlparser.cpp
     sqlmodels.cpp
@@ -46,6 +48,7 @@ SET( SQLITEMAN_MOC
     dataexportdialog.h
     dataviewer.h
     helpbrowser.h
+    importtabledialog.h
     litemanwindow.h
     preferencesdialog.h
     queryeditordialog.h
@@ -54,6 +57,7 @@ SET( SQLITEMAN_MOC
     shortcutmodel.h
     sqleditor.h
     sqleditorwidget.h
+    sqliteprocess.h
     sqlparser.h
     sqlmodels.h
     tableeditordialog.h
@@ -70,6 +74,7 @@ SET( SQLITEMAN_UI
     dataexportdialog.ui
     dataviewer.ui
     helpbrowser.ui
+    importtabledialog.ui
     preferencesdialog.ui
     schemabrowser.ui
     shortcuteditordialog.ui

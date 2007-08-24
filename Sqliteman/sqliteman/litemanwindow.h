@@ -42,6 +42,8 @@ class LiteManWindow : public QMainWindow
 		//! \brief Set the chosen language (used in the translator) to localize help too.
 		void setLanguage(QString l) { m_lang = l; };
 
+		QString mainDbPath() { return m_mainDbPath; };
+
 	signals:
 		void prefsChanged();
 
@@ -103,6 +105,7 @@ class LiteManWindow : public QMainWindow
 		void createTable();
 		void dropTable();
 		void alterTable();
+		void importTable();
 
 		void createView();
 		void dropView();
@@ -172,6 +175,7 @@ class LiteManWindow : public QMainWindow
 		QAction * dropTableAct;
 		QAction * alterTableAct;
 		QAction * describeTableAct;
+		QAction * importTableAct;
 
 		QAction * createViewAct;
 		QAction * dropViewAct;

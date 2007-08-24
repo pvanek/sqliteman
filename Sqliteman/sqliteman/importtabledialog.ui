@@ -1,0 +1,195 @@
+<ui version="4.0" >
+ <class>ImportTableDialog</class>
+ <widget class="QDialog" name="ImportTableDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>509</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Data Import</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>&amp;Table to Import Into:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>tableComboBox</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QComboBox" name="tableComboBox" />
+   </item>
+   <item row="1" column="0" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>&amp;File to Import:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>fileEdit</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="QLineEdit" name="fileEdit" />
+   </item>
+   <item row="1" column="2" >
+    <widget class="QPushButton" name="fileButton" >
+     <property name="text" >
+      <string>&amp;Search...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="3" >
+    <widget class="QTabWidget" name="tabWidget" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="importTab" >
+      <attribute name="title" >
+       <string>Sqlite .import</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QGroupBox" name="groupBox" >
+         <property name="title" >
+          <string>Column Separators</string>
+         </property>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="QRadioButton" name="pipeRadioButton" >
+            <property name="text" >
+             <string>Pipe Symbol (Default)</string>
+            </property>
+            <property name="checked" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QRadioButton" name="commaRadioButton" >
+            <property name="text" >
+             <string>Comma</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QRadioButton" name="semicolonRadioButton" >
+            <property name="text" >
+             <string>Semicolon</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QRadioButton" name="tabelatorRadioButton" >
+            <property name="text" >
+             <string>Tabelator</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2" >
+           <layout class="QHBoxLayout" >
+            <item>
+             <widget class="QRadioButton" name="customRadioButton" >
+              <property name="text" >
+               <string>Custom:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="customEdit" />
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>41</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="xmlImport" >
+      <attribute name="title" >
+       <string>XML</string>
+      </attribute>
+      <widget class="QLabel" name="label_3" >
+       <property name="geometry" >
+        <rect>
+         <x>80</x>
+         <y>30</y>
+         <width>76</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>TODO</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="3" >
+    <widget class="QGroupBox" name="groupBox_2" >
+     <property name="title" >
+      <string>Preview</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QTableView" name="previewView" >
+        <property name="alternatingRowColors" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="3" >
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>ImportTableDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>295</x>
+     <y>458</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 #include <QSplitter>
 #include <QMenuBar>
 #include <QMenu>
-#include <QProcess>
 #include <QTime>
 
 #include <QInputDialog>
@@ -47,6 +46,8 @@ for which a new license (GPL+exception) is in place.
 #include "vacuumdialog.h"
 #include "helpbrowser.h"
 #include "sqlparser.h"
+#include "importtabledialog.h"
+#include "sqliteprocess.h"
 
 
 LiteManWindow::LiteManWindow(const QString & fileToOpen)
@@ -208,6 +209,9 @@ void LiteManWindow::initActions()
 
 	describeTableAct = new QAction(tr("D&escribe Table"), this);
 	connect(describeTableAct, SIGNAL(triggered()), this, SLOT(describeTable()));
+
+	importTableAct = new QAction(tr("&Import Data..."), this);
+	connect(importTableAct, SIGNAL(triggered()), this, SLOT(importTable()));
 
 	createTriggerAct = new QAction(tr("&Create Trigger..."), this);
 	connect(createTriggerAct, SIGNAL(triggered()), this, SLOT(createTrigger()));
@@ -402,7 +406,7 @@ void LiteManWindow::open(const QString & file)
 		return;
 	openDatabase(fileName);
 }
-
+#include <QtDebug>
 void LiteManWindow::openDatabase(const QString & fileName)
 {
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
@@ -420,7 +424,8 @@ void LiteManWindow::openDatabase(const QString & fileName)
 
 	QFileInfo fi(fileName);
 	QDir::setCurrent(fi.absolutePath());
-	m_mainDbPath = fi.absoluteFilePath();
+	m_mainDbPath = QDir::toNativeSeparators(QDir::currentPath() + "/" + fi.fileName());
+
 	updateRecent(fileName);
 
 	// Build tree & clean model
@@ -541,33 +546,20 @@ void LiteManWindow::dumpDatabase()
 	if (fileName.isNull())
 		return;
 
-	QProcess dump;
+	SqliteProcess dump(this);
 	dump.setStandardOutputFile(fileName);
-	dump.start(SQLITE_BINARY, QStringList() << m_mainDbPath << ".dump");
-	if (!dump.waitForStarted() || !dump.waitForFinished(-1) || (dump.exitStatus() != QProcess::NormalExit))
-	{
-		QString reason;
-		switch (dump.error())
-		{
-			case (QProcess::FailedToStart) :
-				reason = tr("The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program.");
-				break;
-			case (QProcess::Crashed) :
-				reason = tr("The process crashed some time after starting successfully.");
-				break;
-			case (QProcess::WriteError) :
-				reason = tr("An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel.");
-				break;
-			case (QProcess::ReadError):
-				reason = tr("An error occurred when attempting to read from the process. For example, the process may not be running.");
-				break;
-			default:
-				reason = tr("An unknown error occurred.");
-		}
-		QMessageBox::warning(this, m_appName, tr("Error creating the dump. Reason: %1").arg(reason));
-	}
+	dump.start(QStringList() << ".dump");
+	if (!dump.success())
+		QMessageBox::warning(this, m_appName, "<qt>" + tr("Error creating the dump. Reason: %1\n%2")
+				.arg(dump.errorMessage().arg(dump.allStderr())) + "</qt>");
 	else
-		QMessageBox::warning(this, m_appName, tr("Dump written into: %1").arg(fileName));
+	{
+		QString e(dump.allStderr());
+		if (e.isEmpty())
+			QMessageBox::warning(this, m_appName, tr("Dump written into: %1").arg(fileName));
+		else
+			QMessageBox::warning(this, m_appName, tr("An error occured in the dump: %1").arg(e));
+	}
 }
 
 void LiteManWindow::createTable()
@@ -595,6 +587,17 @@ void LiteManWindow::alterTable()
 	dlg.exec();
 	if (dlg.update)
 		schemaBrowser->tableTree->buildTables(item->parent(), item->text(1));
+}
+
+void LiteManWindow::importTable()
+{
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
+
+	if(!item)
+		return;
+
+	ImportTableDialog dlg(this, item->text(0), item->text(1));
+	dlg.exec();
 }
 
 void LiteManWindow::dropTable()
@@ -734,6 +737,8 @@ void LiteManWindow::tableTree_currentItemChanged(QTreeWidgetItem* cur, QTreeWidg
 			contextMenu->addAction(alterTableAct);
 			contextMenu->addAction(dropTableAct);
 			contextMenu->addAction(reindexAct);
+			contextMenu->addSeparator();
+			contextMenu->addAction(importTableAct);
 			break;
 
 		case TableTree::ViewType:
