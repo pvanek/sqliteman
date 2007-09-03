@@ -127,7 +127,7 @@
      </widget>
      <widget class="QWidget" name="xmlImport" >
       <attribute name="title" >
-       <string>XML</string>
+       <string>MS Excel XML</string>
       </attribute>
       <widget class="QLabel" name="label_3" >
        <property name="geometry" >

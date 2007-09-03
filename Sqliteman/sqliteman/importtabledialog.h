@@ -40,12 +40,12 @@ class ImportTableDialog : public QDialog, public Ui::ImportTableDialog
 namespace ImportTable
 {
 
-	class CSVModel : public QAbstractTableModel
+	class BaseModel : public QAbstractTableModel
 	{
 		Q_OBJECT
 
 		public:
-			CSVModel(QString fileName, QString separator, QObject * parent = 0, int maxRows = 5);
+			BaseModel(QObject * parent = 0);
 
 			int rowCount(const QModelIndex & parent = QModelIndex()) const;
 			int columnCount(const QModelIndex & parent = QModelIndex()) const;
@@ -54,9 +54,26 @@ namespace ImportTable
 
 			QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-		private:
 			int m_columns;
 			QList<QStringList> m_values;
+	};
+
+
+	class CSVModel : public BaseModel
+	{
+		Q_OBJECT
+
+		public:
+			CSVModel(QString fileName, QString separator, QObject * parent = 0, int maxRows = 5);
+	};
+
+
+	class XMLModel : public BaseModel
+	{
+		Q_OBJECT
+
+		public:
+			XMLModel(QString fileName, QObject * parent = 0, int maxRows = 5);
 	};
 
 };
