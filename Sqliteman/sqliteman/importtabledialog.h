@@ -64,7 +64,7 @@ namespace ImportTable
 		Q_OBJECT
 
 		public:
-			CSVModel(QString fileName, QString separator, QObject * parent = 0, int maxRows = 5);
+			CSVModel(QString fileName, QString separator, QObject * parent = 0, int maxRows = 0);
 	};
 
 
@@ -73,7 +73,7 @@ namespace ImportTable
 		Q_OBJECT
 
 		public:
-			XMLModel(QString fileName, QObject * parent = 0, int maxRows = 5);
+			XMLModel(QString fileName, QObject * parent = 0, int maxRows = 0);
 	};
 
 };

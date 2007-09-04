@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "sqliteprocess.h"
 #include "litemanwindow.h"
 
+#include <QtDebug>
 
 SqliteProcess::SqliteProcess(QObject * parent)
 	: QObject(parent),
@@ -22,14 +23,17 @@ void SqliteProcess::setStandardOutputFile(const QString & fname)
 	m_stdout = fname;
 }
 
-void SqliteProcess::start(const QStringList & args)
+void SqliteProcess::start(const QStringList & commands, const QStringList & options)
 {
 	QProcess p;
 
-	if (!m_stdout.isNull())
-		p.setStandardOutputFile(m_stdout);
+// 	if (!m_stdout.isNull())
+// 		p.setStandardOutputFile(m_stdout);
 
-	p.start(SQLITE_BINARY, QStringList() << m_mainDbPath << args);
+	QStringList list = QStringList() << options << m_mainDbPath << commands;
+	qDebug() << "Running " << SQLITE_BINARY << " with args: " << list;
+	qDebug() << QString("     %1 %2").arg(SQLITE_BINARY).arg(list.join(" "));
+	p.start(SQLITE_BINARY, list);
 	if (!p.waitForStarted() || !p.waitForFinished(-1) || (p.exitStatus() != QProcess::NormalExit))
 	{
 		m_success = false;
@@ -54,4 +58,5 @@ void SqliteProcess::start(const QStringList & args)
 	else
 		m_success = true;
 	m_stderr = QString(p.readAllStandardError());
+	m_stdout = QString(p.readAllStandardOutput());
 }

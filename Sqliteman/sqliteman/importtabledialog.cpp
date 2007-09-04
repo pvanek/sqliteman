@@ -76,11 +76,11 @@ void ImportTableDialog::slotAccepted()
 QString ImportTableDialog::sqliteSeparator()
 {
 	if (pipeRadioButton->isChecked())
-		return "|";
+		return "\"|\"";
 	else if (commaRadioButton->isChecked())
-		return ",";
+		return "\",\"";
 	else if (semicolonRadioButton->isChecked())
-		return ";";
+		return "\";\"";
 	else if (tabelatorRadioButton->isChecked())
 		return "\"\\t\"";
 	return customEdit->text();
@@ -96,22 +96,25 @@ bool ImportTableDialog::sqliteImport()
 		return false;
 	}
 	SqliteProcess imp(m_parent);
-	imp.start(QStringList() << ".separator " << sqliteSeparator() << " .import " << fileEdit->text() << " " << tableComboBox->currentText());
-	qDebug() << imp.errorMessage();
-	qDebug() << imp.success();
-	qDebug() << imp.allStderr();
+	imp.start(QStringList() << ".separator" << sqliteSeparator() << ".import" << fileEdit->text() << tableComboBox->currentText());
+	qDebug() << "Errmsg: " << imp.errorMessage();
+	qDebug() << "Succes: " << imp.success();
+	qDebug() << "Stderr: " << imp.allStderr();
+	qDebug() << "Stdout: " << imp.allStdout();
 	return false;
 }
 
 void ImportTableDialog::createPreview(int)
 {
+	if (fileEdit->text().isEmpty())
+		return;
 	switch (tabWidget->currentIndex())
 	{
 		case 0:
-			previewView->setModel(new ImportTable::CSVModel(fileEdit->text(), sqliteSeparator(), this));
+			previewView->setModel(new ImportTable::CSVModel(fileEdit->text(), sqliteSeparator(), this, 3));
 			break;
 		case 1:
-			previewView->setModel(new ImportTable::XMLModel(fileEdit->text(), this));
+			previewView->setModel(new ImportTable::XMLModel(fileEdit->text(), this, 3));
 			break;
 	}
 }
@@ -193,8 +196,10 @@ ImportTable::CSVModel::CSVModel(QString fileName, QString separator, QObject * p
 		if (row.count() > m_columns)
 			m_columns = row.count();
 		m_values.append(row);
-		if (++r > maxRows)
+		if (r > maxRows)
 			break;
+		if (maxRows != 0)
+			++r;
 	}
 	f.close();
 }
@@ -213,6 +218,7 @@ ImportTable::XMLModel::XMLModel(QString fileName, QObject * parent, int maxRows)
 	QXmlStreamReader xml(&file);
 	QStringList row;
 	bool isCell = false;
+	int r = 0;
 
 	while (!xml.atEnd())
 	{
@@ -240,6 +246,10 @@ ImportTable::XMLModel::XMLModel(QString fileName, QObject * parent, int maxRows)
 					m_columns = row.count();
 				row.clear();
 				isCell = false;
+				if (r > maxRows)
+					break;
+				if (maxRows != 0)
+					++r;
 			}
 		}
 	}

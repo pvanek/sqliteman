@@ -8,7 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SQLITEPROCESS_H
 #define SQLITEPROCESS_H
 
-#include <QObject>
+#include <QStringList>
+
 
 class SqliteProcess : public QObject
 {
@@ -17,13 +18,14 @@ class SqliteProcess : public QObject
 	public:
 		SqliteProcess(QObject * parent = 0);
 
-		void start(const QStringList & args);
+		void start(const QStringList & commands, const QStringList & options = QStringList());
 		QString errorMessage() { return m_error; };
 		bool success() { return m_success; };
 
 		void setStandardOutputFile(const QString & fname);
 
 		QString allStderr() { return m_stderr; };
+		QString allStdout() { return m_stdout; };
 
 	private:
 		QString m_mainDbPath;
