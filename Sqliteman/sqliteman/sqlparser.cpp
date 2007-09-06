@@ -119,17 +119,3 @@ bool SqlEditorTools::SqlParser::updateTree(const QString & sql)
 		return true;
 	return false;
 }
-
-
-#ifdef PARSERDEBUG
-#include <QApplication>
-int main(int argc, char ** argv)
-{
-	QApplication a(argc, argv);
-	SqlParser s("select * from foo;\nselect * from bar;");
-
-	qDebug() << s.getStatement(20);
-	return 0;
-}
-
-#endif

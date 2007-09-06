@@ -7,8 +7,11 @@ for which a new license (GPL+exception) is in place.
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QXmlStreamReader>
+#include <QSqlQuery>
+#include <QSqlError>
 
 #include "importtabledialog.h"
+#include "importtablelogdialog.h"
 #include "database.h"
 #include "sqliteprocess.h"
 
@@ -16,7 +19,8 @@ for which a new license (GPL+exception) is in place.
 
 ImportTableDialog::ImportTableDialog(QWidget * parent, const QString & tableName, const QString & schema)
 	: QDialog(parent),
-	  m_parent(parent)
+	  m_parent(parent),
+	  m_schema(schema)
 {
 	setupUi(this);
 
@@ -60,17 +64,84 @@ void ImportTableDialog::fileButton_clicked()
 
 void ImportTableDialog::slotAccepted()
 {
-	bool result = false;
+	QList<QStringList> values;
+
+	if (fileEdit->text().isEmpty())
+		return;
 
 	switch (tabWidget->currentIndex())
 	{
 		case 0:
-			result = sqliteImport();
+			if (sqliteSeparator().length() == 0)
+			{
+				QMessageBox::warning(this, tr("Data Import"),
+									tr("Fields separator must be given"));
+				return;
+			}
+			values = ImportTable::CSVModel(fileEdit->text(), sqliteSeparator(), this, 0).m_values;
 			break;
-		// TODO: more stuff
+		case 1:
+			values = ImportTable::XMLModel(fileEdit->text(), this, 0).m_values;
 	}
+
+	// base import
+	bool result = true;
+	QStringList l;
+	QStringList log;
+	int cols = Database::tableFields(tableComboBox->currentText(), m_schema).count();
+	int row = 0;
+	int success = 0;
+	QString sql("insert into %1.%2 values (%3);");
+	QSqlQuery query(QSqlDatabase::database(SESSION_NAME));
+
+	QStringList binds;
+	for (int i = 0; i < cols; ++i)
+		binds << "?";
+	sql = sql.arg(m_schema, tableComboBox->currentText(), binds.join(", "));
+
+	if (!Database::execSql("BEGIN TRANSACTION;"))
+		return;
+
+	foreach (l, values)
+	{
+		++row;
+		if (l.count() != cols)
+		{
+			log.append(tr("Row = %1; Imported values = %2; Table columns count = %3; Values = (%4)")
+					.arg(row).arg(l.count()).arg(cols).arg(l.join(", ")));
+			result = false;
+			continue;
+		}
+
+		query.prepare(sql);
+		for (int i = 0; i < cols ; ++i)
+			query.addBindValue(l.at(i));
+
+		query.exec();
+		if (query.lastError().isValid())
+		{
+			log.append(tr("Row = %1; %2").arg(row).arg(query.lastError().databaseText()));
+			result = false;
+		}
+		else
+			++success;
+	}
+qDebug() << success;
 	if (result)
+	{
+		Database::execSql("COMMIT;");
 		accept();
+	}
+	else
+	{
+		ImportTableLogDialog dia(log, this);
+		if (dia.exec())
+		{
+			if (Database::execSql("COMMIT;"))
+				accept();
+		}
+		Database::execSql("ROLLBACK;");
+	}
 }
 
 QString ImportTableDialog::sqliteSeparator()
@@ -84,24 +155,6 @@ QString ImportTableDialog::sqliteSeparator()
 	else if (tabelatorRadioButton->isChecked())
 		return "\"\\t\"";
 	return customEdit->text();
-}
-
-bool ImportTableDialog::sqliteImport()
-{
-	QString out;
-	if (sqliteSeparator().length() == 0)
-	{
-		QMessageBox::warning(this, tr("Data Import"),
-							 tr("Fields separator must be given"));
-		return false;
-	}
-	SqliteProcess imp(m_parent);
-	imp.start(QStringList() << ".separator" << sqliteSeparator() << ".import" << fileEdit->text() << tableComboBox->currentText());
-	qDebug() << "Errmsg: " << imp.errorMessage();
-	qDebug() << "Succes: " << imp.success();
-	qDebug() << "Stderr: " << imp.allStderr();
-	qDebug() << "Stdout: " << imp.allStdout();
-	return false;
 }
 
 void ImportTableDialog::createPreview(int)

@@ -17,6 +17,7 @@ SET( SQLITEMAN_SRC
     dataviewer.cpp
     helpbrowser.cpp
     importtabledialog.cpp
+    importtablelogdialog.cpp
     litemanwindow.cpp
     main.cpp
     preferencesdialog.cpp
@@ -49,6 +50,7 @@ SET( SQLITEMAN_MOC
     dataviewer.h
     helpbrowser.h
     importtabledialog.h
+    importtablelogdialog.h
     litemanwindow.h
     preferencesdialog.h
     queryeditordialog.h
@@ -75,6 +77,7 @@ SET( SQLITEMAN_UI
     dataviewer.ui
     helpbrowser.ui
     importtabledialog.ui
+    importtablelogdialog.ui
     preferencesdialog.ui
     schemabrowser.ui
     shortcuteditordialog.ui

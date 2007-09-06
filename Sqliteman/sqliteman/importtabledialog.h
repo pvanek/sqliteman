@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui_importtabledialog.h"
 
 
-/*! \brief Import data into table using .import
+/*! \brief Import data into table using various importer types
 \author Petr Vanek <petr@scribus.info>
 */
 class ImportTableDialog : public QDialog, public Ui::ImportTableDialog
@@ -23,23 +23,33 @@ class ImportTableDialog : public QDialog, public Ui::ImportTableDialog
 
 	private:
 		QObject * m_parent;
-		bool sqliteImport();
+		QString m_schema;
+
 		QString sqliteSeparator();
 
 		void sqlitePreview();
 
 	private slots:
 		void fileButton_clicked();
+		//! \brief Main import is handled here
 		void slotAccepted();
+		//! \brief Overloaded due the defined Qt signal/slot
 		void createPreview(int i = 0);
+		//! \brief Overloaded due the defined Qt signal/slot
 		void createPreview(bool);
 		void customEdit_textChanged(QString);
 
 };
 
+//! \brief A helper classes used for data import.
 namespace ImportTable
 {
 
+	/*! \brief A base Model for all import "modules".
+	It's a model in qt4 mvc architecture. See Qt4 docs for
+	methods meanings.
+	\author Petr Vanek <petr@scribus.info>
+	*/
 	class BaseModel : public QAbstractTableModel
 	{
 		Q_OBJECT
@@ -54,11 +64,15 @@ namespace ImportTable
 
 			QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
+			//! \brief Maximum columns of all rows in the model. See columnCount();
 			int m_columns;
+			/*! \brief Internal structure of values.
+			It's filled by format parsers in inherited classes */
 			QList<QStringList> m_values;
 	};
 
 
+	//! \brief Comma Separated Values importer
 	class CSVModel : public BaseModel
 	{
 		Q_OBJECT
@@ -67,7 +81,7 @@ namespace ImportTable
 			CSVModel(QString fileName, QString separator, QObject * parent = 0, int maxRows = 0);
 	};
 
-
+	//! \brief MS Excel XML importer
 	class XMLModel : public BaseModel
 	{
 		Q_OBJECT
