@@ -74,6 +74,8 @@ QString SqlEditor::query()
 	if (cur.hasSelection())
 		return cur.selectedText();
 
+	cur.movePosition(QTextCursor::WordLeft);
+
 	// current "pararaph"
 	SqlEditorTools::SqlParser parser(ui.sqlTextEdit->toPlainText());
 
