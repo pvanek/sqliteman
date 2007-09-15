@@ -51,6 +51,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	ui.cropColumnsCheckBox->setChecked(cropColumns());
 
 	ui.fontComboBox->setCurrentFont(sqlFont());
+    ui.fontSizeSpin->setValue(sqlFontSize());
 	ui.useActiveHighlightCheckBox->setChecked(useActiveHighlighting());
 	ui.activeHighlightButton->setPalette(activeHighlightColor());
 	ui.useTextWidthMarkCheckBox->setChecked(useTextWidthMark());
@@ -78,6 +79,7 @@ bool PreferencesDialog::saveSettings()
 	settings.setValue("prefs/cropColumnsCheckBox", ui.cropColumnsCheckBox->isChecked());
 	// sql editor
 	settings.setValue("prefs/sqleditor/font", ui.fontComboBox->currentFont());
+    settings.setValue("prefs/sqleditor/fontSize", ui.fontSizeSpin->value());
 	settings.setValue("prefs/sqleditor/useActiveHighlightCheckBox", ui.useActiveHighlightCheckBox->isChecked());
 	settings.setValue("prefs/sqleditor/activeHighlightButton", ui.activeHighlightButton->palette().color(QPalette::Background));
 	settings.setValue("prefs/sqleditor/useTextWidthMarkCheckBox", ui.useTextWidthMarkCheckBox->isChecked());
@@ -108,7 +110,9 @@ void PreferencesDialog::restoreDefaults()
 
 	ui.cropColumnsCheckBox->setChecked(false);
 
-	ui.fontComboBox->setCurrentFont(QFont());
+    QFont fTmp;
+	ui.fontComboBox->setCurrentFont(fTmp);
+    ui.fontSizeSpin->setValue(fTmp.pointSize());
 	ui.useActiveHighlightCheckBox->setChecked(true);
 	ui.activeHighlightButton->setPalette(defCol);
 	ui.useTextWidthMarkCheckBox->setChecked(true);
@@ -209,7 +213,15 @@ bool PreferencesDialog::cropColumns()
 QFont PreferencesDialog::sqlFont()
 {
 	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/sqleditor/font", QFont()).value<QFont>();
+    QFont f;
+    f.setPointSize(sqlFontSize());
+	return s.value("prefs/sqleditor/font", f).value<QFont>();
+}
+
+int PreferencesDialog::sqlFontSize()
+{
+    QSettings s("yarpen.cz", "sqliteman");
+    return s.value("prefs/sqleditor/fontSize", QFont().pointSize()).toInt();
 }
 
 bool PreferencesDialog::useActiveHighlighting()

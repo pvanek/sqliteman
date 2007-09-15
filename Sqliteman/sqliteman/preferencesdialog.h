@@ -41,6 +41,7 @@ class PreferencesDialog : public QDialog//, public Ui::PreferencesDialog
 		static bool cropColumns();
 
 		static QFont sqlFont();
+        static int sqlFontSize();
 		static bool useActiveHighlighting();
 		static QColor activeHighlightColor();
 		static bool useTextWidthMark();
