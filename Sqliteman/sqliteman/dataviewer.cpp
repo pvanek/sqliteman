@@ -74,6 +74,7 @@ bool DataViewer::setTableModel(QAbstractItemModel * model)
 		}
 	}
 	ui.tableView->setModel(model);
+	ui.itemView->setModel(model);
 	resizeViewToContents();
 	return true;
 }

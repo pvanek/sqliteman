@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>598</width>
-    <height>397</height>
+    <height>607</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -14,33 +14,51 @@
   </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QGridLayout" >
-    <property name="margin" >
-     <number>9</number>
-    </property>
-    <property name="spacing" >
-     <number>6</number>
-    </property>
     <item row="0" column="0" >
      <widget class="QSplitter" name="splitter" >
       <property name="orientation" >
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QTableView" name="tableView" >
-       <property name="minimumSize" >
-        <size>
-         <width>0</width>
-         <height>100</height>
-        </size>
+      <widget class="QTabWidget" name="tabWidget" >
+       <property name="currentIndex" >
+        <number>0</number>
        </property>
-       <property name="alternatingRowColors" >
-        <bool>true</bool>
-       </property>
-       <property name="verticalScrollMode" >
-        <enum>QAbstractItemView::ScrollPerPixel</enum>
-       </property>
-       <property name="horizontalScrollMode" >
-        <enum>QAbstractItemView::ScrollPerPixel</enum>
-       </property>
+       <widget class="QWidget" name="tab" >
+        <attribute name="title" >
+         <string>Full View</string>
+        </attribute>
+        <layout class="QGridLayout" >
+         <item row="0" column="0" >
+          <widget class="QTableView" name="tableView" >
+           <property name="minimumSize" >
+            <size>
+             <width>0</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="alternatingRowColors" >
+            <bool>true</bool>
+           </property>
+           <property name="verticalScrollMode" >
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <property name="horizontalScrollMode" >
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_2" >
+        <attribute name="title" >
+         <string>Item View</string>
+        </attribute>
+        <layout class="QGridLayout" >
+         <item row="0" column="0" >
+          <widget class="SqlItemView" native="1" name="itemView" />
+         </item>
+        </layout>
+       </widget>
       </widget>
       <widget class="QTextEdit" name="statusText" >
        <property name="minimumSize" >
@@ -62,7 +80,10 @@
     <enum>Qt::Horizontal</enum>
    </property>
    <attribute name="toolBarArea" >
-    <number>4</number>
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
    </attribute>
    <addaction name="actionNew_Row" />
    <addaction name="actionRemove_Row" />
@@ -110,6 +131,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SqlItemView</class>
+   <extends>QWidget</extends>
+   <header>sqlitemview.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="icons/icons.qrc" />
  </resources>

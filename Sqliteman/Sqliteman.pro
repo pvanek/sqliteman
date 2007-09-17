@@ -55,6 +55,7 @@ HEADERS += sqliteman/altertabledialog.h \
            sqliteman/sqleditor.h \
            sqliteman/sqleditorwidget.h \
            sqliteman/sqliteprocess.h \
+           sqliteman/sqlitemview.h \
            sqliteman/sqlkeywords.h \
            sqliteman/sqlmodels.h \
            sqliteman/sqlparser.h \
@@ -75,6 +76,7 @@ FORMS += sqliteman/analyzedialog.ui \
          sqliteman/schemabrowser.ui \
          sqliteman/shortcuteditordialog.ui \
          sqliteman/sqleditor.ui \
+         sqliteman/sqlitemview.ui \
          sqliteman/tableeditordialog.ui \
          sqliteman/vacuumdialog.ui
 SOURCES += sqliteman/altertabledialog.cpp \
@@ -97,11 +99,12 @@ SOURCES += sqliteman/altertabledialog.cpp \
            sqliteman/preferencesdialog.cpp \
            sqliteman/queryeditordialog.cpp \
            sqliteman/schemabrowser.cpp \
-	   sqliteman/shortcuteditordialog.cpp \
-	   sqliteman/shortcutmodel.cpp \
+           sqliteman/shortcuteditordialog.cpp \
+           sqliteman/shortcutmodel.cpp \
            sqliteman/sqleditor.cpp \
            sqliteman/sqleditorwidget.cpp \
            sqliteman/sqliteprocess.cpp \
+           sqliteman/sqlitemview.cpp \
            sqliteman/sqlkeywords.cpp \
            sqliteman/sqlmodels.cpp \
            sqliteman/sqlparser.cpp \
