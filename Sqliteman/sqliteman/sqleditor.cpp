@@ -167,6 +167,11 @@ void SqlEditor::open(const QString &  newFile)
 	ui.sqlTextEdit->append(strList.join("\n"));
 	ui.sqlTextEdit->document()->setModified(false);
 
+	// move cursor at the start of doc when it's opened
+	QTextCursor cur(ui.sqlTextEdit->textCursor());
+	cur.movePosition(QTextCursor::Start);
+	ui.sqlTextEdit->setTextCursor(cur);
+
 	delete progress;
 	progress = 0;
 }

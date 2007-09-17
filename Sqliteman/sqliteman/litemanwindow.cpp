@@ -406,7 +406,7 @@ void LiteManWindow::open(const QString & file)
 		return;
 	openDatabase(fileName);
 }
-#include <QtDebug>
+
 void LiteManWindow::openDatabase(const QString & fileName)
 {
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
