@@ -213,15 +213,15 @@ bool PreferencesDialog::cropColumns()
 QFont PreferencesDialog::sqlFont()
 {
 	QSettings s("yarpen.cz", "sqliteman");
-    QFont f;
-    f.setPointSize(sqlFontSize());
+	QFont f;
+	f.setPointSize(sqlFontSize());
 	return s.value("prefs/sqleditor/font", f).value<QFont>();
 }
 
 int PreferencesDialog::sqlFontSize()
 {
-    QSettings s("yarpen.cz", "sqliteman");
-    return s.value("prefs/sqleditor/fontSize", QFont().pointSize()).toInt();
+	QSettings s("yarpen.cz", "sqliteman");
+	return s.value("prefs/sqleditor/fontSize", QFont().pointSize()).toInt();
 }
 
 bool PreferencesDialog::useActiveHighlighting()

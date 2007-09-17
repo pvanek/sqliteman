@@ -33,6 +33,7 @@ SqlEditor::SqlEditor(QWidget * parent)
 	ui.gridLayout->setSpacing(1);
 	ui.gridLayout->addWidget(mGluter, 0, 0, 1, 1);
 	ui.sqlTextEdit->setCurrentFont(PreferencesDialog::sqlFont());
+	ui.sqlTextEdit->setFontPointSize(PreferencesDialog::sqlFontSize());
 
 	changedLabel = new QLabel(this);
 	cursorTemplate = tr("Col: %1 Row: %2/%3");
@@ -277,6 +278,7 @@ void SqlEditor::prefsChanged()
 {
 	ui.sqlTextEdit->selectAll();
 	ui.sqlTextEdit->setCurrentFont(PreferencesDialog::sqlFont());
+	ui.sqlTextEdit->setFontPointSize(PreferencesDialog::sqlFontSize());
 	QTextCursor textCursor = ui.sqlTextEdit->textCursor();
 	textCursor.clearSelection();
 	ui.sqlTextEdit->setTextCursor(textCursor);
@@ -284,6 +286,7 @@ void SqlEditor::prefsChanged()
 								  PreferencesDialog::codeCompletionLength());
 	ui.sqlTextEdit->setShortcuts(PreferencesDialog::useShortcuts(),
 								 PreferencesDialog::shortcuts());
+	ui.sqlTextEdit->update();
 	update();
 }
 

@@ -62,7 +62,9 @@ void SqlEditorWidget::paintEvent(QPaintEvent* e)
 	// draw "max line lenght" mark
 	if (PreferencesDialog::useTextWidthMark())
 	{
-		QFontMetrics fm(PreferencesDialog::sqlFont());
+		QFont fTmp(PreferencesDialog::sqlFont());
+		fTmp.setPointSize(PreferencesDialog::sqlFontSize());
+		QFontMetrics fm(fTmp);
 		int xpos = fm.width(QString(PreferencesDialog::textWidthMark()-1, 'X'));
 		const QPen prevPen = p.pen();
 		p.setPen(QPen(Qt::darkGreen, 1.0, Qt::DotLine));
