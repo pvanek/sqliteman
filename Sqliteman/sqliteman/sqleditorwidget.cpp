@@ -153,7 +153,7 @@ void SqlEditorWidget::keyPressEvent(QKeyEvent * e)
 void SqlEditorWidget::mousePressEvent(QMouseEvent * e)
 {
 	viewport()->update();
-	ensureCursorVisible();
+// 	ensureCursorVisible(); // mouse wheel-click jump fix
 	QTextEdit::mousePressEvent(e);
 }
 
