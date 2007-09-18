@@ -42,6 +42,8 @@ SqlEditor::SqlEditor(QWidget * parent)
 	statusBar()->addPermanentWidget(cursorLabel);
 	sqlTextEdit_cursorPositionChanged();
 
+	ui.searchFrame->hide();
+
 	ui.action_Run_SQL->setIcon(QIcon(QString(ICON_DIR) + "/runsql.png"));
 	ui.actionRun_Explain->setIcon(QIcon(QString(ICON_DIR) + "/runexplain.png"));
 	ui.action_Open->setIcon(QIcon(QString(ICON_DIR) + "/document-open.png"));
@@ -60,6 +62,15 @@ SqlEditor::SqlEditor(QWidget * parent)
 	connect(ui.sqlTextEdit, SIGNAL(cursorPositionChanged()), this, SLOT(sqlTextEdit_cursorPositionChanged()));
 	connect(ui.sqlTextEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(documentChanged(bool)));
 	connect(parent, SIGNAL(prefsChanged()), this, SLOT(prefsChanged()));
+
+	// search
+	connect(ui.actionSearch, SIGNAL(triggered()), this, SLOT(actionSearch_triggered()));
+	connect(ui.searchEdit, SIGNAL(textChanged(const QString &)),
+			this, SLOT(searchEdit_textChanged(const QString &)));
+	connect(ui.previousToolButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
+	connect(ui.nextToolButton, SIGNAL(clicked()), this, SLOT(findNext()));
+	connect(ui.searchEdit, SIGNAL(returnPressed()), this, SLOT(findNext()));
+
 }
 
 void SqlEditor::setStatusMessage(const QString & message)
@@ -294,6 +305,84 @@ void SqlEditor::prefsChanged()
 	ui.sqlTextEdit->update();
 	update();
 }
+
+void SqlEditor::actionSearch_triggered()
+{
+	ui.searchFrame->setVisible(ui.actionSearch->isChecked());
+	if (!ui.searchFrame->isVisible())
+	{
+		ui.sqlTextEdit->setFocus();
+		return;
+	}
+	ui.searchEdit->selectAll();
+	ui.searchEdit->setFocus();
+}
+
+void SqlEditor::find(QString ttf, bool forward, bool backward)
+{
+	QTextDocument *doc(ui.sqlTextEdit->document());
+	QString oldText(ui.searchEdit->text());
+	QTextCursor c = ui.sqlTextEdit->textCursor();
+	QTextDocument::FindFlags options;
+	QPalette p = ui.searchEdit->palette();
+	p.setColor(QPalette::Active, QPalette::Base, Qt::white);
+
+	if (c.hasSelection())
+		c.setPosition(forward ? c.position() : c.anchor(), QTextCursor::MoveAnchor);
+
+	QTextCursor newCursor = c;
+
+	if (!ttf.isEmpty())
+	{
+		if (backward)
+			options |= QTextDocument::FindBackward;
+
+		if (ui.caseCheckBox->isChecked())
+			options |= QTextDocument::FindCaseSensitively;
+
+		if (ui.wholeWordsCheckBox->isChecked())
+			options |= QTextDocument::FindWholeWords;
+
+		newCursor = doc->find(ttf, c, options);
+		ui.wrappedLabel->hide();
+
+		if (newCursor.isNull())
+		{
+			QTextCursor ac(doc);
+			ac.movePosition(options & QTextDocument::FindBackward
+							? QTextCursor::End : QTextCursor::Start);
+			newCursor = doc->find(ttf, ac, options);
+			if (newCursor.isNull())
+			{
+				p.setColor(QPalette::Active, QPalette::Base, QColor(255, 102, 102));
+				newCursor = c;
+			}
+			else
+				ui.wrappedLabel->show();
+		}
+	}
+
+	ui.sqlTextEdit->setTextCursor(newCursor);
+	ui.searchEdit->setPalette(p);
+}
+
+void SqlEditor::searchEdit_textChanged(const QString &)
+{
+	findNext();
+}
+
+void SqlEditor::findNext()
+{
+	find(ui.searchEdit->text(), true, false);
+}
+
+void SqlEditor::findPrevious()
+{
+	find(ui.searchEdit->text(), false, true);
+}
+
+
+/* Tools ****************************************** */
 
 
 SqlEditorTools::SqlHighlighter::SqlHighlighter(QTextDocument *parent)

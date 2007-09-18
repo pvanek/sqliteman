@@ -158,6 +158,8 @@ class SqlEditor : public QMainWindow
 		*/
 		QString query();
 
+		void find(QString ttf, bool forward, bool backward);
+
     private slots:
 		void action_Run_SQL_triggered();
 		void actionRun_Explain_triggered();
@@ -170,6 +172,11 @@ class SqlEditor : public QMainWindow
 		void documentChanged(bool state);
 		void prefsChanged();
 		void cancel();
+		// searching
+		void actionSearch_triggered();
+		void searchEdit_textChanged(const QString & text);
+		void findPrevious();
+		void findNext();
 };
 
 #endif

@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>479</width>
-    <height>375</height>
+    <width>714</width>
+    <height>431</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -14,12 +14,34 @@
   </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QGridLayout" >
-    <property name="margin" >
-     <number>9</number>
-    </property>
-    <property name="spacing" >
+    <property name="leftMargin" >
      <number>6</number>
     </property>
+    <property name="topMargin" >
+     <number>6</number>
+    </property>
+    <property name="rightMargin" >
+     <number>6</number>
+    </property>
+    <property name="bottomMargin" >
+     <number>6</number>
+    </property>
+    <property name="horizontalSpacing" >
+     <number>1</number>
+    </property>
+    <property name="verticalSpacing" >
+     <number>1</number>
+    </property>
+    <item row="0" column="0" >
+     <widget class="QWidget" native="1" name="widget" >
+      <property name="minimumSize" >
+       <size>
+        <width>26</width>
+        <height>0</height>
+       </size>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="1" >
      <widget class="SqlEditorWidget" name="sqlTextEdit" >
       <property name="minimumSize" >
@@ -33,6 +55,106 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0" colspan="2" >
+     <widget class="QFrame" name="searchFrame" >
+      <property name="frameShape" >
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow" >
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" >
+       <property name="leftMargin" >
+        <number>3</number>
+       </property>
+       <property name="topMargin" >
+        <number>3</number>
+       </property>
+       <property name="rightMargin" >
+        <number>3</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>3</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>1</number>
+       </property>
+       <property name="verticalSpacing" >
+        <number>1</number>
+       </property>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="label" >
+         <property name="text" >
+          <string>Search:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QLineEdit" name="searchEdit" />
+       </item>
+       <item row="0" column="4" >
+        <widget class="QCheckBox" name="caseCheckBox" >
+         <property name="text" >
+          <string>Case Sensitive</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5" >
+        <widget class="QCheckBox" name="wholeWordsCheckBox" >
+         <property name="text" >
+          <string>Whole Words</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" >
+        <widget class="QToolButton" name="previousToolButton" >
+         <property name="toolTip" >
+          <string>Search previous</string>
+         </property>
+         <property name="text" >
+          <string>&lt;</string>
+         </property>
+         <property name="shortcut" >
+          <string>Shift+F3</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3" >
+        <widget class="QToolButton" name="nextToolButton" >
+         <property name="toolTip" >
+          <string>Search Next</string>
+         </property>
+         <property name="text" >
+          <string>></string>
+         </property>
+         <property name="shortcut" >
+          <string>F3</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7" >
+        <widget class="QLabel" name="wrappedLabel" >
+         <property name="text" >
+          <string>&lt;b>Search wrapped&lt;/b></string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QToolBar" name="toolBar" >
@@ -40,7 +162,10 @@
     <enum>Qt::Horizontal</enum>
    </property>
    <attribute name="toolBarArea" >
-    <number>4</number>
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
    </attribute>
    <addaction name="action_Run_SQL" />
    <addaction name="actionRun_Explain" />
@@ -51,6 +176,8 @@
    <addaction name="action_Open" />
    <addaction name="action_Save" />
    <addaction name="actionSave_As" />
+   <addaction name="separator" />
+   <addaction name="actionSearch" />
   </widget>
   <widget class="QStatusBar" name="statusBar" />
   <action name="action_Run_SQL" >
@@ -113,6 +240,20 @@
    </property>
    <property name="toolTip" >
     <string>Create view from the current select statement</string>
+   </property>
+  </action>
+  <action name="actionSearch" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Search</string>
+   </property>
+   <property name="toolTip" >
+    <string>Search in the SQL file (Ctrl+F)</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>
