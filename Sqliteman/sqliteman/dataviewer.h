@@ -69,6 +69,10 @@ class DataViewer : public QMainWindow
 		\note The DisplayRole of the values is taken!
 		*/
 		void copyHandler();
+
+		/*! \brief Open current results in a new standalone window.
+		Based on the user RFE. Used for e.g. comparing 2 select results etc. */
+		void openStandaloneWindow();
 };
 
 

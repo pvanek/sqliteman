@@ -37,6 +37,7 @@ DataViewer::DataViewer(QWidget * parent) : QMainWindow(parent)
 	connect(ui.actionExport_Data, SIGNAL(triggered()), this, SLOT(exportData()));
 	connect(ui.actionCommit, SIGNAL(triggered()), this, SLOT(commit()));
 	connect(ui.actionRollback, SIGNAL(triggered()), this, SLOT(rollback()));
+	connect(ui.actionRipOut, SIGNAL(triggered()), this, SLOT(openStandaloneWindow()));
 	connect(keyPressEater, SIGNAL(copyRequest()), this, SLOT(copyHandler()));
 // 	connect(parent, SIGNAL(prefsChanged()), ui.tableView, SLOT(repaint()));
 }
@@ -220,6 +221,15 @@ void DataViewer::copyHandler()
 		QApplication::clipboard()->setText(out.join(QString::null));
 }
 
+void DataViewer::openStandaloneWindow()
+{
+	DataViewer *w = new DataViewer(this);
+	w->setTableModel(ui.tableView->model());
+	w->ui.statusText->hide();
+	w->show();
+}
+
+/* Tools *************************************************** */
 
 bool DataViewerTools::KeyPressEater::eventFilter(QObject *obj, QEvent *event)
 {
