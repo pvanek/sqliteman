@@ -17,7 +17,7 @@ class QTextEdit;
 class QToolBar;
 class QAction;
 class QSplitter;
-class SqlTableModel;
+class QSqlQueryModel;
 
 
 /*! \brief A Complex widget handling the database outputs and status messages.
@@ -41,7 +41,7 @@ class DataViewer : public QMainWindow
 		//! \brief Show/hide action tools
 		void showButtons(bool show);
 
-		SqlTableModel* tableData();
+		QSqlQueryModel* tableData();
 		QStringList tableHeader();
 
 		QByteArray saveSplitter() { return ui.splitter->saveState(); };
@@ -49,6 +49,7 @@ class DataViewer : public QMainWindow
 
 	private:
 		Ui::DataViewer ui;
+		bool m_showButtons;
 
 		void resizeViewToContents();
 

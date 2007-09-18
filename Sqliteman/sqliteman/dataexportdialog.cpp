@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QProgressDialog>
 #include <QTextCodec>
+#include <QSqlQueryModel>
 
 #include "dataviewer.h"
 #include "dataexportdialog.h"
@@ -22,8 +23,9 @@ for which a new license (GPL+exception) is in place.
 #define CR QChar(0x0D)  /* '\r' */
 
 
-DataExportDialog::DataExportDialog(DataViewer * parent) :
+DataExportDialog::DataExportDialog(DataViewer * parent, const QString & tableName) :
 		QDialog(0),
+		m_tableName(tableName),
 		file(0)
 {
 	m_data = parent->tableData();
@@ -241,7 +243,7 @@ bool DataExportDialog::exportSql()
 	{
 		if (!setProgress(i))
 			return false;
-		out << "insert into " << m_data->tableName() << " (\"" << columns << "\") values (";
+		out << "insert into " << m_tableName << " (\"" << columns << "\") values (";
 		QSqlRecord r = m_data->record(i);
 		QString curr;
 		for (int j = 0; j < m_header.size(); ++j)

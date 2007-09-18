@@ -14,10 +14,10 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 
 #include "ui_dataexportdialog.h"
-#include "sqlmodels.h"
 
 class DataViewer;
 class QProgressDialog;
+class QSqlQueryModel;
 
 
 /*! \brief GUI for data export into file or clipboard
@@ -27,14 +27,15 @@ class DataExportDialog : public QDialog
 {
 		Q_OBJECT
 	public:
-		DataExportDialog(DataViewer * parent = 0);
+		DataExportDialog(DataViewer * parent = 0, const QString & tableName = 0);
 		~DataExportDialog(){};
 
 		bool doExport();
 
 	private:
+		const QString m_tableName;
 		bool cancelled;
-		SqlTableModel * m_data;
+		QSqlQueryModel * m_data;
 		QStringList m_header;
 		QProgressDialog * progress;
 

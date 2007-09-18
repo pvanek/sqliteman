@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QMessageBox>
-#include <QSqlTableModel>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QKeyEvent>
@@ -14,9 +13,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "dataviewer.h"
 #include "dataexportdialog.h"
+#include "sqlmodels.h"
 
 
-DataViewer::DataViewer(QWidget * parent) : QMainWindow(parent)
+DataViewer::DataViewer(QWidget * parent)
+	: QMainWindow(parent),
+	m_showButtons(false)
 {
 	ui.setupUi(this);
 	ui.splitter->setCollapsible(0, false);
@@ -98,11 +100,14 @@ void DataViewer::showStatusText(bool show)
 
 void DataViewer::showButtons(bool show)
 {
-	ui.toolBar->setEnabled(show);
-// 	ui.actionTruncate_Table->setEnabled(show);
-// 	ui.actionRemove_Row->setEnabled(show);
-// 	ui.actionNew_Row->setEnabled(show);
-// 	ui.actionExport_Data->setEnabled(true);
+	m_showButtons = show;
+	ui.actionTruncate_Table->setEnabled(show);
+	ui.actionRemove_Row->setEnabled(show);
+	ui.actionNew_Row->setEnabled(show);
+	ui.actionCommit->setEnabled(show);
+	ui.actionRollback->setEnabled(show);
+	ui.actionRipOut->setEnabled(ui.tableView->model()->rowCount() > 0);
+	ui.actionExport_Data->setEnabled(ui.tableView->model()->rowCount() > 0);
 }
 
 void DataViewer::addRow()
@@ -133,22 +138,27 @@ void DataViewer::truncateTable()
 
 void DataViewer::exportData()
 {
-	DataExportDialog *dia = new DataExportDialog(this);
+	QString tmpTableName("<any_table>");
+	SqlTableModel * m = qobject_cast<SqlTableModel*>(ui.tableView->model());
+	if (m)
+		tmpTableName = m->tableName();
+
+	DataExportDialog *dia = new DataExportDialog(this, tmpTableName);
 	if (dia->exec())
 		if (!dia->doExport())
 			QMessageBox::warning(this, tr("Export Error"), tr("Data export failed"));
 	delete dia;
 }
 
-SqlTableModel* DataViewer::tableData()
+QSqlQueryModel* DataViewer::tableData()
 {
-	return qobject_cast<SqlTableModel *>(ui.tableView->model());
+	return qobject_cast<QSqlQueryModel *>(ui.tableView->model());
 }
 
 QStringList DataViewer::tableHeader()
 {
 	QStringList ret;
-	SqlTableModel *q = qobject_cast<SqlTableModel *>(ui.tableView->model());
+	QSqlQueryModel *q = qobject_cast<QSqlQueryModel *>(ui.tableView->model());
 
 	for (int i = 0; i < q->columnCount() ; ++i)
 		ret << q->headerData(i, Qt::Horizontal).toString();
@@ -226,6 +236,7 @@ void DataViewer::openStandaloneWindow()
 	DataViewer *w = new DataViewer(this);
 	w->setTableModel(ui.tableView->model());
 	w->ui.statusText->hide();
+	w->showButtons(m_showButtons);
 	w->show();
 }
 
