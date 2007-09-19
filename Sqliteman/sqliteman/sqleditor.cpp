@@ -179,7 +179,9 @@ void SqlEditor::open(const QString &  newFile)
 
 	f.close();
 
-	m_fileWatcher->removePaths(m_fileWatcher->files());
+	QStringList pathList = m_fileWatcher->files();
+	if (pathList.count() > 0)
+		m_fileWatcher->removePaths(pathList);
 	m_fileName = newFile;
 	m_fileWatcher->addPath(m_fileName);
 
