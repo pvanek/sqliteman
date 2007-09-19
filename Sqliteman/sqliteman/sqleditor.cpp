@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QProgressDialog>
 
-// Guter guts
+// Gluter guts
 #include <QPainter>
 #include <QScrollBar>
 #include <QAbstractTextDocumentLayout>
@@ -34,6 +34,8 @@ SqlEditor::SqlEditor(QWidget * parent)
 	ui.gridLayout->addWidget(mGluter, 0, 0, 1, 1);
 	ui.sqlTextEdit->setCurrentFont(PreferencesDialog::sqlFont());
 	ui.sqlTextEdit->setFontPointSize(PreferencesDialog::sqlFontSize());
+
+	m_fileWatcher = new QFileSystemWatcher(this);
 
 	changedLabel = new QLabel(this);
 	cursorTemplate = tr("Col: %1 Row: %2/%3");
@@ -70,6 +72,10 @@ SqlEditor::SqlEditor(QWidget * parent)
 	connect(ui.previousToolButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
 	connect(ui.nextToolButton, SIGNAL(clicked()), this, SLOT(findNext()));
 	connect(ui.searchEdit, SIGNAL(returnPressed()), this, SLOT(findNext()));
+
+	// misc
+	connect(m_fileWatcher, SIGNAL(fileChanged(const QString &)),
+			this, SLOT(externalFileChange(const QString &)));
 
 }
 
@@ -172,7 +178,10 @@ void SqlEditor::open(const QString &  newFile)
 	}
 
 	f.close();
+
+	m_fileWatcher->removePaths(m_fileWatcher->files());
 	m_fileName = newFile;
+	m_fileWatcher->addPath(m_fileName);
 
 	progress->setLabelText(tr("Formatting the text. Please wait."));
 	ui.sqlTextEdit->append(strList.join("\n"));
@@ -379,6 +388,18 @@ void SqlEditor::findNext()
 void SqlEditor::findPrevious()
 {
 	find(ui.searchEdit->text(), false, true);
+}
+
+void SqlEditor::externalFileChange(const QString & path)
+{
+	int b = QMessageBox::information(this, tr("Unexpected File Change"),
+									 tr("Your currently edited file has been changed outside " \
+									 "this application. Do you want to reload it?"),
+									 QMessageBox::Yes | QMessageBox::No,
+									 QMessageBox::Yes);
+	if (b != QMessageBox::Yes)
+		return;
+	open(path);
 }
 
 

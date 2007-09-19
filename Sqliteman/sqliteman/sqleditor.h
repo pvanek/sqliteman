@@ -8,8 +8,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef SQLEDITOR_H
 #define SQLEDITOR_H
 
-#include <qwidget.h>
-#include <qsyntaxhighlighter.h>
+#include <QWidget>
+#include <QSyntaxHighlighter>
+#include <QFileSystemWatcher>
 
 #include "ui_sqleditor.h"
 
@@ -134,6 +135,7 @@ class SqlEditor : public QMainWindow
 		SqlEditorTools::Gluter *mGluter;
 
 		QString m_fileName;
+		QFileSystemWatcher * m_fileWatcher;
 
 		QLabel * changedLabel;
 		QLabel * cursorLabel;
@@ -177,6 +179,8 @@ class SqlEditor : public QMainWindow
 		void searchEdit_textChanged(const QString & text);
 		void findPrevious();
 		void findNext();
+		//! \brief Watch file for changes from external apps
+		void externalFileChange(const QString & path);
 };
 
 #endif
