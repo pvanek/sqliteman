@@ -5,6 +5,7 @@ ${CMAKE_SOURCE_DIR}/sqliteman
 
 INSTALL(FILES
     clear_table_contents.png
+    column.png
     document-new.png
     document-save.png
     key.png

@@ -18,6 +18,7 @@ TableTree::TableTree(QWidget * parent) : QTreeWidget(parent)
 	trViews = tr("Views");
 	trTriggers = tr("Triggers");
 	trSys = tr("System Catalogue");
+	trCols = tr("Columns");
 	
 	setColumnCount(2);
 	setHeaderLabels(QStringList() << trDatabase << "schema");
@@ -79,6 +80,9 @@ void TableTree::buildTables(QTreeWidgetItem * tablesItem, const QString & schema
 		QTreeWidgetItem * tableItem = new QTreeWidgetItem(tablesItem, TableType);
 		tableItem->setText(0, table);
 		tableItem->setText(1, schema);
+		// columns
+		QTreeWidgetItem *columnsItem = new QTreeWidgetItem(tableItem, ColumnItemType);
+		buildColumns(columnsItem, schema, table);
 		// indexes
 		QTreeWidgetItem *indexesItem = new QTreeWidgetItem(tableItem, IndexesItemType);
 		buildIndexes(indexesItem, schema, table);
@@ -103,6 +107,21 @@ void TableTree::buildIndexes(QTreeWidgetItem *indexesItem, const QString & schem
 		QTreeWidgetItem *indexItem = new QTreeWidgetItem(indexesItem, IndexType);
 		indexItem->setText(0, values.at(i));
 		indexItem->setText(1, schema);
+	}
+}
+
+void TableTree::buildColumns(QTreeWidgetItem * columnsItem, const QString & schema, const QString & table)
+{
+	deleteChildren(columnsItem);
+	FieldList values = Database::tableFields(table, schema);
+	columnsItem->setText(0, trLabel(trCols).arg(values.size()));
+	columnsItem->setIcon(0, QIcon(QPixmap(QString(ICON_DIR) + "/column.png")));
+// 	columnsItem->setText(1, schema);
+	for (int i = 0; i < values.size(); ++i)
+	{
+		QTreeWidgetItem *indexItem = new QTreeWidgetItem(columnsItem, ColumnType);
+		indexItem->setText(0, values.at(i).name);
+// 		indexItem->setText(1, schema);
 	}
 }
 

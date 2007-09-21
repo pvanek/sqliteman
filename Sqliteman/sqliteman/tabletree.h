@@ -32,6 +32,8 @@ class TableTree : public QTreeWidget
 		static const int DatabaseItemType = QTreeWidgetItem::UserType + 10;
 		static const int SysIndexesItemType = QTreeWidgetItem::UserType + 11;
 		static const int SysIndexType = QTreeWidgetItem::UserType + 12;
+		static const int ColumnType = QTreeWidgetItem::UserType + 13;
+		static const int ColumnItemType = QTreeWidgetItem::UserType + 14;
 
 		TableTree(QWidget * parent = 0);
 		~TableTree(){};
@@ -40,6 +42,7 @@ class TableTree : public QTreeWidget
 		void buildDatabase(const QString & schema);
 		void buildTables(QTreeWidgetItem * tablesItem, const QString & schema);
 		void buildIndexes(QTreeWidgetItem *indexesItem, const QString & schema, const QString & table);
+		void buildColumns(QTreeWidgetItem * columnsItem, const QString & schema, const QString & table);
 		void buildSysIndexes(QTreeWidgetItem *indexesItem, const QString & schema, const QString & table);
 		void buildTriggers(QTreeWidgetItem *triggersItem, const QString & schema, const QString & table);
 		void buildViews(QTreeWidgetItem * viewsItem, const QString & schema);
@@ -52,6 +55,7 @@ class TableTree : public QTreeWidget
 		QString trViews;
 		QString trTriggers;
 		QString trSys;
+		QString trCols;
 
 		QList<QTreeWidgetItem*> searchMask(const QString & trStr);
 

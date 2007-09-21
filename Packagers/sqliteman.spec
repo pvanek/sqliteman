@@ -86,6 +86,7 @@ cmake \
 %{_datadir}/sqliteman/
 %{_datadir}/sqliteman/icons/
 %{_datadir}/sqliteman/icons/clear_table_contents.png
+%{_datadir}/sqliteman/icons/column.png
 %{_datadir}/sqliteman/icons/document-new.png
 %{_datadir}/sqliteman/icons/document-save.png
 %{_datadir}/sqliteman/icons/key.png

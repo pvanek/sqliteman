@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/icons" >
         <file>clear_table_contents.png</file>
+	<file>column.png</file>
         <file>database.png</file>
         <file>database_commit.png</file>
         <file>database_rollback.png</file>
