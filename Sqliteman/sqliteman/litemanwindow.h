@@ -37,7 +37,7 @@ class LiteManWindow : public QMainWindow
 		Q_OBJECT
 	public:
 		LiteManWindow(const QString & fileToOpen = 0);
-		~LiteManWindow(){};
+		~LiteManWindow();
 
 		//! \brief Set the chosen language (used in the translator) to localize help too.
 		void setLanguage(QString l) { m_lang = l; };

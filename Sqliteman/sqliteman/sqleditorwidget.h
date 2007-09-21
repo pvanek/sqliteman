@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextEdit>
 
 class QCompleter;
+class Preferences;
 
 
 /*! \brief A customized QTextEdit.
@@ -28,6 +29,7 @@ class SqlEditorWidget : public QTextEdit
 		void setShortcuts(bool useShortcuts, QMap<QString,QVariant> shortcuts);
 
 	private:
+		Preferences * m_prefs;
 		QCompleter *m_completer;
 		bool m_useCompleter;
 		int m_completerLength;

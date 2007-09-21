@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QColorDialog>
 
 #include "preferencesdialog.h"
+#include "preferences.h"
 #include "shortcuteditordialog.h"
 
 
@@ -25,71 +26,69 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	connect(ui.buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), this, SLOT(restoreDefaults()));
 	connect(ui.shortcutsButton, SIGNAL(clicked()), this, SLOT(shortcutsButton_clicked()));
 
+	Preferences * prefs = Preferences::instance();
+
 	// avail langs
 	QDir d(TRANSLATION_DIR, "*.qm");
 	ui.languageComboBox->addItem(tr("From Locales"));
 	foreach (QString f, d.entryList())
 		ui.languageComboBox->addItem(f.remove("sqliteman_").remove(".qm"));
-	ui.languageComboBox->setCurrentIndex(GUItranslator());
+	ui.languageComboBox->setCurrentIndex(prefs->GUItranslator());
 
 	// avail styles
 	ui.styleComboBox->addItem(tr("System Predefined"));
 	QStringList sl(QStyleFactory::keys());
 	sl.sort();
 	ui.styleComboBox->addItems(sl);
-	ui.styleComboBox->setCurrentIndex(GUIstyle());
-	ui.recentlyUsedSpinBox->setValue(recentlyUsedCount());
+	ui.styleComboBox->setCurrentIndex(prefs->GUIstyle());
+	ui.recentlyUsedSpinBox->setValue(prefs->recentlyUsedCount());
 
-	ui.nullCheckBox->setChecked(useNullHighlight());
-	ui.nullAliasEdit->setText(nullHighlightText());
-	ui.nullBgButton->setPalette(nullHighlightColor());
+	ui.nullCheckBox->setChecked(prefs->nullHighlight());
+	ui.nullAliasEdit->setText(prefs->nullHighlightText());
+	ui.nullBgButton->setPalette(prefs->nullHighlightColor());
 
-	ui.blobCheckBox->setChecked(useBlobHighlight());
-	ui.blobAliasEdit->setText(blobHighlightText());
-	ui.blobBgButton->setPalette(blobHighlightColor());
+	ui.blobCheckBox->setChecked(prefs->blobHighlight());
+	ui.blobAliasEdit->setText(prefs->blobHighlightText());
+	ui.blobBgButton->setPalette(prefs->blobHighlightColor());
 
-	ui.cropColumnsCheckBox->setChecked(cropColumns());
+	ui.cropColumnsCheckBox->setChecked(prefs->cropColumns());
 
-	ui.fontComboBox->setCurrentFont(sqlFont());
-    ui.fontSizeSpin->setValue(sqlFontSize());
-	ui.useActiveHighlightCheckBox->setChecked(useActiveHighlighting());
-	ui.activeHighlightButton->setPalette(activeHighlightColor());
-	ui.useTextWidthMarkCheckBox->setChecked(useTextWidthMark());
-	ui.textWidthMarkSpinBox->setValue(textWidthMark());
-	ui.useCompletionCheck->setChecked(useCodeCompletion());
-	ui.completionLengthBox->setValue(codeCompletionLength());
-	ui.useShortcutsBox->setChecked(useShortcuts());
+	ui.fontComboBox->setCurrentFont(prefs->sqlFont());
+    ui.fontSizeSpin->setValue(prefs->sqlFontSize());
+	ui.useActiveHighlightCheckBox->setChecked(prefs->activeHighlighting());
+	ui.activeHighlightButton->setPalette(prefs->activeHighlightColor());
+	ui.useTextWidthMarkCheckBox->setChecked(prefs->textWidthMark());
+	ui.textWidthMarkSpinBox->setValue(prefs->textWidthMarkSize());
+	ui.useCompletionCheck->setChecked(prefs->codeCompletion());
+	ui.completionLengthBox->setValue(prefs->codeCompletionLength());
+	ui.useShortcutsBox->setChecked(prefs->useShortcuts());
 }
 
 bool PreferencesDialog::saveSettings()
 {
-	QSettings settings("yarpen.cz", "sqliteman");
-
-	// lnf
-	settings.setValue("prefs/languageComboBox", ui.languageComboBox->currentIndex());
-	settings.setValue("prefs/styleComboBox", ui.styleComboBox->currentIndex());
-	settings.setValue("prefs/recentlyUsedSpinBox", ui.recentlyUsedSpinBox->value());
+	Preferences * prefs = Preferences::instance();
+	prefs->setGUItranslator(ui.languageComboBox->currentIndex());
+	prefs->setGUIstyle(ui.styleComboBox->currentIndex());
+	prefs->setRecentlyUsedCount(ui.recentlyUsedSpinBox->value());
 	// data results
-	settings.setValue("prefs/nullCheckBox", ui.nullCheckBox->isChecked());
-	settings.setValue("prefs/nullAliasEdit", ui.nullAliasEdit->text());
-	settings.setValue("prefs/nullBgButton", ui.nullBgButton->palette().color(QPalette::Background));
-	settings.setValue("prefs/blobCheckBox", ui.blobCheckBox->isChecked());
-	settings.setValue("prefs/blobAliasEdit", ui.blobAliasEdit->text());
-	settings.setValue("prefs/blobBgButton", ui.blobBgButton->palette().color(QPalette::Background));
-	settings.setValue("prefs/cropColumnsCheckBox", ui.cropColumnsCheckBox->isChecked());
+	prefs->setNullHighlight(ui.nullCheckBox->isChecked());
+	prefs->setNullHighlightText(ui.nullAliasEdit->text());
+	prefs->setNullHighlightColor(ui.nullBgButton->palette().color(QPalette::Background));
+	prefs->setBlobHighlight(ui.blobCheckBox->isChecked());
+	prefs->setBlobHighlightText(ui.blobAliasEdit->text());
+	prefs->setBlobHighlightColor(ui.blobBgButton->palette().color(QPalette::Background));
+	prefs->setCropColumns(ui.cropColumnsCheckBox->isChecked());
 	// sql editor
-	settings.setValue("prefs/sqleditor/font", ui.fontComboBox->currentFont());
-    settings.setValue("prefs/sqleditor/fontSize", ui.fontSizeSpin->value());
-	settings.setValue("prefs/sqleditor/useActiveHighlightCheckBox", ui.useActiveHighlightCheckBox->isChecked());
-	settings.setValue("prefs/sqleditor/activeHighlightButton", ui.activeHighlightButton->palette().color(QPalette::Background));
-	settings.setValue("prefs/sqleditor/useTextWidthMarkCheckBox", ui.useTextWidthMarkCheckBox->isChecked());
-	settings.setValue("prefs/sqleditor/textWidthMarkSpinBox", ui.textWidthMarkSpinBox->value());
-	settings.setValue("prefs/sqleditor/useCodeCompletion", ui.useCompletionCheck->isChecked());
-	settings.setValue("prefs/sqleditor/completionLengthBox", ui.completionLengthBox->value());
-	settings.setValue("prefs/sqleditor/useShortcuts", ui.useShortcutsBox->isChecked());
+	prefs->setSqlFont(ui.fontComboBox->currentFont());
+    prefs->setSqlFontSize(ui.fontSizeSpin->value());
+	prefs->setActiveHighlighting(ui.useActiveHighlightCheckBox->isChecked());
+	prefs->setActiveHighlightColor(ui.activeHighlightButton->palette().color(QPalette::Background));
+	prefs->setTextWidthMark(ui.useTextWidthMarkCheckBox->isChecked());
+	prefs->setTextWidthMarkSize(ui.textWidthMarkSpinBox->value());
+	prefs->setCodeCompletion(ui.useCompletionCheck->isChecked());
+	prefs->setCodeCompletionLength(ui.completionLengthBox->value());
+	prefs->setUseShortcuts(ui.useShortcutsBox->isChecked());
 
-	if (settings.status() != QSettings::NoError)
-		return false;
 	return true;
 }
 
@@ -120,7 +119,6 @@ void PreferencesDialog::restoreDefaults()
 	ui.useCompletionCheck->setChecked(false);
 	ui.completionLengthBox->setValue(3);
 	ui.useShortcutsBox->setChecked(false);
-	saveShortcuts(QMap<QString,QVariant>());
 }
 
 void PreferencesDialog::blobBgButton_clicked()
@@ -148,135 +146,4 @@ void PreferencesDialog::shortcutsButton_clicked()
 {
 	ShortcutEditorDialog d;
 	d.exec();
-}
-
-bool PreferencesDialog::useNullHighlight()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/nullCheckBox", true).toBool();
-}
-
-bool PreferencesDialog::useBlobHighlight()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/blobCheckBox", true).toBool();
-}
-
-QString PreferencesDialog::nullHighlightText()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/nullAliasEdit", "{null}").toString();
-}
-
-QString PreferencesDialog::blobHighlightText()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/blobAliasEdit", "{blob}").toString();
-}
-
-QColor PreferencesDialog::nullHighlightColor()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/nullBgButton", QColor(255, 254, 205)).value<QColor>();
-}
-
-QColor PreferencesDialog::blobHighlightColor()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/blobBgButton", QColor(255, 254, 205)).value<QColor>();
-}
-
-int PreferencesDialog::recentlyUsedCount()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/recentlyUsedSpinBox", 5).toInt();
-}
-
-int PreferencesDialog::GUItranslator()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/languageComboBox", 0).toInt();
-}
-
-int PreferencesDialog::GUIstyle()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/styleComboBox", 0).toInt();
-}
-
-bool PreferencesDialog::cropColumns()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/cropColumnsCheckBox", false).toBool();
-}
-
-QFont PreferencesDialog::sqlFont()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	QFont f;
-	f.setPointSize(sqlFontSize());
-	return s.value("prefs/sqleditor/font", f).value<QFont>();
-}
-
-int PreferencesDialog::sqlFontSize()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/sqleditor/fontSize", QFont().pointSize()).toInt();
-}
-
-bool PreferencesDialog::useActiveHighlighting()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/sqleditor/useActiveHighlightCheckBox", true).toBool();
-}
-
-QColor PreferencesDialog::activeHighlightColor()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/sqleditor/activeHighlightButton", QColor(255, 254, 205)).value<QColor>();
-}
-
-bool PreferencesDialog::useTextWidthMark()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/sqleditor/useTextWidthMarkCheckBox", true).toBool();
-}
-
-int PreferencesDialog::textWidthMark()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/sqleditor/textWidthMarkSpinBox", 80).toInt();
-}
-
-bool PreferencesDialog::useCodeCompletion()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/sqleditor/useCodeCompletion", false).toBool();
-}
-
-int PreferencesDialog::codeCompletionLength()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/sqleditor/completionLengthBox", 3).toInt();
-}
-
-bool PreferencesDialog::useShortcuts()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/sqleditor/useShortcuts", false).toBool();
-}
-
-QMap<QString,QVariant> PreferencesDialog::shortcuts()
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	return s.value("prefs/sqleditor/shortcuts", QMap<QString,QVariant>()).toMap();
-}
-
-bool PreferencesDialog::saveShortcuts(QMap<QString,QVariant> map)
-{
-	QSettings s("yarpen.cz", "sqliteman");
-	s.setValue("prefs/sqleditor/shortcuts", map);
-	if (s.status() != QSettings::NoError)
-		return false;
-	return true;
 }

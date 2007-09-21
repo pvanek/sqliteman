@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 
 #include "litemanwindow.h"
+#include "preferences.h"
 #include "preferencesdialog.h"
 #include "queryeditordialog.h"
 #include "createtabledialog.h"
@@ -68,6 +69,11 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 	// Check command line
 	if (!fileToOpen.isNull())
 		open(fileToOpen);
+}
+
+LiteManWindow::~LiteManWindow()
+{
+	Preferences::deleteInstance();
 }
 
 void LiteManWindow::closeEvent(QCloseEvent * e)
@@ -312,7 +318,7 @@ void LiteManWindow::removeRecent(QString fn)
 void LiteManWindow::rebuildRecentFileMenu()
 {
 	recentFilesMenu->clear();
-	uint max = qMin(PreferencesDialog::recentlyUsedCount(), recentDocs.count());
+	uint max = qMin(Preferences::instance()->recentlyUsedCount(), recentDocs.count());
 	QFile fi;
 	QString accel("&");
 

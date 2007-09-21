@@ -20,6 +20,7 @@ SET( SQLITEMAN_SRC
     importtablelogdialog.cpp
     litemanwindow.cpp
     main.cpp
+    preferences.cpp
     preferencesdialog.cpp
     queryeditordialog.cpp
     schemabrowser.cpp
@@ -53,6 +54,7 @@ SET( SQLITEMAN_MOC
     importtabledialog.h
     importtablelogdialog.h
     litemanwindow.h
+    preferences.h
     preferencesdialog.h
     queryeditordialog.h
     schemabrowser.h

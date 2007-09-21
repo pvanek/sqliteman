@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sqlmodels.h"
 #include "database.h"
+#include "preferences.h"
 
 
 SqlTableModel::SqlTableModel(QObject * parent, QSqlDatabase db)
@@ -18,13 +19,14 @@ SqlTableModel::SqlTableModel(QObject * parent, QSqlDatabase db)
 	m_schema("")
 {
 	m_deleteCache.clear();
-	m_useNull = PreferencesDialog::useNullHighlight();
-	m_nullColor = PreferencesDialog::nullHighlightColor();
-	m_nullText = PreferencesDialog::nullHighlightText();
-	m_useBlob = PreferencesDialog::useBlobHighlight();
-	m_blobColor = PreferencesDialog::blobHighlightColor();
-	m_blobText = PreferencesDialog::blobHighlightText();
-	m_cropColumns = PreferencesDialog::cropColumns();
+	Preferences * prefs = Preferences::instance();
+	m_useNull = prefs->nullHighlight();
+	m_nullColor = prefs->nullHighlightColor();
+	m_nullText = prefs->nullHighlightText();
+	m_useBlob = prefs->blobHighlight();
+	m_blobColor = prefs->blobHighlightColor();
+	m_blobText = prefs->blobHighlightText();
+	m_cropColumns = prefs->cropColumns();
 
 	connect(this, SIGNAL(primeInsert(int, QSqlRecord &)),
 			this, SLOT(doPrimeInsert(int, QSqlRecord &)));
@@ -143,13 +145,14 @@ void SqlTableModel::setPendingTransaction(bool pending)
 SqlQueryModel::SqlQueryModel( QObject * parent)
 	: QSqlQueryModel(parent)
 {
-	m_useNull = PreferencesDialog::useNullHighlight();
-	m_nullColor = PreferencesDialog::nullHighlightColor();
-	m_nullText = PreferencesDialog::nullHighlightText();
-	m_useBlob = PreferencesDialog::useBlobHighlight();
-	m_blobColor = PreferencesDialog::blobHighlightColor();
-	m_blobText = PreferencesDialog::blobHighlightText();
-	m_cropColumns = PreferencesDialog::cropColumns();
+	Preferences * prefs = Preferences::instance();
+	m_useNull = prefs->nullHighlight();
+	m_nullColor = prefs->nullHighlightColor();
+	m_nullText = prefs->nullHighlightText();
+	m_useBlob = prefs->blobHighlight();
+	m_blobColor = prefs->blobHighlightColor();
+	m_blobText = prefs->blobHighlightText();
+	m_cropColumns = prefs->cropColumns();
 }
 
 QVariant SqlQueryModel::data(const QModelIndex & item, int role) const

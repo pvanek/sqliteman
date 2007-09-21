@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QAbstractTextDocumentLayout>
 
 #include "createviewdialog.h"
-#include "preferencesdialog.h"
+#include "preferences.h"
 #include "sqlparser.h"
 #include "sqleditor.h"
 #include "sqlkeywords.h"
@@ -27,13 +27,15 @@ SqlEditor::SqlEditor(QWidget * parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	Preferences * prefs = Preferences::instance();
+
 	m_fileName = QString();
 	highlighter = new SqlEditorTools::SqlHighlighter(ui.sqlTextEdit->document());
 	mGluter = new SqlEditorTools::Gluter(ui.sqlTextEdit);
 	ui.gridLayout->setSpacing(1);
 	ui.gridLayout->addWidget(mGluter, 0, 0, 1, 1);
-	ui.sqlTextEdit->setCurrentFont(PreferencesDialog::sqlFont());
-	ui.sqlTextEdit->setFontPointSize(PreferencesDialog::sqlFontSize());
+	ui.sqlTextEdit->setCurrentFont(prefs->sqlFont());
+	ui.sqlTextEdit->setFontPointSize(prefs->sqlFontSize());
 
 	m_fileWatcher = new QFileSystemWatcher(this);
 
@@ -303,16 +305,17 @@ void SqlEditor::setFileName(const QString & fname)
 
 void SqlEditor::prefsChanged()
 {
+	Preferences * prefs = Preferences::instance();
 	ui.sqlTextEdit->selectAll();
-	ui.sqlTextEdit->setCurrentFont(PreferencesDialog::sqlFont());
-	ui.sqlTextEdit->setFontPointSize(PreferencesDialog::sqlFontSize());
+	ui.sqlTextEdit->setCurrentFont(prefs->sqlFont());
+	ui.sqlTextEdit->setFontPointSize(prefs->sqlFontSize());
 	QTextCursor textCursor = ui.sqlTextEdit->textCursor();
 	textCursor.clearSelection();
 	ui.sqlTextEdit->setTextCursor(textCursor);
-	ui.sqlTextEdit->setCompletion(PreferencesDialog::useCodeCompletion(),
-								  PreferencesDialog::codeCompletionLength());
-	ui.sqlTextEdit->setShortcuts(PreferencesDialog::useShortcuts(),
-								 PreferencesDialog::shortcuts());
+	ui.sqlTextEdit->setCompletion(prefs->codeCompletion(),
+								  prefs->codeCompletionLength());
+	ui.sqlTextEdit->setShortcuts(prefs->useShortcuts(),
+								 prefs->shortcuts());
 	ui.sqlTextEdit->update();
 	update();
 }

@@ -29,30 +29,6 @@ class PreferencesDialog : public QDialog//, public Ui::PreferencesDialog
 
 		bool saveSettings();
 
-		static bool useNullHighlight();
-		static bool useBlobHighlight();
-		static QString nullHighlightText();
-		static QString blobHighlightText();
-		static QColor nullHighlightColor();
-		static QColor blobHighlightColor();
-		static int recentlyUsedCount();
-		static int GUItranslator();
-		static int GUIstyle();
-		static bool cropColumns();
-
-		static QFont sqlFont();
-		static int sqlFontSize();
-		static bool useActiveHighlighting();
-		static QColor activeHighlightColor();
-		static bool useTextWidthMark();
-		static int textWidthMark();
-		static bool useCodeCompletion();
-		static int codeCompletionLength();
-
-		static bool useShortcuts();
-		static QMap<QString,QVariant> shortcuts();
-		static bool saveShortcuts(QMap<QString,QVariant> map);
-
 	private:
 		Ui::PreferencesDialog ui;
 

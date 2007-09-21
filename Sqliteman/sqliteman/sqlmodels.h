@@ -11,8 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include <QItemDelegate>
 #include <QSqlRecord>
 
-#include "preferencesdialog.h"
-
 class QPushButton;
 class QByteArray;
 

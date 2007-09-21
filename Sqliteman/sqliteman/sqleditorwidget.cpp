@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStringListModel>
 
 #include "sqleditorwidget.h"
-#include "preferencesdialog.h"
+#include "preferences.h"
 #include "sqlkeywords.h"
 
 
@@ -25,10 +25,11 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	m_completer->setCaseSensitivity(Qt::CaseInsensitive);
 
 	ensureCursorVisible();
-	setCompletion(PreferencesDialog::useCodeCompletion(),
-				  PreferencesDialog::codeCompletionLength());
-	setShortcuts(PreferencesDialog::useShortcuts(),
-				 PreferencesDialog::shortcuts());
+	m_prefs = Preferences::instance();
+	setCompletion(m_prefs->codeCompletion(),
+				  m_prefs->codeCompletionLength());
+	setShortcuts(m_prefs->useShortcuts(),
+				 m_prefs->shortcuts());
 
 	connect(m_completer, SIGNAL(activated(const QString&)),
 			this, SLOT(insertCompletion(const QString&)));
@@ -51,21 +52,21 @@ void SqlEditorWidget::paintEvent(QPaintEvent* e)
 	QPainter p(viewport());
 
 	// highlight current line
-	if (PreferencesDialog::useActiveHighlighting())
+	if (m_prefs->activeHighlighting())
 	{
 		QRect currLine = cursorRect();
 		currLine.setX(0);
 		currLine.setWidth(viewport()->width());
-		p.fillRect(currLine, QBrush(PreferencesDialog::activeHighlightColor()));
+		p.fillRect(currLine, QBrush(m_prefs->activeHighlightColor()));
 	}
 
 	// draw "max line lenght" mark
-	if (PreferencesDialog::useTextWidthMark())
+	if (m_prefs->textWidthMark())
 	{
-		QFont fTmp(PreferencesDialog::sqlFont());
-		fTmp.setPointSize(PreferencesDialog::sqlFontSize());
+		QFont fTmp(m_prefs->sqlFont());
+		fTmp.setPointSize(m_prefs->sqlFontSize());
 		QFontMetrics fm(fTmp);
-		int xpos = fm.width(QString(PreferencesDialog::textWidthMark()-1, 'X'));
+		int xpos = fm.width(QString(m_prefs->textWidthMarkSize()-1, 'X'));
 		const QPen prevPen = p.pen();
 		p.setPen(QPen(Qt::darkGreen, 1.0, Qt::DotLine));
 		p.drawLine(xpos, 0, xpos, viewport()->height() - 1);

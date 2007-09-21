@@ -5,22 +5,19 @@ a copyright and/or license notice that predates the release of Sqliteman
 for which a new license (GPL+exception) is in place.
 */
 #include "shortcutmodel.h"
-#include "preferencesdialog.h"
+#include "preferences.h"
 
 
 ShortcutModel::ShortcutModel(QObject * /*parent*/)
 	: QAbstractTableModel()
 {
-	QMap<QString,QVariant> map = PreferencesDialog::shortcuts();
+	QMap<QString,QVariant> map = Preferences::instance()->shortcuts();
 	QMapIterator<QString,QVariant> i(map);
 	while (i.hasNext())
 	{
 		i.next();
 		m_values.append(qMakePair(i.key(), i.value().toString()));
 	}
-	// debug
-// m_values.append(qMakePair(QString("sf"), QString("select * from ")));
-// m_values.append(qMakePair(QString("scf"), QString("select count(*) from ")));
 }
 
 
@@ -126,7 +123,7 @@ void ShortcutModel::insertRow(QString key, QString value)
 	endInsertRows();
 }
 
-bool ShortcutModel::saveValues()
+void ShortcutModel::saveValues()
 {
 	QMap<QString,QVariant> ret;
 	QPair<QString,QString> p;
@@ -134,5 +131,5 @@ bool ShortcutModel::saveValues()
 	foreach (p, m_values)
 		ret[p.first] = p.second;
 
-	return PreferencesDialog::saveShortcuts(ret);
+	Preferences::instance()->setShortcuts(ret);
 }

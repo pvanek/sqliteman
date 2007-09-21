@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextStream>
 
 #include "litemanwindow.h"
-#include "preferencesdialog.h"
+#include "preferences.h"
 
 #define ARG_VERSION "--version"
 #define ARG_HELP "--help"
@@ -98,10 +98,11 @@ Property: 1) specified from CLI - it overrides Prefs or System
 QString ArgsParser::localeCode()
 {
 	QString ret;
+	Preferences * prefs = Preferences::instance();
 	if (!m_locale.isEmpty())
 		ret = QLocale(m_locale).name();
-	else if (PreferencesDialog::GUItranslator() != 0)
-		ret = m_localeList[PreferencesDialog::GUItranslator()];
+	else if (prefs->GUItranslator() != 0)
+		ret = m_localeList[prefs->GUItranslator()];
 	else
 		ret = QLocale::system().name();
 	return ret.left(2);
@@ -175,7 +176,7 @@ int main(int argc, char ** argv)
 	if (!cli.parseArgs())
 		return 0;
 
-	int style = PreferencesDialog::GUIstyle();
+	int style = Preferences::instance()->GUIstyle();
 	if (style != 0)
 	{
 		QStringList sl = QStyleFactory::keys();

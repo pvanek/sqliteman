@@ -46,7 +46,7 @@ class ShortcutModel : public QAbstractTableModel
 
 		QList<QPair<QString,QString> > values() { return m_values; };
 		//! \brief Check emptiness of keys and save it by Preferences.
-		bool saveValues();
+		void saveValues();
 
 	signals:
 		/*! \brief Signal emmitted when the user finish the editation of one value.
