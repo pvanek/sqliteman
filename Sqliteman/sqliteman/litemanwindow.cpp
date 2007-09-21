@@ -214,7 +214,7 @@ void LiteManWindow::initActions()
 	connect(dropIndexAct, SIGNAL(triggered()), this, SLOT(dropIndex()));
 
 	describeTableAct = new QAction(tr("D&escribe Table"), this);
-	connect(describeTableAct, SIGNAL(triggered()), this, SLOT(describeTable()));
+	connect(describeTableAct, SIGNAL(triggered()), this, SLOT(describeObject()/*describeTable()*/));
 
 	importTableAct = new QAction(tr("&Import Data..."), this);
 	connect(importTableAct, SIGNAL(triggered()), this, SLOT(importTable()));
@@ -229,13 +229,13 @@ void LiteManWindow::initActions()
 	connect(dropTriggerAct, SIGNAL(triggered()), this, SLOT(dropTrigger()));
 
 	describeTriggerAct = new QAction(tr("D&escribe Trigger"), this);
-	connect(describeTriggerAct, SIGNAL(triggered()), this, SLOT(describeTrigger()));
+	connect(describeTriggerAct, SIGNAL(triggered()), this, SLOT(describeObject()/*describeTrigger()*/));
 
 	describeViewAct = new QAction(tr("D&escribe View"), this);
-	connect(describeViewAct, SIGNAL(triggered()), this, SLOT(describeView()));
+	connect(describeViewAct, SIGNAL(triggered()), this, SLOT(describeObject()/*describeView()*/));
 
 	describeIndexAct = new QAction(tr("D&escribe Index"), this);
-	connect(describeIndexAct, SIGNAL(triggered()), this, SLOT(describeIndex()));
+	connect(describeIndexAct, SIGNAL(triggered()), this, SLOT(describeObject()/*describeIndex()*/));
 
 	reindexAct = new QAction(tr("&Reindex"), this);
 	connect(reindexAct, SIGNAL(triggered()), this, SLOT(reindex()));
@@ -790,33 +790,44 @@ void LiteManWindow::treeContextMenuOpened(const QPoint & pos)
 		contextMenu->exec(schemaBrowser->tableTree->viewport()->mapToGlobal(pos));
 }
 
-void LiteManWindow::describeTable()
+void LiteManWindow::describeObject()
 {
-	runQuery(QString("pragma \"%1\".table_info (\"%2\");")
-			.arg(schemaBrowser->tableTree->currentItem()->text(1))
-			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
+	runQuery(QString("select sql as \"%1\" from \"%2\".sqlite_master where name = '%3';")
+			.arg(tr("Describe %1").arg(item->text(0).toUpper()))
+			.arg(item->text(1))
+			.arg(item->text(0)));
 }
 
-void LiteManWindow::describeView()
-{
-	runQuery(QString("select sql from \"%1\".sqlite_master where name = '%2';")
-			.arg(schemaBrowser->tableTree->currentItem()->text(1))
-			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
-}
-
-void LiteManWindow::describeIndex()
-{
-	runQuery(QString("pragma \"%1\".index_info (\"%2\");")
-			.arg(schemaBrowser->tableTree->currentItem()->text(1))
-			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
-}
-
-void LiteManWindow::describeTrigger()
-{
-	runQuery(QString("select sql from \"%1\".sqlite_master where name = '%2';")
-			.arg(schemaBrowser->tableTree->currentItem()->text(1))
-			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
-}
+// void LiteManWindow::describeTable()
+// {
+// // 	runQuery(QString("pragma \"%1\".table_info (\"%2\");")
+// 	runQuery(QString("select sql as Describe from \"%1\".sqlite_master where name = '%2';")
+// 			.arg(schemaBrowser->tableTree->currentItem()->text(1))
+// 			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
+// }
+// 
+// void LiteManWindow::describeView()
+// {
+// 	runQuery(QString("select sql as Describe  from \"%1\".sqlite_master where name = '%2';")
+// 			.arg(schemaBrowser->tableTree->currentItem()->text(1))
+// 			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
+// }
+// 
+// void LiteManWindow::describeIndex()
+// {
+// // 	runQuery(QString("pragma \"%1\".index_info (\"%2\");")
+// 	runQuery(QString("select sql as Describe  from \"%1\".sqlite_master where name = '%2';")
+// 			.arg(schemaBrowser->tableTree->currentItem()->text(1))
+// 			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
+// }
+// 
+// void LiteManWindow::describeTrigger()
+// {
+// 	runQuery(QString("select sql as Describe from \"%1\".sqlite_master where name = '%2';")
+// 			.arg(schemaBrowser->tableTree->currentItem()->text(1))
+// 			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
+// }
 
 void LiteManWindow::runQuery(QString statement)
 {

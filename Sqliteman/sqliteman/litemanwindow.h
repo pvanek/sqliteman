@@ -114,9 +114,9 @@ class LiteManWindow : public QMainWindow
 		void createIndex();
 		void dropIndex();
 
-		void describeTable();
-		void describeView();
-		void describeIndex();
+// 		void describeTable();
+// 		void describeView();
+// 		void describeIndex();
 		void reindex();
 
 		void treeItemActivated(QTreeWidgetItem * item, int column);
@@ -133,10 +133,12 @@ class LiteManWindow : public QMainWindow
 
 		void createTrigger();
 		void alterTrigger();
-		void describeTrigger();
+// 		void describeTrigger();
 		void dropTrigger();
 
 		void constraintTriggers();
+
+		void describeObject();
 
 	private:
 		QStringList recentDocs;
