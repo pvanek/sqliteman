@@ -20,8 +20,8 @@ Preferences::Preferences(QObject *parent)
 	m_blobHighlight = s.value("prefs/blobCheckBox", true).toBool();
 	m_nullHighlightText = s.value("prefs/nullAliasEdit", "{null}").toString();
 	m_blobHighlightText = s.value("prefs/blobAliasEdit", "{blob}").toString();
-	m_nullHighlightColor = s.value("prefs/nullBgButton", QColor(255, 254, 205)).value<QColor>();
-	m_blobHighlightColor = s.value("prefs/blobBgButton", QColor(255, 254, 205)).value<QColor>();
+	m_nullHighlightColor = s.value("prefs/nullBgButton", stdLightColor()).value<QColor>();
+	m_blobHighlightColor = s.value("prefs/blobBgButton", stdLightColor()).value<QColor>();
 	m_recentlyUsedCount = s.value("prefs/recentlyUsedSpinBox", 5).toInt();
 	m_GUItranslator = s.value("prefs/languageComboBox", 0).toInt();
 	m_GUIstyle = s.value("prefs/styleComboBox", 0).toInt();
@@ -31,7 +31,7 @@ Preferences::Preferences(QObject *parent)
 	m_sqlFont = s.value("prefs/sqleditor/font", f).value<QFont>();
 	m_sqlFontSize = s.value("prefs/sqleditor/fontSize", QFont().pointSize()).toInt();
 	m_activeHighlighting = s.value("prefs/sqleditor/useActiveHighlightCheckBox", true).toBool();
-	m_activeHighlightColor = s.value("prefs/sqleditor/activeHighlightButton", QColor(255, 254, 205)).value<QColor>();
+	m_activeHighlightColor = s.value("prefs/sqleditor/activeHighlightButton", stdDarkColor()).value<QColor>();
 	m_textWidthMark = s.value("prefs/sqleditor/useTextWidthMarkCheckBox", true).toBool();
 	m_textWidthMarkSize = s.value("prefs/sqleditor/textWidthMarkSpinBox", 80).toInt();
 	m_codeCompletion = s.value("prefs/sqleditor/useCodeCompletion", false).toBool();

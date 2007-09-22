@@ -26,6 +26,9 @@ class Preferences : public QObject
 		static Preferences* instance();
 		static void deleteInstance();
 
+		static QColor stdLightColor() { return QColor(255, 254, 205); };
+		static QColor stdDarkColor() { return QColor(225, 237, 255); };
+
 		bool nullHighlight() { return m_nullHighlight; };
 		void setNullHighlight(bool v) { m_nullHighlight = v; };
 

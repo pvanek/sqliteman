@@ -94,26 +94,24 @@ bool PreferencesDialog::saveSettings()
 
 void PreferencesDialog::restoreDefaults()
 {
-	QColor defCol(255, 254, 205);
-
 	ui.languageComboBox->setCurrentIndex(0);
 	ui.styleComboBox->setCurrentIndex(0);
 
 	ui.nullCheckBox->setChecked(true);
 	ui.nullAliasEdit->setText("{null}");
-	ui.nullBgButton->setPalette(defCol);
+	ui.nullBgButton->setPalette(Preferences::stdLightColor());
 
 	ui.blobCheckBox->setChecked(true);
 	ui.blobAliasEdit->setText("{blob}");
-	ui.blobBgButton->setPalette(defCol);
+	ui.blobBgButton->setPalette(Preferences::stdLightColor());
 
 	ui.cropColumnsCheckBox->setChecked(false);
 
-    QFont fTmp;
+	QFont fTmp;
 	ui.fontComboBox->setCurrentFont(fTmp);
-    ui.fontSizeSpin->setValue(fTmp.pointSize());
+	ui.fontSizeSpin->setValue(fTmp.pointSize());
 	ui.useActiveHighlightCheckBox->setChecked(true);
-	ui.activeHighlightButton->setPalette(defCol);
+	ui.activeHighlightButton->setPalette(Preferences::stdDarkColor());
 	ui.useTextWidthMarkCheckBox->setChecked(true);
 	ui.textWidthMarkSpinBox->setValue(75);
 	ui.useCompletionCheck->setChecked(false);
