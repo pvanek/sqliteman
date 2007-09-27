@@ -1,1 +1,5 @@
-ADD_SUBDIRECTORY(en)
+IF (WANT_RESOURCES)
+    MESSAGE(STATUS "Documenation is not installed as you are using Qt4 resources for it")
+ELSE (WANT_RESOURCES)
+    ADD_SUBDIRECTORY(en)
+ENDIF (WANT_RESOURCES)

@@ -1,3 +1,7 @@
+IF (WANT_RESOURCES)
+    MESSAGE(STATUS "Translations are not installed as you are using Qt4 resources for it")
+ELSE (WANT_RESOURCES)
+
 INSTALL(FILES
     sqliteman_en.qm
     sqliteman_cs.qm
@@ -7,3 +11,5 @@ INSTALL(FILES
     sqliteman_ru.qm
   DESTINATION ${TRANSLATION_DIR}
 )
+
+ENDIF (WANT_RESOURCES)

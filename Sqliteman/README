@@ -32,6 +32,14 @@ Requirements:
 2) make
 3) make install
 
+Available options for cmake (cmake oprions .):
+-DWANT_DEBUG=1
+    build application with the debug symbols
+-DWANT_RESOURCES=1
+    build application with all icons, docs and translation files compiled in
+    as one binary file. It's useful e.g. for "portable" distribution or fo
+    Mac dmg files.
+
 
 Hints for cmake:
 

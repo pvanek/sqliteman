@@ -91,11 +91,15 @@ SET( SQLITEMAN_UI
     vacuumdialog.ui
 )
 
-# SET( SQLITEMAN_RCS
-#     icons/icons.qrc
-# )
+IF (WANT_RESOURCES)
+    SET( SQLITEMAN_RCS
+        doc/doc.qrc
+        icons/icons.qrc
+        ts/ts.qrc
+    )
+    QT4_ADD_RESOURCES( SQLITEMAN_RC_RCS ${SQLITEMAN_RCS} )
+ENDIF (WANT_RESOURCES)
 
-# QT4_ADD_RESOURCES( SQLITEMAN_RC_RCS ${SQLITEMAN_RCS} )
 
 QT4_WRAP_UI( SQLITEMAN_UI_HDRS ${SQLITEMAN_UI} )
 

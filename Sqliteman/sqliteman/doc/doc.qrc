@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/doc" >
+        <file>en/menu.html</file>
+        <file>en/index.html</file>
+        <file>en/license.html</file>
+        <file>en/sqlite.html</file>
+        <file>en/usage-run.html</file>
+        <file>en/usage-file.html</file>
+        <file>en/troubleshooting.html</file>
+        <file>en/usage-prefs.html</file>
+        <file>en/usage-context.html</file>
+        <file>en/usage-database.html</file>
+        <file>en/sqleditor.html</file>
+        <file>en/usage-system.html</file>
+        <file>en/results.html</file>
+        <file>en/main_window.png</file>
+        <file>en/create_table.png</file>
+        <file>en/sqleditor.png</file>
+        <file>en/results.png</file>
+    </qresource>
+</RCC>

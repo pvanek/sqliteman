@@ -3,6 +3,10 @@ ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/sqliteman
 )
 
+IF (WANT_RESOURCES)
+    MESSAGE(STATUS "Icons are not installed as you are using Qt4 resources for it")
+ELSE (WANT_RESOURCES)
+
 INSTALL(FILES
     clear_table_contents.png
     column.png
@@ -26,3 +30,5 @@ INSTALL(FILES
     database_rollback.png
   DESTINATION ${ICON_DIR}
 )
+
+ENDIF (WANT_RESOURCES)

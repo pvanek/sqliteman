@@ -18,16 +18,22 @@ HelpBrowser::HelpBrowser(const QString & lang, QWidget * parent)
 	// menu
 	QStringList spaths;
 
-	QString docs(QString("%1%2").arg(DOC_DIR).arg(lang));
+	QString docs(QString(DOC_DIR) + "%1/");
 	if (!lang.isNull() && !lang.isEmpty() && QDir().exists(docs))
-		spaths << docs;
+		docs = docs.arg(lang);
 	else
-		spaths << QString("%1en").arg(DOC_DIR);
+		docs = docs.arg("en");
+
+#ifdef WANT_RESOURCES
+	docs = "qrc" + docs;
+#endif
+
+	spaths << docs;
 
 	ui.menuBrowser->setSearchPaths(spaths);
 	ui.textBrowser->setSearchPaths(spaths);
-	ui.menuBrowser->setSource(QUrl("menu.html"));
-	ui.textBrowser->setSource(QUrl("index.html"));
+	ui.menuBrowser->setSource(QUrl(docs + "menu.html"));
+	ui.textBrowser->setSource(QUrl(docs + "index.html"));
 
 	// settings
 	QSettings settings("yarpen.cz", "sqliteman");
