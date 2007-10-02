@@ -10,15 +10,16 @@ for which a new license (GPL+exception) is in place.
 #include <QSqlError>
 #include <QKeyEvent>
 #include <QClipboard>
+#include <QDateTime>
 
 #include "dataviewer.h"
 #include "dataexportdialog.h"
 #include "sqlmodels.h"
+#include "database.h"
 
 
 DataViewer::DataViewer(QWidget * parent)
-	: QMainWindow(parent),
-	m_showButtons(false)
+	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	ui.splitter->setCollapsible(0, false);
@@ -40,11 +41,12 @@ DataViewer::DataViewer(QWidget * parent)
 	connect(ui.actionCommit, SIGNAL(triggered()), this, SLOT(commit()));
 	connect(ui.actionRollback, SIGNAL(triggered()), this, SLOT(rollback()));
 	connect(ui.actionRipOut, SIGNAL(triggered()), this, SLOT(openStandaloneWindow()));
+	connect(ui.actionClose, SIGNAL(triggered()), this, SLOT(close()));
 	connect(keyPressEater, SIGNAL(copyRequest()), this, SLOT(copyHandler()));
 // 	connect(parent, SIGNAL(prefsChanged()), ui.tableView, SLOT(repaint()));
 }
 
-bool DataViewer::setTableModel(QAbstractItemModel * model)
+bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 {
 	SqlTableModel * old = qobject_cast<SqlTableModel*>(ui.tableView->model());
 	if (old && old->pendingTransaction())
@@ -79,6 +81,7 @@ bool DataViewer::setTableModel(QAbstractItemModel * model)
 	ui.tableView->setModel(model);
 	ui.itemView->setModel(model);
 	resizeViewToContents();
+	setShowButtons(showButtons);
 	return true;
 }
 
@@ -98,9 +101,8 @@ void DataViewer::showStatusText(bool show)
 	(show) ? ui.statusText->show() : ui.statusText->hide();
 }
 
-void DataViewer::showButtons(bool show)
+void DataViewer::setShowButtons(bool show)
 {
-	m_showButtons = show;
 	ui.actionTruncate_Table->setEnabled(show);
 	ui.actionRemove_Row->setEnabled(show);
 	ui.actionNew_Row->setEnabled(show);
@@ -233,10 +235,30 @@ void DataViewer::copyHandler()
 
 void DataViewer::openStandaloneWindow()
 {
+	QString table;
+	SqlQueryModel *qm;
+	SqlTableModel *tm = qobject_cast<SqlTableModel*>(ui.tableView->model());
+
 	DataViewer *w = new DataViewer(this);
-	w->setTableModel(ui.tableView->model());
-	w->ui.statusText->hide();
-	w->showButtons(m_showButtons);
+	w->setAttribute(Qt::WA_DeleteOnClose);
+	w->setWindowTitle(tr("Data Snapshot"));
+
+	if (tm)
+	{
+		qm = new SqlQueryModel(w);
+		qm->setQuery(QString("select * from \"%1\".\"%2\";").arg(tm->schema()).arg(tm->tableName()),
+					QSqlDatabase::database(SESSION_NAME));
+	}
+	else
+		qm = qobject_cast<SqlQueryModel*>(ui.tableView->model());
+
+	w->setTableModel(qm);
+	w->ui.statusText->setText(tr("%1 snapshot for: %2")
+								.arg("<tt>"+QDateTime::currentDateTime().toString()+"</tt><br/>")
+								.arg("<br/><tt>" + qm->query().lastQuery())+ "</tt>");
+	w->ui.mainToolBar->hide();
+	w->ui.snapshotToolBar->hide();
+	w->ui.actionClose->setVisible(true);
 	w->show();
 }
 

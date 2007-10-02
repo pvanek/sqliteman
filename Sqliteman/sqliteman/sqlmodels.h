@@ -23,7 +23,10 @@ class SqlTableModel : public QSqlTableModel
 	public:
 		SqlTableModel( QObject * parent = 0, QSqlDatabase db = QSqlDatabase() );
 		~SqlTableModel() {};
+
 		void setSchema(const QString & schema) { m_schema = schema; };
+		QString schema() { return m_schema; };
+
 		bool pendingTransaction() { return m_pending; };
 
 		/*! \brief Set the pending flag \see m_pending to the transaction state

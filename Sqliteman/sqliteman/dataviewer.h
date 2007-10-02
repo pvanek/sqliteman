@@ -33,13 +33,11 @@ class DataViewer : public QMainWindow
 		/*! \brief Set data model. See Qt model/view documentation.
 		\retval bool true when the model is set succesfully
 		*/
-		bool setTableModel(QAbstractItemModel * model);
+		bool setTableModel(QAbstractItemModel * model, bool showButtons = false);
 		//! \brief Set text to the status widget.
 		void setStatusText(const QString & text);
 		//! \brief Show/hide status widget
 		void showStatusText(bool show);
-		//! \brief Show/hide action tools
-		void showButtons(bool show);
 
 		QSqlQueryModel* tableData();
 		QStringList tableHeader();
@@ -49,9 +47,10 @@ class DataViewer : public QMainWindow
 
 	private:
 		Ui::DataViewer ui;
-		bool m_showButtons;
 
 		void resizeViewToContents();
+		//! \brief Show/hide action tools
+		void setShowButtons(bool show);
 
 	private slots:
 		void addRow();
@@ -72,7 +71,13 @@ class DataViewer : public QMainWindow
 		void copyHandler();
 
 		/*! \brief Open current results in a new standalone window.
-		Based on the user RFE. Used for e.g. comparing 2 select results etc. */
+		Based on the user RFE. Used for e.g. comparing 2 select results etc.
+		It's a little bit hackish - the new window shoudl contain read
+		only snapshot of the current data result - even if it is a editable
+		table snapshot. User is not allowed to edit it as it's "freezed
+		in time" to prevent all transaction blocking.
+		It means all models are converted to the SqlQueryModel.
+		The new window is destroyed on its close. */
 		void openStandaloneWindow();
 };
 

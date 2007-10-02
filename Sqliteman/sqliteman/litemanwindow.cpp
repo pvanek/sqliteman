@@ -437,7 +437,7 @@ void LiteManWindow::openDatabase(const QString & fileName)
 	// Build tree & clean model
 	schemaBrowser->tableTree->buildTree();
 	schemaBrowser->buildPragmasTree();
-	dataViewer->setTableModel(new QSqlQueryModel());
+	dataViewer->setTableModel(new QSqlQueryModel(), false);
 
 	// Update the title
 	setWindowTitle(QString("%1 - %2").arg(fi.fileName()).arg(m_appName));
@@ -515,11 +515,10 @@ void LiteManWindow::execSql(QString query)
 	SqlQueryModel * model = new SqlQueryModel(this);
 	model->setQuery(query, QSqlDatabase::database(SESSION_NAME));
 
-	if (!dataViewer->setTableModel(model))
+	if (!dataViewer->setTableModel(model, false))
 		return;
 
 	dataViewer->setEnabled(true);
-	dataViewer->showButtons(false);
 	dataViewer->showStatusText(true);
 
 	sqlEditor->setStatusMessage(tr("Duration: %1 seconds").arg(time.elapsed() / 1000.0));
@@ -698,26 +697,22 @@ void LiteManWindow::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
 	if (item->type() == TableTree::TableType || item->type() == TableTree::ViewType
 	    || item->type() == TableTree::SystemType)
 	{
-// 		sqlEditor->setVisible(false);
 		dataViewer->setEnabled(true);
-// 		dataViewer->showStatusText(false);
 
 		if(item->type() == TableTree::ViewType || item->type() == TableTree::SystemType)
 		{
-			dataViewer->showButtons(false);
 			SqlQueryModel * model = new SqlQueryModel(this);
 			model->setQuery(QString("select * from %1.%2").arg(item->text(1)).arg(item->text(0)), QSqlDatabase::database(SESSION_NAME));
-			dataViewer->setTableModel(model);
+			dataViewer->setTableModel(model, false);
 		}
 		else
 		{
-			dataViewer->showButtons(true);
 			SqlTableModel * model = new SqlTableModel(this, QSqlDatabase::database(attachedDb[item->text(1)]));
 			model->setSchema(item->text(1));
 			model->setTable(item->text(0));
 			model->select();
 			model->setEditStrategy(SqlTableModel::OnManualSubmit);
-			dataViewer->setTableModel(model);
+			dataViewer->setTableModel(model, true);
 		}
 	}
 }
@@ -833,12 +828,11 @@ void LiteManWindow::runQuery(QString statement)
 {
 	SqlQueryModel * model = new SqlQueryModel(this);
 	model->setQuery(statement, QSqlDatabase::database(SESSION_NAME));
-	if (!dataViewer->setTableModel(model))
+	if (!dataViewer->setTableModel(model, false))
 		return;
 
 	dataViewer->setEnabled(true);
 	dataViewer->showStatusText(true);
-	dataViewer->showButtons(false);
 
 	if(model->lastError().isValid())
 		dataViewer->setStatusText(tr("Query Error: %1").arg(model->lastError().databaseText()));
