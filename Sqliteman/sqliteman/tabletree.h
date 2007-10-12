@@ -67,6 +67,10 @@ class TableTree : public QTreeWidget
 		void deleteChildren(QTreeWidgetItem * item);
 		QString trLabel(const QString & trStr);
 
+		QPoint m_dragStartPosition;
+
+		void mousePressEvent(QMouseEvent *event);
+		void mouseMoveEvent(QMouseEvent *event);
 };
 
 #endif

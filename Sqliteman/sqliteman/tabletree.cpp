@@ -4,6 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Sqliteman
 for which a new license (GPL+exception) is in place.
 */
+#include <QMouseEvent>
+#include <QApplication>
 
 #include "database.h"
 #include "tabletree.h"
@@ -25,6 +27,10 @@ TableTree::TableTree(QWidget * parent) : QTreeWidget(parent)
 	hideColumn(1);
 	
 	setContextMenuPolicy(Qt::CustomContextMenu);
+	setDragDropMode(QAbstractItemView::DragOnly);
+	setDragEnabled(true);
+	setDropIndicatorShown(true);
+	setAcceptDrops(false);
 }
 
 void TableTree::buildTree()
@@ -213,4 +219,38 @@ void TableTree::buildViewTree(QString schema, QString name)
 		if (item->text(1) == schema && item->type() == ViewsItemType)
 			buildViews(item, schema);
 	}
+}
+
+void TableTree::mousePressEvent(QMouseEvent *event)
+{
+	if (event->button() == Qt::LeftButton)
+		m_dragStartPosition = event->pos();
+	QTreeWidget::mousePressEvent(event);
+}
+
+ void TableTree::mouseMoveEvent(QMouseEvent *event)
+{
+	if (!(event->buttons() & Qt::LeftButton))
+		return;
+	if ((event->pos() - m_dragStartPosition).manhattanLength()
+			< QApplication::startDragDistance())
+		return;
+
+	if (currentItem()->type() != TableTree::TableType &&
+		   currentItem()->type() != TableTree::ViewType &&
+		   currentItem()->type() != TableTree::DatabaseItemType &&
+		   currentItem()->type() != TableTree::IndexType &&
+		   currentItem()->type() != TableTree::TriggerType &&
+		   currentItem()->type() != TableTree::SystemType &&
+		   currentItem()->type() != TableTree::ColumnType)
+		return;
+
+	QDrag *drag = new QDrag(this);
+	QMimeData *mimeData = new QMimeData;
+
+	mimeData->setText(currentItem()->text(0));
+	drag->setMimeData(mimeData);
+	drag->exec(Qt::CopyAction);
+
+	QTreeWidget::mouseMoveEvent(event);
 }
