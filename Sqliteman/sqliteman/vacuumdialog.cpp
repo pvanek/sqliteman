@@ -14,8 +14,8 @@ VacuumDialog::VacuumDialog(QWidget * parent)
 {
 	ui.setupUi(this);
 
-	ui.tableList->addItems(Database::getObjects("table").keys());
-	ui.tableList->addItems(Database::getObjects("index").keys());
+	ui.tableList->addItems(Database::getObjects("table").values());
+	ui.tableList->addItems(Database::getObjects("index").values());
 
 	connect(ui.allButton, SIGNAL(clicked()), this, SLOT(allButton_clicked()));
 	connect(ui.tableButton, SIGNAL(clicked()), this, SLOT(tableButton_clicked()));
