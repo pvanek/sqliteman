@@ -685,7 +685,8 @@ void LiteManWindow::dropIndex()
 	if(ret == QMessageBox::Yes)
 	{
 		if (Database::dropIndex(item->text(0), item->text(1)))
-			schemaBrowser->tableTree->buildIndexes(item->parent(), item->text(1), item->text(0));
+			schemaBrowser->tableTree->buildIndexes(item->parent(), item->text(1),
+												   item->parent()->parent()->text(0));
 	}
 }
 
