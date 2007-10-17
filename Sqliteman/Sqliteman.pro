@@ -1,5 +1,7 @@
 ######################################################################
 # Do not run qmake -project again!
+#
+# QMake project is obsolete now. Use CMAKE for windows too.
 ######################################################################
 
 TEMPLATE = app
@@ -16,7 +18,7 @@ win32:DEFINES += SQLITEMAN_VERSION=\\\"1.1svn\\\"
 win32:DEFINES += TRANSLATION_DIR=\\\"./ts\\\"
 win32:DEFINES += ICON_DIR=\\\":/icons/\\\"
 win32:DEFINES += SQLITE_BINARY=\\\"sqlite3.exe\\\"
-win32:DEFINES += HAVE_WIN
+win32:DEFINES += WIN32
 
 win32 {
     RC_FILE = sqliteman/icons/sqliteman.rc

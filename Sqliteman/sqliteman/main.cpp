@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <signal.h>
 
 // required for *BSD
-#ifndef HAVE_WIN
+#ifndef WIN32
 #include <unistd.h>
 #endif
 
@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #define endl QString("\n")
 
 
-#ifndef HAVE_WIN
+#ifndef WIN32
 void initCrashHandler();
 static void defaultCrashHandler(int sig);
 #endif
@@ -169,7 +169,7 @@ bool ArgsParser::parseArgs()
 int main(int argc, char ** argv)
 {
 	QApplication app(argc, argv);
-#ifndef HAVE_WIN
+#ifndef  WIN32
 	initCrashHandler();
 #endif
 	ArgsParser cli(argc, argv);
@@ -199,7 +199,7 @@ int main(int argc, char ** argv)
 	return r;
 }
 
-#ifndef HAVE_WIN
+#ifndef WIN32
 void initCrashHandler()
 {
 	typedef void (*HandlerType)(int);
