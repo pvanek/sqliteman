@@ -89,7 +89,9 @@ INCLUDE( ${QT_USE_FILE} )
 
 ADD_SUBDIRECTORY( sqliteman )
 
-IF (not WIN32)
+IF (WIN32)
+    MESSAGE(STATUS "Installation directories 'share' etc. aren't created in WIN32")
+ELSE (WIN32)
     # install desktop
     INSTALL(FILES
         sqliteman.desktop
