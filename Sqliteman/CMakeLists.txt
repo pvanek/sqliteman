@@ -89,12 +89,14 @@ INCLUDE( ${QT_USE_FILE} )
 
 ADD_SUBDIRECTORY( sqliteman )
 
-# install desktop
-INSTALL(FILES
-    sqliteman.desktop
-    DESTINATION "share/applications"
-)
-INSTALL(FILES
-    sqliteman/icons/sqliteman.png
-    DESTINATION "share/icons"
-)
+IF (not WIN32)
+    # install desktop
+    INSTALL(FILES
+        sqliteman.desktop
+        DESTINATION "share/applications"
+    )
+    INSTALL(FILES
+        sqliteman/icons/sqliteman.png
+        DESTINATION "share/icons"
+    )
+ENDIF (WIN32)
