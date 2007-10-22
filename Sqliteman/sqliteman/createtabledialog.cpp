@@ -18,7 +18,7 @@ CreateTableDialog::CreateTableDialog(QWidget * parent)
 	: TableEditorDialog(parent)
 {
 	update = false;
-	ui.removeButton->setEnabled(false);	// Disable row removal
+	ui.removeButton->setEnabled(false); // Disable row removal
 	addField(); // A table should have at least one field
 	setWindowTitle(tr("Create Table"));
 

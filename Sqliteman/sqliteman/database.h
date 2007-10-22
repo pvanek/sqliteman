@@ -118,6 +118,9 @@ class Database
 		*/
 		static FieldList tableFields(const QString & table, const QString & schema);
 		
+		//! \brief Returns the list of columns in given index
+		static QStringList indexFields(const QString & index, const QString &schema);
+		
 		/*!
 		@brief Drop a view from the database
 		@param table The name of the view to drop

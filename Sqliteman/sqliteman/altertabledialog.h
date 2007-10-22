@@ -34,6 +34,11 @@ class AlterTableDialog : public TableEditorDialog
 		bool update;
 
 	private:
+		/*! \brief Mappings of the columns to their indexes
+		E.g. "id" -- "mytab_ix1" etc.
+		It's used in the simulated DROP COLUMN checking */
+		QMap<QString,QStringList> m_columnIndexMap;
+
 		//! \brief original name of the table. It's compared with new name for renaming procedure.
 		QString currentTable;
 		//! \brief rowcount of the original table. User cannot remove these rows.
@@ -41,6 +46,8 @@ class AlterTableDialog : public TableEditorDialog
 
 		//! \brief Setup the OK button if there is something changed
 		void checkChanges();
+
+		QString renameTableSQL();
 
 	private slots:
 		void addField();

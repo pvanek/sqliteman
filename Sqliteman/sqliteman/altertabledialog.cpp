@@ -18,6 +18,19 @@ AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, 
 	currentTable = tableName;
 	update = false;
 
+	ui.columnTable->insertColumn(4); // show if it's indexed
+	QTableWidgetItem * captIx = new QTableWidgetItem(tr("Indexed"));
+	ui.columnTable->setHorizontalHeaderItem(4, captIx);
+
+	// obtain all indexed colums for DROP COLUMN checks
+	foreach(QString index, Database::getObjects("index", schema).values(tableName))
+	{
+		foreach(QString indexColumn, Database::indexFields(index, schema))
+		{
+			m_columnIndexMap[indexColumn].append(index);
+		}
+	}
+
 	ui.removeButton->setEnabled(false);
 
 	// Initialize fields
@@ -34,6 +47,15 @@ AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, 
 		QTableWidgetItem * nameItem = new QTableWidgetItem(fields[i].name);
 		QTableWidgetItem * typeItem = new QTableWidgetItem(fields[i].type);
 		QTableWidgetItem * defItem = new QTableWidgetItem(fields[i].defval);
+		QTableWidgetItem * ixItem = new QTableWidgetItem();
+		ixItem->setFlags(Qt::ItemIsSelectable);
+		if (m_columnIndexMap.contains(fields[i].name))
+		{
+			ixItem->setIcon(QIcon(QPixmap(QString(ICON_DIR) + "/index.png")));
+			ixItem->setText(tr("Yes"));
+		}
+		else
+			ixItem->setText(tr("No"));
 
 		ui.columnTable->setItem(i, 0, nameItem);
 		ui.columnTable->setItem(i, 1, typeItem);
@@ -41,9 +63,12 @@ AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, 
 		nn->setCheckState(fields[i].notnull ? Qt::Checked : Qt::Unchecked);
 		ui.columnTable->setCellWidget(i, 2, nn);
 		ui.columnTable->setItem(i, 3, defItem);
+		ui.columnTable->setItem(i, 4, ixItem);
 	}
 
 	protectedRows = ui.columnTable->rowCount();
+	ui.columnTable->resizeColumnsToContents();
+
 	setWindowTitle(tr("Alter Table"));
 
 	ui.textEdit->setText("ALTER TABLE <database-name.table-name>\n\

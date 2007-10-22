@@ -91,6 +91,24 @@ FieldList Database::tableFields(const QString & table, const QString & schema)
 	return fields;
 }
 
+QStringList Database::indexFields(const QString & index, const QString &schema)
+{
+	QString sql(QString("PRAGMA \"%1\".INDEX_INFO(\"%2\");").arg(schema).arg(index));
+	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
+	QStringList fields;
+
+	if (query.lastError().isValid())
+	{
+		exception(tr("Error while getting the fileds of %1: %2.").arg(index).arg(query.lastError().databaseText()));
+		return fields;
+	}
+
+	while (query.next())
+		fields.append(query.value(2).toString());
+
+	return fields;
+}
+
 DbObjects Database::getObjects(const QString type, const QString schema)
 {
 	DbObjects objs;
