@@ -40,10 +40,13 @@ class AlterTableDialog : public TableEditorDialog
 		QMap<QString,QStringList> m_columnIndexMap;
 
 		//! \brief original name of the table. It's compared with new name for renaming procedure.
-		QString currentTable;
+		QString m_table;
+		QString m_schema;
 		//! \brief rowcount of the original table. User cannot remove these rows.
 		int protectedRows;
 
+		//! \brief Fil the GUI with table structure.
+		void resetStructure();
 		//! \brief Setup the OK button if there is something changed
 		void checkChanges();
 

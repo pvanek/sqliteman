@@ -13,35 +13,42 @@ for which a new license (GPL+exception) is in place.
 
 
 AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, const QString & schema)
-	: TableEditorDialog(parent)
+	: TableEditorDialog(parent),
+	m_table(tableName),
+	m_schema(schema)
 {
-	currentTable = tableName;
 	update = false;
+
+	ui.nameEdit->setText(tableName);
+	ui.nameEdit->setDisabled(true);
+	ui.databaseCombo->addItem(schema);
+	ui.databaseCombo->setDisabled(true);
+	ui.tabWidget->removeTab(1);
+	ui.createButton->setText(tr("Alte&r"));
+	ui.removeButton->setEnabled(false);
+	setWindowTitle(tr("Alter Table"));
 
 	ui.columnTable->insertColumn(4); // show if it's indexed
 	QTableWidgetItem * captIx = new QTableWidgetItem(tr("Indexed"));
 	ui.columnTable->setHorizontalHeaderItem(4, captIx);
 
+	connect(ui.columnTable, SIGNAL(cellClicked(int, int)), this, SLOT(cellClicked(int,int)));
+
+	resetStructure();
+}
+
+void AlterTableDialog::resetStructure()
+{
 	// obtain all indexed colums for DROP COLUMN checks
-	foreach(QString index, Database::getObjects("index", schema).values(tableName))
+	foreach(QString index, Database::getObjects("index", m_schema).values(m_table))
 	{
-		foreach(QString indexColumn, Database::indexFields(index, schema))
-		{
+		foreach(QString indexColumn, Database::indexFields(index, m_schema))
 			m_columnIndexMap[indexColumn].append(index);
-		}
 	}
 
-	ui.removeButton->setEnabled(false);
-
 	// Initialize fields
-	ui.nameEdit->setText(tableName);
-	ui.nameEdit->setDisabled(true);
-	ui.databaseCombo->addItem(schema);
-	ui.databaseCombo->setDisabled(true);
-	ui.createButton->setText(tr("Alte&r"));
-
-	FieldList fields = Database::tableFields(tableName, schema);
-
+	FieldList fields = Database::tableFields(m_table, m_schema);
+	ui.columnTable->clearContents();
 	ui.columnTable->setRowCount(fields.size());
 	for(int i = 0; i < fields.size(); i++)
 	{
@@ -69,20 +76,16 @@ AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, 
 
 	protectedRows = ui.columnTable->rowCount();
 	ui.columnTable->resizeColumnsToContents();
-
-	setWindowTitle(tr("Alter Table"));
-
-	ui.textEdit->setText("ALTER TABLE <database-name.table-name>\n\
-<RENAME TO <new-table-name> | ADD [COLUMN] <column-def>;");
-
-	connect(ui.columnTable, SIGNAL(cellClicked(int, int)), this, SLOT(cellClicked(int,int)));
 }
 
 void AlterTableDialog::createButton_clicked()
 {
 	// handle add columns
 	if (alterTable())
+	{
 		update = true;
+		resetStructure();
+	}
 }
 
 bool AlterTableDialog::alterTable()
@@ -105,7 +108,7 @@ bool AlterTableDialog::alterTable()
 		def = getDefaultClause(f.defval);
 
 		fullSql = sql.arg(ui.databaseCombo->currentText())
-					.arg(currentTable)
+					.arg(m_table)
 					.arg(f.name)
 					.arg(f.type)
 					.arg(nn)
@@ -114,7 +117,10 @@ bool AlterTableDialog::alterTable()
 		QSqlQuery query(fullSql, QSqlDatabase::database(SESSION_NAME));
 		if(query.lastError().isValid())
 		{
-			ui.resultEdit->setText(tr("Error while altering table %1: %2.\n%3").arg(currentTable).arg(query.lastError().databaseText()).arg(fullSql));
+			ui.resultEdit->setText(tr("Error while altering table %1: %2.\n%3")
+										.arg(m_table)
+										.arg(query.lastError().databaseText())
+										.arg(fullSql));
 			return false;
 		}
 	}
@@ -160,7 +166,7 @@ void AlterTableDialog::checkChanges()
 {
 	QString newName(ui.nameEdit->text().simplified());
 	bool enable = false;
-	if ((!newName.isEmpty() && currentTable != newName) || protectedRows < ui.columnTable->rowCount())
+	if ((!newName.isEmpty() && m_table != newName) || protectedRows < ui.columnTable->rowCount())
 		enable = true;
 // 	ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enable);
 	ui.createButton->setEnabled(enable);
