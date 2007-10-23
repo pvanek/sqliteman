@@ -113,9 +113,13 @@ DbObjects Database::getObjects(const QString type, const QString schema)
 {
 	DbObjects objs;
 
-	QSqlQuery query(QString("SELECT name, tbl_name FROM \"%1\".sqlite_master WHERE type = '%2' and name not like 'sqlite_%';").arg(schema).arg(type),
-					QSqlDatabase::database(SESSION_NAME));
+	QString sql;
+	if (type.isNull())
+		sql = QString("SELECT name, tbl_name FROM \"%1\".sqlite_master;").arg(schema);
+	else
+		sql = QString("SELECT name, tbl_name FROM \"%1\".sqlite_master WHERE type = '%2' and name not like 'sqlite_%';").arg(schema).arg(type);
 
+	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
 	while(query.next())
 		objs.insertMulti(query.value(1).toString(), query.value(0).toString());
 

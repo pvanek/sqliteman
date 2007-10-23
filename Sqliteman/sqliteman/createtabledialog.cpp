@@ -42,14 +42,7 @@ QString CreateTableDialog::getSQLfromGUI()
 	for(int i = 0; i < ui.columnTable->rowCount(); i++)
 	{
 		f = getColumn(i);
-		if (f.cid == -1)
-			continue;
-
-		nn = f.notnull ? " NOT NULL" : "";
-// 		def = f.defval.length() > 0 ? QString(" DEFAULT (%1)").arg(f.defval) : "";
-		def = getDefaultClause(f.defval);
-
-		sql += ("    \"" + f.name + "\" " + f.type + nn + def + ",\n");
+		sql += getColumnClause(f);
 	}
 	sql = sql.remove(sql.size() - 2, 2); 	// cut the extra ", "
 	sql += "\n);\n";

@@ -42,8 +42,11 @@ class AlterTableDialog : public TableEditorDialog
 		//! \brief original name of the table. It's compared with new name for renaming procedure.
 		QString m_table;
 		QString m_schema;
-		//! \brief rowcount of the original table. User cannot remove these rows.
-		int protectedRows;
+		//! \brief rowcount of the original table. User cannot remove these rows directly.
+		int m_protectedRows;
+
+		//! \brief Indicate how much protected colums are marked for DROPping.
+		int m_dropColumns;
 
 		//! \brief Fil the GUI with table structure.
 		void resetStructure();
@@ -59,7 +62,8 @@ class AlterTableDialog : public TableEditorDialog
 		//! \brief Check if to allow user changes in the table column (qtable row).
 		void cellClicked(int, int);
 
-		void nameEdit_textChanged(const QString&);
+		void dropItem_stateChanged(int);
+
 		void createButton_clicked();
 };
 

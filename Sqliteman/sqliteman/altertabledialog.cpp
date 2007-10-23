@@ -11,11 +11,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "altertabledialog.h"
 
-
+#include <QtDebug>
 AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, const QString & schema)
 	: TableEditorDialog(parent),
 	m_table(tableName),
-	m_schema(schema)
+	m_schema(schema),
+	m_protectedRows(0),
+	m_dropColumns(0)
 {
 	update = false;
 
@@ -31,6 +33,9 @@ AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, 
 	ui.columnTable->insertColumn(4); // show if it's indexed
 	QTableWidgetItem * captIx = new QTableWidgetItem(tr("Indexed"));
 	ui.columnTable->setHorizontalHeaderItem(4, captIx);
+	ui.columnTable->insertColumn(5); // drop protected columns
+	QTableWidgetItem * captDrop = new QTableWidgetItem(tr("Drop"));
+	ui.columnTable->setHorizontalHeaderItem(5, captDrop);
 
 	connect(ui.columnTable, SIGNAL(cellClicked(int, int)), this, SLOT(cellClicked(int,int)));
 
@@ -56,6 +61,11 @@ void AlterTableDialog::resetStructure()
 		QTableWidgetItem * typeItem = new QTableWidgetItem(fields[i].type);
 		QTableWidgetItem * defItem = new QTableWidgetItem(fields[i].defval);
 		QTableWidgetItem * ixItem = new QTableWidgetItem();
+
+		QCheckBox * dropItem = new QCheckBox(this);
+		connect(dropItem, SIGNAL(stateChanged(int)),
+				this, SLOT(dropItem_stateChanged(int)));
+
 		ixItem->setFlags(Qt::ItemIsSelectable);
 		if (m_columnIndexMap.contains(fields[i].name))
 		{
@@ -72,20 +82,116 @@ void AlterTableDialog::resetStructure()
 		ui.columnTable->setCellWidget(i, 2, nn);
 		ui.columnTable->setItem(i, 3, defItem);
 		ui.columnTable->setItem(i, 4, ixItem);
+		ui.columnTable->setCellWidget(i, 5, dropItem);
 	}
 
-	protectedRows = ui.columnTable->rowCount();
+	m_protectedRows = ui.columnTable->rowCount();
+	m_dropColumns = 0;
 	ui.columnTable->resizeColumnsToContents();
+	checkChanges();
+}
+
+void AlterTableDialog::dropItem_stateChanged(int state)
+{
+	state == Qt::Checked ? ++m_dropColumns : --m_dropColumns;
+	checkChanges();
 }
 
 void AlterTableDialog::createButton_clicked()
 {
+	// drop columns first
+	if (m_dropColumns > 0)
+	{
+		QStringList existingObjects = Database::getObjects().keys();
+
+		// generate unique temporary tablename
+		QString tmpName("_sqliteman_alter_%1");
+		int tmpCount = 0;
+		while (existingObjects.contains(tmpName.arg(tmpCount), Qt::CaseInsensitive))
+			++tmpCount;
+		tmpName = tmpName.arg(tmpCount);
+
+		// create temporary table without selected columns
+		FieldList newColumns;
+		for(int i = 0; i < m_protectedRows; ++i)
+		{
+			if (!qobject_cast<QCheckBox*>(ui.columnTable->cellWidget(i, 5))->isChecked())
+				newColumns.append(getColumn(i));
+		}
+		QString sql = QString("CREATE TABLE %1 (\n").arg(tmpName);
+		QStringList tmpInsertColumns;
+		foreach (DatabaseTableField f, newColumns)
+		{
+			sql += getColumnClause(f);
+			tmpInsertColumns.append(f.name);
+		}
+		sql = sql.remove(sql.size() - 2, 2); 	// cut the extra ", "
+		sql += "\n);\n";
+		qDebug() << sql;
+
+		QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
+		if(query.lastError().isValid())
+		{
+			ui.resultEdit->setText(tr("Error while creating temporary table: %1.\n\n%2").arg(query.lastError().databaseText()).arg(sql));
+			return;
+		}
+		update = true;
+		ui.resultEdit->setText(tr("Temporary table created successfully"));
+
+		// insert old data
+		query.exec("BEGIN TRANSACTION;");
+		if(query.lastError().isValid())
+		{
+			ui.resultEdit->append(tr("Error while data transfer. %1").arg(query.lastError().databaseText()));
+			return;
+		}
+		ui.resultEdit->append(tr("Beging Transaction..."));
+
+		QString insSql(QString("INSERT INTO %1 (%2) SELECT %3 FROM \"%4\".\"%5\";")
+								.arg(tmpName).arg(tmpInsertColumns.join(","))
+								.arg(tmpInsertColumns.join(","))
+								.arg(m_schema).arg(m_table));
+		query.exec(insSql);
+		if(query.lastError().isValid())
+		{
+			ui.resultEdit->append(tr("Error while data transfer. %1\n%2").arg(query.lastError().databaseText()).arg(insSql));
+			Database::dropTable(tmpName, "main");
+			return;
+		}
+		ui.resultEdit->append(tr("Data Transfered..."));
+		query.exec("COMMIT;");
+		if(query.lastError().isValid())
+		{
+			ui.resultEdit->append(tr("Error while data transfer. %1").arg(query.lastError().databaseText()));
+			Database::dropTable(tmpName, "main");
+			return;
+		}
+		ui.resultEdit->append(tr("Commited..."));
+		query.exec(QString("DROP TABLE \"%1\".\"%2\";").arg(m_schema).arg(m_table));
+		if(query.lastError().isValid())
+		{
+			ui.resultEdit->append(tr("Error while data transfer. %1").arg(query.lastError().databaseText()));
+			Database::dropTable(tmpName, "main");
+			return;
+		}
+		ui.resultEdit->append(tr("Original table dropped..."));
+
+		query.exec(QString("ALTER TABLE \"%1\" RENAME TO \"%2\";").arg(tmpName).arg(m_table));
+		if(query.lastError().isValid())
+		{
+			ui.resultEdit->append(tr("Error while data transfer. %1").arg(query.lastError().databaseText()));
+			Database::dropTable(tmpName, "main");
+			return;
+		}
+		ui.resultEdit->append(tr("Temporary table renamed..."));
+	}
+
 	// handle add columns
 	if (alterTable())
-	{
 		update = true;
+
+	if (update)
 		resetStructure();
-	}
 }
 
 bool AlterTableDialog::alterTable()
@@ -97,7 +203,7 @@ bool AlterTableDialog::alterTable()
 	QString def;
 	QString fullSql;
 
-	for(int i = protectedRows; i < ui.columnTable->rowCount(); i++)
+	for(int i = m_protectedRows; i < ui.columnTable->rowCount(); i++)
 	{
 		f = getColumn(i);
 		if (f.cid == -1)
@@ -124,7 +230,7 @@ bool AlterTableDialog::alterTable()
 			return false;
 		}
 	}
-	ui.resultEdit->setText(tr("Table altered successfully"));
+	ui.resultEdit->append(tr("Columns added successfully"));
 	return true;
 }
 
@@ -136,7 +242,7 @@ void AlterTableDialog::addField()
 
 void AlterTableDialog::removeField()
 {
-	if (ui.columnTable->currentRow() < protectedRows)
+	if (ui.columnTable->currentRow() < m_protectedRows)
 		return;
 	TableEditorDialog::removeField();
 	checkChanges();
@@ -144,7 +250,7 @@ void AlterTableDialog::removeField()
 
 void AlterTableDialog::fieldSelected()
 {
-	if (ui.columnTable->currentRow() < protectedRows)
+	if (ui.columnTable->currentRow() < m_protectedRows)
 	{
 		ui.removeButton->setEnabled(false);
 		return;
@@ -154,7 +260,7 @@ void AlterTableDialog::fieldSelected()
 
 void AlterTableDialog::cellClicked(int row, int)
 {
-	if (row < protectedRows)
+	if (row < m_protectedRows)
 	{
 		ui.removeButton->setEnabled(false);
 		return;
@@ -164,16 +270,5 @@ void AlterTableDialog::cellClicked(int row, int)
 
 void AlterTableDialog::checkChanges()
 {
-	QString newName(ui.nameEdit->text().simplified());
-	bool enable = false;
-	if ((!newName.isEmpty() && m_table != newName) || protectedRows < ui.columnTable->rowCount())
-		enable = true;
-// 	ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(enable);
-	ui.createButton->setEnabled(enable);
-}
-
-void AlterTableDialog::nameEdit_textChanged(const QString& s)
-{
-	checkChanges();
-// 	NO CALL HERE! TableEditorDialog::nameEdit_textChanged(s);
+	ui.createButton->setEnabled(m_dropColumns > 0 || m_protectedRows < ui.columnTable->rowCount());
 }

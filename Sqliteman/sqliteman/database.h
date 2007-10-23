@@ -63,10 +63,10 @@ class Database
 		static DbAttach getDatabases();
 		/*! \brief Gather user objects from sqlite_master by type.
 		It skips the resrved names "sqlite_%". See getSysObjects().
-		\param type a "enum" 'table', 'view', index etc.
+		\param type a "enum" 'table', 'view', index etc. If it's empty all objects are selected.
 		\retval DbObjects a map with "object name"/"its parent"
 		*/
-		static DbObjects getObjects(const QString type, const QString schema = "main");
+		static DbObjects getObjects(const QString type = 0, const QString schema = "main");
 
 		/*! \brief Gather "SYS schema" objects.
 		\param schema a string with "attached db" name

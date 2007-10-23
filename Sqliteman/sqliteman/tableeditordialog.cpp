@@ -99,7 +99,7 @@ DatabaseTableField TableEditorDialog::getColumn(int row)
 
 	QString type;
 	if (ui.columnTable->cellWidget(row, 1) == 0)
-		type = "";
+		type = ui.columnTable->item(row, 1)->text();
 	else
 	{
 		QComboBox * typeBox = qobject_cast<QComboBox *>(ui.columnTable->cellWidget(row, 1));
@@ -141,4 +141,14 @@ QString TableEditorDialog::getDefaultClause(const QString & defVal)
 		return QString(" DEFAULT (%1)").arg(defVal);
 	else
 		return QString(" DEFAULT ('%1')").arg(defVal);
+}
+
+QString TableEditorDialog::getColumnClause(DatabaseTableField column)
+{
+	if (column.cid == -1)
+		return QString();
+
+	QString nn(column.notnull ? " NOT NULL" : "");
+	QString def(getDefaultClause(column.defval));
+	return "    \"" + column.name + "\" " + column.type + nn + def + ",\n";
 }
