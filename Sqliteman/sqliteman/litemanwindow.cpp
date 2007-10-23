@@ -197,6 +197,9 @@ void LiteManWindow::initActions()
 	alterTableAct->setShortcut(tr("Ctrl+A"));
 	connect(alterTableAct, SIGNAL(triggered()), this, SLOT(alterTable()));
 
+	renameTableAct = new QAction(tr("&Rename Table..."), this);
+	connect(renameTableAct, SIGNAL(triggered()), this, SLOT(renameTable()));
+
 	createViewAct = new QAction(tr("Create &View..."), this);
 	createViewAct->setShortcut(tr("Ctrl+G"));
 	connect(createViewAct, SIGNAL(triggered()), this, SLOT(createView()));
@@ -594,6 +597,29 @@ void LiteManWindow::alterTable()
 		schemaBrowser->tableTree->buildTables(item->parent(), item->text(1));
 }
 
+void LiteManWindow::renameTable()
+{
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
+	if(!item)
+		return;
+
+	bool ok;
+	QString text = QInputDialog::getText(this, m_appName,
+										 tr("New table name:"), QLineEdit::Normal,
+										 item->text(0), &ok);
+	if (ok && !text.isEmpty())
+	{
+		if (text == item->text(0))
+			return;
+		QString sql = QString("ALTER TABLE \"%1\".\"%2\" RENAME TO \"%3\";")
+								.arg(item->text(1))
+								.arg(item->text(0))
+								.arg(text);
+		if (Database::execSql(sql))
+			schemaBrowser->tableTree->buildTables(item->parent(), item->text(1));
+	}
+}
+
 void LiteManWindow::importTable()
 {
 	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
@@ -737,6 +763,7 @@ void LiteManWindow::tableTree_currentItemChanged(QTreeWidgetItem* cur, QTreeWidg
 		case TableTree::TableType:
 			contextMenu->addAction(describeTableAct);
 			contextMenu->addAction(alterTableAct);
+			contextMenu->addAction(renameTableAct);
 			contextMenu->addAction(dropTableAct);
 			contextMenu->addAction(reindexAct);
 			contextMenu->addSeparator();

@@ -35,6 +35,7 @@ AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, 
 
 	// Initialize fields
 	ui.nameEdit->setText(tableName);
+	ui.nameEdit->setDisabled(true);
 	ui.databaseCombo->addItem(schema);
 	ui.databaseCombo->setDisabled(true);
 	ui.createButton->setText(tr("Alte&r"));
@@ -79,35 +80,6 @@ AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, 
 
 void AlterTableDialog::createButton_clicked()
 {
-	QString newName(ui.nameEdit->text().simplified());
-	if (newName.isEmpty())
-		return;
-
-	// Handle a rename update
-	if (currentTable != newName)
-	{
-		QString sql = QString("ALTER TABLE \"%1\".\"%2\" RENAME TO \"%3\";")
-				.arg(ui.databaseCombo->currentText())
-				.arg(currentTable)
-				.arg(ui.nameEdit->text().simplified());
-		QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
-	
-		if(query.lastError().isValid())
-		{
-			ui.resultEdit->setText(tr("Error while renaming table %1: %2.\n\n%3")
-					.arg(currentTable)
-					.arg(query.lastError().databaseText())
-					.arg(sql));
-		}
-		else
-		{
-			update = true;
-			currentTable = newName;
-			ui.resultEdit->setText(tr("Table renamed successfully"));
-		}
-		return;
-	}
-
 	// handle add columns
 	if (alterTable())
 		update = true;
