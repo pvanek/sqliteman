@@ -9,13 +9,13 @@ for which a new license (GPL+exception) is in place.
 #include <QXmlStreamReader>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QtDebug>
 
 #include "importtabledialog.h"
 #include "importtablelogdialog.h"
 #include "database.h"
 #include "sqliteprocess.h"
 
-#include <QtDebug>
 
 ImportTableDialog::ImportTableDialog(QWidget * parent, const QString & tableName, const QString & schema)
 	: QDialog(parent),
@@ -126,7 +126,7 @@ void ImportTableDialog::slotAccepted()
 		else
 			++success;
 	}
-qDebug() << success;
+
 	if (result)
 	{
 		Database::execSql("COMMIT;");

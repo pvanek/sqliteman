@@ -6,39 +6,230 @@
     <x>0</x>
     <y>0</y>
     <width>525</width>
-    <height>650</height>
+    <height>675</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Create Table</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="leftMargin" >
-    <number>9</number>
-   </property>
-   <property name="topMargin" >
-    <number>9</number>
-   </property>
-   <property name="rightMargin" >
-    <number>9</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>9</number>
-   </property>
-   <property name="horizontalSpacing" >
-    <number>6</number>
-   </property>
-   <property name="verticalSpacing" >
-    <number>6</number>
-   </property>
-   <item row="1" column="1" >
-    <widget class="QPushButton" name="createButton" >
-     <property name="text" >
-      <string>C&amp;reate</string>
+   <item row="0" column="0" >
+    <widget class="QSplitter" name="tableEditorSplitter" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
      </property>
+     <widget class="QWidget" native="1" name="widget" >
+      <layout class="QGridLayout" >
+       <property name="leftMargin" >
+        <number>0</number>
+       </property>
+       <property name="topMargin" >
+        <number>0</number>
+       </property>
+       <property name="rightMargin" >
+        <number>0</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>0</number>
+       </property>
+       <item row="0" column="0" colspan="2" >
+        <widget class="QTabWidget" name="tabWidget" >
+         <property name="currentIndex" >
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="designTab" >
+          <attribute name="title" >
+           <string>De&amp;sign</string>
+          </attribute>
+          <layout class="QGridLayout" >
+           <item row="0" column="0" >
+            <widget class="QLabel" name="label_2" >
+             <property name="text" >
+              <string>&amp;Database:</string>
+             </property>
+             <property name="buddy" >
+              <cstring>databaseCombo</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" >
+            <widget class="QComboBox" name="databaseCombo" />
+           </item>
+           <item row="0" column="2" >
+            <widget class="QLabel" name="label" >
+             <property name="text" >
+              <string>Table &amp;Name:</string>
+             </property>
+             <property name="buddy" >
+              <cstring>nameEdit</cstring>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3" >
+            <widget class="QLineEdit" name="nameEdit" />
+           </item>
+           <item row="1" column="0" colspan="4" >
+            <widget class="QGroupBox" name="groupBox" >
+             <property name="title" >
+              <string>Co&amp;lumns</string>
+             </property>
+             <layout class="QGridLayout" >
+              <property name="leftMargin" >
+               <number>9</number>
+              </property>
+              <property name="topMargin" >
+               <number>9</number>
+              </property>
+              <property name="rightMargin" >
+               <number>9</number>
+              </property>
+              <property name="bottomMargin" >
+               <number>9</number>
+              </property>
+              <property name="horizontalSpacing" >
+               <number>6</number>
+              </property>
+              <property name="verticalSpacing" >
+               <number>6</number>
+              </property>
+              <item row="0" column="0" colspan="3" >
+               <widget class="QTableWidget" name="columnTable" >
+                <property name="alternatingRowColors" >
+                 <bool>true</bool>
+                </property>
+                <property name="selectionMode" >
+                 <enum>QAbstractItemView::SingleSelection</enum>
+                </property>
+                <property name="selectionBehavior" >
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
+                <column>
+                 <property name="text" >
+                  <string>Name</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text" >
+                  <string>Type</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text" >
+                  <string>Not Null</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text" >
+                  <string>Default</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+              <item row="1" column="1" >
+               <widget class="QPushButton" name="addButton" >
+                <property name="text" >
+                 <string>&amp;Add</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2" >
+               <widget class="QPushButton" name="removeButton" >
+                <property name="text" >
+                 <string>&amp;Remove</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" >
+               <spacer>
+                <property name="orientation" >
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" >
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="4" >
+            <widget class="QLabel" name="adviceLabel" >
+             <property name="text" >
+              <string>If you need to use an advanced options&lt;br>go to the "&lt;b>Advanced (SQL)&lt;/b>" tab.</string>
+             </property>
+             <property name="textFormat" >
+              <enum>Qt::AutoText</enum>
+             </property>
+             <property name="alignment" >
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="sqlTab" >
+          <attribute name="title" >
+           <string>Ad&amp;vanced (SQL)</string>
+          </attribute>
+          <layout class="QGridLayout" >
+           <property name="leftMargin" >
+            <number>9</number>
+           </property>
+           <property name="topMargin" >
+            <number>9</number>
+           </property>
+           <property name="rightMargin" >
+            <number>9</number>
+           </property>
+           <property name="bottomMargin" >
+            <number>9</number>
+           </property>
+           <property name="horizontalSpacing" >
+            <number>6</number>
+           </property>
+           <property name="verticalSpacing" >
+            <number>6</number>
+           </property>
+           <item row="0" column="0" >
+            <widget class="QTextEdit" name="textEdit" />
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QPushButton" name="createButton" >
+         <property name="text" >
+          <string>C&amp;reate</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QTextEdit" name="resultEdit" >
+      <property name="readOnly" >
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
    </item>
-   <item row="3" column="0" colspan="2" >
+   <item row="1" column="0" >
     <widget class="QDialogButtonBox" name="buttonBox" >
      <property name="orientation" >
       <enum>Qt::Horizontal</enum>
@@ -46,218 +237,6 @@
      <property name="standardButtons" >
       <set>QDialogButtonBox::Close</set>
      </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2" >
-    <widget class="QTextEdit" name="resultEdit" >
-     <property name="maximumSize" >
-      <size>
-       <width>16777215</width>
-       <height>70</height>
-      </size>
-     </property>
-     <property name="readOnly" >
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="0" column="0" colspan="2" >
-    <widget class="QTabWidget" name="tabWidget" >
-     <property name="currentIndex" >
-      <number>0</number>
-     </property>
-     <widget class="QWidget" name="designTab" >
-      <attribute name="title" >
-       <string>De&amp;sign</string>
-      </attribute>
-      <layout class="QGridLayout" >
-       <property name="leftMargin" >
-        <number>9</number>
-       </property>
-       <property name="topMargin" >
-        <number>9</number>
-       </property>
-       <property name="rightMargin" >
-        <number>9</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>9</number>
-       </property>
-       <property name="horizontalSpacing" >
-        <number>6</number>
-       </property>
-       <property name="verticalSpacing" >
-        <number>6</number>
-       </property>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label_2" >
-         <property name="text" >
-          <string>&amp;Database:</string>
-         </property>
-         <property name="buddy" >
-          <cstring>databaseCombo</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1" >
-        <widget class="QComboBox" name="databaseCombo" />
-       </item>
-       <item row="0" column="2" >
-        <widget class="QLabel" name="label" >
-         <property name="text" >
-          <string>Table &amp;Name:</string>
-         </property>
-         <property name="buddy" >
-          <cstring>nameEdit</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3" >
-        <widget class="QLineEdit" name="nameEdit" />
-       </item>
-       <item row="1" column="0" colspan="4" >
-        <widget class="QGroupBox" name="groupBox" >
-         <property name="title" >
-          <string>Co&amp;lumns</string>
-         </property>
-         <layout class="QGridLayout" >
-          <property name="leftMargin" >
-           <number>9</number>
-          </property>
-          <property name="topMargin" >
-           <number>9</number>
-          </property>
-          <property name="rightMargin" >
-           <number>9</number>
-          </property>
-          <property name="bottomMargin" >
-           <number>9</number>
-          </property>
-          <property name="horizontalSpacing" >
-           <number>6</number>
-          </property>
-          <property name="verticalSpacing" >
-           <number>6</number>
-          </property>
-          <item row="0" column="0" colspan="3" >
-           <widget class="QTableWidget" name="columnTable" >
-            <property name="alternatingRowColors" >
-             <bool>true</bool>
-            </property>
-            <property name="selectionMode" >
-             <enum>QAbstractItemView::SingleSelection</enum>
-            </property>
-            <property name="selectionBehavior" >
-             <enum>QAbstractItemView::SelectRows</enum>
-            </property>
-            <column>
-             <property name="text" >
-              <string>Name</string>
-             </property>
-            </column>
-            <column>
-             <property name="text" >
-              <string>Type</string>
-             </property>
-            </column>
-            <column>
-             <property name="text" >
-              <string>Not Null</string>
-             </property>
-            </column>
-            <column>
-             <property name="text" >
-              <string>Default</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-          <item row="1" column="1" >
-           <widget class="QPushButton" name="addButton" >
-            <property name="text" >
-             <string>&amp;Add</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2" >
-           <widget class="QPushButton" name="removeButton" >
-            <property name="text" >
-             <string>&amp;Remove</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" >
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="4" >
-        <widget class="QLabel" name="adviceLabel" >
-         <property name="text" >
-          <string>If you need to use an advanced options&lt;br>go to the "&lt;b>Advanced (SQL)&lt;/b>" tab.</string>
-         </property>
-         <property name="textFormat" >
-          <enum>Qt::AutoText</enum>
-         </property>
-         <property name="alignment" >
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="sqlTab" >
-      <attribute name="title" >
-       <string>Ad&amp;vanced (SQL)</string>
-      </attribute>
-      <layout class="QGridLayout" >
-       <property name="leftMargin" >
-        <number>9</number>
-       </property>
-       <property name="topMargin" >
-        <number>9</number>
-       </property>
-       <property name="rightMargin" >
-        <number>9</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>9</number>
-       </property>
-       <property name="horizontalSpacing" >
-        <number>6</number>
-       </property>
-       <property name="verticalSpacing" >
-        <number>6</number>
-       </property>
-       <item row="0" column="0" >
-        <widget class="QTextEdit" name="textEdit" />
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>

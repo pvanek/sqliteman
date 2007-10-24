@@ -25,7 +25,7 @@ class TableEditorDialog : public QDialog
 		Q_OBJECT
 	public:
 		TableEditorDialog(QWidget * parent);
-		~TableEditorDialog(){};
+		~TableEditorDialog();
 
 		Ui::TableEditorDialog ui;
 

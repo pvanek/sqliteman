@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTableWidget>
 #include <QCheckBox>
 #include <QtDebug>
+#include <QSettings>
 
 #include "tableeditordialog.h"
 #include "sqleditor.h"
@@ -16,6 +17,11 @@ for which a new license (GPL+exception) is in place.
 TableEditorDialog::TableEditorDialog(QWidget * parent)//, Mode mode, const QString & tableName): QDialog(parent)
 {
 	ui.setupUi(this);
+	
+	QSettings settings("yarpen.cz", "sqliteman");
+	restoreGeometry(settings.value("tableeditor/geometry").toByteArray());
+	ui.tableEditorSplitter->restoreState(settings.value("tableeditor/splitter").toByteArray());
+	
 	new SqlEditorTools::SqlHighlighter(ui.textEdit->document());
 	ui.databaseCombo->addItems(Database::getDatabases().keys());
 
@@ -26,6 +32,13 @@ TableEditorDialog::TableEditorDialog(QWidget * parent)//, Mode mode, const QStri
 	connect(ui.removeButton, SIGNAL(clicked()), this, SLOT(removeField()));
 	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabWidget_currentChanged(int)));
 	connect(ui.createButton, SIGNAL(clicked()), this, SLOT(createButton_clicked()));
+}
+
+TableEditorDialog::~TableEditorDialog()
+{
+	QSettings settings("yarpen.cz", "sqliteman");
+	settings.setValue("tableeditor/geometry", saveGeometry());
+	settings.setValue("tableeditor/splitter", ui.tableEditorSplitter->saveState());
 }
 
 void TableEditorDialog::createButton_clicked()

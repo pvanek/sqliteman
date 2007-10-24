@@ -15,8 +15,12 @@ for which a new license (GPL+exception) is in place.
 /*! \brief Handle alter table features.
 Sqlite3 has very limited ALTER TABLE feature set, so
 there is only support for "table rename" and "add column".
-\TODO: There should be a way how to simulate drop
-column with rename - inser select combination.
+Table Renaming is handled directly in the LiteManWindow
+method renameTable().
+Adding columns - see addColumns(). It's a wrapper around
+plain ALTER TABLE ADD COLUMN statement.
+Drop Column is using a workaround with tmp table, insert-select
+statement and renaming. See createButton_clicked()
 \author Petr Vanek <petr@scribus.info>
 */
 class AlterTableDialog : public TableEditorDialog
@@ -27,10 +31,6 @@ class AlterTableDialog : public TableEditorDialog
 		AlterTableDialog(QWidget * parent = 0, const QString & tableName = 0, const QString & schema = 0);
 		~AlterTableDialog(){};
 
-		/*! \brief Analyze user changes and performs the ALTER TABLE sql
-		\retval bool true on succes, false on error
-		*/
-		bool alterTable();
 		bool update;
 
 	private:
@@ -53,7 +53,15 @@ class AlterTableDialog : public TableEditorDialog
 		//! \brief Setup the OK button if there is something changed
 		void checkChanges();
 
-		QString renameTableSQL();
+		/*! \brief Analyze user changes and performs the ALTER TABLE ADD COLUM sqls
+		\retval bool true on succes, false on error
+		 */
+		bool addColumns();
+
+		//! \brief Execute statement, handle its errors and outputs message to the GUI.
+		bool execSql(const QString & statement, const QString & message, const QString & tmpName=0);
+		//! \brief Returns a list of DDL statements to recreate reqired obejcts after all.
+		QStringList originalSource();
 
 	private slots:
 		void addField();

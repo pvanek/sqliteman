@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "altertabledialog.h"
 
-#include <QtDebug>
+
 AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, const QString & schema)
 	: TableEditorDialog(parent),
 	m_table(tableName),
@@ -97,15 +97,51 @@ void AlterTableDialog::dropItem_stateChanged(int state)
 	checkChanges();
 }
 
+bool AlterTableDialog::execSql(const QString & statement, const QString & message, const QString & tmpName)
+{
+	QSqlQuery query(statement, QSqlDatabase::database(SESSION_NAME));
+	if(query.lastError().isValid())
+	{
+		ui.resultEdit->append(QString("%1 (%2) %3:").arg(message)
+													.arg(tr("failed"))
+													.arg(query.lastError().databaseText()));
+		ui.resultEdit->append(statement);
+		if (!tmpName.isNull())
+			ui.resultEdit->append(tr("Old table is stored as %1").arg(tmpName));
+		return false;
+	}
+	ui.resultEdit->append(message);
+	return true;
+}
+
+QStringList AlterTableDialog::originalSource()
+{
+	QString ixsql("select sql from \"%1\".sqlite_master where type in ('index', 'trigger') and tbl_name = '%2';");
+	QSqlQuery query(ixsql.arg(m_schema).arg(m_table), QSqlDatabase::database(SESSION_NAME));
+	QStringList ret;
+
+	if (query.lastError().isValid())
+	{
+		ui.resultEdit->append(tr("Cannot get index list. %1").arg(query.lastError().databaseText()));
+		return QStringList();
+	}
+	while(query.next())
+		ret.append(query.value(0).toString());
+	return ret;
+}
+
 void AlterTableDialog::createButton_clicked()
 {
+	ui.resultEdit->clear();
 	// drop columns first
 	if (m_dropColumns > 0)
 	{
 		QStringList existingObjects = Database::getObjects().keys();
+		// indexes and triggers on the original table
+		QStringList originalSrc = originalSource();
 
 		// generate unique temporary tablename
-		QString tmpName("_sqliteman_alter_%1");
+		QString tmpName("_alter%1_" + m_table);
 		int tmpCount = 0;
 		while (existingObjects.contains(tmpName.arg(tmpCount), Qt::CaseInsensitive))
 			++tmpCount;
@@ -118,7 +154,15 @@ void AlterTableDialog::createButton_clicked()
 			if (!qobject_cast<QCheckBox*>(ui.columnTable->cellWidget(i, 5))->isChecked())
 				newColumns.append(getColumn(i));
 		}
-		QString sql = QString("CREATE TABLE %1 (\n").arg(tmpName);
+
+		if (!execSql(QString("ALTER TABLE \"%1\".\"%2\" RENAME TO \"%3\";")
+							.arg(m_schema).arg(m_table).arg(tmpName),
+					 tr("Rename original table to %1").arg(tmpName)))
+		{
+			return;
+		}
+
+		QString sql = QString("CREATE TABLE %1 (\n").arg(m_table);
 		QStringList tmpInsertColumns;
 		foreach (DatabaseTableField f, newColumns)
 		{
@@ -127,74 +171,51 @@ void AlterTableDialog::createButton_clicked()
 		}
 		sql = sql.remove(sql.size() - 2, 2); 	// cut the extra ", "
 		sql += "\n);\n";
-		qDebug() << sql;
 
-		QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
-		if(query.lastError().isValid())
-		{
-			ui.resultEdit->setText(tr("Error while creating temporary table: %1.\n\n%2").arg(query.lastError().databaseText()).arg(sql));
+		if (!execSql(sql, tr("Creating new table: %1").arg(m_table)))
 			return;
-		}
+
 		update = true;
-		ui.resultEdit->setText(tr("Temporary table created successfully"));
 
 		// insert old data
-		query.exec("BEGIN TRANSACTION;");
-		if(query.lastError().isValid())
+		if (!execSql("BEGIN TRANSACTION;", tr("Begin Transaction"), tmpName))
 		{
-			ui.resultEdit->append(tr("Error while data transfer. %1").arg(query.lastError().databaseText()));
+			Database::dropTable(tmpName, "main");
 			return;
 		}
-		ui.resultEdit->append(tr("Beging Transaction..."));
+		QString insSql(QString("INSERT INTO \"%1\".\"%2\" (\"%3\") SELECT \"%4\" FROM \"%5\";")
+								.arg(m_schema).arg(m_table)
+								.arg(tmpInsertColumns.join("\",\""))
+								.arg(tmpInsertColumns.join("\",\""))
+								.arg(tmpName));
+		if (!execSql(insSql, tr("Data Transfer"), tmpName))
+			return;
+		if (!execSql("COMMIT;", tr("Transaction Commit"), tmpName))
+			return;
 
-		QString insSql(QString("INSERT INTO %1 (%2) SELECT %3 FROM \"%4\".\"%5\";")
-								.arg(tmpName).arg(tmpInsertColumns.join(","))
-								.arg(tmpInsertColumns.join(","))
-								.arg(m_schema).arg(m_table));
-		query.exec(insSql);
-		if(query.lastError().isValid())
-		{
-			ui.resultEdit->append(tr("Error while data transfer. %1\n%2").arg(query.lastError().databaseText()).arg(insSql));
-			Database::dropTable(tmpName, "main");
+		// drop old table
+		if (!execSql(QString("DROP TABLE \"%1\";").arg(tmpName),
+			 tr("Dropping original table %1").arg(tmpName),
+				tmpName))
 			return;
-		}
-		ui.resultEdit->append(tr("Data Transfered..."));
-		query.exec("COMMIT;");
-		if(query.lastError().isValid())
-		{
-			ui.resultEdit->append(tr("Error while data transfer. %1").arg(query.lastError().databaseText()));
-			Database::dropTable(tmpName, "main");
-			return;
-		}
-		ui.resultEdit->append(tr("Commited..."));
-		query.exec(QString("DROP TABLE \"%1\".\"%2\";").arg(m_schema).arg(m_table));
-		if(query.lastError().isValid())
-		{
-			ui.resultEdit->append(tr("Error while data transfer. %1").arg(query.lastError().databaseText()));
-			Database::dropTable(tmpName, "main");
-			return;
-		}
-		ui.resultEdit->append(tr("Original table dropped..."));
 
-		query.exec(QString("ALTER TABLE \"%1\" RENAME TO \"%2\";").arg(tmpName).arg(m_table));
-		if(query.lastError().isValid())
-		{
-			ui.resultEdit->append(tr("Error while data transfer. %1").arg(query.lastError().databaseText()));
-			Database::dropTable(tmpName, "main");
-			return;
-		}
-		ui.resultEdit->append(tr("Temporary table renamed..."));
+		// restoring original indexes
+		foreach (QString restoreSql, originalSrc)
+			execSql(restoreSql, tr("Recreating original index/trigger"));
 	}
 
 	// handle add columns
-	if (alterTable())
+	if (addColumns())
 		update = true;
 
 	if (update)
+	{
 		resetStructure();
+		ui.resultEdit->append(tr("Alter Table Done"));
+	}
 }
 
-bool AlterTableDialog::alterTable()
+bool AlterTableDialog::addColumns()
 {
 	// handle new columns
 	DatabaseTableField f;
@@ -210,7 +231,6 @@ bool AlterTableDialog::alterTable()
 			continue;
 
 		nn = f.notnull ? " NOT NULL" : "";
-// 		def = f.defval.length() > 0 ? QString(" DEFAULT (%1)").arg(f.defval) : "";
 		def = getDefaultClause(f.defval);
 
 		fullSql = sql.arg(ui.databaseCombo->currentText())

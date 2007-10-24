@@ -5,10 +5,11 @@ a copyright and/or license notice that predates the release of Sqliteman
 for which a new license (GPL+exception) is in place.
 */
 #include <QProcess>
+#include <QtDebug>
+
 #include "sqliteprocess.h"
 #include "litemanwindow.h"
 
-#include <QtDebug>
 
 SqliteProcess::SqliteProcess(QObject * parent)
 	: QObject(parent),
