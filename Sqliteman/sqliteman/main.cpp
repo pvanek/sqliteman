@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "litemanwindow.h"
 #include "preferences.h"
+#include "utils.h"
 
 #define ARG_VERSION "--version"
 #define ARG_HELP "--help"
@@ -111,7 +112,7 @@ QString ArgsParser::localeCode()
 //! \brief Full qualified localisation file path.
 QString ArgsParser::translator()
 {
-	return QDir::toNativeSeparators(QString("%1/sqliteman_%2.qm").arg(TRANSLATION_DIR).arg(localeCode()));
+	return getTranslator(localeCode());
 }
 
 bool ArgsParser::parseArgs()
@@ -184,7 +185,7 @@ int main(int argc, char ** argv)
 		QApplication::setStyle(QStyleFactory::create(sl.at(style-1)));
 	}
 
-	app.setWindowIcon(QIcon(QString(ICON_DIR) + "/sqliteman.png"));
+	app.setWindowIcon(getIcon("sqliteman.png"));
 
 	QTranslator translator;
 	translator.load(cli.translator());

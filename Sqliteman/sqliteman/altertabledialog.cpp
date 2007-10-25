@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSqlError>
 
 #include "altertabledialog.h"
+#include "utils.h"
 
 
 AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, const QString & schema)
@@ -69,7 +70,7 @@ void AlterTableDialog::resetStructure()
 		ixItem->setFlags(Qt::ItemIsSelectable);
 		if (m_columnIndexMap.contains(fields[i].name))
 		{
-			ixItem->setIcon(QIcon(QPixmap(QString(ICON_DIR) + "/index.png")));
+			ixItem->setIcon(getIcon("index.png"));
 			ixItem->setText(tr("Yes"));
 		}
 		else

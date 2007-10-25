@@ -64,7 +64,9 @@ HEADERS += sqliteman/altertabledialog.h \
            sqliteman/sqlparser.h \
            sqliteman/tableeditordialog.h \
            sqliteman/tabletree.h \
-           sqliteman/vacuumdialog.h
+           sqliteman/vacuumdialog.h \
+           sqliteman/utils.h
+
 FORMS += sqliteman/analyzedialog.ui \
          sqliteman/constraintsdialog.ui \
          sqliteman/createindexdialog.ui \
@@ -114,5 +116,5 @@ SOURCES += sqliteman/altertabledialog.cpp \
            sqliteman/sqlparser.cpp \
            sqliteman/tableeditordialog.cpp \
            sqliteman/tabletree.cpp \
-           sqliteman/vacuumdialog.cpp
-
+           sqliteman/vacuumdialog.cpp \
+           sqliteman/utils.cpp

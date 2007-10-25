@@ -36,6 +36,7 @@ SET( SQLITEMAN_SRC
     tableeditordialog.cpp
     tabletree.cpp
     vacuumdialog.cpp
+    utils.cpp
 )
 
 # compiled in icons for windows

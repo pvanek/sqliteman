@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "dataexportdialog.h"
 #include "sqlmodels.h"
 #include "database.h"
+#include "utils.h"
 
 
 DataViewer::DataViewer(QWidget * parent)
@@ -24,11 +25,11 @@ DataViewer::DataViewer(QWidget * parent)
 	ui.setupUi(this);
 	ui.splitter->setCollapsible(0, false);
 	ui.splitter->setCollapsible(1, false);
-	ui.actionNew_Row->setIcon(QIcon(QString(ICON_DIR) + "/insert_table_row.png"));
-	ui.actionRemove_Row->setIcon(QIcon(QString(ICON_DIR) + "/delete_table_row.png"));
-	ui.actionTruncate_Table->setIcon(QIcon(QString(ICON_DIR) + "/clear_table_contents.png"));
-	ui.actionCommit->setIcon(QIcon(QString(ICON_DIR) + "/database_commit.png"));
-	ui.actionRollback->setIcon(QIcon(QString(ICON_DIR) + "/database_rollback.png"));
+	ui.actionNew_Row->setIcon(getIcon("insert_table_row.png"));
+	ui.actionRemove_Row->setIcon(getIcon("delete_table_row.png"));
+	ui.actionTruncate_Table->setIcon(getIcon("clear_table_contents.png"));
+	ui.actionCommit->setIcon(getIcon("database_commit.png"));
+	ui.actionRollback->setIcon(getIcon("database_rollback.png"));
 
 	// workaround for Ctrl+C
 	DataViewerTools::KeyPressEater *keyPressEater = new DataViewerTools::KeyPressEater(this);

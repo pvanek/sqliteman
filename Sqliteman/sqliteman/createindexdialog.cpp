@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "createindexdialog.h"
 #include "database.h"
+#include "utils.h"
 
 
 CreateIndexDialog::CreateIndexDialog(const QString & tabName, const QString & schema, QWidget * parent)
@@ -36,7 +37,7 @@ CreateIndexDialog::CreateIndexDialog(const QString & tabName, const QString & sc
 
 		ui.tableColumns->setItem(i, 0, nameItem);
 		if (columns[i].pk)
-			nameItem->setIcon(QIcon(QPixmap(QString(ICON_DIR) + "/key.png")));
+			nameItem->setIcon(getIcon("key.png"));
 
 		ui.tableColumns->setItem(i, 1, useItem);
 		QComboBox *asc = new QComboBox(this);

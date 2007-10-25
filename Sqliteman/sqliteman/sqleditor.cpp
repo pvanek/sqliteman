@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "sqlparser.h"
 #include "sqleditor.h"
 #include "sqlkeywords.h"
+#include "utils.h"
 
 
 SqlEditor::SqlEditor(QWidget * parent)
@@ -48,13 +49,13 @@ SqlEditor::SqlEditor(QWidget * parent)
 
 	ui.searchFrame->hide();
 
-	ui.action_Run_SQL->setIcon(QIcon(QString(ICON_DIR) + "/runsql.png"));
-	ui.actionRun_Explain->setIcon(QIcon(QString(ICON_DIR) + "/runexplain.png"));
-	ui.action_Open->setIcon(QIcon(QString(ICON_DIR) + "/document-open.png"));
-	ui.action_Save->setIcon(QIcon(QString(ICON_DIR) + "/document-save.png"));
-	ui.action_New->setIcon(QIcon(QString(ICON_DIR) + "/document-new.png"));
-	ui.actionSave_As->setIcon(QIcon(QString(ICON_DIR) + "/document-save-as.png"));
-	ui.actionCreateView->setIcon(QIcon(QString(ICON_DIR) + "/view.png"));
+	ui.action_Run_SQL->setIcon(getIcon("runsql.png"));
+	ui.actionRun_Explain->setIcon(getIcon("runexplain.png"));
+	ui.action_Open->setIcon(getIcon("document-open.png"));
+	ui.action_Save->setIcon(getIcon("document-save.png"));
+	ui.action_New->setIcon(getIcon("document-new.png"));
+	ui.actionSave_As->setIcon(getIcon("document-save-as.png"));
+	ui.actionCreateView->setIcon(getIcon("view.png"));
 
 	connect(ui.action_Run_SQL, SIGNAL(triggered()), this, SLOT(action_Run_SQL_triggered()));
 	connect(ui.actionRun_Explain, SIGNAL(triggered()), this, SLOT(actionRun_Explain_triggered()));
