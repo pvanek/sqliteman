@@ -38,7 +38,7 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 
 	// nulls
 	// FIXME: rewrite to the QSqlField::isNull?
-	if (m_useNull && (curr.isNull() || curr.isEmpty()))
+	if (m_useNull && curr.isNull())
 	{
 		if (role == Qt::BackgroundColorRole)
 			return QVariant(m_nullColor);
@@ -159,7 +159,7 @@ QVariant SqlQueryModel::data(const QModelIndex & item, int role) const
 {
 	QString curr(QSqlQueryModel::data(item, Qt::DisplayRole).toString());
 
-	if (m_useNull && (curr.isNull() || curr.isEmpty()))
+	if (m_useNull && curr.isNull())
 	{
 		if (role == Qt::BackgroundColorRole)
 			return QVariant(m_nullColor);
