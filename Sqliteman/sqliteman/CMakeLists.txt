@@ -26,6 +26,7 @@ SET( SQLITEMAN_SRC
     schemabrowser.cpp
     shortcuteditordialog.cpp
     shortcutmodel.cpp
+    sqldelegate.cpp
     sqleditor.cpp
     sqleditorwidget.cpp
     sqliteprocess.cpp
@@ -66,6 +67,7 @@ SET( SQLITEMAN_MOC
     schemabrowser.h
     shortcuteditordialog.h
     shortcutmodel.h
+    sqldelegate.h
     sqleditor.h
     sqleditorwidget.h
     sqliteprocess.h
@@ -88,9 +90,11 @@ SET( SQLITEMAN_UI
     helpbrowser.ui
     importtabledialog.ui
     importtablelogdialog.ui
+    multieditdialog.ui
     preferencesdialog.ui
     schemabrowser.ui
     shortcuteditordialog.ui
+    sqldelegateui.ui
     sqleditor.ui
     sqlitemview.ui
     tableeditordialog.ui

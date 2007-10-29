@@ -48,7 +48,7 @@ class DataViewer : public QMainWindow
 	private:
 		Ui::DataViewer ui;
 
-		void resizeViewToContents();
+		void resizeViewToContents(QAbstractItemModel * model);
 		//! \brief Show/hide action tools
 		void setShowButtons(bool show);
 

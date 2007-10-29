@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "dataexportdialog.h"
 #include "sqlmodels.h"
 #include "database.h"
+#include "sqldelegate.h"
 #include "utils.h"
 
 
@@ -30,6 +31,9 @@ DataViewer::DataViewer(QWidget * parent)
 	ui.actionTruncate_Table->setIcon(getIcon("clear_table_contents.png"));
 	ui.actionCommit->setIcon(getIcon("database_commit.png"));
 	ui.actionRollback->setIcon(getIcon("database_rollback.png"));
+
+	// custom delegate
+	ui.tableView->setItemDelegate(new SqlDelegate(this));
 
 	// workaround for Ctrl+C
 	DataViewerTools::KeyPressEater *keyPressEater = new DataViewerTools::KeyPressEater(this);
@@ -81,15 +85,20 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 	}
 	ui.tableView->setModel(model);
 	ui.itemView->setModel(model);
-	resizeViewToContents();
+	resizeViewToContents(model);
 	setShowButtons(showButtons);
 	return true;
 }
 
-void DataViewer::resizeViewToContents()
+void DataViewer::resizeViewToContents(QAbstractItemModel * model)
 {
 	ui.tableView->resizeColumnsToContents();
 	ui.tableView->resizeRowsToContents();
+	for (int i = 0; i < model->columnCount(); ++i)
+	{
+		if (ui.tableView->columnWidth(i) < 150)
+			ui.tableView->setColumnWidth(i, 150);
+	}
 }
 
 void DataViewer::setStatusText(const QString & text)
@@ -188,7 +197,7 @@ void DataViewer::commit()
 		return;
 	}
 	model->setPendingTransaction(false);
-	resizeViewToContents();
+	resizeViewToContents(model);
 }
 
 void DataViewer::rollback()
@@ -200,7 +209,7 @@ void DataViewer::rollback()
 	SqlTableModel * model = qobject_cast<SqlTableModel *>(ui.tableView->model());
 	model->revertAll();
 	model->setPendingTransaction(false);
-	resizeViewToContents();
+	resizeViewToContents(model);
 }
 
 void DataViewer::copyHandler()
