@@ -38,6 +38,8 @@ Preferences::Preferences(QObject *parent)
 	m_codeCompletionLength = s.value("prefs/sqleditor/completionLengthBox", 3).toInt();
 	m_useShortcuts = s.value("prefs/sqleditor/useShortcuts", false).toBool();
 	m_shortcuts = s.value("prefs/sqleditor/shortcuts", QMap<QString,QVariant>()).toMap();
+	//
+	m_dateTimeFormat = s.value("data/dateTimeFormat", "MM/dd/yyyy").toString();
 }
 
 Preferences::~Preferences()
@@ -66,6 +68,7 @@ Preferences::~Preferences()
 	settings.setValue("prefs/sqleditor/completionLengthBox", m_codeCompletionLength);
 	settings.setValue("prefs/sqleditor/useShortcuts", m_useShortcuts);
 	settings.setValue("prefs/sqleditor/shortcuts", m_shortcuts);
+	settings.setValue("data/dateTimeFormat", m_dateTimeFormat);
 }
 
 Preferences* Preferences::instance()

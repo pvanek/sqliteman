@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sqldelegate.h"
 #include "utils.h"
-#include "ui_multieditdialog.h"
+#include "multieditdialog.h"
 
 
 SqlDelegate::SqlDelegate(QObject * parent)
@@ -87,12 +87,12 @@ void SqlDelegateUi::nullButton_clicked(bool)
 
 void SqlDelegateUi::editButton_clicked(bool)
 {
-	QDialog * dia = new QDialog(this);
-	Ui::MultiEditDialog ui;
-	ui.setupUi(dia);
-	ui.textEdit->setPlainText(m_sqlData);
+	MultiEditDialog * dia = new MultiEditDialog(this);
+	dia->setData(m_sqlData);
+	
 	if (dia->exec())
-		setSqlData(ui.textEdit->toPlainText());
+		setSqlData(dia->data());
+
 }
 
 void SqlDelegateUi::lineEdit_textEdited(const QString & text)

@@ -18,6 +18,7 @@ SET( SQLITEMAN_SRC
     helpbrowser.cpp
     importtabledialog.cpp
     importtablelogdialog.cpp
+    multieditdialog.cpp
     litemanwindow.cpp
     main.cpp
     preferences.cpp
@@ -61,6 +62,7 @@ SET( SQLITEMAN_MOC
     importtabledialog.h
     importtablelogdialog.h
     litemanwindow.h
+    multieditdialog.h
     preferences.h
     preferencesdialog.h
     queryeditordialog.h

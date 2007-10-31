@@ -89,6 +89,9 @@ class Preferences : public QObject
 		QMap<QString,QVariant> shortcuts() { return m_shortcuts; };
 		void setShortcuts(QMap<QString,QVariant>  v) { m_shortcuts = v; };
 
+		QString dateTimeFormat() { return m_dateTimeFormat; };
+		void setDateTimeFormat(const QString & v) { m_dateTimeFormat = v; };
+
 	signals:
 		void prefsChanged();
 
@@ -120,6 +123,7 @@ class Preferences : public QObject
 		bool m_useShortcuts;
 		QMap<QString,QVariant> m_shortcuts;
 
+		QString m_dateTimeFormat;
 };
 
 #endif
