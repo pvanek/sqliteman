@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include "multieditdialog.h"
 #include "preferences.h"
@@ -22,18 +23,22 @@ MultiEditDialog::MultiEditDialog(QWidget * parent)
 			this, SLOT(tabWidget_currentChanged(int)));
 	connect(blobFileButton, SIGNAL(clicked()),
 			this, SLOT(blobFileButton_clicked()));
+	connect(blobSaveButton, SIGNAL(clicked()),
+			this, SLOT(blobSaveButton_clicked()));
 }
 
-void MultiEditDialog::setData(const QString & data)
+void MultiEditDialog::setData(const QVariant & data)
 {
-	textEdit->setPlainText(data);
+	m_data = data;
+	textEdit->setPlainText(data.toString());
 	dateFormatEdit->setText(Preferences::instance()->dateTimeFormat());
 	dateTimeEdit->setDate(QDateTime::currentDateTime().date());
+	checkBlobPreview(data);
 }
 
-QString MultiEditDialog::data()
+QVariant MultiEditDialog::data()
 {
-	QString ret;
+	QVariant ret;
 	switch (tabWidget->currentIndex())
 	{
 		// handle text with EOLs
@@ -42,7 +47,12 @@ QString MultiEditDialog::data()
 			break;
 		// handle File2BLOB
 		case 1:
+		{
+			QFile f(blobFileEdit->text());
+			if (f.open(QIODevice::ReadOnly))
+				ret = QVariant(f.readAll())/*.data()*/;
 			break;
+		}
 		// handle DateTime to string
 		case 2:
 			Preferences::instance()->setDateTimeFormat(dateFormatEdit->text());
@@ -63,6 +73,30 @@ void MultiEditDialog::blobFileButton_clicked()
 		blobFileEdit->setText(fileName);
 		checkBlobPreview(fileName);
 	}
+}
+
+void MultiEditDialog::blobSaveButton_clicked()
+{
+	QString fileName = QFileDialog::getSaveFileName(this,
+													tr("Open File"),
+			   										blobFileEdit->text(),
+													tr("All Files (* *.*)"));
+	if (fileName.isNull())
+		return;
+	QFile f(fileName);
+	if (!f.open(QIODevice::WriteOnly))
+	{
+		QMessageBox::warning(this, tr("BLOB Save Error"),
+							 tr("Cannot open file %1 for writting").arg(fileName));
+		return;
+	}
+	if (f.write(m_data.toByteArray()) == -1)
+	{
+		QMessageBox::warning(this, tr("BLOB Save Error"),
+							 tr("Cannot write into file %1").arg(fileName));
+		return;
+	}
+	f.close();
 }
 
 void MultiEditDialog::blobFileEdit_textChanged(const QString &)
@@ -95,8 +129,14 @@ void MultiEditDialog::checkButtonStatus()
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(e);
 }
 
-void MultiEditDialog::checkBlobPreview(uchar * data)
+void MultiEditDialog::checkBlobPreview(QVariant data)
 {
+	QPixmap pm;
+	pm.loadFromData(data.toByteArray());
+	if (pm.isNull())
+		blobPreviewLabel->setText(tr("File content cannot be displayed"));
+	else
+		blobPreviewLabel->setPixmap(pm.scaled(blobPreviewLabel->size(), Qt::KeepAspectRatio));
 }
 
 void MultiEditDialog::checkBlobPreview(const QString & fileName)

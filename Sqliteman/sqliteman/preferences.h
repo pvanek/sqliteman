@@ -123,6 +123,7 @@ class Preferences : public QObject
 		bool m_useShortcuts;
 		QMap<QString,QVariant> m_shortcuts;
 
+		// used in MultieditDialog
 		QString m_dateTimeFormat;
 };
 

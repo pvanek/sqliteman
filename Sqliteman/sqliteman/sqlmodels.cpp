@@ -37,7 +37,6 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 	QString curr(QSqlTableModel::data(item, Qt::DisplayRole).toString());
 
 	// nulls
-	// FIXME: rewrite to the QSqlField::isNull?
 	if (m_useNull && curr.isNull())
 	{
 		if (role == Qt::BackgroundColorRole)
@@ -48,6 +47,9 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 			return QVariant(m_nullText);
 	}
 	// BLOBs
+	// any others handling with blobs - e.g. converting to images etc.
+	// are followed with serious perfromance issues.
+	// Users can see it through edit dialog.
 	if (/*f.type.toUpper() == "BLOB" || */
 		m_useBlob &&
 		record().field(item.column()).type() == QVariant::ByteArray)
@@ -59,8 +61,10 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 		if (role == Qt::DisplayRole)
 			return QVariant(m_blobText);
 		if (role == Qt::EditRole)
-			return Database::hex(QSqlTableModel::data(item, Qt::DisplayRole).toByteArray());
+// 			return Database::hex(QSqlTableModel::data(item, Qt::DisplayRole).toByteArray());
+			return QSqlTableModel::data(item, Qt::DisplayRole);
 	}
+
 	// mark rows prepared for a deletion in this trasnaction
 	if (role == Qt::BackgroundColorRole && m_deleteCache.contains(item.row()))
 		return QVariant(Qt::red);

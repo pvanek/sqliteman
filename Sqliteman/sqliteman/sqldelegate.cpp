@@ -23,6 +23,7 @@ QWidget *SqlDelegate::createEditor(QWidget *parent,
 {
 	SqlDelegateUi *editor = new SqlDelegateUi(parent);
 	editor->setFocus(Qt::OtherFocusReason);
+	editor->setFocusPolicy(Qt::StrongFocus);
 	editor->lineEdit->setFocus(Qt::OtherFocusReason);
 	return editor;
 }
@@ -30,8 +31,7 @@ QWidget *SqlDelegate::createEditor(QWidget *parent,
 void SqlDelegate::setEditorData(QWidget *editor,
 								const QModelIndex &index) const
 {
-	QString value = index.model()->data(index, Qt::EditRole).toString();
-	static_cast<SqlDelegateUi*>(editor)->setSqlData(value);
+	static_cast<SqlDelegateUi*>(editor)->setSqlData(index.model()->data(index, Qt::EditRole));
 }
 
 void SqlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
@@ -63,18 +63,19 @@ SqlDelegateUi::SqlDelegateUi(QWidget * parent)
 			this, SLOT(lineEdit_textEdited(const QString &)));
 }
 
-void SqlDelegateUi::setSqlData(const QString & data)
+void SqlDelegateUi::setSqlData(const QVariant & data)
 {
 	m_sqlData = data;
-	if (m_sqlData.contains("\n"))
+	// blob or multiline
+	if (data.type() == QVariant::ByteArray || m_sqlData.toString().contains("\n"))
 	{
 		lineEdit->setDisabled(true);
 		editButton->setFocus(Qt::OtherFocusReason);
 	}
-	lineEdit->setText(data);
+	lineEdit->setText(data.toString());
 }
 
-QString SqlDelegateUi::sqlData()
+QVariant SqlDelegateUi::sqlData()
 {
 	return m_sqlData;
 }
@@ -92,7 +93,6 @@ void SqlDelegateUi::editButton_clicked(bool)
 	
 	if (dia->exec())
 		setSqlData(dia->data());
-
 }
 
 void SqlDelegateUi::lineEdit_textEdited(const QString & text)

@@ -16,6 +16,10 @@ class QAbstractItemModel;
 class QModelIndex;
 
 
+/*! \brief A special delegate for editation of database result cells.
+See SqlDelegateUi for its widget. See Qt4 docs for delegate informations.
+\author Petr Vanek <petr@scribus.info>
+*/
 class SqlDelegate : public QItemDelegate
 {
 	Q_OBJECT
@@ -34,18 +38,29 @@ class SqlDelegate : public QItemDelegate
 };
 
 
+/*! \brief A custom widget used for direct data editation in the DataViewer result table.
+It contains line edit and some buttons for specific tasks.
+LineEdit is used for direct editation as in the default item delegate.
+This widget is disabled when there is stored a multiline text (\\n)
+or the value is BLOB.
+nullButton handles a real NULL values insertions. Text can be in 3 states:
+a string, an empty string ('') and NULL. Sqlite3 makes difference between '' and NULL.
+editButton opens "multi" editor (see MultiEditDialog()). User can edit multi lined
+large texts, load files into BLOB, or format DateTime data.
+\author Petr Vanek <petr@scribus.info>
+*/
 class SqlDelegateUi : public QWidget, public Ui::SqlDelegateUi
 {
 	Q_OBJECT
-			
+
 	public:
 		SqlDelegateUi(QWidget * parent = 0);
 		
-		void setSqlData(const QString & data);
-		QString sqlData();
+		void setSqlData(const QVariant & data);
+		QVariant sqlData();
 
 	private:
-		 QString m_sqlData;
+		QVariant m_sqlData;
 
 	private slots:
 		void nullButton_clicked(bool);
