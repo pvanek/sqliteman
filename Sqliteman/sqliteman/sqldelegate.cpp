@@ -22,6 +22,7 @@ QWidget *SqlDelegate::createEditor(QWidget *parent,
 								   const QModelIndex &/* index */) const
 {
 	SqlDelegateUi *editor = new SqlDelegateUi(parent);
+	editor->setFocus(Qt::OtherFocusReason);
 	editor->lineEdit->setFocus(Qt::OtherFocusReason);
 	return editor;
 }
@@ -52,7 +53,10 @@ SqlDelegateUi::SqlDelegateUi(QWidget * parent)
 	: QWidget(parent)
 {
 	setupUi(this);
-	
+
+	nullButton->setIcon(getIcon("setnull.png"));
+	editButton->setIcon(getIcon("edit.png"));
+
 	connect(nullButton, SIGNAL(clicked(bool)), this, SLOT(nullButton_clicked(bool)));
 	connect(editButton, SIGNAL(clicked(bool)), this, SLOT(editButton_clicked(bool)));
 	connect(lineEdit, SIGNAL(textEdited(const QString &)),

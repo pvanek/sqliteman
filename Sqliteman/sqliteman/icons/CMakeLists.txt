@@ -12,6 +12,7 @@ INSTALL(FILES
     column.png
     document-new.png
     document-save.png
+    edit.png
     key.png
     sqliteman.png
     trigger.png
@@ -19,6 +20,7 @@ INSTALL(FILES
     document-open.png
     index.png
     runexplain.png
+    setnull.png
     system.png
     view.png
     delete_table_row.png

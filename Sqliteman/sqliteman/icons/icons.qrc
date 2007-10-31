@@ -6,6 +6,7 @@
         <file>database_commit.png</file>
         <file>database_rollback.png</file>
         <file>delete_table_row.png</file>
+        <file>edit.png</file>
         <file>document-new.png</file>
         <file>document-open.png</file>
         <file>document-save-as.png</file>
@@ -16,6 +17,7 @@
         <file>runexplain.png</file>
         <file>runsql.png</file>
         <file>sqliteman.png</file>
+        <file>setnull.png</file>
         <file>system.png</file>
         <file>table.png</file>
         <file>trigger.png</file>
