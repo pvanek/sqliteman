@@ -6,17 +6,16 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QIcon>
-#include <QDir>
 
 #include "utils.h"
 
 
 QIcon getIcon(const QString & fileName)
 {
-	return QIcon(QDir::toNativeSeparators(QString(ICON_DIR) + "/" + fileName));
+	return QIcon(QString(ICON_DIR) + "/" + fileName);
 }
 
 QString getTranslator(const QString & localeName)
 {
-	return QDir::toNativeSeparators(QString("%1/sqliteman_%2.qm").arg(TRANSLATION_DIR).arg(localeName));
+	return QString("%1/sqliteman_%2.qm").arg(TRANSLATION_DIR).arg(localeName);
 }
