@@ -61,6 +61,8 @@ class SqlDelegateUi : public QWidget, public Ui::SqlDelegateUi
 
 	private:
 		QVariant m_sqlData;
+		//! Flag to prevent reopening the MultiEditDialog again and again in the setSqlData().
+		bool m_openEditor;
 
 	private slots:
 		void nullButton_clicked(bool);

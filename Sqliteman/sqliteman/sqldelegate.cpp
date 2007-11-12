@@ -49,7 +49,8 @@ void SqlDelegate::updateEditorGeometry(QWidget *editor,
 
 
 SqlDelegateUi::SqlDelegateUi(QWidget * parent)
-	: QWidget(parent)
+	: QWidget(parent),
+	  m_openEditor(true)
 {
 	setupUi(this);
 
@@ -70,7 +71,8 @@ void SqlDelegateUi::setSqlData(const QVariant & data)
 	{
 		lineEdit->setDisabled(true);
 		lineEdit->setToolTip(tr("Multiline texts can be edited by the enhanced editor only (Ctrl+Shift+E)"));
-		editButton_clicked(true);
+		if (m_openEditor)
+			editButton_clicked(true);
 	}
 	lineEdit->setText(data.toString());
 }
@@ -90,6 +92,7 @@ void SqlDelegateUi::editButton_clicked(bool)
 {
 	MultiEditDialog * dia = new MultiEditDialog(this);
 	dia->setData(m_sqlData);
+	m_openEditor = false;
 	
 	if (dia->exec())
 		setSqlData(dia->data());
