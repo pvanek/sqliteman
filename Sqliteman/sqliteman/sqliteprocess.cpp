@@ -28,8 +28,8 @@ void SqliteProcess::start(const QStringList & commands, const QStringList & opti
 {
 	QProcess p;
 
-// 	if (!m_stdout.isNull())
-// 		p.setStandardOutputFile(m_stdout);
+	if (!m_stdout.isNull())
+		p.setStandardOutputFile(m_stdout);
 
 	QStringList list = QStringList() << options << m_mainDbPath << commands;
 	qDebug() << "Running " << SQLITE_BINARY << " with args: " << list;
