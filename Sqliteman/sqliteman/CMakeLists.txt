@@ -7,6 +7,7 @@ SET( SQLITEMAN_SRC
     altertriggerdialog.cpp
     alterviewdialog.cpp
     analyzedialog.cpp
+    blobpreviewwidget.cpp
     constraintsdialog.cpp
     createindexdialog.cpp
     createtabledialog.cpp
@@ -51,6 +52,7 @@ SET( SQLITEMAN_MOC
     altertriggerdialog.h
     alterviewdialog.h
     analyzedialog.h
+    blobpreviewwidget.h
     constraintsdialog.h
     createindexdialog.h
     createtabledialog.h

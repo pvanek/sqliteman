@@ -79,6 +79,9 @@ class DataViewer : public QMainWindow
 		It means all models are converted to the SqlQueryModel.
 		The new window is destroyed on its close. */
 		void openStandaloneWindow();
+
+		void handleBlobPreview(bool);
+		void tableView_selectionChanged(const QItemSelection &, const QItemSelection &);
 };
 
 

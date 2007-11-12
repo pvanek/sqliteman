@@ -35,7 +35,7 @@ void MultiEditDialog::setData(const QVariant & data)
 	textEdit->setPlainText(data.toString());
 	dateFormatEdit->setText(Preferences::instance()->dateTimeFormat());
 	dateTimeEdit->setDate(QDateTime::currentDateTime().date());
-	checkBlobPreview(data);
+	blobPreviewLabel->setBlobData(data);
 }
 
 QVariant MultiEditDialog::data()
@@ -77,7 +77,7 @@ void MultiEditDialog::blobFileButton_clicked()
 	if (!fileName.isNull())
 	{
 		blobFileEdit->setText(fileName);
-		checkBlobPreview(fileName);
+		blobPreviewLabel->setBlobFromFile(fileName);
 	}
 }
 
@@ -141,24 +141,24 @@ void MultiEditDialog::checkButtonStatus()
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(e);
 }
 
-void MultiEditDialog::checkBlobPreview(QVariant data)
-{
-	QPixmap pm;
-	pm.loadFromData(data.toByteArray());
-	if (pm.isNull())
-		blobPreviewLabel->setText(tr("File content cannot be displayed"));
-	else
-		blobPreviewLabel->setPixmap(pm.scaled(blobPreviewLabel->size(), Qt::KeepAspectRatio));
-}
+// void MultiEditDialog::checkBlobPreview(QVariant data)
+// {
+// 	QPixmap pm;
+// 	pm.loadFromData(data.toByteArray());
+// 	if (pm.isNull())
+// 		blobPreviewLabel->setText(tr("File content cannot be displayed"));
+// 	else
+// 		blobPreviewLabel->setPixmap(pm.scaled(blobPreviewLabel->size(), Qt::KeepAspectRatio));
+// }
 
-void MultiEditDialog::checkBlobPreview(const QString & fileName)
-{
-	QPixmap pm(fileName);
-	if (pm.isNull())
-		blobPreviewLabel->setText(tr("File content cannot be displayed"));
-	else
-		blobPreviewLabel->setPixmap(pm.scaled(blobPreviewLabel->size(), Qt::KeepAspectRatio));
-}
+// void MultiEditDialog::checkBlobPreview(const QString & fileName)
+// {
+// 	QPixmap pm(fileName);
+// 	if (pm.isNull())
+// 		blobPreviewLabel->setText(tr("File content cannot be displayed"));
+// 	else
+// 		blobPreviewLabel->setPixmap(pm.scaled(blobPreviewLabel->size(), Qt::KeepAspectRatio));
+// }
 
 void MultiEditDialog::nullCheckBox_stateChanged(int)
 {

@@ -37,6 +37,7 @@ HEADERS += sqliteman/altertabledialog.h \
            sqliteman/altertriggerdialog.h \
            sqliteman/alterviewdialog.h \
            sqliteman/analyzedialog.h \
+           sqliteman/blobpreviewwidget.h \
            sqliteman/constraintsdialog.h \
            sqliteman/createindexdialog.h \
            sqliteman/createtabledialog.h \
@@ -91,6 +92,7 @@ SOURCES += sqliteman/altertabledialog.cpp \
            sqliteman/altertriggerdialog.cpp \
            sqliteman/alterviewdialog.cpp \
            sqliteman/analyzedialog.cpp \
+           sqliteman/blobpreviewwidget.cpp \
            sqliteman/constraintsdialog.cpp \
            sqliteman/createindexdialog.cpp \
            sqliteman/createtabledialog.cpp \

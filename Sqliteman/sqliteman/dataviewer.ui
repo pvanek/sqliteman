@@ -19,43 +19,74 @@
       <property name="orientation" >
        <enum>Qt::Vertical</enum>
       </property>
-      <widget class="QTabWidget" name="tabWidget" >
-       <property name="currentIndex" >
-        <number>0</number>
+      <widget class="QSplitter" name="splitterBlob" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
        </property>
-       <widget class="QWidget" name="tab" >
-        <attribute name="title" >
-         <string>Full View</string>
-        </attribute>
+       <widget class="QTabWidget" name="tabWidget" >
+        <property name="currentIndex" >
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="tab" >
+         <attribute name="title" >
+          <string>Full View</string>
+         </attribute>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="QTableView" name="tableView" >
+            <property name="minimumSize" >
+             <size>
+              <width>0</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="alternatingRowColors" >
+             <bool>true</bool>
+            </property>
+            <property name="selectionMode" >
+             <enum>QAbstractItemView::ContiguousSelection</enum>
+            </property>
+            <property name="horizontalScrollMode" >
+             <enum>QAbstractItemView::ScrollPerPixel</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_2" >
+         <attribute name="title" >
+          <string>Item View</string>
+         </attribute>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="SqlItemView" native="1" name="itemView" />
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="blobPreviewBox" >
+        <property name="title" >
+         <string>BLOB Preview</string>
+        </property>
         <layout class="QGridLayout" >
          <item row="0" column="0" >
-          <widget class="QTableView" name="tableView" >
+          <widget class="BlobPreviewWidget" name="blobPreview" >
            <property name="minimumSize" >
             <size>
-             <width>0</width>
-             <height>100</height>
+             <width>150</width>
+             <height>150</height>
             </size>
            </property>
-           <property name="alternatingRowColors" >
+           <property name="frameShape" >
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="wordWrap" >
             <bool>true</bool>
            </property>
-           <property name="selectionMode" >
-            <enum>QAbstractItemView::SingleSelection</enum>
-           </property>
-           <property name="horizontalScrollMode" >
-            <enum>QAbstractItemView::ScrollPerPixel</enum>
-           </property>
           </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_2" >
-        <attribute name="title" >
-         <string>Item View</string>
-        </attribute>
-        <layout class="QGridLayout" >
-         <item row="0" column="0" >
-          <widget class="SqlItemView" native="1" name="itemView" />
          </item>
         </layout>
        </widget>
@@ -94,6 +125,8 @@
    <addaction name="separator" />
    <addaction name="actionCommit" />
    <addaction name="actionRollback" />
+   <addaction name="separator" />
+   <addaction name="actionBLOB_Preview" />
   </widget>
   <widget class="QToolBar" name="exportToolBar" >
    <property name="windowTitle" >
@@ -169,6 +202,14 @@
     <bool>false</bool>
    </property>
   </action>
+  <action name="actionBLOB_Preview" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>BLOB Preview</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -176,6 +217,11 @@
    <extends>QWidget</extends>
    <header>sqlitemview.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BlobPreviewWidget</class>
+   <extends>QLabel</extends>
+   <header>blobpreviewwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

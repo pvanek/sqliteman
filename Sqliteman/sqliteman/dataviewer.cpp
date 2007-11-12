@@ -18,12 +18,15 @@ for which a new license (GPL+exception) is in place.
 #include "database.h"
 #include "sqldelegate.h"
 #include "utils.h"
+#include "blobpreviewwidget.h"
 
 
 DataViewer::DataViewer(QWidget * parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	handleBlobPreview(false);
+
 	ui.splitter->setCollapsible(0, false);
 	ui.splitter->setCollapsible(1, false);
 	ui.actionNew_Row->setIcon(getIcon("insert_table_row.png"));
@@ -49,6 +52,7 @@ DataViewer::DataViewer(QWidget * parent)
 	connect(ui.actionClose, SIGNAL(triggered()), this, SLOT(close()));
 	connect(keyPressEater, SIGNAL(copyRequest()), this, SLOT(copyHandler()));
 // 	connect(parent, SIGNAL(prefsChanged()), ui.tableView, SLOT(repaint()));
+	connect(ui.actionBLOB_Preview, SIGNAL(toggled(bool)), this, SLOT(handleBlobPreview(bool)));
 }
 
 bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
@@ -84,6 +88,8 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 		}
 	}
 	ui.tableView->setModel(model);
+	connect(ui.tableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
+			this, SLOT(tableView_selectionChanged(const QItemSelection &, const QItemSelection &)));
 	ui.itemView->setModel(model);
 	resizeViewToContents(model);
 	setShowButtons(showButtons);
@@ -271,6 +277,25 @@ void DataViewer::openStandaloneWindow()
 	w->ui.actionClose->setVisible(true);
 	w->show();
 }
+
+void DataViewer::handleBlobPreview(bool state)
+{
+	ui.blobPreviewBox->setVisible(state);
+	if (state)
+		tableView_selectionChanged(QItemSelection(), QItemSelection());
+}
+
+void DataViewer::tableView_selectionChanged(const QItemSelection &, const QItemSelection &)
+{
+	if (!ui.blobPreviewBox->isVisible())
+		return;
+	ui.blobPreview->setBlobData(ui.tableView->model()->data(ui.tableView->currentIndex(),
+															Qt::EditRole)
+							   );
+	
+}
+
+
 
 /* Tools *************************************************** */
 

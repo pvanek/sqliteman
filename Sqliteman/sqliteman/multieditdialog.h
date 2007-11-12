@@ -12,8 +12,6 @@ for which a new license (GPL+exception) is in place.
 
 /*! \brief Enthanced modal editor for custom delegate.
 User handles here large texts (more than 1 line), files to BLOBs, and date strings.
-Overloaded methods checkBlobPreview() try convert BLOBs into images
-supported by Qt4 to create a image previews.
 DateTime mask/format can be setup as in Qt4 classes:
 http://doc.trolltech.com/4.3/qdatetime.html#toString
 \author Petr Vanek <petr@scribus.info>
@@ -32,8 +30,8 @@ class MultiEditDialog : public QDialog, public Ui::MultiEditDialog
 		QVariant m_data;
 
 		void checkButtonStatus();
-		void checkBlobPreview(QVariant data);
-		void checkBlobPreview(const QString & fileName);
+// 		void checkBlobPreview(QVariant data);
+// 		void checkBlobPreview(const QString & fileName);
 
 	private slots:
 		void blobFileEdit_textChanged(const QString &);

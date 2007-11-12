@@ -68,7 +68,7 @@
         </spacer>
        </item>
        <item rowspan="3" row="2" column="1" >
-        <widget class="QLabel" name="blobPreviewLabel" >
+        <widget class="BlobPreviewWidget" name="blobPreviewLabel" >
          <property name="minimumSize" >
           <size>
            <width>200</width>
@@ -201,6 +201,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>BlobPreviewWidget</class>
+   <extends>QLabel</extends>
+   <header>blobpreviewwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>textEdit</tabstop>
   <tabstop>tabWidget</tabstop>
