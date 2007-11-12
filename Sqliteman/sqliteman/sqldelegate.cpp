@@ -24,7 +24,6 @@ QWidget *SqlDelegate::createEditor(QWidget *parent,
 	SqlDelegateUi *editor = new SqlDelegateUi(parent);
 	editor->setFocus(Qt::OtherFocusReason);
 	editor->setFocusPolicy(Qt::StrongFocus);
-	editor->lineEdit->setFocus(Qt::OtherFocusReason);
 	return editor;
 }
 
@@ -70,7 +69,8 @@ void SqlDelegateUi::setSqlData(const QVariant & data)
 	if (data.type() == QVariant::ByteArray || m_sqlData.toString().contains("\n"))
 	{
 		lineEdit->setDisabled(true);
-		editButton->setFocus(Qt::OtherFocusReason);
+		lineEdit->setToolTip(tr("Multiline texts can be edited by the enhanced editor only (Ctrl+Shift+E)"));
+		editButton_clicked(true);
 	}
 	lineEdit->setText(data.toString());
 }
