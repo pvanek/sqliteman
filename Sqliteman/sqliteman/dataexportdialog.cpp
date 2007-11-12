@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "dataviewer.h"
 #include "dataexportdialog.h"
+#include "database.h"
 
 #define LF QChar(0x0A)  /* '\n' */
 #define CR QChar(0x0D)  /* '\r' */
@@ -245,15 +246,15 @@ bool DataExportDialog::exportSql()
 			return false;
 		out << "insert into " << m_tableName << " (\"" << columns << "\") values (";
 		QSqlRecord r = m_data->record(i);
-		QString curr;
+
 		for (int j = 0; j < m_header.size(); ++j)
 		{
-			curr = r.value(j).toString();
-			// BLOBS aren't strings.
-			if (curr.left(2).toUpper() == "X'")
-				out << curr;
+			if (r.value(j).toString().isNull())
+				out << "NULL";
+			else if (r.value(j).type() == QVariant::ByteArray)
+				out << Database::hex(r.value(j).toByteArray());
 			else
-				out << "'" << curr.replace('\'', "''") << "'";
+				out << "'" << r.value(j).toString().replace('\'', "''") << "'";
 			if (j != (m_header.size() - 1))
 				out << ", ";
 		}
