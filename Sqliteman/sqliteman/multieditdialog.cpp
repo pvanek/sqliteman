@@ -163,4 +163,5 @@ void MultiEditDialog::checkButtonStatus()
 void MultiEditDialog::nullCheckBox_stateChanged(int)
 {
 	tabWidget->setDisabled(nullCheckBox->isChecked());
+	checkButtonStatus();
 }
