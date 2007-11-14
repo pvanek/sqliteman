@@ -11,10 +11,11 @@ for which a new license (GPL+exception) is in place.
 #include "utils.h"
 #include "multieditdialog.h"
 
-
+// #include <QtDebug>
 SqlDelegate::SqlDelegate(QObject * parent)
 	: QItemDelegate(parent)
 {
+// 	qDebug() << "SqlDelegate::SqlDelegate(QObject * parent)";
 }
 
 QWidget *SqlDelegate::createEditor(QWidget *parent,
@@ -24,6 +25,8 @@ QWidget *SqlDelegate::createEditor(QWidget *parent,
 	SqlDelegateUi *editor = new SqlDelegateUi(parent);
 	editor->setFocus(Qt::OtherFocusReason);
 	editor->setFocusPolicy(Qt::StrongFocus);
+	connect(editor, SIGNAL(closeEditor(QWidget *)), this, SLOT(editor_closeEditor(QWidget *)));
+// 	qDebug() << "createEditor";
 	return editor;
 }
 
@@ -31,6 +34,7 @@ void SqlDelegate::setEditorData(QWidget *editor,
 								const QModelIndex &index) const
 {
 	static_cast<SqlDelegateUi*>(editor)->setSqlData(index.model()->data(index, Qt::EditRole));
+// 	qDebug() << "setEditorData";
 }
 
 void SqlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
@@ -38,6 +42,7 @@ void SqlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 {
 	SqlDelegateUi *ed = static_cast<SqlDelegateUi*>(editor);
 	model->setData(index, ed->sqlData(), Qt::EditRole);
+// 	qDebug() << "setModelData";
 }
 
 void SqlDelegate::updateEditorGeometry(QWidget *editor,
@@ -45,6 +50,14 @@ void SqlDelegate::updateEditorGeometry(QWidget *editor,
 									   const QModelIndex &/* index */) const
 {
 	editor->setGeometry(option.rect);
+// 	qDebug() << "updateEditorGeometry";
+}
+
+void SqlDelegate::editor_closeEditor(QWidget * editor)
+{
+// 	qDebug() << "editor_closeEditor";
+	emit commitData(editor);
+	emit closeEditor(editor, QAbstractItemDelegate::EditNextItem); // QAbstractItemDelegate::EndEditHint hint = NoHint
 }
 
 
@@ -61,6 +74,7 @@ SqlDelegateUi::SqlDelegateUi(QWidget * parent)
 	connect(editButton, SIGNAL(clicked(bool)), this, SLOT(editButton_clicked(bool)));
 	connect(lineEdit, SIGNAL(textEdited(const QString &)),
 			this, SLOT(lineEdit_textEdited(const QString &)));
+// 	qDebug() << "SqlDelegateUi::SqlDelegateUi(QWidget * parent)";
 }
 
 void SqlDelegateUi::setSqlData(const QVariant & data)
@@ -86,6 +100,7 @@ void SqlDelegateUi::nullButton_clicked(bool)
 {
 	lineEdit->setText(QString());
 	m_sqlData = QString();
+	emit closeEditor(this);
 }
 
 void SqlDelegateUi::editButton_clicked(bool)
@@ -96,6 +111,7 @@ void SqlDelegateUi::editButton_clicked(bool)
 	
 	if (dia->exec())
 		setSqlData(dia->data());
+	emit closeEditor(this);
 }
 
 void SqlDelegateUi::lineEdit_textEdited(const QString & text)
