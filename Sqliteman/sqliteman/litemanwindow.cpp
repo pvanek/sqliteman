@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "sqlparser.h"
 #include "importtabledialog.h"
 #include "sqliteprocess.h"
+#include "populatordialog.h"
 
 
 LiteManWindow::LiteManWindow(const QString & fileToOpen)
@@ -199,6 +200,9 @@ void LiteManWindow::initActions()
 
 	renameTableAct = new QAction(tr("&Rename Table..."), this);
 	connect(renameTableAct, SIGNAL(triggered()), this, SLOT(renameTable()));
+
+	populateTableAct = new QAction(tr("&Populate Table..."), this);
+	connect(populateTableAct, SIGNAL(triggered()), this, SLOT(populateTable()));
 
 	createViewAct = new QAction(tr("Create &View..."), this);
 	createViewAct->setShortcut(tr("Ctrl+G"));
@@ -620,6 +624,15 @@ void LiteManWindow::renameTable()
 	}
 }
 
+void LiteManWindow::populateTable()
+{
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
+	if(!item)
+		return;
+	PopulatorDialog dlg(this, item->text(0), item->text(1));
+	dlg.exec();
+}
+
 void LiteManWindow::importTable()
 {
 	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
@@ -768,6 +781,7 @@ void LiteManWindow::tableTree_currentItemChanged(QTreeWidgetItem* cur, QTreeWidg
 			contextMenu->addAction(reindexAct);
 			contextMenu->addSeparator();
 			contextMenu->addAction(importTableAct);
+			contextMenu->addAction(populateTableAct);
 			break;
 
 		case TableTree::ViewType:

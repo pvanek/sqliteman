@@ -106,6 +106,7 @@ class LiteManWindow : public QMainWindow
 		void dropTable();
 		void alterTable();
 		void renameTable();
+		void populateTable();
 		void importTable();
 
 		void createView();
@@ -180,6 +181,7 @@ class LiteManWindow : public QMainWindow
 		QAction * describeTableAct;
 		QAction * importTableAct;
 		QAction * renameTableAct;
+		QAction * populateTableAct;
 
 		QAction * createViewAct;
 		QAction * dropViewAct;

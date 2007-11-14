@@ -2,6 +2,7 @@ ADD_SUBDIRECTORY(icons)
 ADD_SUBDIRECTORY(doc)
 ADD_SUBDIRECTORY(ts)
 
+
 SET( SQLITEMAN_SRC
     altertabledialog.cpp
     altertriggerdialog.cpp
@@ -22,6 +23,7 @@ SET( SQLITEMAN_SRC
     multieditdialog.cpp
     litemanwindow.cpp
     main.cpp
+    populatordialog.cpp
     preferences.cpp
     preferencesdialog.cpp
     queryeditordialog.cpp
@@ -65,6 +67,7 @@ SET( SQLITEMAN_MOC
     importtablelogdialog.h
     litemanwindow.h
     multieditdialog.h
+    populatordialog.h
     preferences.h
     preferencesdialog.h
     queryeditordialog.h
@@ -95,6 +98,7 @@ SET( SQLITEMAN_UI
     importtabledialog.ui
     importtablelogdialog.ui
     multieditdialog.ui
+    populatordialog.ui
     preferencesdialog.ui
     schemabrowser.ui
     shortcuteditordialog.ui
@@ -121,6 +125,7 @@ QT4_WRAP_CPP( SQLITEMAN_MOC_SRC ${SQLITEMAN_MOC} )
 
 INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR} )
 INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR}/sqliteman )
+INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR}/sqliteman/populator )
 # due the "out of base directory" build. E.g. SQLITEMAN_SVN_DIR/mybuild etc.
 INCLUDE_DIRECTORIES( . )
 
@@ -128,7 +133,7 @@ ADD_EXECUTABLE( sqliteman ${SQLITEMAN_SRC} ${SQLITEMAN_MOC_SRC}
                 ${SQLITEMAN_UI_HDRS} ${SQLITEMAN_RC_RCS}
 )
 
-TARGET_LINK_LIBRARIES( sqliteman ${QT_LIBRARIES}) # ${CONSTRAINT_LIB})
+TARGET_LINK_LIBRARIES( sqliteman ${QT_LIBRARIES}) # ${POPULATOR_LIB})
 
 # compress it
 # IF (SELF_PACKER_FOR_EXECUTABLE)
