@@ -162,6 +162,9 @@ class SqlEditor : public QMainWindow
 
 		void find(QString ttf, bool forward, bool backward);
 
+		//! Reset the QFileSystemWatcher for new name.
+		void setFileWatcher(const QString & newFileName);
+
     private slots:
 		void action_Run_SQL_triggered();
 		void actionRun_Explain_triggered();

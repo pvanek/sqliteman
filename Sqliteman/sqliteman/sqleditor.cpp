@@ -182,11 +182,8 @@ void SqlEditor::open(const QString &  newFile)
 
 	f.close();
 
-	QStringList pathList = m_fileWatcher->files();
-	if (pathList.count() > 0)
-		m_fileWatcher->removePaths(pathList);
 	m_fileName = newFile;
-	m_fileWatcher->addPath(m_fileName);
+	setFileWatcher(newFile);
 
 	progress->setLabelText(tr("Formatting the text. Please wait."));
 	ui.sqlTextEdit->append(strList.join("\n"));
@@ -241,18 +238,20 @@ void SqlEditor::actionSave_As_triggered()
 	if (newFile.isNull())
 		return;
 	m_fileName = newFile;
+	setFileWatcher(newFile);
 	saveFile();
 }
 
 void SqlEditor::saveFile()
 {
+	m_fileWatcher->blockSignals(true); // switch of watching for self-excited signal
 	QFile f(m_fileName);
 	if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
 	{
+		m_fileWatcher->blockSignals(false);
 		QMessageBox::warning(this, tr("Save SQL Script"), tr("Cannot write into file %1").arg(m_fileName));
 		return;
 	}
-	m_fileWatcher->blockSignals(true); // switch of watching for self-excited signal
 	QTextStream out(&f);
 	out << ui.sqlTextEdit->toPlainText();
 	f.close();
@@ -408,6 +407,14 @@ void SqlEditor::externalFileChange(const QString & path)
 	if (b != QMessageBox::Yes)
 		return;
 	open(path);
+}
+
+void SqlEditor::setFileWatcher(const QString & newFileName)
+{
+	QStringList pathList = m_fileWatcher->files();
+	if (pathList.count() > 0)
+		m_fileWatcher->removePaths(pathList);
+	m_fileWatcher->addPath(newFileName);
 }
 
 
