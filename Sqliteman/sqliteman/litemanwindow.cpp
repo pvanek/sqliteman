@@ -51,7 +51,8 @@ for which a new license (GPL+exception) is in place.
 #include "sqliteprocess.h"
 #include "populatordialog.h"
 
-
+#include <QProcess>
+#include <QtDebug>
 LiteManWindow::LiteManWindow(const QString & fileToOpen)
 	: QMainWindow(),
 	m_mainDbPath(""),
@@ -70,6 +71,12 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 	// Check command line
 	if (!fileToOpen.isNull())
 		open(fileToOpen);
+
+	// test for sqlite3 binary
+	if (QProcess::execute(SQLITE_BINARY, QStringList() << "-version") != 0)
+		QMessageBox::warning(this, m_appName,
+							 tr("Sqlite3 executable '%1' is not found in your path. Some features will be disabled.")
+									 .arg(SQLITE_BINARY));
 }
 
 LiteManWindow::~LiteManWindow()
