@@ -67,7 +67,7 @@ class LiteManWindow : public QMainWindow
 		*/
 		void writeSettings();
 
-		void runQuery(QString statement);
+// 		void runQuery(QString statement);
 
 		void updateRecent(QString fn);
 		void removeRecent(QString fn);

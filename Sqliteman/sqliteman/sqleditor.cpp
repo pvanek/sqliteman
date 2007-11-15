@@ -252,10 +252,12 @@ void SqlEditor::saveFile()
 		QMessageBox::warning(this, tr("Save SQL Script"), tr("Cannot write into file %1").arg(m_fileName));
 		return;
 	}
+	m_fileWatcher->blockSignals(true); // switch of watching for self-excited signal
 	QTextStream out(&f);
 	out << ui.sqlTextEdit->toPlainText();
 	f.close();
 	ui.sqlTextEdit->document()->setModified(false);
+	m_fileWatcher->blockSignals(false);
 }
 
 bool SqlEditor::changedConfirm()

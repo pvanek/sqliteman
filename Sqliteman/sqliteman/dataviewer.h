@@ -36,6 +36,7 @@ class DataViewer : public QMainWindow
 		bool setTableModel(QAbstractItemModel * model, bool showButtons = false);
 		//! \brief Set text to the status widget.
 		void setStatusText(const QString & text);
+		void appendStatusText(const QString & text);
 		//! \brief Show/hide status widget
 		void showStatusText(bool show);
 

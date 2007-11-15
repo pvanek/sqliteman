@@ -491,7 +491,8 @@ void LiteManWindow::buildQuery()
 	int ret = dlg.exec();
 
 	if(ret == QDialog::Accepted)
-		runQuery(dlg.statement());
+		/*runQuery*/
+		execSql(dlg.statement());
 }
 
 void LiteManWindow::handleSqlEditor()
@@ -535,7 +536,10 @@ void LiteManWindow::execSql(QString query)
 		dataViewer->setStatusText(tr("Query Error: %1\n\n%2").arg(model->lastError().databaseText()).arg(query));
 	else
 	{
-		dataViewer->setStatusText(tr("Query OK\nRow(s) returned: %1\n\n%2").arg(model->rowCount()).arg(query));
+		QString cached;
+		if (model->canFetchMore())
+			cached = tr("(more rows can be fetched)");
+		dataViewer->setStatusText(tr("Query OK\nRow(s) returned: %1 %2\n%3").arg(model->rowCount()).arg(cached).arg(query));
 		if (SqlEditorTools::SqlParser::updateTree(query))
 			schemaBrowser->tableTree->buildTree();
 	}
@@ -830,7 +834,8 @@ void LiteManWindow::treeContextMenuOpened(const QPoint & pos)
 void LiteManWindow::describeObject()
 {
 	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
-	runQuery(QString("select sql as \"%1\" from \"%2\".sqlite_master where name = '%3';")
+	/*runQuery*/
+	execSql(QString("select sql as \"%1\" from \"%2\".sqlite_master where name = '%3';")
 			.arg(tr("Describe %1").arg(item->text(0).toUpper()))
 			.arg(item->text(1))
 			.arg(item->text(0)));
@@ -866,21 +871,26 @@ void LiteManWindow::describeObject()
 // 			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
 // }
 
-void LiteManWindow::runQuery(QString statement)
-{
-	SqlQueryModel * model = new SqlQueryModel(this);
-	model->setQuery(statement, QSqlDatabase::database(SESSION_NAME));
-	if (!dataViewer->setTableModel(model, false))
-		return;
-
-	dataViewer->setEnabled(true);
-	dataViewer->showStatusText(true);
-
-	if(model->lastError().isValid())
-		dataViewer->setStatusText(tr("Query Error: %1").arg(model->lastError().databaseText()));
-	else
-		dataViewer->setStatusText(tr("Query OK\nRow(s) returned: %1").arg(model->rowCount()));
-}
+// void LiteManWindow::runQuery(QString statement)
+// {
+// 	SqlQueryModel * model = new SqlQueryModel(this);
+// 	model->setQuery(statement, QSqlDatabase::database(SESSION_NAME));
+// 	if (!dataViewer->setTableModel(model, false))
+// 		return;
+// 
+// 	dataViewer->setEnabled(true);
+// 	dataViewer->showStatusText(true);
+// 
+// 	if(model->lastError().isValid())
+// 		dataViewer->setStatusText(tr("Query Error: %1").arg(model->lastError().databaseText()));
+// 	else
+// 	{
+// 		QString cached;
+// 		if (model->canFetchMore())
+// 			cached = tr("(more rows can be fetched)");
+// 		dataViewer->setStatusText(tr("Query OK\nRow(s) returned: %1 %2").arg(model->rowCount()).arg(cached));
+// 	}
+// }
 
 void LiteManWindow::analyzeDialog()
 {
