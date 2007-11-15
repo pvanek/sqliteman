@@ -6,9 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QSqlQuery>
 #include <QSqlError>
+#include <math.h>
+
 #include "populatordialog.h"
 
-#include <QtDebug>
 
 #define T_AUTO 0
 #define T_NUMB 1
@@ -29,6 +30,7 @@ PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const 
 	FieldList fields = Database::tableFields(m_table, m_schema);
 	columnTable->clearContents();
 	columnTable->setRowCount(fields.size());
+	QRegExp sizeExp("\\(\\d+\\)");
 	for(int i = 0; i < fields.size(); ++i)
 	{
 		PopColumn col;
@@ -36,8 +38,17 @@ PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const 
 		col.type = fields[i].type;
 		col.pk = fields[i].pk;
 		col.action = defaultSuggestion(fields[i]);
-		col.autoCounter = -1;
-		col.size = 0;
+// 		col.autoCounter = -1;
+		if (sizeExp.indexIn(col.type) != -1)
+		{
+			QString s = sizeExp.capturedTexts()[0].remove("(").remove(")");
+			bool ok;
+			col.size = s.toInt(&ok);
+			if (!ok)
+				col.size = 10;
+		}
+		else
+			col.size = 10;
 		columnList.append(col);
 
 		QTableWidgetItem * nameItem = new QTableWidgetItem(fields[i].name);
@@ -93,11 +104,12 @@ void PopulatorDialog::populateButton_clicked()
 	}
 
 	QSqlQuery query(QSqlDatabase::database(SESSION_NAME));
-	QString sql = "INSERT INTO \"%1\".\"%2\" (\"%3\") VALUES (:%4);";
-	query.prepare(sql.arg(m_schema).arg(m_table).arg(sqlColumns()).arg(sqlBinds()));
-	qDebug() << query.lastQuery();
+	QString sql = "INSERT %1 INTO \"%2\".\"%3\" (\"%4\") VALUES (:%5);";
+	query.prepare(sql.arg(constraintBox->isChecked() ? "OR IGNORE" : "")
+			.arg(m_schema).arg(m_table)
+			.arg(sqlColumns()).arg(sqlBinds()));
+// 	qDebug() << query.lastQuery();
 
-	
 	if (!Database::execSql("BEGIN TRANSACTION;"))
 	{
 		textBrowser->append(tr("Begin transaction failed."));
@@ -121,17 +133,14 @@ void PopulatorDialog::populateButton_clicked()
 	}
 
 	if (!query.execBatch())
-	{
 		textBrowser->append(query.lastError().databaseText());
-	}
-	textBrowser->append(tr("Affected rows: %1").arg(query.numRowsAffected()));
+	else
+		textBrowser->append(tr("Data inserted."));
 
 	if (!Database::execSql("COMMIT;"))
-	{
 		textBrowser->append(tr("Transaction commit failed."));
-		return;
-	}
-	accept();
+
+	textBrowser->append(tr("It's done. Check messages above."));
 }
 
 QVariantList PopulatorDialog::autoValues(PopColumn c)
@@ -155,7 +164,7 @@ QVariantList PopulatorDialog::autoValues(PopColumn c)
 	QVariantList ret;
 	for (int i = 0; i < spinBox->value(); ++i)
 		ret.append(i+max+1);
-	qDebug() << "autoValues: " << ret;
+// 	qDebug() << "autoValues: " << ret;
 	return ret;
 }
 
@@ -163,8 +172,10 @@ QVariantList PopulatorDialog::numberValues(PopColumn c)
 {
 	QVariantList ret;
 	for (int i = 0; i < spinBox->value(); ++i)
-		ret.append(qrand());
-	qDebug() << "numberValues: " << ret;
+	{
+		ret.append(qrand() % (int)pow(10, c.size));
+	}
+// 	qDebug() << "numberValues: " << ret;
 	return ret;
 }
 
@@ -172,7 +183,12 @@ QVariantList PopulatorDialog::textValues(PopColumn c)
 {
 	QVariantList ret;
 	for (int i = 0; i < spinBox->value(); ++i)
-		ret.append("TODO");
-	qDebug() << "textValues: " << ret;
+	{
+		QStringList l;
+		for (int j = 0; j < c.size; ++j)
+			l.append(QChar((qrand() % 58) + 65));
+		ret.append(l.join("").replace(QRegExp("(\\[|\\'|\\\\|\\]|\\^|\\_|\\`)"), " ").simplified());
+	}
+// 	qDebug() << "textValues: " << ret;
 	return ret;
 }

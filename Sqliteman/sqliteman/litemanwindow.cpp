@@ -635,6 +635,7 @@ void LiteManWindow::populateTable()
 		return;
 	PopulatorDialog dlg(this, item->text(0), item->text(1));
 	dlg.exec();
+	treeItemActivated(item, 0);
 }
 
 void LiteManWindow::importTable()

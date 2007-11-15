@@ -11,6 +11,15 @@ for which a new license (GPL+exception) is in place.
 #include "database.h"
 
 
+/*! \brief Simple (testing/QA) data generator for tables.
+Populator tries to guess what to insert into the table. It
+finds if the requested value is number/text/primary key and
+its size.
+When user choose "resume errors" checkbox in its GUI the Populator
+runs until the end and does not check any errors. When it's disabled
+by user, the first error (e.g. unique constraint or trigger test
+violated) stops the execution.
+*/
 class PopulatorDialog : public QDialog, public Ui::PopulatorDialog
 {
 	Q_OBJECT
@@ -28,19 +37,25 @@ class PopulatorDialog : public QDialog, public Ui::PopulatorDialog
 			QString type;
 			bool pk;
 			int action;
-			int autoCounter;
+// 			int autoCounter;
 			int size;
 		}
 		PopColumn;
 		QList<PopColumn> columnList;
 		QMap<int,QString> actionMap;
-		
+
+		//! Guess what it can insert as value
 		int defaultSuggestion(const DatabaseTableField & column);
+		//! Generate the column part of SQL statement
 		QString sqlColumns();
+		//! Generate the bind part of SQL statement
 		QString sqlBinds();
 
+		//! Create PK values (max()+1)
 		QVariantList autoValues(PopColumn c);
+		//! Calculate pseudo-random numbers for given column
 		QVariantList numberValues(PopColumn c);
+		//! Create a text for given column
 		QVariantList textValues(PopColumn c);
 
 	private slots:
