@@ -43,7 +43,7 @@
          <item>
           <widget class="QLabel" name="label" >
            <property name="text" >
-            <string>Populated &amp;Rows:</string>
+            <string>Number of &amp;Rows to Populate:</string>
            </property>
            <property name="buddy" >
             <cstring>spinBox</cstring>
