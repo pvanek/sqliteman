@@ -100,6 +100,9 @@ SET( SQLITEMAN_UI
     multieditdialog.ui
     populatordialog.ui
     preferencesdialog.ui
+    prefsdatadisplaywidget.ui
+    prefslnfwidget.ui
+    prefssqleditorwidget.ui
     schemabrowser.ui
     shortcuteditordialog.ui
     sqldelegateui.ui

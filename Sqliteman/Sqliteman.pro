@@ -84,6 +84,9 @@ FORMS += sqliteman/analyzedialog.ui \
          sqliteman/multieditdialog.ui \
          sqliteman/populatordialog.ui \
          sqliteman/preferencesdialog.ui \
+         sqliteman/prefsdatadisplaywidget.ui \
+         sqliteman/prefslnfwidget.ui \
+         sqliteman/prefssqleditorwidget.ui \
          sqliteman/schemabrowser.ui \
          sqliteman/shortcuteditordialog.ui \
          sqliteman/sqleditor.ui \

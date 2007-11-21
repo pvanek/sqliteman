@@ -11,6 +11,31 @@ for which a new license (GPL+exception) is in place.
 #include <QDialog>
 
 #include "ui_preferencesdialog.h"
+#include "ui_prefsdatadisplaywidget.h"
+#include "ui_prefslnfwidget.h"
+#include "ui_prefssqleditorwidget.h"
+
+
+class PrefsDataDisplayWidget : public QDialog, public Ui::PrefsDataDisplayWidget
+{
+	Q_OBJECT
+	public:
+		PrefsDataDisplayWidget(QWidget * parent = 0);
+};
+
+class PrefsLNFWidget : public QDialog, public Ui::PrefsLNFWidget
+{
+	Q_OBJECT
+	public:
+		PrefsLNFWidget(QWidget * parent = 0);
+};
+
+class PrefsSQLEditorWidget : public QDialog, public Ui::PrefsSQLEditorWidget
+{
+	Q_OBJECT
+	public:
+		PrefsSQLEditorWidget(QWidget * parent = 0);
+};
 
 
 /*! \brief Basic preferences dialog and handling.
@@ -19,7 +44,7 @@ are used to access the prefs out of this class in the
 application guts.
 \author Petr Vanek <petr@scribus.info>
 */
-class PreferencesDialog : public QDialog//, public Ui::PreferencesDialog
+class PreferencesDialog : public QDialog, public Ui::PreferencesDialog
 {
 	Q_OBJECT
 
@@ -30,7 +55,9 @@ class PreferencesDialog : public QDialog//, public Ui::PreferencesDialog
 		bool saveSettings();
 
 	private:
-		Ui::PreferencesDialog ui;
+		PrefsDataDisplayWidget * m_prefsData;
+		PrefsLNFWidget * m_prefsLNF;
+		PrefsSQLEditorWidget * m_prefsSQL;
 
 	private slots:
 		void restoreDefaults();

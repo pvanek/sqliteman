@@ -31,6 +31,8 @@ INSTALL(FILES
     table.png
     database_commit.png
     database_rollback.png
+    preferences-desktop-display.png
+    kate.png
   DESTINATION ${ICON_DIR}
 )
 

@@ -22,5 +22,7 @@
         <file>table.png</file>
         <file>trigger.png</file>
         <file>view.png</file>
+        <file>preferences-desktop-display.png</file>
+        <file>kate.png</file>
     </qresource>
 </RCC>
