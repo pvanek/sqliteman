@@ -50,14 +50,14 @@
     <message>
         <location filename="../altertriggerdialog.cpp" line="32"/>
         <source>Cannot get trigger from the database.</source>
-        <translation>Nie można znaleźć triggera w bazie.</translation>
+        <translation>Nie można znaleźć wyzwalacza w bazie.</translation>
     </message>
     <message>
         <location filename="../altertriggerdialog.cpp" line="52"/>
         <source>Cannot drop trigger: %1.
 
 %2</source>
-        <translation>Nie można usunąć triggera: %1.
+        <translation>Nie można usunąć wyzwalacza: %1.
 
 %2</translation>
     </message>
@@ -66,14 +66,14 @@
         <source>Error while creating trigger: %2.
 
 %3</source>
-        <translation>Wystąpił błąd podczas tworzenia triggera: %2.
+        <translation>Wystąpił błąd podczas tworzenia wyzwalacza: %2.
 
 %3</translation>
     </message>
     <message>
         <location filename="../altertriggerdialog.cpp" line="64"/>
         <source>Trigger created successfully</source>
-        <translation>Trigger został utworzony</translation>
+        <translation>Wyzwalacz został utworzony</translation>
     </message>
 </context>
 <context>
@@ -202,12 +202,12 @@
     <message>
         <location filename="../constraintsdialog.cpp" line="163"/>
         <source>Error while creating trigger: %1.</source>
-        <translation>Wystąpił błąd podczas tworzenia triggera: %1.</translation>
+        <translation>Wystąpił błąd podczas tworzenia wyzwalacza: %1.</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.cpp" line="165"/>
         <source>Trigger created successfully</source>
-        <translation>Trigger został utworzony</translation>
+        <translation>Wyzwalacz został utworzony</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.ui" line="13"/>
@@ -344,19 +344,19 @@
         <source>Error while creating trigger: %2.
 
 %3</source>
-        <translation>Wystąpił błąd podczas tworzenia triggera: %2.
+        <translation>Wystąpił błąd podczas tworzenia wyzwalacza: %2.
 
 %3</translation>
     </message>
     <message>
         <location filename="../createtriggerdialog.cpp" line="49"/>
         <source>Trigger created successfully</source>
-        <translation>Trigger został utworzony</translation>
+        <translation>Wyzwalacz został utworzony</translation>
     </message>
     <message>
         <location filename="../createtriggerdialog.ui" line="13"/>
         <source>Create Trigger</source>
-        <translation>Utwórz trigger</translation>
+        <translation>Utwórz wyzwalacz</translation>
     </message>
     <message>
         <location filename="../createtriggerdialog.ui" line="25"/>
@@ -638,22 +638,22 @@ Anuluj = wróć z powrotem do tabeli</translation>
     <message>
         <location filename="../dataviewer.ui" line="28"/>
         <source>Full View</source>
-        <translation type="unfinished"></translation>
+        <translation>Widok tabeli</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="54"/>
         <source>Item View</source>
-        <translation type="unfinished"></translation>
+        <translation>Widok formularza</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="80"/>
         <source>Open a new standalone window with current results</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz nowe okno z bieżącymi danymi</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="140"/>
         <source>Rip Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Snapshot</translation>
     </message>
 </context>
 <context>
@@ -716,12 +716,12 @@ Anuluj = wróć z powrotem do tabeli</translation>
     <message>
         <location filename="../database.cpp" line="211"/>
         <source>Error while dropping the trigger %1: %2.</source>
-        <translation>Wystąpił błąd podczas usuwania triggera %1: %2.</translation>
+        <translation>Wystąpił błąd podczas usuwania wyzwalacza %1: %2.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="244"/>
         <source>Not Set</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak</translation>
     </message>
 </context>
 <context>
@@ -757,12 +757,12 @@ Anuluj = wróć z powrotem do tabeli</translation>
     <message>
         <location filename="../importtabledialog.cpp" line="238"/>
         <source>Data Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Import danych</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="239"/>
         <source>Cannot open file %1 for reading.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można otworzyć pliku %1.</translation>
     </message>
 </context>
 <context>
@@ -770,12 +770,12 @@ Anuluj = wróć z powrotem do tabeli</translation>
     <message>
         <location filename="../importtabledialog.cpp" line="266"/>
         <source>Data Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Import danych</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="267"/>
         <source>Cannot open file %1 for reading.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można otworzyć pliku %1.</translation>
     </message>
 </context>
 <context>
@@ -783,97 +783,97 @@ Anuluj = wróć z powrotem do tabeli</translation>
     <message>
         <location filename="../importtabledialog.cpp" line="55"/>
         <source>File to Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik do wczytania</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="57"/>
         <source>CSV Files (*.csv);;MS Excel XML (*.xml);;Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pliki CSV (*.csv);;MS Excel XML (*.xml);;Pliki tekstowe (*.txt);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="13"/>
         <source>Data Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Import danych</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="78"/>
         <source>Fields separator must be given</source>
-        <translation type="unfinished"></translation>
+        <translation>Proszę podać separator pól</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="111"/>
         <source>Row = %1; Imported values = %2; Table columns count = %3; Values = (%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiersz = %1; Wczytana wartość = %2; Liczba kolumn w tabeli = %3; Wartości = (%4)</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="123"/>
         <source>Row = %1; %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiersz = %1; %2</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="19"/>
         <source>&amp;Table to Import Into:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytuj do &amp;Tabeli:</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="32"/>
         <source>&amp;File to Import:</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik do &amp;wczytania:</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="45"/>
         <source>&amp;Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Przeglądaj...</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="56"/>
         <source>Sqlite .import</source>
-        <translation type="unfinished"></translation>
+        <translation>Sqlite .import</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="62"/>
         <source>Column Separators</source>
-        <translation type="unfinished"></translation>
+        <translation>Separator pól</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="68"/>
         <source>Pipe Symbol (Default)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pionowa linia (domyślnie)</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="78"/>
         <source>Comma</source>
-        <translation type="unfinished"></translation>
+        <translation>Przecinek</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="85"/>
         <source>Semicolon</source>
-        <translation type="unfinished"></translation>
+        <translation>Średnik</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="92"/>
         <source>Tabelator</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabulator</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="101"/>
         <source>Custom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Użytkownika:</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="130"/>
         <source>MS Excel XML</source>
-        <translation type="unfinished"></translation>
+        <translation>MS Excel XML</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="136"/>
         <source>There are no options for this import type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak opcji dla tego typu importowania.</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="150"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Podgląd</translation>
     </message>
 </context>
 <context>
@@ -881,7 +881,7 @@ Anuluj = wróć z powrotem do tabeli</translation>
     <message>
         <location filename="../importtablelogdialog.ui" line="13"/>
         <source>Data Import Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Dziennik importów</translation>
     </message>
     <message>
         <location filename="../importtablelogdialog.ui" line="22"/>
@@ -891,7 +891,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;There have been import errors. Check the error log above. Data in the database are not complette.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Perform commit anyway?&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(Yes=commit, No=rollback)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Verdana&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pojawiły się błędy podczas wczytywania. Sprawdź dziennik pozwyżej. Dane w bazie są niekompletne.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Zatwierdzić pomimo tego?&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(Yes=commit, No=rollback)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -1034,22 +1039,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="222"/>
         <source>&amp;Create Trigger...</source>
-        <translation>U&amp;twórz trigger...</translation>
+        <translation>U&amp;twórz wyzwalacz...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="225"/>
         <source>&amp;Alter Trigger...</source>
-        <translation>&amp;Edytuj trigger...</translation>
+        <translation>&amp;Edytuj wyzwalacz...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="228"/>
         <source>&amp;Drop Trigger</source>
-        <translation>&amp;Usuń trigger</translation>
+        <translation>&amp;Usuń wyzwalacz</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="231"/>
         <source>D&amp;escribe Trigger</source>
-        <translation>&amp;Opisz trigger</translation>
+        <translation>&amp;Opisz wyzwalacz</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="234"/>
@@ -1234,7 +1239,7 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../litemanwindow.cpp" line="940"/>
         <source>Are you sure that you wish to drop the trigger &quot;%1&quot;?</source>
-        <translation>Jesteś pewien, że chcesz usunąć trigger &quot;%1&quot;?</translation>
+        <translation>Jesteś pewien, że chcesz usunąć wyzwalacz &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="152"/>
@@ -1324,24 +1329,24 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../litemanwindow.cpp" line="219"/>
         <source>&amp;Import Data...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Import danych...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="560"/>
         <source>Error creating the dump. Reason: %1
 %2</source>
-        <translation type="unfinished">Pojawił się błąd podczas robienia zrzutu. Powód: %1
+        <translation>Pojawił się błąd podczas robienia zrzutu. Powód: %1
 %2</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="567"/>
         <source>An error occured in the dump: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Pojawił się błąd w zrzucie: %1</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="797"/>
         <source>Describe %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Opisz %1</translation>
     </message>
 </context>
 <context>
@@ -1489,52 +1494,52 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../preferencesdialog.ui" line="349"/>
         <source>&amp;SQL Editor</source>
-        <translation type="unfinished">Edytor &amp;SQL</translation>
+        <translation>Edytor &amp;SQL</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="355"/>
         <source>&amp;Font:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Czcionka:</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="385"/>
         <source>Use &amp;Active Line Highlighting:</source>
-        <translation type="unfinished"></translation>
+        <translation>Używaj &amp;podświetlania bieżącej linii:</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="392"/>
         <source>Color...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor...</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="320"/>
         <source>Limit Text Length Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogranicz długość wyświetlanego tekstu</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="375"/>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="399"/>
         <source>Use &amp;Maximum Text Width Mark:</source>
-        <translation type="unfinished"></translation>
+        <translation>Używaj &amp;wielokropka gdy tekst dłuższy niż:</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="419"/>
         <source>Use &amp;Code Completion With Length:</source>
-        <translation type="unfinished"></translation>
+        <translation>Używaj &amp;uzupełniania kodu przy długości:</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="436"/>
         <source>Use Editor &amp;Shortcuts:</source>
-        <translation type="unfinished"></translation>
+        <translation>Używaj &amp;skrótów edytora:</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="443"/>
         <source>&amp;Define...</source>
-        <translation type="unfinished"></translation>
+        <translation>Z&amp;definiuj...</translation>
     </message>
 </context>
 <context>
@@ -1610,42 +1615,42 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../schemabrowser.ui" line="29"/>
         <source>Sche&amp;ma</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Struktura</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="45"/>
         <source>&amp;Pragmas</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ustawienia</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="57"/>
         <source>Detail</source>
-        <translation type="unfinished"></translation>
+        <translation>Szczegóły</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="79"/>
         <source>Value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość:</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="86"/>
         <source>Pragma:</source>
-        <translation type="unfinished"></translation>
+        <translation>Właściwość:</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="103"/>
         <source>Change &amp;Value...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmień &amp;wartość...</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="126"/>
         <source>Name</source>
-        <translation type="unfinished">Nazwa</translation>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="131"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość</translation>
     </message>
 </context>
 <context>
@@ -1653,87 +1658,87 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="67"/>
         <source>Shortcut Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd skrótu</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="57"/>
         <source>The value you entered as a key (%1) is not unique. Enter another one, please.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wprowadzona wartość dla skrótu (%1) nie jest unikalna. Wprowadź inną.</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="68"/>
         <source>Some of key values are empty. These items will be lost. Do you want to return to the shortcut editor to fix it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Niektóre wartości są puste. Te elementy zostana utracone. Chcesz powrócić do edytora, żeby to naprawić?</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="81"/>
         <source>Save Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Zachowaj skróty</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="114"/>
         <source>Sqliteman Shortcuts XML (*.xml);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Skróty Sqliteman XML (*.xml);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="89"/>
         <source>Export Error</source>
-        <translation type="unfinished">Błąd podczas eksportowania</translation>
+        <translation>Błąd podczas eksportowania</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="89"/>
         <source>Cannot open file %1 for writting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można otworzyć pliku %1 do zapisu.</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="113"/>
         <source>Load Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj skróty</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="121"/>
         <source>Load Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd odczytu</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="121"/>
         <source>Cannot open file %1 for reading.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można otworzyć pliku %1.</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="13"/>
         <source>Editor Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Edytor skrótów</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="25"/>
         <source>Define Editor Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Definicje skrótów</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="37"/>
         <source>&amp;Import...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Import...</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="57"/>
         <source>&amp;Add</source>
-        <translation type="unfinished">Dod&amp;aj</translation>
+        <translation>Dod&amp;aj</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="64"/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;Usuń</translation>
+        <translation>&amp;Usuń</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="81"/>
         <source>R&amp;emove All</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń &amp;wszystko</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="88"/>
         <source>E&amp;xport...</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;xport...</translation>
     </message>
 </context>
 <context>
@@ -1741,12 +1746,12 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../shortcutmodel.cpp" line="88"/>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrót</translation>
     </message>
     <message>
         <location filename="../shortcutmodel.cpp" line="88"/>
         <source>Expanded Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst</translation>
     </message>
 </context>
 <context>
@@ -1894,7 +1899,7 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../sqleditor.cpp" line="161"/>
         <source>Opening: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwieranie: %1</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="161"/>
@@ -1904,82 +1909,82 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../sqleditor.cpp" line="190"/>
         <source>Formatting the text. Please wait.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fromartuję tekst. Poczekaj.</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="400"/>
         <source>Unexpected File Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Niespodziewana zmiana pliku</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="402"/>
         <source>Your currently edited file has been changed outside this application. Do you want to reload it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik został zmieniony przez inny program. Przeładować go?</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="88"/>
         <source>Search:</source>
-        <translation type="unfinished"></translation>
+        <translation>Szukaj:</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="98"/>
         <source>Case Sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Ważna wielkość liter</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="105"/>
         <source>Whole Words</source>
-        <translation type="unfinished"></translation>
+        <translation>Całe wyrazy</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="112"/>
         <source>Search previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Szukaj poprzedni</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="115"/>
         <source>&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="118"/>
         <source>Shift+F3</source>
-        <translation type="unfinished"></translation>
+        <translation>Shift+F3</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="125"/>
         <source>Search Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Szukaj następny</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="128"/>
         <source>&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="131"/>
         <source>F3</source>
-        <translation type="unfinished">F3</translation>
+        <translation>F3</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="138"/>
         <source>&lt;b&gt;Search wrapped&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Search wrapped&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="250"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>Szukaj</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="253"/>
         <source>Search in the SQL file (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Szukaj w pliku SQL (Ctrl+F)</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="256"/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
 </context>
 <context>
@@ -1987,52 +1992,52 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../sqlitemview.cpp" line="63"/>
         <source>%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 z %2</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="48"/>
         <source>Move to the first record</source>
-        <translation type="unfinished"></translation>
+        <translation>Idź do pierwszego rekordu</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="51"/>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="58"/>
         <source>Move to the previous record</source>
-        <translation type="unfinished"></translation>
+        <translation>Idź do poprzedniego rekordu</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="61"/>
         <source>&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="68"/>
         <source>Move to the next record</source>
-        <translation type="unfinished"></translation>
+        <translation>Idź do następnego rekordu</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="71"/>
         <source>&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="78"/>
         <source>Move to the last record</source>
-        <translation type="unfinished"></translation>
+        <translation>Idź do ostatniego rekordu</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="81"/>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;</translation>
     </message>
 </context>
 <context>
@@ -2066,27 +2071,27 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../sqliteprocess.cpp" line="43"/>
         <source>The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program.</source>
-        <translation type="unfinished">Błąd podczas uruchamiania. Albo nie ma takiego programu albo brak wystarczających uprawnień do jego uruchomienia.</translation>
+        <translation>Błąd podczas uruchamiania. Albo nie ma takiego programu albo brak wystarczających uprawnień do jego uruchomienia.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="46"/>
         <source>The process crashed some time after starting successfully.</source>
-        <translation type="unfinished">Proces przestał funkcjonować jakiś czas po uruchomieniu.</translation>
+        <translation>Proces przestał funkcjonować jakiś czas po uruchomieniu.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="49"/>
         <source>An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel.</source>
-        <translation type="unfinished">Pojawił się błąd podczas zapisu.Prawdopodobnie proces został zatrzymany albo został zamknięty kanał wejściowy.</translation>
+        <translation>Pojawił się błąd podczas zapisu.Prawdopodobnie proces został zatrzymany albo został zamknięty kanał wejściowy.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="52"/>
         <source>An error occurred when attempting to read from the process. For example, the process may not be running.</source>
-        <translation type="unfinished">Pojawił się błąd podczas odczytu. Prawdopodobnie proces został zatrzymany.</translation>
+        <translation>Pojawił się błąd podczas odczytu. Prawdopodobnie proces został zatrzymany.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="55"/>
         <source>An unknown error occurred.</source>
-        <translation type="unfinished">Pojawił się nieznany błąd.</translation>
+        <translation>Pojawił się nieznany błąd.</translation>
     </message>
 </context>
 <context>
@@ -2187,7 +2192,7 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../tabletree.cpp" line="19"/>
         <source>Triggers</source>
-        <translation>Triggery</translation>
+        <translation>Wyzwalacze</translation>
     </message>
     <message>
         <location filename="../tabletree.cpp" line="20"/>
@@ -2202,7 +2207,7 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../tabletree.cpp" line="21"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolumny</translation>
     </message>
 </context>
 <context>
