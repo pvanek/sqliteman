@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "dataviewer.h"
 #include "dataexportdialog.h"
 #include "database.h"
+#include "preferences.h"
 
 #define LF QChar(0x0A)  /* '\n' */
 #define CR QChar(0x0D)  /* '\r' */
@@ -29,6 +30,8 @@ DataExportDialog::DataExportDialog(DataViewer * parent, const QString & tableNam
 		m_tableName(tableName),
 		file(0)
 {
+	Preferences * prefs = Preferences::instance();
+
 	m_data = parent->tableData();
 	m_header = parent->tableHeader();
 	cancelled = false;
@@ -40,20 +43,39 @@ DataExportDialog::DataExportDialog(DataViewer * parent, const QString & tableNam
 	formats[tr("SQL inserts")] = "sql";
 	formats[tr("Python List")] = "py";
 	ui.formatBox->addItems(formats.keys());
+	ui.formatBox->setCurrentIndex(prefs->exportFormat());
 
 	ui.lineEndBox->addItem("UNIX (lf)");
 	ui.lineEndBox->addItem("Macintosh (cr)");
 	ui.lineEndBox->addItem("MS Windows (crlf)");
+	ui.lineEndBox->setCurrentIndex(prefs->exportEol());
 
 	QStringList enc;
 	foreach (QString s, QTextCodec::availableCodecs())
 		enc << s;
 	enc.sort();
 	ui.encodingBox->addItems(enc);
-	ui.encodingBox->setCurrentIndex(enc.indexOf("UTF-8"));
+	ui.encodingBox->setCurrentIndex(enc.indexOf(prefs->exportEncoding()));
+
+	ui.fileButton->setChecked(prefs->exportDestination() == 0);
+	ui.clipboardButton->setChecked(prefs->exportDestination() == 1);
+	ui.headerCheckBox->setChecked(prefs->exportHeaders());
 
 	connect(ui.fileButton, SIGNAL(toggled(bool)), this, SLOT(fileButton_toggled(bool)));
 	connect(ui.searchButton, SIGNAL(clicked()), this, SLOT(searchButton_clicked()));
+	connect(ui.buttonBox, SIGNAL(accepted()), this, SLOT(slotAccepted()));
+}
+
+void DataExportDialog::slotAccepted()
+{
+	Preferences * prefs = Preferences::instance();
+	prefs->setExportFormat(ui.formatBox->currentIndex());
+	prefs->setExportDestination(ui.fileButton->isChecked() ? 0 : 1);
+	prefs->setExportHeaders(ui.headerCheckBox->isChecked());
+	prefs->setExportEncoding(ui.encodingBox->currentText());
+	prefs->setExportEol(ui.lineEndBox->currentIndex());
+
+	accept();
 }
 
 bool DataExportDialog::doExport()
@@ -276,7 +298,8 @@ bool DataExportDialog::exportPython()
 		QSqlRecord r = m_data->record(i);
 		for (int j = 0; j < m_header.size(); ++j)
 		{
-			out << "\"" << m_header.at(j) << "\" : \"" << r.value(j).toString() << "\"";
+			// "key" : """value""" python syntax due the potentional EOLs in the strings
+			out << "\"" << m_header.at(j) << "\" : \"\"\"" << r.value(j).toString() << "\"\"\"";
 			if (j != (m_header.size() - 1))
 				out << ", ";
 		}

@@ -67,6 +67,7 @@ class DataExportDialog : public QDialog
 		void fileButton_toggled(bool);
 		void searchButton_clicked();
 		void cancel();
+		void slotAccepted();
 };
 
 #endif

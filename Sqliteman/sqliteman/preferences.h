@@ -92,6 +92,22 @@ class Preferences : public QObject
 		QString dateTimeFormat() { return m_dateTimeFormat; };
 		void setDateTimeFormat(const QString & v) { m_dateTimeFormat = v; };
 
+		// data export
+		int exportFormat() { return m_exportFormat; };
+		void setExportFormat(int v) { m_exportFormat = v; };
+
+		int exportDestination() { return m_exportDestination; };
+		void setExportDestination(int v) { m_exportDestination = v; };
+
+		bool exportHeaders() { return m_exportHeaders; };
+		void setExportHeaders(bool v) { m_exportHeaders = v; };
+
+		QString exportEncoding() { return m_exportEncoding; };
+		void setExportEncoding(const QString & v) { m_exportEncoding = v; };
+
+		int exportEol() { return m_exportEol; };
+		void setExportEol(int v) { m_exportEol = v; };
+
 	signals:
 		void prefsChanged();
 
@@ -122,6 +138,12 @@ class Preferences : public QObject
 		int m_codeCompletionLength;
 		bool m_useShortcuts;
 		QMap<QString,QVariant> m_shortcuts;
+		// data export
+		int m_exportFormat;
+		int m_exportDestination;
+		bool m_exportHeaders;
+		QString m_exportEncoding;
+		int m_exportEol;
 
 		// used in MultieditDialog
 		QString m_dateTimeFormat;
