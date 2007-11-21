@@ -31,6 +31,7 @@ class SqlItemView : public QWidget, public Ui::SqlItemView
 		All previously generated GUI widgets are deleted and recreated
 		again depending on the new model QSqlRecord structure. */
 		void setModel(QAbstractItemModel * model);
+		QAbstractItemModel * model();
 
 	private:
 		/*! \brief A "shadow" widget for new layout recreated every time is the model set.

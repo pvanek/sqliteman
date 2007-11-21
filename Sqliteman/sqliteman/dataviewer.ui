@@ -58,8 +58,15 @@
           <string>Item View</string>
          </attribute>
          <layout class="QGridLayout" >
-          <item row="0" column="0" >
+          <item row="1" column="0" >
            <widget class="SqlItemView" native="1" name="itemView" />
+          </item>
+          <item row="0" column="0" >
+           <widget class="QLabel" name="label" >
+            <property name="text" >
+             <string>Item View is read only now.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGridLayout>
 #include <QSqlQueryModel>
 #include <QSqlRecord>
-#include <QLineEdit>
+#include <QTextEdit>
 
 #include "sqlitemview.h"
 
@@ -34,6 +34,7 @@ void SqlItemView::setModel(QAbstractItemModel * model)
 
 	m_mapper->clearMapping();
 	m_mapper->setModel(model);
+	m_mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
 	if (scrollWidget->widget())
 	{
@@ -49,13 +50,21 @@ void SqlItemView::setModel(QAbstractItemModel * model)
 	for (int i = 0; i < rec.count(); ++i)
 	{
 		layout->addWidget(new QLabel(tmp.arg(rec.fieldName(i)), layoutWidget), i, 0);
-		QLineEdit * w = new QLineEdit(layoutWidget);
-		w->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+		QTextEdit * w = new QTextEdit(layoutWidget);
+		w->setReadOnly(true); // TODO: make it transaction reliable
+		w->setAcceptRichText(false);
+		w->setMaximumHeight(50);
+		w->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
 		layout->addWidget(w, i, 1);
 		m_mapper->addMapping(w, i);
 	}
 	scrollWidget->setWidget(layoutWidget);
 	m_mapper->toFirst();
+}
+
+QAbstractItemModel * SqlItemView::model()
+{
+	return m_mapper->model();
 }
 
 void SqlItemView::updateButtons(int row)
