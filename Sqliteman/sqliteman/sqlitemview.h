@@ -32,6 +32,9 @@ class SqlItemView : public QWidget, public Ui::SqlItemView
 		again depending on the new model QSqlRecord structure. */
 		void setModel(QAbstractItemModel * model);
 		QAbstractItemModel * model();
+		
+		void setCurrentIndex(int);
+		int currentIndex();
 
 	private:
 		/*! \brief A "shadow" widget for new layout recreated every time is the model set.

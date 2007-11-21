@@ -53,6 +53,7 @@ DataViewer::DataViewer(QWidget * parent)
 	connect(keyPressEater, SIGNAL(copyRequest()), this, SLOT(copyHandler()));
 // 	connect(parent, SIGNAL(prefsChanged()), ui.tableView, SLOT(repaint()));
 	connect(ui.actionBLOB_Preview, SIGNAL(toggled(bool)), this, SLOT(handleBlobPreview(bool)));
+	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabWidget_currentChanged(int)));
 }
 
 bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
@@ -304,6 +305,17 @@ void DataViewer::tableView_selectionChanged(const QItemSelection &, const QItemS
 															Qt::EditRole)
 							   );
 	
+}
+
+void DataViewer::tabWidget_currentChanged(int ix)
+{
+	if (ix == 0)
+	{
+		QModelIndex mi = ui.tableView->currentIndex().sibling(ui.itemView->currentIndex(), 0);
+		ui.tableView->setCurrentIndex(mi);
+	}
+	else
+		ui.itemView->setCurrentIndex(ui.tableView->currentIndex().row());
 }
 
 
