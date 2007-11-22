@@ -10,6 +10,8 @@ SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_VERBOSE_MAKEFILE OFF)
 #Include current dir
 # SET(CMAKE_INCLUDE_CURRENT_DIR TRUE)
+#Set the custom CMake module directory where our include/lib finders are
+SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 #PROJECT SETUP
 PROJECT(sqliteman)
@@ -18,6 +20,8 @@ SET (VERSION_MINOR "1")
 SET (VERSION_PATCH "0")
 SET (VERSION_SUFFIX "svn")
 SET (VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_SUFFIX})
+
+SET (EXE_NAME "sqliteman")
 
 MESSAGE(STATUS "Sqliteman ${VERSION} will be built to install into ${CMAKE_INSTALL_PREFIX}")
 
@@ -86,6 +90,25 @@ SET( QT_USE_QTXML TRUE )
 FIND_PACKAGE( Qt4 REQUIRED )
 
 INCLUDE( ${QT_USE_FILE} )
+
+
+IF (WANT_INTERNAL_QSCINTILLA)
+    MESSAGE(STATUS "QSci: Building with internal copy of QScintilla.")
+    MESSAGE(STATUS "QSci: It's recomended to use external library for it")
+ELSE (WANT_INTERNAL_QSCINTILLA)
+
+    FIND_PACKAGE(QScintilla REQUIRED)
+    IF (QSCINTILLA_FOUND)
+        MESSAGE("QScintilla2 Found OK")
+        ADD_DEFINITIONS("-DQT -DSCI_LEXER")
+    ELSE (QSCINTILLA_FOUND)
+        MESSAGE(STATUS "QSci: No QScintilla2 libraries found")
+        MESSAGE(STATUS "QSci: You can use -DWANT_INTERNAL_QSCINTILLA=1 to build included copy of it.")
+        MESSAGE(FATAL_ERROR "No QScintilla2 found")
+    ENDIF (QSCINTILLA_FOUND)
+
+ENDIF (WANT_INTERNAL_QSCINTILLA)
+
 
 ADD_SUBDIRECTORY( sqliteman )
 
