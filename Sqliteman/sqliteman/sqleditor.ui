@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>714</width>
+    <width>692</width>
     <height>431</height>
    </rect>
   </property>
@@ -14,146 +14,118 @@
   </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QGridLayout" >
-    <property name="leftMargin" >
-     <number>6</number>
-    </property>
-    <property name="topMargin" >
-     <number>6</number>
-    </property>
-    <property name="rightMargin" >
-     <number>6</number>
-    </property>
-    <property name="bottomMargin" >
-     <number>6</number>
-    </property>
-    <property name="horizontalSpacing" >
-     <number>1</number>
-    </property>
-    <property name="verticalSpacing" >
-     <number>1</number>
-    </property>
     <item row="0" column="0" >
-     <widget class="QWidget" native="1" name="widget" >
-      <property name="minimumSize" >
-       <size>
-        <width>26</width>
-        <height>0</height>
-       </size>
+     <layout class="QVBoxLayout" >
+      <property name="spacing" >
+       <number>1</number>
       </property>
-     </widget>
-    </item>
-    <item row="0" column="1" >
-     <widget class="SqlEditorWidget" name="sqlTextEdit" >
-      <property name="minimumSize" >
-       <size>
-        <width>0</width>
-        <height>100</height>
-       </size>
+      <property name="bottomMargin" >
+       <number>0</number>
       </property>
-      <property name="lineWrapMode" >
-       <enum>QTextEdit::NoWrap</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" colspan="2" >
-     <widget class="QFrame" name="searchFrame" >
-      <property name="frameShape" >
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow" >
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" >
-       <property name="leftMargin" >
-        <number>3</number>
-       </property>
-       <property name="topMargin" >
-        <number>3</number>
-       </property>
-       <property name="rightMargin" >
-        <number>3</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>3</number>
-       </property>
-       <property name="horizontalSpacing" >
-        <number>1</number>
-       </property>
-       <property name="verticalSpacing" >
-        <number>1</number>
-       </property>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label" >
-         <property name="text" >
-          <string>Search:</string>
+      <item>
+       <widget class="SqlEditorWidget" name="sqlTextEdit" >
+        <property name="minimumSize" >
+         <size>
+          <width>0</width>
+          <height>100</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="searchFrame" >
+        <property name="frameShape" >
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow" >
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" >
+         <property name="leftMargin" >
+          <number>3</number>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="1" >
-        <widget class="QLineEdit" name="searchEdit" />
-       </item>
-       <item row="0" column="4" >
-        <widget class="QCheckBox" name="caseCheckBox" >
-         <property name="text" >
-          <string>Case Sensitive</string>
+         <property name="topMargin" >
+          <number>3</number>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="5" >
-        <widget class="QCheckBox" name="wholeWordsCheckBox" >
-         <property name="text" >
-          <string>Whole Words</string>
+         <property name="rightMargin" >
+          <number>3</number>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="2" >
-        <widget class="QToolButton" name="previousToolButton" >
-         <property name="toolTip" >
-          <string>Search previous</string>
+         <property name="bottomMargin" >
+          <number>3</number>
          </property>
-         <property name="text" >
-          <string>&lt;</string>
+         <property name="horizontalSpacing" >
+          <number>1</number>
          </property>
-         <property name="shortcut" >
-          <string>Shift+F3</string>
+         <property name="verticalSpacing" >
+          <number>1</number>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="3" >
-        <widget class="QToolButton" name="nextToolButton" >
-         <property name="toolTip" >
-          <string>Search Next</string>
-         </property>
-         <property name="text" >
-          <string>></string>
-         </property>
-         <property name="shortcut" >
-          <string>F3</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="7" >
-        <widget class="QLabel" name="wrappedLabel" >
-         <property name="text" >
-          <string>&lt;b>Search wrapped&lt;/b></string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="6" >
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" >
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
+         <item row="0" column="0" >
+          <widget class="QLabel" name="label" >
+           <property name="text" >
+            <string>Search:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" >
+          <widget class="QLineEdit" name="searchEdit" />
+         </item>
+         <item row="0" column="4" >
+          <widget class="QCheckBox" name="caseCheckBox" >
+           <property name="text" >
+            <string>Case Sensitive</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="5" >
+          <widget class="QCheckBox" name="wholeWordsCheckBox" >
+           <property name="text" >
+            <string>Whole Words</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2" >
+          <widget class="QToolButton" name="previousToolButton" >
+           <property name="toolTip" >
+            <string>Search previous</string>
+           </property>
+           <property name="text" >
+            <string>&lt;</string>
+           </property>
+           <property name="shortcut" >
+            <string>Shift+F3</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3" >
+          <widget class="QToolButton" name="nextToolButton" >
+           <property name="toolTip" >
+            <string>Search Next</string>
+           </property>
+           <property name="text" >
+            <string>></string>
+           </property>
+           <property name="shortcut" >
+            <string>F3</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="6" >
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

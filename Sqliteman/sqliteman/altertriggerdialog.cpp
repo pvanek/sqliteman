@@ -24,7 +24,7 @@ AlterTriggerDialog::AlterTriggerDialog(const QString & name, const QString & sch
 	setWindowTitle("Alter Trigger");
 
 // 	highlighter =
-	new SqlEditorTools::SqlHighlighter(ui.textEdit->document());
+// 	new SqlEditorTools::SqlHighlighter(ui.textEdit->document());
 
 	QString sql(QString("select sql from \"%1\".sqlite_master where name = '%2';").arg(schema).arg(name));
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
@@ -53,7 +53,7 @@ void AlterTriggerDialog::createButton_clicked()
 		return;
 	}
 
-	QString sql(ui.textEdit->toPlainText());
+	QString sql(ui.textEdit->text());
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
 	
 	if(query.lastError().isValid())

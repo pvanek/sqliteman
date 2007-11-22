@@ -22,7 +22,7 @@ TableEditorDialog::TableEditorDialog(QWidget * parent)//, Mode mode, const QStri
 	restoreGeometry(settings.value("tableeditor/geometry").toByteArray());
 	ui.tableEditorSplitter->restoreState(settings.value("tableeditor/splitter").toByteArray());
 	
-	new SqlEditorTools::SqlHighlighter(ui.textEdit->document());
+// 	new SqlEditorTools::SqlHighlighter(ui.textEdit->document());
 	ui.databaseCombo->addItems(Database::getDatabases().keys());
 
 	connect(ui.nameEdit, SIGNAL(textChanged(const QString&)),

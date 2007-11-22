@@ -20,7 +20,7 @@ CreateViewDialog::CreateViewDialog(const QString & name, const QString & schema,
 {
 	ui.setupUi(this);
 	ui.databaseCombo->addItems(Database::getDatabases().keys());
-	new SqlEditorTools::SqlHighlighter(ui.sqlEdit->document());
+// 	new SqlEditorTools::SqlHighlighter(ui.sqlEdit->document());
 
 	ui.createButton->setDisabled(true);
 
@@ -40,7 +40,7 @@ void CreateViewDialog::createButton_clicked()
 	QString sql(QString("CREATE VIEW \"%1\".\"%2\" AS %3;")
 			.arg(ui.databaseCombo->currentText())
 			.arg(ui.nameEdit->text())
-			.arg(ui.sqlEdit->toPlainText()));
+			.arg(ui.sqlEdit->text()));
 
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
 	

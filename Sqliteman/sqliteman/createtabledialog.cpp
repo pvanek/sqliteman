@@ -57,7 +57,7 @@ void CreateTableDialog::createButton_clicked()
 	if (ui.tabWidget->currentIndex() == 0)
 		sql = getSQLfromGUI();
 	else
-		sql = ui.textEdit->toPlainText();
+		sql = ui.textEdit->text();
 
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
 	if(query.lastError().isValid())

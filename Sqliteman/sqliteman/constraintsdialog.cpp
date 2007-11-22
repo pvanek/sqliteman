@@ -26,9 +26,9 @@ ConstraintsDialog::ConstraintsDialog(const QString & tabName, const QString & sc
 	ui.insertName->setText(QString("tr_cons_%1_ins").arg(tabName));
 	ui.updateName->setText(QString("tr_cons_%1_upd").arg(tabName));
 	ui.deleteName->setText(QString("tr_cons_%1_del").arg(tabName));
-	new SqlEditorTools::SqlHighlighter(ui.insertEdit->document());
-	new SqlEditorTools::SqlHighlighter(ui.updateEdit->document());
-	new SqlEditorTools::SqlHighlighter(ui.deleteEdit->document());
+// 	new SqlEditorTools::SqlHighlighter(ui.insertEdit->document());
+// 	new SqlEditorTools::SqlHighlighter(ui.updateEdit->document());
+// 	new SqlEditorTools::SqlHighlighter(ui.deleteEdit->document());
 
 	// not nulls
 	QStringList inserts;
@@ -114,40 +114,40 @@ void ConstraintsDialog::createButton_clicked()
 
 	QString status("INSERT trigger\n");
 	createTrigger("begin transaction;");
-	if (ui.insertEdit->toPlainText().length() != 0)
+	if (ui.insertEdit->text().length() != 0)
 	{
 		status += createTrigger(templ.arg(ui.insertName->text())
 								.arg("INSERT")
 								.arg(m_schema)
 								.arg(m_table)
 								.arg("-- created by Sqliteman tool")
-								.arg(ui.insertEdit->toPlainText()));
+								.arg(ui.insertEdit->text()));
 	}
 	else
 		status += tr("No action for INSERT");
 
 	status += "\nUPDATE trigger\n";
-	if (ui.updateEdit->toPlainText().length() != 0)
+	if (ui.updateEdit->text().length() != 0)
 	{
 		status += createTrigger(templ.arg(ui.updateName->text())
 								.arg("UPDATE")
 								.arg(m_schema)
 								.arg(m_table)
 								.arg("-- created by Sqliteman tool")
-								.arg(ui.updateEdit->toPlainText()));
+								.arg(ui.updateEdit->text()));
 	}
 	else
 		status += tr("No action for UPDATE");
 
 	status += "\nDELETE trigger\n";
-	if (ui.deleteEdit->toPlainText().length() != 0)
+	if (ui.deleteEdit->text().length() != 0)
 	{
 		status += createTrigger(templ.arg(ui.deleteName->text())
 								.arg("DELETE")
 								.arg(m_schema)
 								.arg(m_table)
 								.arg("-- created by Sqliteman tool")
-								.arg(ui.deleteEdit->toPlainText()));
+								.arg(ui.deleteEdit->text()));
 	}
 	else
 		status += tr("No action for DELETE");

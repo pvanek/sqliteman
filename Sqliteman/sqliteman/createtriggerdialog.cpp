@@ -19,7 +19,7 @@ CreateTriggerDialog::CreateTriggerDialog(const QString & name, const QString & s
 	update(false)
 {
 	ui.setupUi(this);
-	new SqlEditorTools::SqlHighlighter(ui.textEdit->document());
+// 	new SqlEditorTools::SqlHighlighter(ui.textEdit->document());
 
 	ui.textEdit->setText(
 						 QString("-- sqlite3 simple trigger template\n\
@@ -38,7 +38,7 @@ END;").arg(schema).arg(name));
 
 void CreateTriggerDialog::createButton_clicked()
 {
-	QString sql(ui.textEdit->toPlainText());
+	QString sql(ui.textEdit->text());
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
 	
 	if(query.lastError().isValid())

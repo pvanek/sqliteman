@@ -42,7 +42,7 @@ AlterViewDialog::AlterViewDialog(const QString & name, const QString & schema, Q
 	ui.createButton->setText("&Alter");
 
 // 	highlighter =
-	new SqlEditorTools::SqlHighlighter(ui.sqlEdit->document());
+// 	new SqlEditorTools::SqlHighlighter(ui.sqlEdit->document());
 
 	connect(ui.createButton, SIGNAL(clicked()), this, SLOT(createButton_clicked()));
 }
@@ -64,7 +64,7 @@ void AlterViewDialog::createButton_clicked()
 	sql = QString("CREATE VIEW \"%1\".\"%2\" AS\n%3;")
 			.arg(ui.databaseCombo->currentText())
 			.arg(ui.nameEdit->text())
-			.arg(ui.sqlEdit->toPlainText());
+			.arg(ui.sqlEdit->text());
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
 	
 	if(query.lastError().isValid())

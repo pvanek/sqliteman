@@ -7,7 +7,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef SQLEDITORWIDGET_H
 #define SQLEDITORWIDGET_H
 
-#include <QTextEdit>
+#include <QMap>
+#include <QVariant>
+// #include <QTextEdit>
+#include <qsciscintilla.h>
 
 class QCompleter;
 class Preferences;
@@ -18,7 +21,7 @@ It handles the current line highlighting and max line width mark.
 \note SqlEditorWidget is promoted into ui files as a custom widget.
 \author Petr Vanek <petr@scribus.info>
 */
-class SqlEditorWidget : public QTextEdit
+class SqlEditorWidget : public QsciScintilla/*QTextEdit*/
 {
 	Q_OBJECT
 
@@ -30,7 +33,7 @@ class SqlEditorWidget : public QTextEdit
 
 	private:
 		Preferences * m_prefs;
-		QCompleter *m_completer;
+// 		QCompleter *m_completer;
 		bool m_useCompleter;
 		int m_completerLength;
 		bool m_useShortcuts;
@@ -42,6 +45,7 @@ class SqlEditorWidget : public QTextEdit
 
 	private slots:
 		void insertCompletion(const QString&);
+		void linesChanged();
 };
 
 #endif
