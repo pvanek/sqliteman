@@ -33,7 +33,7 @@ Preferences::Preferences(QObject *parent)
 	m_activeHighlighting = s.value("prefs/sqleditor/useActiveHighlightCheckBox", true).toBool();
 	m_activeHighlightColor = s.value("prefs/sqleditor/activeHighlightButton", stdDarkColor()).value<QColor>();
 	m_textWidthMark = s.value("prefs/sqleditor/useTextWidthMarkCheckBox", true).toBool();
-	m_textWidthMarkSize = s.value("prefs/sqleditor/textWidthMarkSpinBox", 80).toInt();
+	m_textWidthMarkSize = s.value("prefs/sqleditor/textWidthMarkSpinBox", 60).toInt();
 	m_codeCompletion = s.value("prefs/sqleditor/useCodeCompletion", false).toBool();
 	m_codeCompletionLength = s.value("prefs/sqleditor/completionLengthBox", 3).toInt();
 	m_useShortcuts = s.value("prefs/sqleditor/useShortcuts", false).toBool();

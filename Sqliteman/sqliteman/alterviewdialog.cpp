@@ -11,7 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include <QtDebug>
 
 #include "alterviewdialog.h"
-#include "sqleditor.h"
 #include "database.h"
 
 
@@ -40,9 +39,6 @@ AlterViewDialog::AlterViewDialog(const QString & name, const QString & schema, Q
 
 	setWindowTitle(tr("Alter View"));
 	ui.createButton->setText("&Alter");
-
-// 	highlighter =
-// 	new SqlEditorTools::SqlHighlighter(ui.sqlEdit->document());
 
 	connect(ui.createButton, SIGNAL(clicked()), this, SLOT(createButton_clicked()));
 }

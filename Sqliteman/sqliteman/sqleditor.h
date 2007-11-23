@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 #define SQLEDITOR_H
 
 #include <QWidget>
-// #include <QSyntaxHighlighter>
 #include <QFileSystemWatcher>
 
 #include "ui_sqleditor.h"
@@ -17,87 +16,6 @@ for which a new license (GPL+exception) is in place.
 class QTextDocument;
 class QLabel;
 class QProgressDialog;
-
-
-//! \brief Support tools for SqlEditor class
-// namespace SqlEditorTools
-// {
-// 
-// 	/*!
-// 	\brief Simple SQL syntax highlighter.
-// 	Taken and modified code from Scribus scripter and Qt docs.
-// 	\author Petr Vanek <petr@scribus.info>
-// 	*/
-// 	class SqlHighlighter : public QSyntaxHighlighter
-// 	{
-// 		Q_OBJECT
-// 
-// 	public:
-// 		SqlHighlighter(QTextDocument *parent = 0);
-// 
-// 	protected:
-// 		void highlightBlock(const QString &text);
-// 
-// 	private:
-// 		struct HighlightingRule
-// 		{
-// 			QRegExp pattern;
-// 			QTextCharFormat format;
-// 		};
-// 		QVector<HighlightingRule> highlightingRules;
-// 
-// 		QRegExp commentStartExpression;
-// 		QRegExp commentEndExpression;
-// 
-// 		QTextCharFormat keywordFormat;
-// 		QTextCharFormat singleLineCommentFormat;
-// 		QTextCharFormat multiLineCommentFormat;
-// 		QTextCharFormat quotationFormat;
-// 	};
-// 
-// 
-// 	/*! \brief A line numbers for the text widget
-// 	Taken from Azevedo Filipe's TextEditor.
-// 	http://www.monkeystudio.org/
-// 	*/
-// 	class Gluter : public QWidget
-// 	{
-// 		Q_OBJECT
-// 		Q_PROPERTY( int digitNumbers READ digitNumbers WRITE setDigitNumbers )
-// 		Q_PROPERTY( QColor textColor READ textColor WRITE setTextColor )
-// 		Q_PROPERTY( QColor backgroundColor READ backgroundColor WRITE setBackgroundColor )
-// 		//
-// 	public:
-// 		Gluter( QTextEdit* );
-// 		//
-// 		void setDigitNumbers( int );
-// 		int digitNumbers() const;
-// 		//
-// 		void setTextColor( const QColor& );
-// 		const QColor& textColor() const;
-// 		//
-// 		void setBackgroundColor( const QColor& );
-// 		const QColor& backgroundColor() const;
-// 		//
-// 	protected:
-// 		virtual void paintEvent( QPaintEvent* );
-// 		//
-// 	private:
-// 		QTextEdit* mEdit;
-// 		int mDigitNumbers;
-// 		QColor mTextColor;
-// 		QColor mBackgroundColor;
-// 		//
-// 	signals:	
-// 		void digitNumbersChanged( int );
-// 		void textColorChanged( const QColor& );
-// 		void backgroundColorChanged( const QColor& );
-// 		//
-// 	public slots:
-// 		void setDefaultProperties();
-// 	};
-// 
-// };
 
 
 /*!
@@ -131,8 +49,6 @@ class SqlEditor : public QMainWindow
 
 	private:
 		Ui::SqlEditor ui;
-// 		SqlEditorTools::SqlHighlighter *highlighter;
-// 		SqlEditorTools::Gluter *mGluter;
 
 		QString m_fileName;
 		QFileSystemWatcher * m_fileWatcher;
@@ -175,7 +91,6 @@ class SqlEditor : public QMainWindow
 		void actionCreateView_triggered();
 		void sqlTextEdit_cursorPositionChanged(int,int);
 		void documentChanged(bool state);
-		void prefsChanged();
 		void cancel();
 		// searching
 		void actionSearch_triggered();

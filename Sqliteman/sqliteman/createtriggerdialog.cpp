@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QSqlError>
 
 #include "createtriggerdialog.h"
-#include "sqleditor.h"
 #include "database.h"
 
 
@@ -19,7 +18,6 @@ CreateTriggerDialog::CreateTriggerDialog(const QString & name, const QString & s
 	update(false)
 {
 	ui.setupUi(this);
-// 	new SqlEditorTools::SqlHighlighter(ui.textEdit->document());
 
 	ui.textEdit->setText(
 						 QString("-- sqlite3 simple trigger template\n\

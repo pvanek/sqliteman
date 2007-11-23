@@ -11,7 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include <QSettings>
 
 #include "tableeditordialog.h"
-#include "sqleditor.h"
 
 
 TableEditorDialog::TableEditorDialog(QWidget * parent)//, Mode mode, const QString & tableName): QDialog(parent)
@@ -22,7 +21,6 @@ TableEditorDialog::TableEditorDialog(QWidget * parent)//, Mode mode, const QStri
 	restoreGeometry(settings.value("tableeditor/geometry").toByteArray());
 	ui.tableEditorSplitter->restoreState(settings.value("tableeditor/splitter").toByteArray());
 	
-// 	new SqlEditorTools::SqlHighlighter(ui.textEdit->document());
 	ui.databaseCombo->addItems(Database::getDatabases().keys());
 
 	connect(ui.nameEdit, SIGNAL(textChanged(const QString&)),

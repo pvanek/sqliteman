@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QSqlError>
 
 #include "createviewdialog.h"
-#include "sqleditor.h"
 #include "database.h"
 
 
@@ -20,7 +19,6 @@ CreateViewDialog::CreateViewDialog(const QString & name, const QString & schema,
 {
 	ui.setupUi(this);
 	ui.databaseCombo->addItems(Database::getDatabases().keys());
-// 	new SqlEditorTools::SqlHighlighter(ui.sqlEdit->document());
 
 	ui.createButton->setDisabled(true);
 

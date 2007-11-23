@@ -11,10 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QProgressDialog>
 
-// Gluter guts
-// #include <QPainter>
-// #include <QScrollBar>
-// #include <QAbstractTextDocumentLayout>
 #include <qscilexer.h>
 
 #include "createviewdialog.h"
@@ -29,17 +25,11 @@ SqlEditor::SqlEditor(QWidget * parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	Preferences * prefs = Preferences::instance();
-
 	m_fileName = QString();
-// 	highlighter = new SqlEditorTools::SqlHighlighter(ui.sqlTextEdit->document());
-// 	mGluter = new SqlEditorTools::Gluter(ui.sqlTextEdit);
-// 	ui.gridLayout->setSpacing(1);
-// 	ui.gridLayout->addWidget(mGluter, 0, 0, 1, 1);
-	ui.sqlTextEdit->setFont(prefs->sqlFont());
-// 	ui.sqlTextEdit->setFontPointSize(prefs->sqlFontSize());
 
 	m_fileWatcher = new QFileSystemWatcher(this);
+
+	ui.sqlTextEdit->prefsChanged();
 
 	changedLabel = new QLabel(this);
 	cursorTemplate = tr("Col: %1 Row: %2/%3");
@@ -77,7 +67,7 @@ SqlEditor::SqlEditor(QWidget * parent)
 	connect(ui.sqlTextEdit, SIGNAL(modificationChanged(bool)),
 			this, SLOT(documentChanged(bool)));
 	connect(parent, SIGNAL(prefsChanged()),
-			this, SLOT(prefsChanged()));
+			ui.sqlTextEdit, SLOT(prefsChanged()));
 
 	// search
 	connect(ui.actionSearch, SIGNAL(triggered()), this, SLOT(actionSearch_triggered()));
@@ -110,7 +100,6 @@ QString SqlEditor::query()
 // 
 // 	cur.movePosition(QTextCursor::WordLeft);
 // 
-	// current "pararaph"
 	SqlEditorTools::SqlParser parser(ui.sqlTextEdit->text());
 
 // 	// HACK to handle semicolons at the EOL.
@@ -120,7 +109,8 @@ QString SqlEditor::query()
 // 	QTextBlock b(ui.sqlTextEdit->document()->findBlock(cur.position()));
 // 	if (cur.atBlockEnd() && b.text().length() > 0 && b.text().at(b.text().length()-1) == ';')
 // 		--pos;
-	int pos = 1; // FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME 
+	// FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME 
+	int pos = ui.sqlTextEdit->SendScintilla(QsciScintilla::SCI_GETCURRENTPOS);
 	return parser.getStatement(pos);
 }
 
@@ -201,11 +191,6 @@ void SqlEditor::open(const QString &  newFile)
 	progress->setLabelText(tr("Formatting the text. Please wait."));
 	ui.sqlTextEdit->append(strList.join("\n"));
 	ui.sqlTextEdit->setModified(false);
-
-// 	// move cursor at the start of doc when it's opened
-// 	QTextCursor cur(ui.sqlTextEdit->textCursor());
-// 	cur.movePosition(QTextCursor::Start);
-// 	ui.sqlTextEdit->setTextCursor(cur);
 
 	delete progress;
 	progress = 0;
@@ -304,8 +289,6 @@ void SqlEditor::saveOnExit()
 
 void SqlEditor::sqlTextEdit_cursorPositionChanged(int line, int pos)
 {
-// 	QTextCursor cur(ui.sqlTextEdit->textCursor());
-// 	cursorLabel->setText(cursorTemplate.arg(cur.columnNumber()+1).arg(cur.blockNumber()+1).arg(ui.sqlTextEdit->document()->blockCount()));
 	cursorLabel->setText(cursorTemplate.arg(pos+1).arg(line+1).arg(ui.sqlTextEdit->lines()));
 }
 
@@ -317,18 +300,6 @@ void SqlEditor::documentChanged(bool state)
 void SqlEditor::setFileName(const QString & fname)
 {
 	open(fname);
-}
-
-void SqlEditor::prefsChanged()
-{
-	Preferences * prefs = Preferences::instance();
-	ui.sqlTextEdit->lexer()->setFont(prefs->sqlFont());
-	ui.sqlTextEdit->setCompletion(prefs->codeCompletion(),
-								  prefs->codeCompletionLength());
-	ui.sqlTextEdit->setShortcuts(prefs->useShortcuts(),
-								 prefs->shortcuts());
-	ui.sqlTextEdit->update();
-	update();
 }
 
 void SqlEditor::actionSearch_triggered()
@@ -391,171 +362,3 @@ void SqlEditor::setFileWatcher(const QString & newFileName)
 		m_fileWatcher->removePaths(pathList);
 	m_fileWatcher->addPath(newFileName);
 }
-
-
-/* Tools ****************************************** */
-
-
-// SqlEditorTools::SqlHighlighter::SqlHighlighter(QTextDocument *parent)
-// 	: QSyntaxHighlighter(parent)
-// {
-// 	HighlightingRule rule;
-// 
-// 	keywordFormat.setForeground(Qt::darkBlue);
-// 	keywordFormat.setFontWeight(QFont::Bold);
-// 	// select
-// 	QStringList keywordPatterns(sqlKeywords());
-// 
-// 	foreach (QString pattern, keywordPatterns)
-// 	{
-// 		rule.pattern = QRegExp("\\b" + pattern + "\\b", Qt::CaseInsensitive);
-// 		rule.format = keywordFormat;
-// 		highlightingRules.append(rule);
-// 	}
-// 
-// 	singleLineCommentFormat.setForeground(Qt::gray);
-// 	rule.pattern = QRegExp("--[^\n]*");
-// 	rule.format = singleLineCommentFormat;
-// 	highlightingRules.append(rule);
-// 
-// 	multiLineCommentFormat.setForeground(Qt::gray);
-// 
-// 	quotationFormat.setForeground(Qt::red);
-// 	rule.pattern = QRegExp("\'.*\'");
-// 	rule.pattern.setMinimal(true);
-// 	rule.format = quotationFormat;
-// 	highlightingRules.append(rule);
-// 
-// 	commentStartExpression = QRegExp("/\\*");
-// 	commentEndExpression = QRegExp("\\*/");
-// }
-// 
-// void SqlEditorTools::SqlHighlighter::highlightBlock(const QString &text)
-// {
-// 	foreach (HighlightingRule rule, highlightingRules)
-// 	{
-// 		QRegExp expression(rule.pattern);
-// 		int index = text.indexOf(expression);
-// 		while (index >= 0)
-// 		{
-// 			int length = expression.matchedLength();
-// 			setFormat(index, length, rule.format);
-// 			index = text.indexOf(expression, index + length);
-// 		}
-// 	}
-// 	setCurrentBlockState(0);
-// 
-// 	int startIndex = 0;
-// 	if (previousBlockState() != 1)
-// 		startIndex = text.indexOf(commentStartExpression);
-// 
-// 	while (startIndex >= 0)
-// 	{
-// 		int endIndex = text.indexOf(commentEndExpression, startIndex);
-// 		int commentLength;
-// 		if (endIndex == -1)
-// 		{
-// 			setCurrentBlockState(1);
-// 			commentLength = text.length() - startIndex;
-// 		}
-// 		else
-// 		{
-// 			commentLength = endIndex - startIndex
-// 							+ commentEndExpression.matchedLength();
-// 		}
-// 		setFormat(startIndex, commentLength, multiLineCommentFormat);
-// 		startIndex = text.indexOf(commentStartExpression,
-// 								  startIndex + commentLength);
-// 	}
-// }
-// 
-// 
-// /* Taken from Azevedo Filipe's TextEditor.
-// http://www.monkeystudio.org/
-// */
-// SqlEditorTools::Gluter::Gluter( QTextEdit* edit )
-// 	: QWidget( edit ), mEdit( edit )
-// {
-// 	setAutoFillBackground( true );
-// 	connect( mEdit->document()->documentLayout(), SIGNAL( update( const QRectF& ) ), this, SLOT( update() ) );
-// 	connect( mEdit->verticalScrollBar(), SIGNAL( valueChanged( int ) ), this, SLOT( update() ) );
-// 	setDefaultProperties();
-// }
-// //
-// void SqlEditorTools::Gluter::paintEvent( QPaintEvent* )
-// {
-// 	int contentsY = mEdit->verticalScrollBar()->value();
-// 	qreal pageBottom = contentsY + mEdit->viewport()->height();
-// 	int lineNumber = 1;
-// 	const QFontMetrics fm = fontMetrics();
-// 	const int ascent = fontMetrics().ascent() +1;
-// 	//
-// 	QPainter p( this );
-// 	// need a hack to only browse the viewed block for big document
-// 	for ( QTextBlock block = mEdit->document()->begin(); block.isValid(); block = block.next(), lineNumber++ )
-// 	{
-// 		QTextLayout* layout = block.layout();
-// 		const QRectF boundingRect = layout->boundingRect();
-// 		QPointF position = layout->position();
-// 		if ( position.y() +boundingRect.height() < contentsY )
-// 			continue;
-// 		if ( position.y() > pageBottom )
-// 			break;
-// 		const QString txt = QString::number( lineNumber );
-// 		p.drawText( width() -fm.width( txt ) -fm.width( "0" ), qRound( position.y() ) -contentsY +ascent, txt ); // -fm.width( "0" ) is an ampty place/indent
-// 	}
-// }
-// // PROPERTIES
-// void SqlEditorTools::Gluter::setDigitNumbers( int i )
-// {
-// 	if ( i == mDigitNumbers )
-// 		return;
-// 	mDigitNumbers = i;
-// 	setFixedWidth( fontMetrics().width( "0" ) * ( mDigitNumbers +2 ) ); // +2 = 1 empty place before and 1 empty place after
-// 	emit digitNumbersChanged( mDigitNumbers );
-// }
-// //
-// int SqlEditorTools::Gluter::digitNumbers() const
-// {
-// 	return mDigitNumbers;
-// }
-// //
-// void SqlEditorTools::Gluter::setTextColor( const QColor& c )
-// {
-// 	if ( c == mTextColor )
-// 		return;
-// 	mTextColor = c;
-// 	QPalette p( palette() );
-// 	p.setColor( foregroundRole(), mTextColor );
-// 	setPalette( p );
-// 	emit textColorChanged( mTextColor );
-// }
-// //
-// const QColor& SqlEditorTools::Gluter::textColor() const
-// {
-// 	return mTextColor;
-// }
-// //
-// void SqlEditorTools::Gluter::setBackgroundColor( const QColor& c )
-// {
-// 	if ( c == mBackgroundColor )
-// 		return;
-// 	mBackgroundColor = c;
-// 	QPalette p( palette() );
-// 	p.setColor( backgroundRole(), mBackgroundColor );
-// 	setPalette( p );
-// 	emit backgroundColorChanged( mBackgroundColor );
-// }
-// //
-// const QColor& SqlEditorTools::Gluter::backgroundColor() const
-// {
-// 	return mBackgroundColor;
-// }
-// // END PROPERTIES
-// void SqlEditorTools::Gluter::setDefaultProperties()
-// {
-// 	// Default properties
-// 	setBackgroundColor( QColor( "#fafafa" ) );
-// 	setTextColor( QColor( "#000000" ) );
-// 	setDigitNumbers( 4 );
-// }

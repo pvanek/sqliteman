@@ -11,7 +11,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "constraintsdialog.h"
 #include "database.h"
-#include "sqleditor.h"
 
 
 ConstraintsDialog::ConstraintsDialog(const QString & tabName, const QString & schema, QWidget * parent)
@@ -26,9 +25,6 @@ ConstraintsDialog::ConstraintsDialog(const QString & tabName, const QString & sc
 	ui.insertName->setText(QString("tr_cons_%1_ins").arg(tabName));
 	ui.updateName->setText(QString("tr_cons_%1_upd").arg(tabName));
 	ui.deleteName->setText(QString("tr_cons_%1_del").arg(tabName));
-// 	new SqlEditorTools::SqlHighlighter(ui.insertEdit->document());
-// 	new SqlEditorTools::SqlHighlighter(ui.updateEdit->document());
-// 	new SqlEditorTools::SqlHighlighter(ui.deleteEdit->document());
 
 	// not nulls
 	QStringList inserts;

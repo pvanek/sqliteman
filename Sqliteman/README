@@ -11,12 +11,17 @@ For using binaries:
 
 BUILDING FROM SOURCES
 
+Qmake project is used only for translations.
+
+
 MS Windows:
 
  - Full Qt4.2 (4.3 suggested) or later properly installed on path
  - building procedure (in the Sqliteman root directory):
-1) qmake
+1) cmake
 2) make
+
+see available cmake options below.
 
 
 UN*X:
@@ -32,13 +37,18 @@ Requirements:
 2) make
 3) make install
 
-Available options for cmake (cmake oprions .):
+
+Available options for cmake (cmake options .):
 -DWANT_DEBUG=1
     build application with the debug symbols
 -DWANT_RESOURCES=1
     build application with all icons, docs and translation files compiled in
     as one binary file. It's useful e.g. for "portable" distribution or fo
     Mac dmg files.
+    This option is set automatically on Windows.
+-DWANT_INTERNAL_QSCINTILLA=1
+    Set this one if you don't have Qscintilla2 libraries and header files
+    installed. It will use included source codes.
 
 
 Hints for cmake:

@@ -20,19 +20,10 @@ for which a new license (GPL+exception) is in place.
 
 
 SqlEditorWidget::SqlEditorWidget(QWidget * parent)
-	: QsciScintilla(parent)
+	: QsciScintilla(parent),
+	  m_prevCurrentLine(0)
 {
-// 	m_completer = new QCompleter(this);
-// 	m_completer->setModel(new QStringListModel(sqlKeywords(), m_completer));
-// 	m_completer->setWidget(this);
-// 	m_completer->setCaseSensitivity(Qt::CaseInsensitive);
-
-	ensureCursorVisible();
 	m_prefs = Preferences::instance();
-	setCompletion(m_prefs->codeCompletion(),
-				  m_prefs->codeCompletionLength());
-	setShortcuts(m_prefs->useShortcuts(),
-				 m_prefs->shortcuts());
 
 	setMarginLineNumbers(0, true);
 	setBraceMatching(SloppyBraceMatch);
@@ -47,153 +38,55 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	setLexer(lexer);
 	setUtf8(true);
 	setAutoCompletionReplaceWord(true);
-	
-/*	connect(m_completer, SIGNAL(activated(const QString&)),
-			this, SLOT(insertCompletion(const QString&)));*/
-	connect(this, SIGNAL(linesChanged()), this, SLOT(linesChanged()));
-}
+	m_currentLineHandle = markerDefine(QsciScintilla::Background);
+	cursorPositionChanged(0, 0);
 
-void SqlEditorWidget::setCompletion(bool useCompletion, int minLength)
-{
-	m_useCompleter = useCompletion;
-	m_completerLength = minLength;
-}
-
-void SqlEditorWidget::setShortcuts(bool useShortcuts, QMap<QString,QVariant> shortcuts)
-{
-	m_useShortcuts = useShortcuts;
-	m_shortcuts = shortcuts;
-}
-
-void SqlEditorWidget::paintEvent(QPaintEvent* e)
-{
-// 	QPainter p(viewport());
-// 
-// 	// highlight current line
-// 	if (m_prefs->activeHighlighting())
-// 	{
-// 		QRect currLine = cursorRect();
-// 		currLine.setX(0);
-// 		currLine.setWidth(viewport()->width());
-// 		p.fillRect(currLine, QBrush(m_prefs->activeHighlightColor()));
-// 	}
-// 
-// 	// draw "max line lenght" mark
-// 	if (m_prefs->textWidthMark())
-// 	{
-// 		QFont fTmp(m_prefs->sqlFont());
-// 		fTmp.setPointSize(m_prefs->sqlFontSize());
-// 		QFontMetrics fm(fTmp);
-// 		int xpos = fm.width(QString(m_prefs->textWidthMarkSize()-1, 'X'));
-// 		const QPen prevPen = p.pen();
-// 		p.setPen(QPen(Qt::darkGreen, 1.0, Qt::DotLine));
-// 		p.drawLine(xpos, 0, xpos, viewport()->height() - 1);
-// 		p.setPen(prevPen);
-// 	}
-// 	p.end();
-
-// 	QTextEdit::paintEvent(e);
-	QsciScintilla::paintEvent(e);
+	connect(this, SIGNAL(linesChanged()),
+			this, SLOT(linesChanged()));
+	connect(this, SIGNAL(cursorPositionChanged(int, int)),
+			this, SLOT(cursorPositionChanged(int, int)));
 }
 
 void SqlEditorWidget::keyPressEvent(QKeyEvent * e)
 {
-// 	viewport()->update();
-// 	ensureCursorVisible();
-
-// 	if (m_useCompleter && m_completer->popup()->isVisible())
-// 	{
-// 		// The following keys are forwarded by the completer to the widget
-// 		switch (e->key())
-// 		{
-// 			case Qt::Key_Enter:
-// 			case Qt::Key_Return:
-// 			case Qt::Key_Escape:
-// 			case Qt::Key_Tab:
-// 			case Qt::Key_Backtab:
-// 					e->ignore();
-// 					return; // let the completer do default behavior
-// 			default:
-// 				break;
-// 		}
-// 	}
-// 
-/*	// handle editor shortcuts with TAB
-	if (m_useShortcuts && e->key() == Qt::Key_Tab)
+	// handle editor shortcuts with TAB
+	// It uses qscintilla lowlevel API to handle "word unde cursor"
+	if (m_prefs->useShortcuts() && e->key() == Qt::Key_Tab)
 	{
-		QTextCursor tc = textCursor();
-		tc.select(QTextCursor::WordUnderCursor);
-		QString currWord(tc.selectedText());
-		if (m_shortcuts.contains(currWord))
+		int pos = SendScintilla(SCI_GETCURRENTPOS);
+		int start = SendScintilla(SCI_WORDSTARTPOSITION, pos,true);
+		int end = SendScintilla(SCI_WORDENDPOSITION, pos, true);
+		SendScintilla(SCI_SETSELECTIONSTART, start, true);
+		SendScintilla(SCI_SETSELECTIONEND, end, true);
+		QString key(selectedText());
+		bool done = false;
+		if (m_prefs->shortcuts().contains(key))
 		{
-			QString val(m_shortcuts.value(currWord).toString());
-			tc.removeSelectedText();
-			tc.insertText(val);
-			setTextCursor(tc);
-			return;
+			removeSelectedText();
+			insert(m_prefs->shortcuts().value(key).toString());
+			SendScintilla(SCI_SETCURRENTPOS,
+						  SendScintilla(SCI_GETCURRENTPOS) +
+								  m_prefs->shortcuts().value(key).toString().length());
+			done = true;
 		}
-	}*/
-	
-	if (m_useCompleter && (e->modifiers() & Qt::ControlModifier) && e->key() == Qt::Key_Space)
+		pos = SendScintilla(SCI_GETCURRENTPOS);
+		SendScintilla(SCI_SETSELECTIONSTART, pos,true);
+		SendScintilla(SCI_SETSELECTIONEND, pos, true);
+
+		if (done)
+			return;
+	}
+
+	// Manual popup with code completion
+	if (m_prefs->codeCompletion()
+		   && (e->modifiers() & Qt::ControlModifier)
+		   && e->key() == Qt::Key_Space)
 	{
 		autoCompleteFromAll();
 		return;
 	}
-// 
-// 	QTextEdit::keyPressEvent(e);
-// 
-// 	if (!m_useCompleter)
-// 		return;
-// 
-// 	// completion popup handling
-// 	const bool ctrlOrShift = e->modifiers() & (Qt::ControlModifier | Qt::ShiftModifier);
-// 	if (!m_completer || (ctrlOrShift && e->text().isEmpty()))
-// 		return;
-// 
-// 	static QString eow("~!@#$%^&*()_+{}|:\"<>?,./;'[]\\-="); // end of word
-// 	bool hasModifier = (e->modifiers() != Qt::NoModifier) && !ctrlOrShift;
-// 	QTextCursor tc = textCursor();
-// 	tc.select(QTextCursor::WordUnderCursor);
-// 	QString completionPrefix(tc.selectedText());
-// 
-// 	if (hasModifier || e->text().isEmpty()
-// 		|| completionPrefix.length() < m_completerLength
-// 		|| eow.contains(e->text().right(1))
-// 	   )
-// 	{
-// 		m_completer->popup()->hide();
-// 		return;
-// 	}
-// 
-// 	if (completionPrefix != m_completer->completionPrefix())
-// 	{
-// 		m_completer->setCompletionPrefix(completionPrefix);
-// 		m_completer->popup()->setCurrentIndex(m_completer->completionModel()->index(0, 0));
-// 	}
-// 	QRect cr = cursorRect();
-// 	cr.setWidth(m_completer->popup()->sizeHintForColumn(0)
-// 				+ m_completer->popup()->verticalScrollBar()->sizeHint().width());
-// 	m_completer->complete(cr);
-	
+
 	QsciScintilla::keyPressEvent(e);
-}
-
-void SqlEditorWidget::mousePressEvent(QMouseEvent * e)
-{
-// 	viewport()->update();
-// // 	ensureCursorVisible(); // mouse wheel-click jump fix
-// 	QTextEdit::mousePressEvent(e);
-	QsciScintilla::mousePressEvent(e);
-}
-
-void SqlEditorWidget::insertCompletion(const QString& str)
-{
-// 	QTextCursor cur(textCursor());
-// 	int offset = str.length() - m_completer->completionPrefix().length();
-// 	cur.movePosition(QTextCursor::Left);
-// 	cur.movePosition(QTextCursor::EndOfWord);
-// 	cur.insertText(str.right(offset));
-// 	setTextCursor(cur);
 }
 
 void SqlEditorWidget::linesChanged()
@@ -201,4 +94,33 @@ void SqlEditorWidget::linesChanged()
 	int x = QString::number(lines()).length();
 	if (x==0) ++x;
 	setMarginWidth(0, QString().fill('0', x));
+}
+
+void SqlEditorWidget::cursorPositionChanged(int line, int)
+{
+	markerDelete(m_prevCurrentLine, m_currentLineHandle);
+	markerAdd(line, m_currentLineHandle);
+	m_prevCurrentLine = line;
+}
+
+void SqlEditorWidget::prefsChanged()
+{
+	lexer()->setFont(m_prefs->sqlFont());
+	setFont(m_prefs->sqlFont());
+
+	setAutoCompletionThreshold(m_prefs->codeCompletion() ?
+								m_prefs->codeCompletionLength() : -1
+							  );
+
+	if (m_prefs->textWidthMark())
+	{
+		setEdgeColumn(m_prefs->textWidthMarkSize());
+		setEdgeColor(Qt::gray);
+		setEdgeMode(QsciScintilla::EdgeLine);
+	}
+	else
+		setEdgeMode(QsciScintilla::EdgeNone);
+
+	setMarkerBackgroundColor(m_prefs->activeHighlighting() ?
+								m_prefs->activeHighlightColor() : paper());
 }

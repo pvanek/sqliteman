@@ -4,26 +4,26 @@
 # QMake project is obsolete now. Use CMAKE for windows too.
 ######################################################################
 
-TEMPLATE = app
-TARGET =
-win32:TARGET = sqliteman
-DEPENDPATH += . sqliteman
-INCLUDEPATH += . sqliteman
-QT += sql
-QT += xml
-win32:CONFIG += windows
-#win32:DEFINES += DOC_DIR=\\\"./doc/en/\\\"
-win32:DEFINES += DOC_DIR=\\\"./doc/\\\"
-win32:DEFINES += SQLITEMAN_VERSION=\\\"1.1svn\\\"
-win32:DEFINES += TRANSLATION_DIR=\\\"./ts\\\"
-win32:DEFINES += ICON_DIR=\\\":/icons/\\\"
-win32:DEFINES += SQLITE_BINARY=\\\"sqlite3.exe\\\"
-win32:DEFINES += WIN32
-
-win32 {
-    RC_FILE = sqliteman/icons/sqliteman.rc
-    RESOURCES += sqliteman/icons/icons.qrc
-}
+#TEMPLATE = app
+#TARGET =
+#win32:TARGET = sqliteman
+#DEPENDPATH += . sqliteman
+#INCLUDEPATH += . sqliteman
+#QT += sql
+#QT += xml
+#win32:CONFIG += windows
+##win32:DEFINES += DOC_DIR=\\\"./doc/en/\\\"
+#win32:DEFINES += DOC_DIR=\\\"./doc/\\\"
+#win32:DEFINES += SQLITEMAN_VERSION=\\\"1.1svn\\\"
+#win32:DEFINES += TRANSLATION_DIR=\\\"./ts\\\"
+#win32:DEFINES += ICON_DIR=\\\":/icons/\\\"
+#win32:DEFINES += SQLITE_BINARY=\\\"sqlite3.exe\\\"
+#win32:DEFINES += WIN32
+#
+#win32 {
+#    RC_FILE = sqliteman/icons/sqliteman.rc
+#    RESOURCES += sqliteman/icons/icons.qrc
+#}
 
 # translations
 TRANSLATIONS += sqliteman/ts/sqliteman_en.ts \

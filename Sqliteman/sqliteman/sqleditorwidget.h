@@ -7,12 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SQLEDITORWIDGET_H
 #define SQLEDITORWIDGET_H
 
-#include <QMap>
-#include <QVariant>
-// #include <QTextEdit>
 #include <qsciscintilla.h>
 
-class QCompleter;
 class Preferences;
 
 
@@ -28,24 +24,26 @@ class SqlEditorWidget : public QsciScintilla/*QTextEdit*/
 	public:
 		SqlEditorWidget(QWidget * parent = 0);
 
-		void setCompletion(bool useCompletion, int minLength);
-		void setShortcuts(bool useShortcuts, QMap<QString,QVariant> shortcuts);
+	public slots:
+		//! \brief Apply new preferences for editor.
+		void prefsChanged();
 
 	private:
 		Preferences * m_prefs;
-// 		QCompleter *m_completer;
-		bool m_useCompleter;
-		int m_completerLength;
-		bool m_useShortcuts;
-		QMap<QString,QVariant> m_shortcuts;
+		//! \brief A handler for current line highlighting
+		int m_currentLineHandle;
+		/*! \brief Store current line number to change
+		m_currentLineHandle in cursorPositionChanged() slot. */
+		int m_prevCurrentLine;
 
-		void paintEvent(QPaintEvent * e);
 		void keyPressEvent(QKeyEvent * e);
-		void mousePressEvent(QMouseEvent * e);
 
 	private slots:
-		void insertCompletion(const QString&);
+		//! \brief Change the line numbering scope.
 		void linesChanged();
+		/*! \brief Handle m_currentLineHandle handler to 
+		highlight current line. */
+		void cursorPositionChanged(int, int);
 };
 
 #endif

@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "altertriggerdialog.h"
 #include "database.h"
-#include "sqleditor.h"
 
 
 AlterTriggerDialog::AlterTriggerDialog(const QString & name, const QString & schema, QWidget * parent)
@@ -22,9 +21,6 @@ AlterTriggerDialog::AlterTriggerDialog(const QString & name, const QString & sch
 	ui.setupUi(this);
 	ui.createButton->setText(tr("&Alter"));
 	setWindowTitle("Alter Trigger");
-
-// 	highlighter =
-// 	new SqlEditorTools::SqlHighlighter(ui.textEdit->document());
 
 	QString sql(QString("select sql from \"%1\".sqlite_master where name = '%2';").arg(schema).arg(name));
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
