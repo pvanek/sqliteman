@@ -1,10 +1,10 @@
 # Warning: all lexers compilation and building is mandatory for successful linking!
 
 INCLUDE_DIRECTORIES(
-${CMAKE_SOURCE_DIR}/src/qscintilla2/include
-${CMAKE_SOURCE_DIR}/src/qscintilla2/src
-${CMAKE_SOURCE_DIR}/src/qscintilla2/Qt4
-${CMAKE_SOURCE_DIR}/src/qscintilla2/Qt4/Qci
+${CMAKE_SOURCE_DIR}/sqliteman/qscintilla2/include
+${CMAKE_SOURCE_DIR}/sqliteman/qscintilla2/src
+${CMAKE_SOURCE_DIR}/sqliteman/qscintilla2/Qt4
+${CMAKE_SOURCE_DIR}/sqliteman/qscintilla2/Qt4/Qci
 )
 
 ADD_DEFINITIONS("-DQT")
@@ -228,3 +228,4 @@ QT4_WRAP_CPP(TORA_QSCINTILLA2_MOC_SOURCES ${TORA_QSCINTILLA2_MOC_CLASSES})
 
 SET(TORA_QSCINTILLA2_LIB "tora_qscintilla2_lib")
 ADD_LIBRARY(${TORA_QSCINTILLA2_LIB} STATIC ${TORA_QSCINTILLA2_LIB_SOURCES} ${TORA_QSCINTILLA2_MOC_SOURCES})
+

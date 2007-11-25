@@ -137,8 +137,8 @@ INCLUDE_DIRECTORIES( . )
 # qscintilla2
 IF (WANT_INTERNAL_QSCINTILLA)
     INCLUDE_DIRECTORIES(
-        ${CMAKE_SOURCE_DIR}/src/qscintilla2/Qt4
-        ${CMAKE_SOURCE_DIR}/src/qscintilla2/Qt4/Qci
+        ${CMAKE_SOURCE_DIR}/sqliteman/qscintilla2/Qt4
+        ${CMAKE_SOURCE_DIR}/sqliteman/qscintilla2/Qt4/Qsci
     )
 ELSE (WANT_INTERNAL_QSCINTILLA)
     INCLUDE_DIRECTORIES( ${QSCINTILLA_INCLUDE_DIR} )
