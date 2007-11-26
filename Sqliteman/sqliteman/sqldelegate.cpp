@@ -23,7 +23,7 @@ QWidget *SqlDelegate::createEditor(QWidget *parent,
 								   const QModelIndex &/* index */) const
 {
 	SqlDelegateUi *editor = new SqlDelegateUi(parent);
-	editor->setFocus(Qt::OtherFocusReason);
+	editor->setFocus(/*Qt::OtherFocusReason*/);
 	editor->setFocusPolicy(Qt::StrongFocus);
 	connect(editor, SIGNAL(closeEditor(QWidget *)), this, SLOT(editor_closeEditor(QWidget *)));
 // 	qDebug() << "createEditor";
@@ -34,6 +34,8 @@ void SqlDelegate::setEditorData(QWidget *editor,
 								const QModelIndex &index) const
 {
 	static_cast<SqlDelegateUi*>(editor)->setSqlData(index.model()->data(index, Qt::EditRole));
+// 	static_cast<SqlDelegateUi*>(editor)->lineEdit->setFocus(Qt::OtherFocusReason);
+// 	static_cast<SqlDelegateUi*>(editor)->lineEdit->setFocusPolicy(Qt::StrongFocus);
 // 	qDebug() << "setEditorData";
 }
 
@@ -57,7 +59,7 @@ void SqlDelegate::editor_closeEditor(QWidget * editor)
 {
 // 	qDebug() << "editor_closeEditor";
 	emit commitData(editor);
-	emit closeEditor(editor, QAbstractItemDelegate::EditNextItem); // QAbstractItemDelegate::EndEditHint hint = NoHint
+	emit closeEditor(editor, QAbstractItemDelegate::NoHint);
 }
 
 
@@ -118,3 +120,15 @@ void SqlDelegateUi::lineEdit_textEdited(const QString & text)
 {
 	m_sqlData = text;
 }
+// #include <QtDebug>
+// void SqlDelegateUi::showEvent(QShowEvent * e)
+// {
+// 	qDebug() << "\n"<<QApplication::focusWidget ();
+// 	QWidget::showEvent(e);
+// 	qDebug() << "v: " << lineEdit->isVisible();
+// // 	lineEdit->setFocus(/*Qt::MouseFocusReason*/);
+// // 	lineEdit->setFocusPolicy(Qt::StrongFocus);
+// 	lineEdit->setCursorPosition(666);
+// // 	lineEdit->selectAll();
+// 	qDebug() <<QApplication::focusWidget ();
+// }

@@ -40,6 +40,7 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	setAutoCompletionReplaceWord(true);
 	m_currentLineHandle = markerDefine(QsciScintilla::Background);
 	cursorPositionChanged(0, 0);
+	setUtf8(true);
 
 	connect(this, SIGNAL(linesChanged()),
 			this, SLOT(linesChanged()));
@@ -91,8 +92,7 @@ void SqlEditorWidget::keyPressEvent(QKeyEvent * e)
 
 void SqlEditorWidget::linesChanged()
 {
-	int x = QString::number(lines()).length();
-	if (x==0) ++x;
+	int x = QString::number(lines()).length() + 1;
 	setMarginWidth(0, QString().fill('0', x));
 }
 

@@ -9,9 +9,6 @@
     <height>32</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>Form</string>
-  </property>
   <layout class="QGridLayout" >
    <property name="leftMargin" >
     <number>1</number>
@@ -84,6 +81,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>nullButton</tabstop>
+  <tabstop>editButton</tabstop>
+ </tabstops>
  <resources>
   <include location="icons/icons.qrc" />
  </resources>
