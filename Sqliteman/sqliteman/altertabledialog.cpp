@@ -70,7 +70,7 @@ void AlterTableDialog::resetStructure()
 		ixItem->setFlags(Qt::ItemIsSelectable);
 		if (m_columnIndexMap.contains(fields[i].name))
 		{
-			ixItem->setIcon(getIcon("index.png"));
+			ixItem->setIcon(Utils::getIcon("index.png"));
 			ixItem->setText(tr("Yes"));
 		}
 		else

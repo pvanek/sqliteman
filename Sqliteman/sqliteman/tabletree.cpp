@@ -54,18 +54,18 @@ void TableTree::buildDatabase(QTreeWidgetItem * dbItem, const QString & schema)
 void TableTree::buildDatabase(const QString & schema)
 {
 	QTreeWidgetItem * dbItem = new QTreeWidgetItem(this, DatabaseItemType);
-	dbItem->setIcon(0, getIcon("database.png"));
+	dbItem->setIcon(0, Utils::getIcon("database.png"));
 	dbItem->setText(0, schema);
 	dbItem->setText(1, schema);
 
 	QTreeWidgetItem * tablesItem = new QTreeWidgetItem(dbItem, TablesItemType);
-	tablesItem->setIcon(0, getIcon("table.png"));
+	tablesItem->setIcon(0, Utils::getIcon("table.png"));
 
 	QTreeWidgetItem * viewsItem = new QTreeWidgetItem(dbItem, ViewsItemType);
-	viewsItem->setIcon(0, getIcon("view.png"));
+	viewsItem->setIcon(0, Utils::getIcon("view.png"));
 
 	QTreeWidgetItem * systemItem = new QTreeWidgetItem(dbItem, SystemItemType);
-	systemItem->setIcon(0, getIcon("system.png"));
+	systemItem->setIcon(0, Utils::getIcon("system.png"));
 
 	buildTables(tablesItem, schema);
 	buildViews(viewsItem, schema);
@@ -107,7 +107,7 @@ void TableTree::buildIndexes(QTreeWidgetItem *indexesItem, const QString & schem
 	deleteChildren(indexesItem);
 	QStringList values = Database::getObjects("index", schema).values(table);
 	indexesItem->setText(0, trLabel(trIndexes).arg(values.size()));
-	indexesItem->setIcon(0, getIcon("index.png"));
+	indexesItem->setIcon(0, Utils::getIcon("index.png"));
 	indexesItem->setText(1, schema);
 	for (int i = 0; i < values.size(); ++i)
 	{
@@ -122,7 +122,7 @@ void TableTree::buildColumns(QTreeWidgetItem * columnsItem, const QString & sche
 	deleteChildren(columnsItem);
 	FieldList values = Database::tableFields(table, schema);
 	columnsItem->setText(0, trLabel(trCols).arg(values.size()));
-	columnsItem->setIcon(0, getIcon("column.png"));
+	columnsItem->setIcon(0, Utils::getIcon("column.png"));
 // 	columnsItem->setText(1, schema);
 	for (int i = 0; i < values.size(); ++i)
 	{
@@ -137,7 +137,7 @@ void TableTree::buildSysIndexes(QTreeWidgetItem *indexesItem, const QString & sc
 	deleteChildren(indexesItem);
 	QStringList sysIx = Database::getSysIndexes(table, schema);
 	indexesItem->setText(0, trLabel(trSysIndexes).arg(sysIx.size()));
-	indexesItem->setIcon(0, getIcon("index.png"));
+	indexesItem->setIcon(0, Utils::getIcon("index.png"));
 	indexesItem->setText(1, schema);
 	for (int i = 0; i < sysIx.size(); ++i)
 	{
@@ -152,7 +152,7 @@ void TableTree::buildTriggers(QTreeWidgetItem *triggersItem, const QString & sch
 	deleteChildren(triggersItem);
 	QStringList values = Database::getObjects("trigger", schema).values(table);
 	triggersItem->setText(0, trLabel(trTriggers).arg(values.size()));
-	triggersItem->setIcon(0, getIcon("trigger.png"));
+	triggersItem->setIcon(0, Utils::getIcon("trigger.png"));
 	triggersItem->setText(1, schema);
 	for (int i = 0; i < values.size(); ++i)
 	{

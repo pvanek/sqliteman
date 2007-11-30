@@ -12,10 +12,12 @@ for which a new license (GPL+exception) is in place.
 #include <QFileSystemWatcher>
 
 #include "ui_sqleditor.h"
+#include "sqlparser/tosqlparse.h"
 
 class QTextDocument;
 class QLabel;
 class QProgressDialog;
+
 
 
 /*!
@@ -75,6 +77,8 @@ class SqlEditor : public QMainWindow
 		\TODO: Implement a clever sql selecting like TOra/Toad etc.
 		*/
 		QString query();
+		//! \brief From TOra
+		QString prepareExec(toSQLParse::tokenizer &tokens, int line, int pos);
 
 		void find(QString ttf, bool forward/*, bool backward*/);
 

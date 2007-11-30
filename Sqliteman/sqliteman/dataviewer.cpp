@@ -29,11 +29,11 @@ DataViewer::DataViewer(QWidget * parent)
 
 	ui.splitter->setCollapsible(0, false);
 	ui.splitter->setCollapsible(1, false);
-	ui.actionNew_Row->setIcon(getIcon("insert_table_row.png"));
-	ui.actionRemove_Row->setIcon(getIcon("delete_table_row.png"));
-	ui.actionTruncate_Table->setIcon(getIcon("clear_table_contents.png"));
-	ui.actionCommit->setIcon(getIcon("database_commit.png"));
-	ui.actionRollback->setIcon(getIcon("database_rollback.png"));
+	ui.actionNew_Row->setIcon(Utils::getIcon("insert_table_row.png"));
+	ui.actionRemove_Row->setIcon(Utils::getIcon("delete_table_row.png"));
+	ui.actionTruncate_Table->setIcon(Utils::getIcon("clear_table_contents.png"));
+	ui.actionCommit->setIcon(Utils::getIcon("database_commit.png"));
+	ui.actionRollback->setIcon(Utils::getIcon("database_rollback.png"));
 
 	// custom delegate
 	ui.tableView->setItemDelegate(new SqlDelegate(this));

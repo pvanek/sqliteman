@@ -11,6 +11,19 @@ for which a new license (GPL+exception) is in place.
 #include "database.h"
 
 
+namespace Populator
+{
+	typedef struct
+	{
+		QString name;
+		QString type;
+		bool pk;
+		int action;
+	// 			int autoCounter;
+		int size;
+	} PopColumn;
+}; // namespace
+
 /*! \brief Simple (testing/QA) data generator for tables.
 Populator tries to guess what to insert into the table. It
 finds if the requested value is number/text/primary key and
@@ -31,17 +44,7 @@ class PopulatorDialog : public QDialog, public Ui::PopulatorDialog
 		QString m_schema;
 		QString m_table;
 
-		typedef struct
-		{
-			QString name;
-			QString type;
-			bool pk;
-			int action;
-// 			int autoCounter;
-			int size;
-		}
-		PopColumn;
-		QList<PopColumn> columnList;
+		QList<Populator::PopColumn> columnList;
 		QMap<int,QString> actionMap;
 
 		//! Guess what it can insert as value
@@ -52,14 +55,15 @@ class PopulatorDialog : public QDialog, public Ui::PopulatorDialog
 		QString sqlBinds();
 
 		//! Create PK values (max()+1)
-		QVariantList autoValues(PopColumn c);
+		QVariantList autoValues(Populator::PopColumn c);
 		//! Calculate pseudo-random numbers for given column
-		QVariantList numberValues(PopColumn c);
+		QVariantList numberValues(Populator::PopColumn c);
 		//! Create a text for given column
-		QVariantList textValues(PopColumn c);
+		QVariantList textValues(Populator::PopColumn c);
 
 	private slots:
 		void populateButton_clicked();
+		void configureColumn();
 };
 
 #endif

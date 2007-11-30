@@ -2,6 +2,10 @@ Sqliteman Copyright 2001-2007 Petr Vanek. Some parts of this software
 are based on Igor Khanin's LiteMan.
 Icons used in this application are licensed under LGPL. See its
 directory for credits.
+Source code in the sqlplarser directory has been taken from TOra,
+Toolkit For Oracle (http://tora.sf.net). TOra is released under
+the same license.
+
 
 This program is free software; you can redistribute it and/or modify
  it under the  terms of the GNU General Public License as published

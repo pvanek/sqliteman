@@ -37,7 +37,7 @@ CreateIndexDialog::CreateIndexDialog(const QString & tabName, const QString & sc
 
 		ui.tableColumns->setItem(i, 0, nameItem);
 		if (columns[i].pk)
-			nameItem->setIcon(getIcon("key.png"));
+			nameItem->setIcon(Utils::getIcon("key.png"));
 
 		ui.tableColumns->setItem(i, 1, useItem);
 		QComboBox *asc = new QComboBox(this);

@@ -69,8 +69,8 @@ SqlDelegateUi::SqlDelegateUi(QWidget * parent)
 {
 	setupUi(this);
 
-	nullButton->setIcon(getIcon("setnull.png"));
-	editButton->setIcon(getIcon("edit.png"));
+	nullButton->setIcon(Utils::getIcon("setnull.png"));
+	editButton->setIcon(Utils::getIcon("edit.png"));
 
 	connect(nullButton, SIGNAL(clicked(bool)), this, SLOT(nullButton_clicked(bool)));
 	connect(editButton, SIGNAL(clicked(bool)), this, SLOT(editButton_clicked(bool)));

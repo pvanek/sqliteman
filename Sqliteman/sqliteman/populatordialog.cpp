@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QPushButton>
 #include <math.h>
 
 #include "populatordialog.h"
@@ -15,6 +16,28 @@ for which a new license (GPL+exception) is in place.
 #define T_NUMB 1
 #define T_TEXT 2
 
+
+namespace Populator
+{
+
+/*! \brief Push button with its row index remembered.
+It's used in the PopulatorDialog to raise the right configuration
+dialog. */
+class ColumnButton : public QPushButton
+{
+	Q_PROPERTY(int m_row READ row WRITE setRow)
+	public:
+		ColumnButton(QWidget * parent = 0) :
+				QPushButton(tr("Config..."), parent),
+				m_row(-1)
+		{};
+		void setRow(int v) { m_row = v; };
+		int row() { return m_row; };
+	private:
+		int m_row;
+};
+
+}; //namespace
 
 PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const QString & schema)
 	: QDialog(parent),
@@ -33,7 +56,7 @@ PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const 
 	QRegExp sizeExp("\\(\\d+\\)");
 	for(int i = 0; i < fields.size(); ++i)
 	{
-		PopColumn col;
+		Populator::PopColumn col;
 		col.name = fields[i].name;
 		col.type = fields[i].type;
 		col.pk = fields[i].pk;
@@ -57,6 +80,12 @@ PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const 
 		columnTable->setItem(i, 0, nameItem);
 		columnTable->setItem(i, 1, typeItem);
 		columnTable->setItem(i, 2, suggestedItem);
+
+		// config
+		Populator::ColumnButton *b = new Populator::ColumnButton(this);
+		columnTable->setCellWidget(i, 3, b);
+		b->setRow(i);
+		connect(b, SIGNAL(clicked()), this, SLOT(configureColumn()));
 	}
 
 	columnTable->resizeColumnsToContents();
@@ -80,7 +109,7 @@ int PopulatorDialog::defaultSuggestion(const DatabaseTableField & column)
 QString PopulatorDialog::sqlColumns()
 {
 	QStringList s;
-	foreach (PopColumn i, columnList)
+	foreach (Populator::PopColumn i, columnList)
 		s.append(i.name);
 	return s.join("\", \"");
 }
@@ -88,7 +117,7 @@ QString PopulatorDialog::sqlColumns()
 QString PopulatorDialog::sqlBinds()
 {
 	QStringList s;
-	foreach (PopColumn i, columnList)
+	foreach (Populator::PopColumn i, columnList)
 		s.append(i.name);
 	return s.join(", :");
 }
@@ -116,7 +145,7 @@ void PopulatorDialog::populateButton_clicked()
 		return;
 	}
 
-	foreach (PopColumn i, columnList)
+	foreach (Populator::PopColumn i, columnList)
 	{
 		switch (i.action)
 		{
@@ -143,7 +172,7 @@ void PopulatorDialog::populateButton_clicked()
 	textBrowser->append(tr("It's done. Check messages above."));
 }
 
-QVariantList PopulatorDialog::autoValues(PopColumn c)
+QVariantList PopulatorDialog::autoValues(Populator::PopColumn c)
 {
 	QString sql("select max(%1) from \"%2\".\"%3\";");
 	QSqlQuery query(sql.arg(c.name).arg(m_schema).arg(m_table),
@@ -168,7 +197,7 @@ QVariantList PopulatorDialog::autoValues(PopColumn c)
 	return ret;
 }
 
-QVariantList PopulatorDialog::numberValues(PopColumn c)
+QVariantList PopulatorDialog::numberValues(Populator::PopColumn c)
 {
 	QVariantList ret;
 	for (int i = 0; i < spinBox->value(); ++i)
@@ -179,7 +208,7 @@ QVariantList PopulatorDialog::numberValues(PopColumn c)
 	return ret;
 }
 
-QVariantList PopulatorDialog::textValues(PopColumn c)
+QVariantList PopulatorDialog::textValues(Populator::PopColumn c)
 {
 	QVariantList ret;
 	for (int i = 0; i < spinBox->value(); ++i)
@@ -191,4 +220,10 @@ QVariantList PopulatorDialog::textValues(PopColumn c)
 	}
 // 	qDebug() << "textValues: " << ret;
 	return ret;
+}
+#include <QtDebug>
+void PopulatorDialog::configureColumn()
+{
+	Populator::PopColumn c = columnList.at(static_cast<Populator::ColumnButton*>(sender())->row());
+	qDebug() << "conf: " << c.name << " " << c.type;
 }

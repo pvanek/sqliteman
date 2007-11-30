@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "createviewdialog.h"
 #include "preferences.h"
-#include "sqlparser.h"
+// #include "sqlparser.h"
 #include "sqleditor.h"
 #include "sqlkeywords.h"
 #include "utils.h"
@@ -40,13 +40,13 @@ SqlEditor::SqlEditor(QWidget * parent)
 
 	ui.searchFrame->hide();
 
-	ui.action_Run_SQL->setIcon(getIcon("runsql.png"));
-	ui.actionRun_Explain->setIcon(getIcon("runexplain.png"));
-	ui.action_Open->setIcon(getIcon("document-open.png"));
-	ui.action_Save->setIcon(getIcon("document-save.png"));
-	ui.action_New->setIcon(getIcon("document-new.png"));
-	ui.actionSave_As->setIcon(getIcon("document-save-as.png"));
-	ui.actionCreateView->setIcon(getIcon("view.png"));
+	ui.action_Run_SQL->setIcon(Utils::getIcon("runsql.png"));
+	ui.actionRun_Explain->setIcon(Utils::getIcon("runexplain.png"));
+	ui.action_Open->setIcon(Utils::getIcon("document-open.png"));
+	ui.action_Save->setIcon(Utils::getIcon("document-save.png"));
+	ui.action_New->setIcon(Utils::getIcon("document-new.png"));
+	ui.actionSave_As->setIcon(Utils::getIcon("document-save-as.png"));
+	ui.actionCreateView->setIcon(Utils::getIcon("view.png"));
 
 	connect(ui.action_Run_SQL, SIGNAL(triggered()),
 			this, SLOT(action_Run_SQL_triggered()));
@@ -89,7 +89,7 @@ void SqlEditor::setStatusMessage(const QString & message)
 		ui.statusBar->clearMessage();
 	ui.statusBar->showMessage(message);
 }
-
+#include <QtDebug>
 QString SqlEditor::query()
 {
 // 	QTextCursor cur(ui.sqlTextEdit->textCursor());
@@ -97,22 +97,107 @@ QString SqlEditor::query()
 // 		return cur.selectedText();
 	if (ui.sqlTextEdit->hasSelectedText())
 		return ui.sqlTextEdit->selectedText();
-// 
-// 	cur.movePosition(QTextCursor::WordLeft);
-// 
-	SqlEditorTools::SqlParser parser(ui.sqlTextEdit->text());
+	
+	toSQLParse::editorTokenizer tokens(ui.sqlTextEdit);
 
-// 	// HACK to handle semicolons at the EOL.
-// 	// If there is a ";" at the EOL and the cursor is at the EOL
-// 	// use the statement "before" as is it in the "std" DB tools
-// 	int pos = cur.position();
-// 	QTextBlock b(ui.sqlTextEdit->document()->findBlock(cur.position()));
-// 	if (cur.atBlockEnd() && b.text().length() > 0 && b.text().at(b.text().length()-1) == ';')
-// 		--pos;
-	// FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME FIXME 
-	int pos = ui.sqlTextEdit->SendScintilla(QsciScintilla::SCI_GETCURRENTPOS);
-	return parser.getStatement(pos);
+	int cpos, cline;
+	ui.sqlTextEdit->getCursorPosition(&cline, &cpos);
+
+	int line;
+	int pos;
+	do
+	{
+		line = tokens.line();
+		pos = tokens.offset();
+		toSQLParse::parseStatement(tokens);
+	}
+	while (tokens.line() < cline ||
+			  (tokens.line() == cline && tokens.offset() < cpos));
+
+	QString sql(prepareExec(tokens, line, pos));
+	qDebug() << "SQL: "<<sql;
+	return sql;
 }
+
+QString SqlEditor::prepareExec(toSQLParse::tokenizer &tokens, int line, int pos)
+{
+	int LastLine = line;
+	int LastOffset = pos;
+	int endLine, endCol;
+	if (ui.sqlTextEdit->lines() <= tokens.line())
+	{
+		endLine = ui.sqlTextEdit->lines() - 1;
+		endCol = ui.sqlTextEdit->lineLength(ui.sqlTextEdit->lines() - 1);
+	}
+	else
+	{
+		endLine = tokens.line();
+		if (ui.sqlTextEdit->lineLength(tokens.line()) <= tokens.offset())
+			endCol = ui.sqlTextEdit->lineLength(tokens.line());
+		else
+		{
+			endCol = tokens.offset();
+		}
+	}
+	ui.sqlTextEdit->setSelection(line, pos, endLine, endCol);
+	QString t = ui.sqlTextEdit->selectedText();
+
+	bool comment = false;
+	bool multiComment = false;
+	int oline = line;
+	int opos = pos;
+	int i;
+
+	for (i = 0;i < t.length() - 1;i++)
+	{
+		if (comment)
+		{
+			if (t.at(i) == '\n')
+				comment = false;
+		}
+		else if (multiComment)
+		{
+			if (t.at(i) == '*' &&
+						 t.at(i + 1) == '/')
+			{
+				multiComment = false;
+				i++;
+			}
+		}
+		else if (t.at(i) == '-' &&
+					   t.at(i + 1) == '-')
+			comment = true;
+		else if (t.at(i) == '/' &&
+					   t.at(i + 1) == '/')
+			comment = true;
+		else if (t.at(i) == '/' &&
+					   t.at(i + 1) == '*')
+			multiComment = true;
+		else if (!t.at(i).isSpace() && t.at(i) != '/')
+			break;
+
+		if (t.at(i) == '\n')
+		{
+			line++;
+			pos = 0;
+		}
+		else
+			pos++;
+	}
+
+	if (line != oline ||
+		   pos != opos)
+	{
+		LastLine = line;
+		LastOffset = pos;
+		ui.sqlTextEdit->setSelection(line, pos, endLine, endCol);
+		t = t.mid(i);
+	}
+// 	if (t.trimmed().length())
+// 		query(t, type);
+	return t;
+}
+
 
 void SqlEditor::action_Run_SQL_triggered()
 {

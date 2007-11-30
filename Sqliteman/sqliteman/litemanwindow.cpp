@@ -46,13 +46,15 @@ for which a new license (GPL+exception) is in place.
 #include "analyzedialog.h"
 #include "vacuumdialog.h"
 #include "helpbrowser.h"
-#include "sqlparser.h"
 #include "importtabledialog.h"
 #include "sqliteprocess.h"
 #include "populatordialog.h"
+#include "utils.h"
 
 #include <QProcess>
 #include <QtDebug>
+
+
 LiteManWindow::LiteManWindow(const QString & fileToOpen)
 	: QMainWindow(),
 	m_mainDbPath(""),
@@ -547,7 +549,7 @@ void LiteManWindow::execSql(QString query)
 		if (model->canFetchMore())
 			cached = tr("(more rows can be fetched)");
 		dataViewer->setStatusText(tr("Query OK\nRow(s) returned: %1 %2\n%3").arg(model->rowCount()).arg(cached).arg(query));
-		if (SqlEditorTools::SqlParser::updateTree(query))
+		if (Utils::updateObjectTree(query))
 			schemaBrowser->tableTree->buildTree();
 	}
 }

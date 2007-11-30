@@ -53,7 +53,6 @@ class ArgsParser
 		ArgsParser(int c, char ** v);
 		~ArgsParser(){};
 		bool parseArgs();
-		QString translator();
 		QString localeCode();
 		const QString & fileToOpen() { return m_file; };
 	private:
@@ -107,12 +106,6 @@ QString ArgsParser::localeCode()
 	else
 		ret = QLocale::system().name();
 	return ret.left(2);
-}
-
-//! \brief Full qualified localisation file path.
-QString ArgsParser::translator()
-{
-	return getTranslator(localeCode());
 }
 
 bool ArgsParser::parseArgs()
@@ -185,10 +178,10 @@ int main(int argc, char ** argv)
 		QApplication::setStyle(QStyleFactory::create(sl.at(style-1)));
 	}
 
-	app.setWindowIcon(getIcon("sqliteman.png"));
+	app.setWindowIcon(Utils::getIcon("sqliteman.png"));
 
 	QTranslator translator;
-	translator.load(cli.translator());
+	translator.load(Utils::getTranslator(cli.localeCode()));
 	app.installTranslator(&translator);
 
 	LiteManWindow * wnd = new LiteManWindow(cli.fileToOpen());

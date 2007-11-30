@@ -63,3 +63,8 @@ QStringList sqlKeywords()
 
 	return ret;
 }
+
+bool isKeyword(const QString & w)
+{
+	return sqlKeywords().contains(w, Qt::CaseInsensitive);
+}

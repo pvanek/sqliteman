@@ -13,4 +13,6 @@ class QStringList;
 //! \brief Sqlite SQL dialect keywords
 QStringList sqlKeywords();
 
+bool isKeyword(const QString & w);
+
 #endif

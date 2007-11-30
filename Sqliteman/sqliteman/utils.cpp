@@ -10,12 +10,22 @@ for which a new license (GPL+exception) is in place.
 #include "utils.h"
 
 
-QIcon getIcon(const QString & fileName)
+QIcon Utils::getIcon(const QString & fileName)
 {
 	return QIcon(QString(ICON_DIR) + "/" + fileName);
 }
 
-QString getTranslator(const QString & localeName)
+QString Utils::getTranslator(const QString & localeName)
 {
 	return QString("%1/sqliteman_%2.qm").arg(TRANSLATION_DIR).arg(localeName);
+}
+
+bool Utils::updateObjectTree(const QString & sql)
+{
+	if (sql.isNull())
+		return false;
+	QString tmp(sql.trimmed().toUpper());
+	if (tmp.left(4) == "DROP" || tmp.left(6) == "CREATE" || tmp.left(5) == "ALTER")
+		return true;
+	return false;
 }

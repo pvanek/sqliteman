@@ -49,9 +49,9 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	stackedWidget->addWidget(m_prefsSQL);
 	stackedWidget->setCurrentIndex(0);
 
-	listWidget->addItem(new QListWidgetItem(getIcon("preferences-desktop-display.png"), m_prefsLNF->titleLabel->text(), listWidget));
-	listWidget->addItem(new QListWidgetItem(getIcon("table.png"), m_prefsData->titleLabel->text(), listWidget));
-	listWidget->addItem(new QListWidgetItem(getIcon("kate.png"), m_prefsSQL->titleLabel->text(), listWidget));
+	listWidget->addItem(new QListWidgetItem(Utils::getIcon("preferences-desktop-display.png"), m_prefsLNF->titleLabel->text(), listWidget));
+	listWidget->addItem(new QListWidgetItem(Utils::getIcon("table.png"), m_prefsData->titleLabel->text(), listWidget));
+	listWidget->addItem(new QListWidgetItem(Utils::getIcon("kate.png"), m_prefsSQL->titleLabel->text(), listWidget));
 	listWidget->setCurrentRow(0);
 
 	connect(m_prefsData->nullBgButton, SIGNAL(clicked()),

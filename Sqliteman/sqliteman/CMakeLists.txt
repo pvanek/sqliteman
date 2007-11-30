@@ -40,12 +40,13 @@ SET( SQLITEMAN_SRC
     sqliteprocess.cpp
     sqlitemview.cpp
     sqlkeywords.cpp
-    sqlparser.cpp
     sqlmodels.cpp
     tableeditordialog.cpp
     tabletree.cpp
     vacuumdialog.cpp
     utils.cpp
+    sqlparser/tosqlparse.h
+    sqlparser/tosqlparse.cpp
 )
 
 # compiled in icons for windows
@@ -83,7 +84,6 @@ SET( SQLITEMAN_MOC
     sqleditorwidget.h
     sqliteprocess.h
     sqlitemview.h
-    sqlparser.h
     sqlmodels.h
     tableeditordialog.h
     tabletree.h
