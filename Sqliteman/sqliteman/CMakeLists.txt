@@ -51,7 +51,16 @@ SET( SQLITEMAN_SRC
 
 # compiled in icons for windows
 IF (WIN32)
-    SET (SQLITEMAN_SRC ${SQLITEMAN_SRC} icons/sqliteman.rc)
+    if (MINGW)
+        # resource compilation for mingw
+        ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/sqliteman_rc.o
+                           COMMAND windres.exe -I${CMAKE_CURRENT_SOURCE_DIR}
+                                           -i${CMAKE_CURRENT_SOURCE_DIR}/icons/sqliteman.rc
+                                           -o ${CMAKE_CURRENT_BINARY_DIR}/sqliteman_rc.o)
+        SET(SQLITEMAN_SRC ${SQLITEMAN_SRC} ${CMAKE_CURRENT_BINARY_DIR}/sqliteman_rc.o)
+    else(MINGW)
+        SET (SQLITEMAN_SRC ${SQLITEMAN_SRC} icons/sqliteman.rc)
+    endif(MINGW)
 ENDIF (WIN32)
 
 SET( SQLITEMAN_MOC
