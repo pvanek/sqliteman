@@ -12,7 +12,12 @@ for which a new license (GPL+exception) is in place.
 
 
 HelpBrowser::HelpBrowser(const QString & lang, QWidget * parent)
+#ifdef WIN32
+    // win windows are always top when there is this parent
+    : QMainWindow(0)
+#else
 	: QMainWindow(parent)
+#endif
 {
 	ui.setupUi(this);
 	// menu

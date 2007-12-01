@@ -267,7 +267,12 @@ void DataViewer::openStandaloneWindow()
 	SqlQueryModel *qm;
 	SqlTableModel *tm = qobject_cast<SqlTableModel*>(ui.tableView->model());
 
-	DataViewer *w = new DataViewer(this);
+#ifdef WIN32
+    // win windows are always top when there is this parent
+    DataViewer *w = new DataViewer(0);
+#else
+    DataViewer *w = new DataViewer(this);
+#endif    
 	w->setAttribute(Qt::WA_DeleteOnClose);
 	w->setWindowTitle(tr("Data Snapshot"));
 
