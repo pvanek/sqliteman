@@ -15,6 +15,7 @@ namespace Utils {
 /*! A set of helper functions for simpler code
 */
 QIcon getIcon(const QString & fileName);
+QPixmap getPixmap(const QString & fileName);
 
 QString getTranslator(const QString & localeName);
 

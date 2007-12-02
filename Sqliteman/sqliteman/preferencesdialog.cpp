@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStyleFactory>
 #include <QSettings>
 #include <QColorDialog>
+#include <qscilexersql.h>
 
 #include "preferencesdialog.h"
 #include "preferences.h"
@@ -32,6 +33,12 @@ PrefsSQLEditorWidget::PrefsSQLEditorWidget(QWidget * parent)
 	: QDialog(parent)
 {
 	setupUi(this);
+	syntaxPreviewEdit->setText("-- this is a comment\n" \
+			"select *\n"
+			"from table_name\n" \
+			"  where id > 37\n"\
+			"    and text_column\n"
+			"      like '%foo%';\n");
 }
 
 
@@ -49,9 +56,12 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	stackedWidget->addWidget(m_prefsSQL);
 	stackedWidget->setCurrentIndex(0);
 
-	listWidget->addItem(new QListWidgetItem(Utils::getIcon("preferences-desktop-display.png"), m_prefsLNF->titleLabel->text(), listWidget));
-	listWidget->addItem(new QListWidgetItem(Utils::getIcon("table.png"), m_prefsData->titleLabel->text(), listWidget));
-	listWidget->addItem(new QListWidgetItem(Utils::getIcon("kate.png"), m_prefsSQL->titleLabel->text(), listWidget));
+	listWidget->addItem(new QListWidgetItem(Utils::getIcon("preferences-desktop-display.png"),
+						m_prefsLNF->titleLabel->text(), listWidget));
+	listWidget->addItem(new QListWidgetItem(Utils::getIcon("table.png"),
+						m_prefsData->titleLabel->text(), listWidget));
+	listWidget->addItem(new QListWidgetItem(Utils::getIcon("kate.png"),
+						m_prefsSQL->titleLabel->text(), listWidget));
 	listWidget->setCurrentRow(0);
 
 	connect(m_prefsData->nullBgButton, SIGNAL(clicked()),
@@ -62,8 +72,23 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 			this, SLOT(activeHighlightButton_clicked()));
 	connect(buttonBox->button(QDialogButtonBox::RestoreDefaults),
 			SIGNAL(clicked()), this, SLOT(restoreDefaults()));
+	connect(m_prefsSQL->fontComboBox, SIGNAL(activated(int)),
+			this, SLOT(fontComboBox_activated(int)));
+	connect(m_prefsSQL->fontSizeSpin, SIGNAL(valueChanged(int)),
+			this, SLOT(fontSizeSpin_valueChanged(int)));
 	connect(m_prefsSQL->shortcutsButton, SIGNAL(clicked()),
 			this, SLOT(shortcutsButton_clicked()));
+	// qscintilla syntax colors
+	connect(m_prefsSQL->syDefaultButton, SIGNAL(clicked()),
+			this, SLOT(syDefaultButton_clicked()));
+	connect(m_prefsSQL->syKeywordButton, SIGNAL(clicked()),
+			this, SLOT(syKeywordButton_clicked()));
+	connect(m_prefsSQL->syNumberButton, SIGNAL(clicked()),
+			this, SLOT(syNumberButton_clicked()));
+	connect(m_prefsSQL->syStringButton, SIGNAL(clicked()),
+			this, SLOT(syStringButton_clicked()));
+	connect(m_prefsSQL->syCommentButton, SIGNAL(clicked()),
+			this, SLOT(syCommentButton_clicked()));
 	// change prefs widgets
 	connect(listWidget, SIGNAL(currentRowChanged(int)),
 			stackedWidget, SLOT(setCurrentIndex(int)));
@@ -104,6 +129,12 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	m_prefsSQL->useCompletionCheck->setChecked(prefs->codeCompletion());
 	m_prefsSQL->completionLengthBox->setValue(prefs->codeCompletionLength());
 	m_prefsSQL->useShortcutsBox->setChecked(prefs->useShortcuts());
+
+	m_syDefaultColor = prefs->syDefaultColor();
+	m_syKeywordColor = prefs->syKeywordColor();
+	m_syNumberColor = prefs->syNumberColor();
+	m_syStringColor = prefs->syStringColor();
+	m_syCommentColor = prefs->syCommentColor();
 }
 
 bool PreferencesDialog::saveSettings()
@@ -130,6 +161,12 @@ bool PreferencesDialog::saveSettings()
 	prefs->setCodeCompletion(m_prefsSQL->useCompletionCheck->isChecked());
 	prefs->setCodeCompletionLength(m_prefsSQL->completionLengthBox->value());
 	prefs->setUseShortcuts(m_prefsSQL->useShortcutsBox->isChecked());
+	// qscintilla
+	prefs->setSyDefaultColor(m_syDefaultColor);
+	prefs->setSyKeywordColor(m_syKeywordColor);
+	prefs->setSyNumberColor(m_syNumberColor);
+	prefs->setSyStringColor(m_syStringColor);
+	prefs->setSyCommentColor(m_syCommentColor);
 
 	return true;
 }
@@ -160,6 +197,15 @@ void PreferencesDialog::restoreDefaults()
 	m_prefsSQL->useCompletionCheck->setChecked(false);
 	m_prefsSQL->completionLengthBox->setValue(3);
 	m_prefsSQL->useShortcutsBox->setChecked(false);
+	//
+	QsciLexerSQL syntaxLexer;
+	m_syDefaultColor = syntaxLexer.defaultColor(QsciLexerSQL::Default);
+	m_syKeywordColor = syntaxLexer.defaultColor(QsciLexerSQL::Keyword);
+	m_syNumberColor = syntaxLexer.defaultColor(QsciLexerSQL::Number);
+	m_syStringColor = syntaxLexer.defaultColor(QsciLexerSQL::SingleQuotedString);
+	m_syCommentColor = syntaxLexer.defaultColor(QsciLexerSQL::Comment);
+
+	resetEditorPreview();
 }
 
 void PreferencesDialog::blobBgButton_clicked()
@@ -180,11 +226,95 @@ void PreferencesDialog::activeHighlightButton_clicked()
 {
 	QColor nCol = QColorDialog::getColor(m_prefsSQL->activeHighlightButton->palette().color(QPalette::Background), this);
 	if (nCol.isValid())
+	{
 		m_prefsSQL->activeHighlightButton->setPalette(nCol);
+		resetEditorPreview();
+	}
 }
 
 void PreferencesDialog::shortcutsButton_clicked()
 {
 	ShortcutEditorDialog d;
 	d.exec();
+}
+
+void PreferencesDialog::syDefaultButton_clicked()
+{
+	QColor nCol = QColorDialog::getColor(m_syDefaultColor, this);
+	if (nCol.isValid())
+	{
+		m_syDefaultColor = nCol;
+		resetEditorPreview();
+	}
+}
+
+void PreferencesDialog::syKeywordButton_clicked()
+{
+	QColor nCol = QColorDialog::getColor(m_syKeywordColor, this);
+	if (nCol.isValid())
+	{
+		m_syKeywordColor = nCol;
+		resetEditorPreview();
+	}
+}
+
+void PreferencesDialog::syNumberButton_clicked()
+{
+	QColor nCol = QColorDialog::getColor(m_syNumberColor, this);
+	if (nCol.isValid())
+	{
+		m_syNumberColor = nCol;
+		resetEditorPreview();
+	}
+}
+
+void PreferencesDialog::syStringButton_clicked()
+{
+	QColor nCol = QColorDialog::getColor(m_syStringColor, this);
+	if (nCol.isValid())
+	{
+		m_syStringColor = nCol;
+		resetEditorPreview();
+	}
+}
+
+void PreferencesDialog::syCommentButton_clicked()
+{
+	QColor nCol = QColorDialog::getColor(m_syCommentColor, this);
+	if (nCol.isValid())
+	{
+		m_syCommentColor = nCol;
+		resetEditorPreview();
+	}
+}
+
+void PreferencesDialog::fontComboBox_activated(int)
+{
+	resetEditorPreview();
+}
+
+void PreferencesDialog::fontSizeSpin_valueChanged(int)
+{
+	resetEditorPreview();
+}
+
+void PreferencesDialog::resetEditorPreview()
+{
+	QsciLexerSQL *lexer = qobject_cast<QsciLexerSQL*>(m_prefsSQL->syntaxPreviewEdit->lexer());
+
+	QFont newFont(m_prefsSQL->fontComboBox->currentFont());
+	newFont.setPointSize(m_prefsSQL->fontSizeSpin->value());
+	lexer->setFont(newFont);
+
+	lexer->setColor(m_syDefaultColor, QsciLexerSQL::Default);
+	lexer->setColor(m_syKeywordColor, QsciLexerSQL::Keyword);
+	QFont defFont(lexer->font(QsciLexerSQL::Keyword));
+	defFont.setBold(true);
+	lexer->setFont(defFont, QsciLexerSQL::Keyword);
+	lexer->setColor(m_syNumberColor, QsciLexerSQL::Number);
+	lexer->setColor(m_syStringColor, QsciLexerSQL::SingleQuotedString);
+	lexer->setColor(m_syStringColor, QsciLexerSQL::DoubleQuotedString);
+	lexer->setColor(m_syCommentColor, QsciLexerSQL::Comment);
+	lexer->setColor(m_syCommentColor, QsciLexerSQL::CommentLine);
+	lexer->setColor(m_syCommentColor, QsciLexerSQL::CommentDoc);
 }

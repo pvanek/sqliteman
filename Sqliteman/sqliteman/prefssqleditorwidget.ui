@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>423</width>
+    <height>524</height>
    </rect>
   </property>
   <layout class="QGridLayout" >
@@ -128,21 +128,79 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="0" >
+   <item row="6" column="0" colspan="2" >
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>Syntax Colors</string>
+     </property>
+     <layout class="QGridLayout" >
+      <item rowspan="5" row="0" column="0" >
+       <widget class="SqlEditorWidget" name="syntaxPreviewEdit" >
+        <property name="readOnly" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QPushButton" name="syDefaultButton" >
+        <property name="text" >
+         <string>Default...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QPushButton" name="syKeywordButton" >
+        <property name="text" >
+         <string>Keywords...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QPushButton" name="syNumberButton" >
+        <property name="text" >
+         <string>Numbers...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
+       <widget class="QPushButton" name="syStringButton" >
+        <property name="text" >
+         <string>Strings...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" >
+       <widget class="QPushButton" name="syCommentButton" >
+        <property name="text" >
+         <string>Comments...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="2" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" >
       <size>
-       <width>280</width>
-       <height>69</height>
+       <width>381</width>
+       <height>31</height>
       </size>
      </property>
     </spacer>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SqlEditorWidget</class>
+   <extends>QTextEdit</extends>
+   <header>sqleditorwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

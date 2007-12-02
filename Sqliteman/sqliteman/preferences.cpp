@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Sqliteman
 for which a new license (GPL+exception) is in place.
 */
 #include <QSettings>
+#include <QApplication>
+#include <qscilexersql.h>
 
 #include "preferences.h"
 
@@ -26,10 +28,10 @@ Preferences::Preferences(QObject *parent)
 	m_GUItranslator = s.value("prefs/languageComboBox", 0).toInt();
 	m_GUIstyle = s.value("prefs/styleComboBox", 0).toInt();
 	m_cropColumns = s.value("prefs/cropColumnsCheckBox", false).toBool();
-	QFont f;
-	f.setPointSize(sqlFontSize());
+	QFont f(QApplication::font());
+// 	f.setPointSize(sqlFontSize());
 	m_sqlFont = s.value("prefs/sqleditor/font", f).value<QFont>();
-	m_sqlFontSize = s.value("prefs/sqleditor/fontSize", QFont().pointSize()).toInt();
+	m_sqlFontSize = s.value("prefs/sqleditor/fontSize", f.pointSize()).toInt();
 	m_activeHighlighting = s.value("prefs/sqleditor/useActiveHighlightCheckBox", true).toBool();
 	m_activeHighlightColor = s.value("prefs/sqleditor/activeHighlightButton", stdDarkColor()).value<QColor>();
 	m_textWidthMark = s.value("prefs/sqleditor/useTextWidthMarkCheckBox", true).toBool();
@@ -38,6 +40,18 @@ Preferences::Preferences(QObject *parent)
 	m_codeCompletionLength = s.value("prefs/sqleditor/completionLengthBox", 3).toInt();
 	m_useShortcuts = s.value("prefs/sqleditor/useShortcuts", false).toBool();
 	m_shortcuts = s.value("prefs/sqleditor/shortcuts", QMap<QString,QVariant>()).toMap();
+	// qscintilla
+	QsciLexerSQL syntaxLexer;
+	m_syDefaultColor = s.value("prefs/qscintilla/syDefaultColor",
+							   syntaxLexer.defaultColor(QsciLexerSQL::Default)).value<QColor>();
+	m_syKeywordColor = s.value("prefs/qscintilla/syKeywordColor",
+							   syntaxLexer.defaultColor(QsciLexerSQL::Keyword)).value<QColor>();
+	m_syNumberColor = s.value("prefs/qscintilla/syNumberColor",
+							  syntaxLexer.defaultColor(QsciLexerSQL::Number)).value<QColor>();
+	m_syStringColor = s.value("prefs/qscintilla/syStringColor",
+							  syntaxLexer.defaultColor(QsciLexerSQL::SingleQuotedString)).value<QColor>();
+	m_syCommentColor = s.value("prefs/qscintilla/syCommentColor",
+							   syntaxLexer.defaultColor(QsciLexerSQL::Comment)).value<QColor>();
 	// data
 	m_dateTimeFormat = s.value("data/dateTimeFormat", "MM/dd/yyyy").toString();
 	// data export
@@ -74,6 +88,12 @@ Preferences::~Preferences()
 	settings.setValue("prefs/sqleditor/completionLengthBox", m_codeCompletionLength);
 	settings.setValue("prefs/sqleditor/useShortcuts", m_useShortcuts);
 	settings.setValue("prefs/sqleditor/shortcuts", m_shortcuts);
+	// qscintilla editor
+	settings.setValue("prefs/qscintilla/syDefaultColor", m_syDefaultColor);
+	settings.setValue("prefs/qscintilla/syKeywordColor", m_syKeywordColor);
+	settings.setValue("prefs/qscintilla/syNumberColor", m_syNumberColor);
+	settings.setValue("prefs/qscintilla/syStringColor", m_syStringColor);
+	settings.setValue("prefs/qscintilla/syCommentColor", m_syCommentColor);
 	//
 	settings.setValue("data/dateTimeFormat", m_dateTimeFormat);
 	// data export

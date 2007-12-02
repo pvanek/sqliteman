@@ -108,6 +108,22 @@ class Preferences : public QObject
 		int exportEol() { return m_exportEol; };
 		void setExportEol(int v) { m_exportEol = v; };
 
+		// qscintilla syntax
+		QColor syDefaultColor() { return m_syDefaultColor; };
+		void setSyDefaultColor(const QColor & v ) { m_syDefaultColor = v; };
+
+		QColor syKeywordColor() { return m_syKeywordColor; };
+		void setSyKeywordColor(const QColor & v ) { m_syKeywordColor = v; };
+
+		QColor syNumberColor() { return m_syNumberColor; };
+		void setSyNumberColor(const QColor & v ) { m_syNumberColor = v; };
+
+		QColor syStringColor() { return m_syStringColor; };
+		void setSyStringColor(const QColor & v ) { m_syStringColor = v; };
+
+		QColor syCommentColor() { return m_syCommentColor; };
+		void setSyCommentColor(const QColor & v ) { m_syCommentColor = v; };
+
 	signals:
 		void prefsChanged();
 
@@ -138,6 +154,12 @@ class Preferences : public QObject
 		int m_codeCompletionLength;
 		bool m_useShortcuts;
 		QMap<QString,QVariant> m_shortcuts;
+		// qscintilla syntax
+		QColor m_syDefaultColor;
+		QColor m_syKeywordColor;
+		QColor m_syNumberColor;
+		QColor m_syStringColor;
+		QColor m_syCommentColor;
 		// data export
 		int m_exportFormat;
 		int m_exportDestination;

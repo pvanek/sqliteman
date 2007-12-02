@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "sqleditorwidget.h"
 #include "preferences.h"
 #include "sqlkeywords.h"
+#include "utils.h"
 
 
 SqlEditorWidget::SqlEditorWidget(QWidget * parent)
@@ -30,7 +31,7 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	setAutoIndent(true);
 
 	QsciLexerSQL * lexer = new QsciLexerSQL();
-	lexer->setFont(m_prefs->sqlFont());
+
 	QsciAPIs * api = new QsciAPIs(lexer);
 	foreach(QString i, sqlKeywords())
 		api->add(i);
@@ -46,6 +47,8 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 			this, SLOT(linesChanged()));
 	connect(this, SIGNAL(cursorPositionChanged(int, int)),
 			this, SLOT(cursorPositionChanged(int, int)));
+
+	prefsChanged();
 }
 
 void SqlEditorWidget::keyPressEvent(QKeyEvent * e)
@@ -107,6 +110,19 @@ void SqlEditorWidget::prefsChanged()
 {
 	lexer()->setFont(m_prefs->sqlFont());
 	setFont(m_prefs->sqlFont());
+
+	// syntax highlighting
+	lexer()->setColor(m_prefs->syDefaultColor(), QsciLexerSQL::Default);
+	lexer()->setColor(m_prefs->syKeywordColor(), QsciLexerSQL::Keyword);
+	QFont defFont(lexer()->font(QsciLexerSQL::Keyword));
+	defFont.setBold(true);
+	lexer()->setFont(defFont, QsciLexerSQL::Keyword);
+	lexer()->setColor(m_prefs->syNumberColor(), QsciLexerSQL::Number);
+	lexer()->setColor(m_prefs->syStringColor(), QsciLexerSQL::SingleQuotedString);
+	lexer()->setColor(m_prefs->syStringColor(), QsciLexerSQL::DoubleQuotedString);
+	lexer()->setColor(m_prefs->syCommentColor(), QsciLexerSQL::Comment);
+	lexer()->setColor(m_prefs->syCommentColor(), QsciLexerSQL::CommentLine);
+	lexer()->setColor(m_prefs->syCommentColor(), QsciLexerSQL::CommentDoc);
 
 	setAutoCompletionThreshold(m_prefs->codeCompletion() ?
 								m_prefs->codeCompletionLength() : -1

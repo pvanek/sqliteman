@@ -59,12 +59,31 @@ class PreferencesDialog : public QDialog, public Ui::PreferencesDialog
 		PrefsLNFWidget * m_prefsLNF;
 		PrefsSQLEditorWidget * m_prefsSQL;
 
+		// temporary qscintilla syntax colors
+		QColor m_syDefaultColor;
+		QColor m_syKeywordColor;
+		QColor m_syNumberColor;
+		QColor m_syStringColor;
+		QColor m_syCommentColor;
+
+		//! \brief Update editor preview for new color/font values.
+		void resetEditorPreview();
+
 	private slots:
 		void restoreDefaults();
 		void blobBgButton_clicked();
 		void nullBgButton_clicked();
 		void activeHighlightButton_clicked();
 		void shortcutsButton_clicked();
+		//
+		void syDefaultButton_clicked();
+		void syKeywordButton_clicked();
+		void syNumberButton_clicked();
+		void syStringButton_clicked();
+		void syCommentButton_clicked();
+		//
+		void fontComboBox_activated(int);
+		void fontSizeSpin_valueChanged(int);
 };
 
 
