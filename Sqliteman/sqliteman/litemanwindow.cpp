@@ -237,7 +237,7 @@ void LiteManWindow::initActions()
 	describeTableAct = new QAction(tr("D&escribe Table"), this);
 	connect(describeTableAct, SIGNAL(triggered()), this, SLOT(describeObject()/*describeTable()*/));
 
-	importTableAct = new QAction(tr("&Import Data..."), this);
+	importTableAct = new QAction(tr("&Import Table Data..."), this);
 	connect(importTableAct, SIGNAL(triggered()), this, SLOT(importTable()));
 
 	createTriggerAct = new QAction(tr("&Create Trigger..."), this);
@@ -304,6 +304,7 @@ void LiteManWindow::initMenus()
 	databaseMenu->addSeparator();
 	databaseMenu->addAction(exportSchemaAct);
 	databaseMenu->addAction(dumpDatabaseAct);
+	databaseMenu->addAction(importTableAct);
 
 	adminMenu = menuBar()->addMenu(tr("&System"));
 	adminMenu->addAction(analyzeAct);
@@ -658,11 +659,16 @@ void LiteManWindow::importTable()
 {
 	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
 
-	if(!item)
-		return;
-
-	ImportTableDialog dlg(this, item->text(0), item->text(1));
-	dlg.exec();
+	if(item)
+	{
+		ImportTableDialog dlg(this, item->text(0), item->text(1));
+		dlg.exec();
+	}
+	else
+	{
+		ImportTableDialog dlg(this, "", "main");
+		dlg.exec();
+	}
 }
 
 void LiteManWindow::dropTable()

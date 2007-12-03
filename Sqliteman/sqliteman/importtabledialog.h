@@ -23,7 +23,8 @@ class ImportTableDialog : public QDialog, public Ui::ImportTableDialog
 
 	private:
 		QObject * m_parent;
-		QString m_schema;
+		//! Remember the originally requsted name
+		QString m_tableName;
 
 		QString sqliteSeparator();
 
@@ -38,6 +39,8 @@ class ImportTableDialog : public QDialog, public Ui::ImportTableDialog
 		//! \brief Overloaded due the defined Qt signal/slot
 		void createPreview(bool);
 		void customEdit_textChanged(QString);
+		//
+		void setTablesForSchema(const QString & schema);
 
 };
 

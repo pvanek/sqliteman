@@ -20,32 +20,42 @@ for which a new license (GPL+exception) is in place.
 ImportTableDialog::ImportTableDialog(QWidget * parent, const QString & tableName, const QString & schema)
 	: QDialog(parent),
 	  m_parent(parent),
-	  m_schema(schema)
+	  m_tableName(tableName)
 {
 	setupUi(this);
 
 	QString n;
 	int i = 0;
 	int currIx = 0;
-	foreach (n, Database::getObjects("table", schema).keys())
+	foreach (n, Database::getDatabases().keys())
 	{
-		if (n == tableName)
+		if (n == schema)
 			currIx = i;
-		tableComboBox->addItem(n);
+		schemaComboBox->addItem(n);
 		++i;
 	}
-	tableComboBox->setCurrentIndex(currIx);
+	schemaComboBox->setCurrentIndex(currIx);
+	setTablesForSchema(schema);
 
+	connect(schemaComboBox, SIGNAL(currentIndexChanged(const QString &)),
+			this, SLOT(setTablesForSchema(const QString &)));
 	connect(fileButton, SIGNAL(clicked()), this, SLOT(fileButton_clicked()));
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(slotAccepted()));
-	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(createPreview(int)));
+	connect(tabWidget, SIGNAL(currentChanged(int)),
+			this, SLOT(createPreview(int)));
 	// csv
-	connect(pipeRadioButton, SIGNAL(clicked(bool)), this, SLOT(createPreview(bool)));
-	connect(commaRadioButton, SIGNAL(clicked(bool)), this, SLOT(createPreview(bool)));
-	connect(semicolonRadioButton, SIGNAL(clicked(bool)), this, SLOT(createPreview(bool)));
-	connect(tabelatorRadioButton, SIGNAL(clicked(bool)), this, SLOT(createPreview(bool)));
-	connect(customRadioButton, SIGNAL(clicked(bool)), this, SLOT(createPreview(bool)));
-	connect(customEdit, SIGNAL(textChanged(QString)), this, SLOT(customEdit_textChanged(QString)));
+	connect(pipeRadioButton, SIGNAL(clicked(bool)),
+			this, SLOT(createPreview(bool)));
+	connect(commaRadioButton, SIGNAL(clicked(bool)),
+			this, SLOT(createPreview(bool)));
+	connect(semicolonRadioButton, SIGNAL(clicked(bool)),
+			this, SLOT(createPreview(bool)));
+	connect(tabelatorRadioButton, SIGNAL(clicked(bool)),
+			this, SLOT(createPreview(bool)));
+	connect(customRadioButton, SIGNAL(clicked(bool)),
+			this, SLOT(createPreview(bool)));
+	connect(customEdit, SIGNAL(textChanged(QString)),
+			this, SLOT(customEdit_textChanged(QString)));
 }
 
 void ImportTableDialog::fileButton_clicked()
@@ -78,7 +88,9 @@ void ImportTableDialog::slotAccepted()
 									tr("Fields separator must be given"));
 				return;
 			}
-			values = ImportTable::CSVModel(fileEdit->text(), sqliteSeparator(), this, 0).m_values;
+			values = ImportTable::CSVModel(fileEdit->text(),
+										   sqliteSeparator(),
+										   this, 0).m_values;
 			break;
 		case 1:
 			values = ImportTable::XMLModel(fileEdit->text(), this, 0).m_values;
@@ -88,7 +100,8 @@ void ImportTableDialog::slotAccepted()
 	bool result = true;
 	QStringList l;
 	QStringList log;
-	int cols = Database::tableFields(tableComboBox->currentText(), m_schema).count();
+	int cols = Database::tableFields(tableComboBox->currentText(),
+									 schemaComboBox->currentText()).count();
 	int row = 0;
 	int success = 0;
 	QString sql("insert into %1.%2 values (%3);");
@@ -97,7 +110,9 @@ void ImportTableDialog::slotAccepted()
 	QStringList binds;
 	for (int i = 0; i < cols; ++i)
 		binds << "?";
-	sql = sql.arg(m_schema, tableComboBox->currentText(), binds.join(", "));
+	sql = sql.arg(schemaComboBox->currentText(),
+				  tableComboBox->currentText(),
+				  binds.join(", "));
 
 	if (!Database::execSql("BEGIN TRANSACTION;"))
 		return;
@@ -312,4 +327,21 @@ ImportTable::XMLModel::XMLModel(QString fileName, QObject * parent, int maxRows)
     }
 
 	file.close();
+}
+
+void ImportTableDialog::setTablesForSchema(const QString & schema)
+{
+	int currIx = 0;
+	int i = 0;
+	QString n;
+
+	tableComboBox->clear();
+	foreach (n, Database::getObjects("table", schema).keys())
+	{
+		if (n == m_tableName)
+			currIx = i;
+		tableComboBox->addItem(n);
+		++i;
+	}
+	tableComboBox->setCurrentIndex(currIx);
 }
