@@ -141,6 +141,7 @@
    </attribute>
    <addaction name="action_Run_SQL" />
    <addaction name="actionRun_Explain" />
+   <addaction name="actionRun_as_Script" />
    <addaction name="separator" />
    <addaction name="actionCreateView" />
    <addaction name="separator" />
@@ -226,6 +227,17 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionRun_as_Script" >
+   <property name="text" >
+    <string>Run as Script</string>
+   </property>
+   <property name="toolTip" >
+    <string>Run multiple SQL statements from current cursor position in one batch (F5)</string>
+   </property>
+   <property name="shortcut" >
+    <string>F5</string>
    </property>
   </action>
  </widget>

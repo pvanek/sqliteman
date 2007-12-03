@@ -228,11 +228,6 @@ class stringTokenizer : public tokenizer
         {
             String = str;
         }
-/*        stringTokenizer(const QString &str, toSyntaxAnalyzer &analyzer, int offset = 0, int line = 0)
-                : tokenizer(analyzer, offset, line)
-        {
-            String = str;
-        }*/
         /** Get a token from the string.
          * @param forward Go forward or backwards to get next token.
          * @param comment Include comments as tokens.

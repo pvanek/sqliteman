@@ -70,6 +70,20 @@
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="tab_3" >
+         <attribute name="title" >
+          <string>Script Output</string>
+         </attribute>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="SqlEditorWidget" name="scriptEdit" >
+            <property name="readOnly" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
        <widget class="QGroupBox" name="blobPreviewBox" >
         <property name="title" >
@@ -219,6 +233,11 @@
   </action>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>SqlEditorWidget</class>
+   <extends>QTextEdit</extends>
+   <header>sqleditorwidget.h</header>
+  </customwidget>
   <customwidget>
    <class>SqlItemView</class>
    <extends>QWidget</extends>

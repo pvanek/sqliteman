@@ -10,15 +10,18 @@ for which a new license (GPL+exception) is in place.
 #include <QFileDialog>
 #include <QLabel>
 #include <QProgressDialog>
+#include <QProgressDialog>
+#include <QSqlQuery>
+#include <QSqlError>
 
 #include <qscilexer.h>
 
 #include "createviewdialog.h"
 #include "preferences.h"
-// #include "sqlparser.h"
 #include "sqleditor.h"
 #include "sqlkeywords.h"
 #include "utils.h"
+#include "database.h"
 
 
 SqlEditor::SqlEditor(QWidget * parent)
@@ -42,6 +45,7 @@ SqlEditor::SqlEditor(QWidget * parent)
 
 	ui.action_Run_SQL->setIcon(Utils::getIcon("runsql.png"));
 	ui.actionRun_Explain->setIcon(Utils::getIcon("runexplain.png"));
+	ui.actionRun_as_Script->setIcon(Utils::getIcon("runscript.png"));
 	ui.action_Open->setIcon(Utils::getIcon("document-open.png"));
 	ui.action_Save->setIcon(Utils::getIcon("document-save.png"));
 	ui.action_New->setIcon(Utils::getIcon("document-new.png"));
@@ -52,6 +56,8 @@ SqlEditor::SqlEditor(QWidget * parent)
 			this, SLOT(action_Run_SQL_triggered()));
 	connect(ui.actionRun_Explain, SIGNAL(triggered()),
 			this, SLOT(actionRun_Explain_triggered()));
+	connect(ui.actionRun_as_Script, SIGNAL(triggered()),
+			this, SLOT(actionRun_as_Script_triggered()));
 	connect(ui.action_Open, SIGNAL(triggered()),
 			this, SLOT(action_Open_triggered()));
 	connect(ui.action_Save, SIGNAL(triggered()),
@@ -89,12 +95,9 @@ void SqlEditor::setStatusMessage(const QString & message)
 		ui.statusBar->clearMessage();
 	ui.statusBar->showMessage(message);
 }
-#include <QtDebug>
+
 QString SqlEditor::query()
 {
-// 	QTextCursor cur(ui.sqlTextEdit->textCursor());
-// 	if (cur.hasSelection())
-// 		return cur.selectedText();
 	if (ui.sqlTextEdit->hasSelectedText())
 		return ui.sqlTextEdit->selectedText();
 	
@@ -114,9 +117,7 @@ QString SqlEditor::query()
 	while (tokens.line() < cline ||
 			  (tokens.line() == cline && tokens.offset() < cpos));
 
-	QString sql(prepareExec(tokens, line, pos));
-	qDebug() << "SQL: "<<sql;
-	return sql;
+	return prepareExec(tokens, line, pos);
 }
 
 QString SqlEditor::prepareExec(toSQLParse::tokenizer &tokens, int line, int pos)
@@ -193,8 +194,7 @@ QString SqlEditor::prepareExec(toSQLParse::tokenizer &tokens, int line, int pos)
 		ui.sqlTextEdit->setSelection(line, pos, endLine, endCol);
 		t = t.mid(i);
 	}
-// 	if (t.trimmed().length())
-// 		query(t, type);
+
 	return t;
 }
 
@@ -207,6 +207,76 @@ void SqlEditor::action_Run_SQL_triggered()
 void SqlEditor::actionRun_Explain_triggered()
 {
 	emit showSqlResult(QString("explain query plan %1").arg(query()));
+}
+
+void SqlEditor::actionRun_as_Script_triggered()
+{
+	toSQLParse::editorTokenizer tokens(ui.sqlTextEdit);
+	int cpos, cline;
+	ui.sqlTextEdit->getCursorPosition(&cline, &cpos);
+
+	QProgressDialog dialog(tr("Executing all statements"),
+							tr("Cancel"),
+							0, ui.sqlTextEdit->lines(),
+							this);
+	int line;
+	int pos;
+	bool ignore = true;
+
+	QSqlQuery query(QSqlDatabase::database(SESSION_NAME));
+	QString sql;
+	bool isError = false;
+
+	emit sqlScriptStart();
+	emit showSqlScriptResult("-- " + tr("Script started"));
+	do {
+		line = tokens.line();
+		pos = tokens.offset();
+		dialog.setValue(line);
+		qApp->processEvents();
+// 		if (dialog.wasCancelled())
+// 			break;
+		toSQLParse::parseStatement(tokens);
+
+		if (ignore && (tokens.line() > cline ||
+				  (tokens.line() == cline &&
+				  tokens.offset() >= cpos)))
+		{
+			ignore = false;
+			cline = line;
+			cpos = pos;
+		}
+
+		if (tokens.line() < ui.sqlTextEdit->lines() && !ignore)
+		{
+			sql = prepareExec(tokens, line, pos);
+			emit showSqlScriptResult(sql);
+			query.exec(sql);
+			if (query.lastError().isValid())
+			{
+				emit showSqlScriptResult("-- " + tr("Error: %1.").arg(query.lastError().databaseText()));
+				int com = QMessageBox::question(this, tr("Run as Script"),
+						tr("This script contains the following error:\n"
+							"%1\n"
+							"At line: %2\n"
+							"Do you want to continue?").arg(query.lastError().databaseText()).arg(line),
+							QMessageBox::Yes, QMessageBox::No);
+				if (com == QMessageBox::No)
+				{
+					emit showSqlScriptResult("-- " + tr("Script was cancelled by user"));
+					isError = true;
+					break;
+				}
+			}
+			else
+				emit showSqlScriptResult("-- " + tr("No error"));
+			emit showSqlScriptResult("--");
+		}
+	}
+	while (tokens.line() < ui.sqlTextEdit->lines());
+	ui.sqlTextEdit->setSelection(cline, cpos, tokens.line(), tokens.offset());
+	if (!isError)
+		emit showSqlScriptResult("-- " + tr("Script finished"));
 }
 
 void SqlEditor::actionCreateView_triggered()

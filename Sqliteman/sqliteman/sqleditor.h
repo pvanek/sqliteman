@@ -47,6 +47,8 @@ class SqlEditor : public QMainWindow
 		\param command current SQL statement in the editor.
 		*/
 		void showSqlResult(QString command);
+		void sqlScriptStart();
+		void showSqlScriptResult(QString line);
 		void rebuildViewTree(QString schema, QString name);
 
 	private:
@@ -88,6 +90,7 @@ class SqlEditor : public QMainWindow
     private slots:
 		void action_Run_SQL_triggered();
 		void actionRun_Explain_triggered();
+		void actionRun_as_Script_triggered();
 		void action_Open_triggered();
 		void action_Save_triggered();
 		void action_New_triggered();

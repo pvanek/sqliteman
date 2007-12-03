@@ -92,6 +92,7 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 	connect(ui.tableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
 			this, SLOT(tableView_selectionChanged(const QItemSelection &, const QItemSelection &)));
 	ui.itemView->setModel(model);
+	ui.tabWidget->setCurrentIndex(0);
 	resizeViewToContents(model);
 	setShowButtons(showButtons);
 	
@@ -321,8 +322,22 @@ void DataViewer::tabWidget_currentChanged(int ix)
 	}
 	else
 		ui.itemView->setCurrentIndex(ui.tableView->currentIndex().row());
+	ui.statusText->setVisible(ix != 2);
 }
 
+void DataViewer::showSqlScriptResult(QString line)
+{
+	ui.scriptEdit->append(line);
+	ui.scriptEdit->append("\n");
+	ui.scriptEdit->ensureLineVisible(ui.scriptEdit->lines());
+	ui.tabWidget->setCurrentIndex(2);
+	setShowButtons(false);
+}
+
+void DataViewer::sqlScriptStart()
+{
+	ui.scriptEdit->clear();
+}
 
 
 /* Tools *************************************************** */

@@ -140,7 +140,12 @@ void LiteManWindow::initUI()
 			this, SLOT(tableTree_currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
 
 	// sql editor
-	connect(sqlEditor, SIGNAL(showSqlResult(QString)), this, SLOT(execSql(QString)));
+	connect(sqlEditor, SIGNAL(showSqlResult(QString)),
+			this, SLOT(execSql(QString)));
+	connect(sqlEditor, SIGNAL(sqlScriptStart()),
+			dataViewer, SLOT(sqlScriptStart()));
+	connect(sqlEditor, SIGNAL(showSqlScriptResult(QString)),
+			dataViewer, SLOT(showSqlScriptResult(QString)));
 	connect(sqlEditor, SIGNAL(rebuildViewTree(QString, QString)),
 			schemaBrowser->tableTree, SLOT(buildViewTree(QString,QString)));
 }

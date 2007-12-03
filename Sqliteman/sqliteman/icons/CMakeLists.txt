@@ -27,6 +27,7 @@ INSTALL(FILES
     document-save-as.png
     insert_table_row.png
     runsql.png
+    runscript.png
     setnull.png
     table.png
     database_commit.png
