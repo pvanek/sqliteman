@@ -211,14 +211,15 @@ void SqlEditor::actionRun_Explain_triggered()
 
 void SqlEditor::actionRun_as_Script_triggered()
 {
+	m_scriptCancelled = false;
 	toSQLParse::editorTokenizer tokens(ui.sqlTextEdit);
 	int cpos, cline;
 	ui.sqlTextEdit->getCursorPosition(&cline, &cpos);
 
-	QProgressDialog dialog(tr("Executing all statements"),
-							tr("Cancel"),
-							0, ui.sqlTextEdit->lines(),
-							this);
+	QProgressDialog * dialog = new QProgressDialog(tr("Executing all statements"),
+			tr("Cancel"), 0, ui.sqlTextEdit->lines(), this);
+	connect(dialog, SIGNAL(canceled()), this, SLOT(scriptCancelled()));
+
 	int line;
 	int pos;
 	bool ignore = true;
@@ -232,10 +233,10 @@ void SqlEditor::actionRun_as_Script_triggered()
 	do {
 		line = tokens.line();
 		pos = tokens.offset();
-		dialog.setValue(line);
+		dialog->setValue(line);
 		qApp->processEvents();
-// 		if (dialog.wasCancelled())
-// 			break;
+		if (m_scriptCancelled)
+			break;
 		toSQLParse::parseStatement(tokens);
 
 		if (ignore && (tokens.line() > cline ||
@@ -258,12 +259,11 @@ void SqlEditor::actionRun_as_Script_triggered()
 				int com = QMessageBox::question(this, tr("Run as Script"),
 						tr("This script contains the following error:\n"
 							"%1\n"
-							"At line: %2\n"
-							"Do you want to continue?").arg(query.lastError().databaseText()).arg(line),
-							QMessageBox::Yes, QMessageBox::No);
-				if (com == QMessageBox::No)
+							"At line: %2").arg(query.lastError().databaseText()).arg(line),
+							QMessageBox::Ignore, QMessageBox::Abort);
+				if (com == QMessageBox::Abort)
 				{
-					emit showSqlScriptResult("-- " + tr("Script was cancelled by user"));
+					scriptCancelled();
 					isError = true;
 					break;
 				}
@@ -274,6 +274,8 @@ void SqlEditor::actionRun_as_Script_triggered()
 		}
 	}
 	while (tokens.line() < ui.sqlTextEdit->lines());
+
+	delete dialog;
 	ui.sqlTextEdit->setSelection(cline, cpos, tokens.line(), tokens.offset());
 	if (!isError)
 		emit showSqlScriptResult("-- " + tr("Script finished"));
@@ -516,4 +518,10 @@ void SqlEditor::setFileWatcher(const QString & newFileName)
 	if (pathList.count() > 0)
 		m_fileWatcher->removePaths(pathList);
 	m_fileWatcher->addPath(newFileName);
+}
+
+void SqlEditor::scriptCancelled()
+{
+	emit showSqlScriptResult("-- " + tr("Script was cancelled by user"));
+	m_scriptCancelled = true;
 }

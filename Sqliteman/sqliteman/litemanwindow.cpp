@@ -436,8 +436,10 @@ void LiteManWindow::open(const QString & file)
 
 void LiteManWindow::openDatabase(const QString & fileName)
 {
+	bool isOpened = false;
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
 	db.setDatabaseName(fileName);
+
 
 	if(!db.open())
 	{
@@ -445,6 +447,8 @@ void LiteManWindow::openDatabase(const QString & fileName)
 		QMessageBox::warning(this, m_appName, msg);
 		return;
 	}
+	else
+		isOpened = true;
 
 	attachedDb.clear();
 	attachedDb["main"] = SESSION_NAME;
@@ -463,11 +467,12 @@ void LiteManWindow::openDatabase(const QString & fileName)
 	// Update the title
 	setWindowTitle(QString("%1 - %2").arg(fi.fileName()).arg(m_appName));
 
-	// Enable UI (Only the tree, the data viewer will be enabled upon demand)
-	schemaBrowser->setEnabled(true);
-	databaseMenu->setEnabled(true);
-	adminMenu->setEnabled(true);
-	sqlEditor->setEnabled(true);
+	// Enable UI
+	schemaBrowser->setEnabled(isOpened);
+	databaseMenu->setEnabled(isOpened);
+	adminMenu->setEnabled(isOpened);
+	sqlEditor->setEnabled(isOpened);
+	dataViewer->setEnabled(isOpened);
 }
 
 void LiteManWindow::openRecent()
@@ -539,9 +544,6 @@ void LiteManWindow::execSql(QString query)
 
 	if (!dataViewer->setTableModel(model, false))
 		return;
-
-	dataViewer->setEnabled(true);
-	dataViewer->showStatusText(true);
 
 	sqlEditor->setStatusMessage(tr("Duration: %1 seconds").arg(time.elapsed() / 1000.0));
 	
@@ -756,8 +758,6 @@ void LiteManWindow::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
 	if (item->type() == TableTree::TableType || item->type() == TableTree::ViewType
 	    || item->type() == TableTree::SystemType)
 	{
-		dataViewer->setEnabled(true);
-
 		if(item->type() == TableTree::ViewType || item->type() == TableTree::SystemType)
 		{
 			SqlQueryModel * model = new SqlQueryModel(this);
@@ -855,57 +855,6 @@ void LiteManWindow::describeObject()
 			.arg(item->text(1))
 			.arg(item->text(0)));
 }
-
-// void LiteManWindow::describeTable()
-// {
-// // 	runQuery(QString("pragma \"%1\".table_info (\"%2\");")
-// 	runQuery(QString("select sql as Describe from \"%1\".sqlite_master where name = '%2';")
-// 			.arg(schemaBrowser->tableTree->currentItem()->text(1))
-// 			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
-// }
-// 
-// void LiteManWindow::describeView()
-// {
-// 	runQuery(QString("select sql as Describe  from \"%1\".sqlite_master where name = '%2';")
-// 			.arg(schemaBrowser->tableTree->currentItem()->text(1))
-// 			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
-// }
-// 
-// void LiteManWindow::describeIndex()
-// {
-// // 	runQuery(QString("pragma \"%1\".index_info (\"%2\");")
-// 	runQuery(QString("select sql as Describe  from \"%1\".sqlite_master where name = '%2';")
-// 			.arg(schemaBrowser->tableTree->currentItem()->text(1))
-// 			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
-// }
-// 
-// void LiteManWindow::describeTrigger()
-// {
-// 	runQuery(QString("select sql as Describe from \"%1\".sqlite_master where name = '%2';")
-// 			.arg(schemaBrowser->tableTree->currentItem()->text(1))
-// 			.arg(schemaBrowser->tableTree->currentItem()->text(0)));
-// }
-
-// void LiteManWindow::runQuery(QString statement)
-// {
-// 	SqlQueryModel * model = new SqlQueryModel(this);
-// 	model->setQuery(statement, QSqlDatabase::database(SESSION_NAME));
-// 	if (!dataViewer->setTableModel(model, false))
-// 		return;
-// 
-// 	dataViewer->setEnabled(true);
-// 	dataViewer->showStatusText(true);
-// 
-// 	if(model->lastError().isValid())
-// 		dataViewer->setStatusText(tr("Query Error: %1").arg(model->lastError().databaseText()));
-// 	else
-// 	{
-// 		QString cached;
-// 		if (model->canFetchMore())
-// 			cached = tr("(more rows can be fetched)");
-// 		dataViewer->setStatusText(tr("Query OK\nRow(s) returned: %1 %2").arg(model->rowCount()).arg(cached));
-// 	}
-// }
 
 void LiteManWindow::analyzeDialog()
 {

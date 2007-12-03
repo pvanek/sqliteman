@@ -47,7 +47,10 @@ class SqlEditor : public QMainWindow
 		\param command current SQL statement in the editor.
 		*/
 		void showSqlResult(QString command);
+		//! \brief It's emitted when the script is started
 		void sqlScriptStart();
+		/*! \brief Emitted on demand in the script.
+		Line is appended to the script output. */
 		void showSqlScriptResult(QString line);
 		void rebuildViewTree(QString schema, QString name);
 
@@ -63,6 +66,7 @@ class SqlEditor : public QMainWindow
 
 		//! \brief True when user cancel file opening
 		bool canceled;
+		bool m_scriptCancelled;
 		//! \brief Handle long files (prevent app "freezing")
 		QProgressDialog * progress;
 		/*! \brief A helper method for progress.
@@ -106,6 +110,8 @@ class SqlEditor : public QMainWindow
 		void findNext();
 		//! \brief Watch file for changes from external apps
 		void externalFileChange(const QString & path);
+		//
+		void scriptCancelled();
 };
 
 #endif
