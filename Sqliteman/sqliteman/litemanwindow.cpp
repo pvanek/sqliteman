@@ -584,7 +584,7 @@ void LiteManWindow::dumpDatabase()
 	dump.start(QStringList() << ".dump");
 	if (!dump.success())
 		QMessageBox::warning(this, m_appName, "<qt>" + tr("Error creating the dump. Reason: %1\n%2")
-				.arg(dump.errorMessage().arg(dump.allStderr())) + "</qt>");
+				.arg(dump.errorMessage()).arg(dump.allStderr()) + "</qt>");
 	else
 	{
 		QString e(dump.allStderr());
