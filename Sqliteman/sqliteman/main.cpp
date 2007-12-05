@@ -54,7 +54,8 @@ class ArgsParser
 		~ArgsParser(){};
 		bool parseArgs();
 		QString localeCode();
-		const QString & fileToOpen() { return m_file; };
+		//! \brief No file is opened when the returned value is null
+		const QString & fileToOpen();
 	private:
 		int argc;
 		char ** argv;
@@ -106,6 +107,17 @@ QString ArgsParser::localeCode()
 	else
 		ret = QLocale::system().name();
 	return ret.left(2);
+}
+
+const QString & ArgsParser::fileToOpen()
+{
+	if (m_file.isNull())
+	{
+		Preferences* p = Preferences::instance();
+		if (p->openLastDB())
+			m_file = p->lastDB();
+	}
+	return m_file;
 }
 
 bool ArgsParser::parseArgs()

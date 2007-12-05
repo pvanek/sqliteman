@@ -50,6 +50,10 @@ class Preferences : public QObject
 		int recentlyUsedCount() { return m_recentlyUsedCount; };
 		void setRecentlyUsedCount(int v) { m_recentlyUsedCount = v; };
 
+		bool openLastDB() { return m_openLastDB; };
+		void setOpenLastDB(bool v) { m_openLastDB = v; };
+		QString lastDB() { return m_lastDB; };
+
 		int GUItranslator() { return m_GUItranslator; };
 		void setGUItranslator(int v) { m_GUItranslator = v; };
 
@@ -141,6 +145,8 @@ class Preferences : public QObject
 		QColor m_nullHighlightColor;
 		QColor m_blobHighlightColor;
 		int m_recentlyUsedCount;
+		bool m_openLastDB;
+		QString m_lastDB;
 		int m_GUItranslator;
 		int m_GUIstyle;
 		bool m_cropColumns;

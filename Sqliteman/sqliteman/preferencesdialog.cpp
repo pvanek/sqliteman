@@ -109,6 +109,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	m_prefsLNF->styleComboBox->addItems(sl);
 	m_prefsLNF->styleComboBox->setCurrentIndex(prefs->GUIstyle());
 	m_prefsLNF->recentlyUsedSpinBox->setValue(prefs->recentlyUsedCount());
+	m_prefsLNF->openLastDBCheckBox->setChecked(prefs->openLastDB());
 
 	m_prefsData->nullCheckBox->setChecked(prefs->nullHighlight());
 	m_prefsData->nullAliasEdit->setText(prefs->nullHighlightText());
@@ -143,6 +144,7 @@ bool PreferencesDialog::saveSettings()
 	prefs->setGUItranslator(m_prefsLNF->languageComboBox->currentIndex());
 	prefs->setGUIstyle(m_prefsLNF->styleComboBox->currentIndex());
 	prefs->setRecentlyUsedCount(m_prefsLNF->recentlyUsedSpinBox->value());
+	prefs->setOpenLastDB(m_prefsLNF->openLastDBCheckBox->isChecked());
 	// data results
 	prefs->setNullHighlight(m_prefsData->nullCheckBox->isChecked());
 	prefs->setNullHighlightText(m_prefsData->nullAliasEdit->text());
@@ -176,6 +178,7 @@ void PreferencesDialog::restoreDefaults()
 	m_prefsLNF->languageComboBox->setCurrentIndex(0);
 	m_prefsLNF->styleComboBox->setCurrentIndex(0);
 	m_prefsLNF->recentlyUsedSpinBox->setValue(5);
+	m_prefsLNF->openLastDBCheckBox->setChecked(true);
 
 	m_prefsData->nullCheckBox->setChecked(true);
 	m_prefsData->nullAliasEdit->setText("{null}");

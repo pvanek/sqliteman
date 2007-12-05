@@ -25,6 +25,8 @@ Preferences::Preferences(QObject *parent)
 	m_nullHighlightColor = s.value("prefs/nullBgButton", stdLightColor()).value<QColor>();
 	m_blobHighlightColor = s.value("prefs/blobBgButton", stdLightColor()).value<QColor>();
 	m_recentlyUsedCount = s.value("prefs/recentlyUsedSpinBox", 5).toInt();
+	m_openLastDB = s.value("prefs/openLastDB", true).toBool();
+	m_lastDB = s.value("lastDatabase", QString()).toString();
 	m_GUItranslator = s.value("prefs/languageComboBox", 0).toInt();
 	m_GUIstyle = s.value("prefs/styleComboBox", 0).toInt();
 	m_cropColumns = s.value("prefs/cropColumnsCheckBox", false).toBool();
@@ -69,6 +71,7 @@ Preferences::~Preferences()
 	settings.setValue("prefs/languageComboBox", m_GUItranslator);
 	settings.setValue("prefs/styleComboBox", m_GUIstyle);
 	settings.setValue("prefs/recentlyUsedSpinBox", m_recentlyUsedCount);
+	settings.setValue("prefs/openLastDB", m_openLastDB);
 	// data results
 	settings.setValue("prefs/nullCheckBox", m_nullHighlight);
 	settings.setValue("prefs/nullAliasEdit", m_nullHighlightText);

@@ -71,10 +71,12 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 	readSettings();
 
 	// Check command line
-	if (!fileToOpen.isNull())
+	qDebug() << "Initial DB: " << fileToOpen;
+	if (!fileToOpen.isNull() && !fileToOpen.isEmpty())
 		open(fileToOpen);
 
 	// test for sqlite3 binary
+	qDebug() << "Checking for " << SQLITE_BINARY << ":";
 	if (QProcess::execute(SQLITE_BINARY, QStringList() << "-version") != 0)
 		QMessageBox::warning(this, m_appName,
 							 tr("Sqlite3 executable '%1' is not found in your path. Some features will be disabled.")
@@ -407,6 +409,8 @@ void LiteManWindow::writeSettings()
 	settings.setValue("sqleditor/filename", sqlEditor->fileName());
 	settings.setValue("dataviewer/splitter", dataViewer->saveSplitter());
 	settings.setValue("recentDocs/files", recentDocs);
+	// last open database
+	settings.setValue("lastDatabase", QSqlDatabase::database(SESSION_NAME).databaseName());
 }
 
 void LiteManWindow::newDB()
@@ -447,7 +451,6 @@ void LiteManWindow::openDatabase(const QString & fileName)
 	bool isOpened = false;
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
 	db.setDatabaseName(fileName);
-
 
 	if(!db.open())
 	{

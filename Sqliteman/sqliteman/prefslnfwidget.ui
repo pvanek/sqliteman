@@ -113,7 +113,7 @@
      </item>
     </layout>
    </item>
-   <item row="3" column="0" >
+   <item row="4" column="0" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -136,6 +136,16 @@
      </property>
      <property name="text" >
       <string>Look and Feel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" >
+    <widget class="QCheckBox" name="openLastDBCheckBox" >
+     <property name="toolTip" >
+      <string>Remember the last used database for next application start</string>
+     </property>
+     <property name="text" >
+      <string>Ope&amp;n Last Database on Start</string>
      </property>
     </widget>
    </item>
