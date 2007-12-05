@@ -98,9 +98,11 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 	resizeViewToContents(model);
 	setShowButtons(showButtons);
 	
-	QString cached("");
-	if (qobject_cast<QSqlQueryModel*>(model)->canFetchMore())
+	QString cached;
+	if (qobject_cast<QSqlQueryModel*>(model)->rowCount() != 0
+		   && qobject_cast<QSqlQueryModel*>(model)->canFetchMore())
 		cached = DataViewer::canFetchMore();
+
 	setStatusText(tr("Query OK\nRow(s) returned: %1 %2").arg(model->rowCount()).arg(cached));
 
 	return true;
