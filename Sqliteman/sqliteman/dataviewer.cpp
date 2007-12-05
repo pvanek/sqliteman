@@ -67,9 +67,7 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 										   "\nCancel = skip this operation and stay in the current table"),
 										   QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel);
 		if (com == QMessageBox::No)
-		{
 			rollback();
-		}
 		else if (com == QMessageBox::Cancel)
 			return false;
 		else
@@ -85,18 +83,22 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 					rollback();
 				else
 					return false;
+
 			}
 		}
 	}
+
 	ui.tableView->setModel(model);
-	connect(ui.tableView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
-			this, SLOT(tableView_selectionChanged(const QItemSelection &, const QItemSelection &)));
+	connect(ui.tableView->selectionModel(),
+			SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
+			this,
+			SLOT(tableView_selectionChanged(const QItemSelection &, const QItemSelection &)));
 	ui.itemView->setModel(model);
 	ui.tabWidget->setCurrentIndex(0);
 	resizeViewToContents(model);
 	setShowButtons(showButtons);
 	
-	QString cached;
+	QString cached("");
 	if (qobject_cast<QSqlQueryModel*>(model)->canFetchMore())
 		cached = DataViewer::canFetchMore();
 	setStatusText(tr("Query OK\nRow(s) returned: %1 %2").arg(model->rowCount()).arg(cached));

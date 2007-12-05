@@ -88,6 +88,13 @@ LiteManWindow::~LiteManWindow()
 
 void LiteManWindow::closeEvent(QCloseEvent * e)
 {
+	// check for uncommited transaction in the DB
+	if (!dataViewer->setTableModel(new QSqlQueryModel()))
+	{
+		e->ignore();
+		return;
+	}
+
 	sqlEditor->saveOnExit();
 
 	QMapIterator<QString, QString> i(attachedDb);
