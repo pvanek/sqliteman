@@ -145,6 +145,8 @@ class Database
 		*/
 		static bool exportSql(const QString & fileName);
 
+		static QString describeObject(const QString & name, const QString & schema = "main");
+
 		/*! \brief BLOB X'foo' notation. See sqlite3 internals as a reference.
 		\param val a raw "encoded" QByteArray (string)
 		\retval QString with sqlite encoded X'blah' notation.

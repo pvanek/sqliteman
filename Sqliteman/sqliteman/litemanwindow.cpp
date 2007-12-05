@@ -863,10 +863,14 @@ void LiteManWindow::describeObject()
 {
 	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
 	/*runQuery*/
-	execSql(QString("select sql as \"%1\" from \"%2\".sqlite_master where name = '%3';")
-			.arg(tr("Describe %1").arg(item->text(0).toUpper()))
-			.arg(item->text(1))
-			.arg(item->text(0)));
+// 	execSql(QString("select sql as \"%1\" from \"%2\".sqlite_master where name = '%3';")
+// 			.arg(tr("Describe %1").arg(item->text(0).toUpper()))
+// 			.arg(item->text(1))
+// 			.arg(item->text(0)));
+	QString desc(Database::describeObject(item->text(0), item->text(1)));
+	dataViewer->sqlScriptStart();
+	dataViewer->showSqlScriptResult("-- " + tr("Describe %1").arg(item->text(0).toUpper()));
+	dataViewer->showSqlScriptResult(desc);
 }
 
 void LiteManWindow::analyzeDialog()

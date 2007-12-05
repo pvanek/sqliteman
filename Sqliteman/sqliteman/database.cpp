@@ -223,6 +223,24 @@ bool Database::exportSql(const QString & fileName)
 	return true;
 }
 
+QString Database::describeObject(const QString & name,
+								 const QString & schema)
+{
+	QString sql("select sql from \"%1\".sqlite_master where name = \"%2\";");
+	QSqlQuery query(sql.arg(schema).arg(name), QSqlDatabase::database(SESSION_NAME));
+	
+	if (query.lastError().isValid())
+	{
+		exception(tr("Error while describe object %1: %2.").arg(name).arg(query.lastError().text()));
+		return "";
+	}
+	
+	while(query.next())
+		return query.value(0).toString();
+	
+	return "";
+}
+
 bool Database::dropTrigger(const QString & name, const QString & schema)
 {
 	QString sql = QString("DROP TRIGGER \"%1\".\"%2\";").arg(schema).arg(name);
