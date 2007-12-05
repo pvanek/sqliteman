@@ -555,7 +555,7 @@ void LiteManWindow::execSql(QString query)
 	{
 		QString cached;
 		if (model->canFetchMore())
-			cached = tr("(more rows can be fetched)");
+			cached = DataViewer::canFetchMore();
 		dataViewer->setStatusText(tr("Query OK\nRow(s) returned: %1 %2\n%3").arg(model->rowCount()).arg(cached).arg(query));
 		if (Utils::updateObjectTree(query))
 			schemaBrowser->tableTree->buildTree();

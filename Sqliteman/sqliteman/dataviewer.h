@@ -46,6 +46,8 @@ class DataViewer : public QMainWindow
 		QByteArray saveSplitter() { return ui.splitter->saveState(); };
 		void restoreSplitter(QByteArray state) { ui.splitter->restoreState(state); };
 
+		static const QString canFetchMore();
+
 	public slots:
 		//! \brief Append the line to the "Script Result" tab.
 		void showSqlScriptResult(QString line);

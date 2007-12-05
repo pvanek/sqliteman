@@ -98,7 +98,7 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 	
 	QString cached;
 	if (qobject_cast<QSqlQueryModel*>(model)->canFetchMore())
-		cached = tr("(more rows can be fetched)");
+		cached = DataViewer::canFetchMore();
 	setStatusText(tr("Query OK\nRow(s) returned: %1 %2").arg(model->rowCount()).arg(cached));
 
 	return true;
@@ -339,6 +339,11 @@ void DataViewer::sqlScriptStart()
 	ui.scriptEdit->clear();
 }
 
+const QString DataViewer::canFetchMore()
+{
+	return tr("(More rows can be fetched. Scroll the resultset for more rows and/or read the documentation.)");
+}
+
 
 /* Tools *************************************************** */
 
@@ -360,3 +365,4 @@ bool DataViewerTools::KeyPressEater::eventFilter(QObject *obj, QEvent *event)
 		return QObject::eventFilter(obj, event);
 	}
 }
+
