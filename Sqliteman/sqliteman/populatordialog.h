@@ -65,6 +65,8 @@ class PopulatorDialog : public QDialog, public Ui::PopulatorDialog
 
 	private slots:
 		void populateButton_clicked();
+		//! Set populateButton state (enabled/disabled) as required.
+		void checkActionTypes();
 };
 
 #endif

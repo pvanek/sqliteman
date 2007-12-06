@@ -33,6 +33,9 @@ int PopulatorColumnWidget::defaultSuggestion()
 	if (m_column.pk)
 		return Populator::T_AUTO;
 
+	if (t == "BLOB" || t == "CLOB" || t == "LOB")
+		return Populator::T_IGNORE;
+
 	if (t == "INTEGER" || t == "NUMBER")
 		return Populator::T_NUMB;
 	else
@@ -61,6 +64,8 @@ void PopulatorColumnWidget::actionCombo_currentIndexChanged(int ix)
 		specEdit->hide();
 
 	m_column.action = ix;
+
+	emit actionTypeChanged();
 }
 
 void PopulatorColumnWidget::specEdit_textChanged(const QString & t)

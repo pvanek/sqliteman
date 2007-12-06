@@ -32,6 +32,11 @@ class PopulatorColumnWidget :
 
 		Populator::PopColumn column() { return m_column; };
 
+	signals:
+		/*! Emitted in every actionCombo_currentIndexChanged()
+		to allow populator to run in the main dialog. */
+		void actionTypeChanged();
+
 	private:
 		Populator::PopColumn m_column;
 		//! Guess what it can insert as value by column datatype

@@ -48,11 +48,28 @@ PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const 
 		QTableWidgetItem * typeItem = new QTableWidgetItem(col.type);
 		columnTable->setItem(i, 0, nameItem);
 		columnTable->setItem(i, 1, typeItem);
-		columnTable->setCellWidget(i, 2, new PopulatorColumnWidget(col, columnTable));
+		PopulatorColumnWidget *p = new PopulatorColumnWidget(col, columnTable);
+		connect(p, SIGNAL(actionTypeChanged()), this, SLOT(checkActionTypes()));
+		columnTable->setCellWidget(i, 2, p);
 	}
 
 	columnTable->resizeColumnsToContents();
 	connect(populateButton, SIGNAL(clicked()), this, SLOT(populateButton_clicked()));
+}
+
+void PopulatorDialog::checkActionTypes()
+{
+	bool enable = false;
+	for (int i = 0; i < columnTable->rowCount(); ++i)
+	{
+		if (qobject_cast<PopulatorColumnWidget*>
+				(columnTable->cellWidget(i, 2))->column().action != Populator::T_IGNORE)
+		{
+			enable = true;
+			break;
+		}
+	}
+	populateButton->setEnabled(enable);
 }
 
 QString PopulatorDialog::sqlColumns()
@@ -99,6 +116,7 @@ void PopulatorDialog::populateButton_clicked()
 	if (!Database::execSql("BEGIN TRANSACTION;"))
 	{
 		textBrowser->append(tr("Begin transaction failed."));
+		Database::execSql("ROLLBACK;");
 		return;
 	}
 
