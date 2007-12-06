@@ -49,27 +49,58 @@ PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const 
 		columnTable->setItem(i, 0, nameItem);
 		columnTable->setItem(i, 1, typeItem);
 		PopulatorColumnWidget *p = new PopulatorColumnWidget(col, columnTable);
-		connect(p, SIGNAL(actionTypeChanged()), this, SLOT(checkActionTypes()));
+		connect(p, SIGNAL(actionTypeChanged()),
+				this, SLOT(checkActionTypes()));
 		columnTable->setCellWidget(i, 2, p);
 	}
 
 	columnTable->resizeColumnsToContents();
-	connect(populateButton, SIGNAL(clicked()), this, SLOT(populateButton_clicked()));
+	checkActionTypes();
+
+	connect(populateButton, SIGNAL(clicked()),
+			this, SLOT(populateButton_clicked()));
+	connect(spinBox, SIGNAL(valueChanged(int)),
+			this, SLOT(spinBox_valueChanged(int)));
+}
+
+void PopulatorDialog::spinBox_valueChanged(int)
+{
+	checkActionTypes();
 }
 
 void PopulatorDialog::checkActionTypes()
 {
 	bool enable = false;
-	for (int i = 0; i < columnTable->rowCount(); ++i)
+	if (spinBox->value() != 0)
 	{
-		if (qobject_cast<PopulatorColumnWidget*>
-				(columnTable->cellWidget(i, 2))->column().action != Populator::T_IGNORE)
+		for (int i = 0; i < columnTable->rowCount(); ++i)
 		{
-			enable = true;
-			break;
+			if (qobject_cast<PopulatorColumnWidget*>
+					(columnTable->cellWidget(i, 2))->column().action != Populator::T_IGNORE)
+			{
+				enable = true;
+				break;
+			}
 		}
 	}
 	populateButton->setEnabled(enable);
+}
+
+qlonglong PopulatorDialog::tableRowCount()
+{
+	QString sql("select count(1) from \"%1\".\"%2\";");
+	QSqlQuery query(sql.arg(m_schema).arg(m_table),
+					QSqlDatabase::database(SESSION_NAME));
+	query.exec();
+	if (query.lastError().isValid())
+	{
+		textBrowser->append(tr("Cannot get statistics for table."));
+		textBrowser->append(query.lastError().databaseText());
+		return -1;
+	}
+	while(query.next())
+		return query.value(0).toLongLong();
+	return -1;
 }
 
 QString PopulatorDialog::sqlColumns()
@@ -96,13 +127,8 @@ QString PopulatorDialog::sqlBinds()
 
 void PopulatorDialog::populateButton_clicked()
 {
+	qlonglong cntPre, cntPost;
 	textBrowser->clear();
-
-	if (spinBox->value() == 0)
-	{
-		textBrowser->append(tr("Specify count of the rows to insert."));
-		return;
-	}
 
 	for (int i = 0; i < columnTable->rowCount(); ++i)
 		m_columnList.append(qobject_cast<PopulatorColumnWidget*>(columnTable->cellWidget(i, 2))->column());
@@ -112,6 +138,8 @@ void PopulatorDialog::populateButton_clicked()
 	query.prepare(sql.arg(constraintBox->isChecked() ? "OR IGNORE" : "")
 			.arg(m_schema).arg(m_table)
 			.arg(sqlColumns()).arg(sqlBinds()));
+
+	cntPre = tableRowCount();
 
 	if (!Database::execSql("BEGIN TRANSACTION;"))
 	{
@@ -152,7 +180,11 @@ void PopulatorDialog::populateButton_clicked()
 	if (!Database::execSql("COMMIT;"))
 		textBrowser->append(tr("Transaction commit failed."));
 
+	cntPost = tableRowCount();
 	textBrowser->append(tr("It's done. Check messages above."));
+
+	if (cntPre != -1 && cntPost != -1)
+		textBrowser->append(tr("Row(s) inserted: %1").arg(cntPost-cntPre));
 }
 
 QVariantList PopulatorDialog::autoValues(Populator::PopColumn c)

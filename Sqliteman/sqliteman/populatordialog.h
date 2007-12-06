@@ -63,8 +63,14 @@ class PopulatorDialog : public QDialog, public Ui::PopulatorDialog
 		//! User given value only.
 		QVariantList staticValues(Populator::PopColumn c);
 
+		/*! Performs select count from table to simulate
+		QSqlQuery::numRowsAffected() for execBatch() method (it returns
+		1/0/-1 in the case of execBatch()). */
+		qlonglong tableRowCount();
+
 	private slots:
 		void populateButton_clicked();
+		void spinBox_valueChanged(int);
 		//! Set populateButton state (enabled/disabled) as required.
 		void checkActionTypes();
 };
