@@ -17,7 +17,8 @@ namespace Populator
 		T_NUMB,
 		T_TEXT,
 		T_PREF,
-		T_STAT
+		T_STAT,
+		T_IGNORE
 	} Action;
 	
 	//! Column description for Populator.

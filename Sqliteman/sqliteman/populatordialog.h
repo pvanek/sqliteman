@@ -27,6 +27,7 @@ T_NUMB: random number for column size
 T_TEXT: random text for column size
 T_PREF: prefixed text. See textPrefixedValues() for more info.
 T_STAT: static value. No computings, only user given string/number.
+T_IGNORE: nothing inserted. It's left for table default/null value.
 
 \author Petr Vanek <petr@scribus.ifno>
 */

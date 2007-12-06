@@ -47,6 +47,7 @@ void PopulatorColumnWidget::actionCombo_currentIndexChanged(int ix)
 		case Populator::T_AUTO:
 		case Populator::T_NUMB:
 		case Populator::T_TEXT:
+		case Populator::T_IGNORE:
 			enable = false;
 			break;
 		case Populator::T_PREF:

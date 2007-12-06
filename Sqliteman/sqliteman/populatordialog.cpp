@@ -59,7 +59,10 @@ QString PopulatorDialog::sqlColumns()
 {
 	QStringList s;
 	foreach (Populator::PopColumn i, m_columnList)
-		s.append(i.name);
+	{
+		if (i.action != Populator::T_IGNORE)
+			s.append(i.name);
+	}
 	return s.join("\", \"");
 }
 
@@ -67,7 +70,10 @@ QString PopulatorDialog::sqlBinds()
 {
 	QStringList s;
 	foreach (Populator::PopColumn i, m_columnList)
-		s.append(i.name);
+	{
+		if (i.action != Populator::T_IGNORE)
+			s.append(i.name);
+	}
 	return s.join(", :");
 }
 
@@ -114,6 +120,8 @@ void PopulatorDialog::populateButton_clicked()
 				break;
 			case Populator::T_STAT:
 				query.addBindValue(staticValues(i));
+				break;
+			case Populator::T_IGNORE:
 				break;
 		};
 	}
