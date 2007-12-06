@@ -6,38 +6,12 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QSqlQuery>
 #include <QSqlError>
-#include <QPushButton>
+#include <QHeaderView>
 #include <math.h>
 
 #include "populatordialog.h"
+#include "populatorcolumnwidget.h"
 
-
-#define T_AUTO 0
-#define T_NUMB 1
-#define T_TEXT 2
-
-
-namespace Populator
-{
-
-/*! \brief Push button with its row index remembered.
-It's used in the PopulatorDialog to raise the right configuration
-dialog. */
-class ColumnButton : public QPushButton
-{
-	Q_PROPERTY(int m_row READ row WRITE setRow)
-	public:
-		ColumnButton(QWidget * parent = 0) :
-				QPushButton(tr("Config..."), parent),
-				m_row(-1)
-		{};
-		void setRow(int v) { m_row = v; };
-		int row() { return m_row; };
-	private:
-		int m_row;
-};
-
-}; //namespace
 
 PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const QString & schema)
 	: QDialog(parent),
@@ -45,10 +19,7 @@ PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const 
 	  m_table(table)
 {
 	setupUi(this);
-
-	actionMap[T_AUTO] = tr("Autoincrement");
-	actionMap[T_NUMB] = tr("Random Number");
-	actionMap[T_TEXT] = tr("Random Text");
+	columnTable->horizontalHeader()->setStretchLastSection(true);
 
 	FieldList fields = Database::tableFields(m_table, m_schema);
 	columnTable->clearContents();
@@ -60,8 +31,7 @@ PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const 
 		col.name = fields[i].name;
 		col.type = fields[i].type;
 		col.pk = fields[i].pk;
-		col.action = defaultSuggestion(fields[i]);
-// 		col.autoCounter = -1;
+// 		col.action has to be set in PopulatorColumnWidget instance!
 		if (sizeExp.indexIn(col.type) != -1)
 		{
 			QString s = sizeExp.capturedTexts()[0].remove("(").remove(")");
@@ -72,44 +42,23 @@ PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const 
 		}
 		else
 			col.size = 10;
-		columnList.append(col);
+		col.prefix = "";
 
-		QTableWidgetItem * nameItem = new QTableWidgetItem(fields[i].name);
-		QTableWidgetItem * typeItem = new QTableWidgetItem(fields[i].type);
-		QTableWidgetItem * suggestedItem = new QTableWidgetItem(actionMap[col.action]);
+		QTableWidgetItem * nameItem = new QTableWidgetItem(col.name);
+		QTableWidgetItem * typeItem = new QTableWidgetItem(col.type);
 		columnTable->setItem(i, 0, nameItem);
 		columnTable->setItem(i, 1, typeItem);
-		columnTable->setItem(i, 2, suggestedItem);
-
-		// config
-		Populator::ColumnButton *b = new Populator::ColumnButton(this);
-		columnTable->setCellWidget(i, 3, b);
-		b->setRow(i);
-		connect(b, SIGNAL(clicked()), this, SLOT(configureColumn()));
+		columnTable->setCellWidget(i, 2, new PopulatorColumnWidget(col, columnTable));
 	}
 
 	columnTable->resizeColumnsToContents();
 	connect(populateButton, SIGNAL(clicked()), this, SLOT(populateButton_clicked()));
 }
 
-int PopulatorDialog::defaultSuggestion(const DatabaseTableField & column)
-{
-	QString t(column.type);
-	t = t.remove(QRegExp("\\(\\d+\\)")).toUpper().simplified();
-
-	if (column.pk)
-		return T_AUTO;
-
-	if (t == "INTEGER" || t == "NUMBER")
-		return T_NUMB;
-	else
-		return T_TEXT;
-}
-
 QString PopulatorDialog::sqlColumns()
 {
 	QStringList s;
-	foreach (Populator::PopColumn i, columnList)
+	foreach (Populator::PopColumn i, m_columnList)
 		s.append(i.name);
 	return s.join("\", \"");
 }
@@ -117,7 +66,7 @@ QString PopulatorDialog::sqlColumns()
 QString PopulatorDialog::sqlBinds()
 {
 	QStringList s;
-	foreach (Populator::PopColumn i, columnList)
+	foreach (Populator::PopColumn i, m_columnList)
 		s.append(i.name);
 	return s.join(", :");
 }
@@ -132,12 +81,14 @@ void PopulatorDialog::populateButton_clicked()
 		return;
 	}
 
+	for (int i = 0; i < columnTable->rowCount(); ++i)
+		m_columnList.append(qobject_cast<PopulatorColumnWidget*>(columnTable->cellWidget(i, 2))->column());
+
 	QSqlQuery query(QSqlDatabase::database(SESSION_NAME));
 	QString sql = "INSERT %1 INTO \"%2\".\"%3\" (\"%4\") VALUES (:%5);";
 	query.prepare(sql.arg(constraintBox->isChecked() ? "OR IGNORE" : "")
 			.arg(m_schema).arg(m_table)
 			.arg(sqlColumns()).arg(sqlBinds()));
-// 	qDebug() << query.lastQuery();
 
 	if (!Database::execSql("BEGIN TRANSACTION;"))
 	{
@@ -145,18 +96,24 @@ void PopulatorDialog::populateButton_clicked()
 		return;
 	}
 
-	foreach (Populator::PopColumn i, columnList)
+	foreach (Populator::PopColumn i, m_columnList)
 	{
 		switch (i.action)
 		{
-			case T_AUTO:
+			case Populator::T_AUTO:
 				query.addBindValue(autoValues(i));
 				break;
-			case T_NUMB:
+			case Populator::T_NUMB:
 				query.addBindValue(numberValues(i));
 				break;
-			case T_TEXT:
+			case Populator::T_TEXT:
 				query.addBindValue(textValues(i));
+				break;
+			case Populator::T_PREF:
+				query.addBindValue(textPrefixedValues(i));
+				break;
+			case Populator::T_STAT:
+				query.addBindValue(staticValues(i));
 				break;
 		};
 	}
@@ -193,7 +150,7 @@ QVariantList PopulatorDialog::autoValues(Populator::PopColumn c)
 	QVariantList ret;
 	for (int i = 0; i < spinBox->value(); ++i)
 		ret.append(i+max+1);
-// 	qDebug() << "autoValues: " << ret;
+
 	return ret;
 }
 
@@ -201,10 +158,7 @@ QVariantList PopulatorDialog::numberValues(Populator::PopColumn c)
 {
 	QVariantList ret;
 	for (int i = 0; i < spinBox->value(); ++i)
-	{
 		ret.append(qrand() % (int)pow(10, c.size));
-	}
-// 	qDebug() << "numberValues: " << ret;
 	return ret;
 }
 
@@ -216,14 +170,25 @@ QVariantList PopulatorDialog::textValues(Populator::PopColumn c)
 		QStringList l;
 		for (int j = 0; j < c.size; ++j)
 			l.append(QChar((qrand() % 58) + 65));
-		ret.append(l.join("").replace(QRegExp("(\\[|\\'|\\\\|\\]|\\^|\\_|\\`)"), " ").simplified());
+		ret.append(l.join("")
+				.replace(QRegExp("(\\[|\\'|\\\\|\\]|\\^|\\_|\\`)"), " ")
+				.simplified());
 	}
-// 	qDebug() << "textValues: " << ret;
 	return ret;
 }
-#include <QtDebug>
-void PopulatorDialog::configureColumn()
+
+QVariantList PopulatorDialog::textPrefixedValues(Populator::PopColumn c)
 {
-	Populator::PopColumn c = columnList.at(static_cast<Populator::ColumnButton*>(sender())->row());
-	qDebug() << "conf: " << c.name << " " << c.type;
+	QVariantList ret;
+	for (int i = 0; i < spinBox->value(); ++i)
+		ret.append(c.prefix + QString("%1").arg(i+1));
+	return ret;
+}
+
+QVariantList PopulatorDialog::staticValues(Populator::PopColumn c)
+{
+	QVariantList ret;
+	for (int i = 0; i < spinBox->value(); ++i)
+		ret.append(c.prefix);
+	return ret;
 }

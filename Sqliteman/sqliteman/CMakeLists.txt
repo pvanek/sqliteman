@@ -27,6 +27,7 @@ SET( SQLITEMAN_SRC
     multieditdialog.cpp
     litemanwindow.cpp
     main.cpp
+    populatorcolumnwidget.cpp
     populatordialog.cpp
     preferences.cpp
     preferencesdialog.cpp
@@ -81,7 +82,9 @@ SET( SQLITEMAN_MOC
     importtablelogdialog.h
     litemanwindow.h
     multieditdialog.h
+    populatorcolumnwidget.h
     populatordialog.h
+#     populatorstructs.h
     preferences.h
     preferencesdialog.h
     queryeditordialog.h
@@ -111,6 +114,7 @@ SET( SQLITEMAN_UI
     importtabledialog.ui
     importtablelogdialog.ui
     multieditdialog.ui
+    populatorcolumnwidget.ui
     populatordialog.ui
     preferencesdialog.ui
     prefsdatadisplaywidget.ui

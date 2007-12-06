@@ -1,0 +1,80 @@
+<ui version="4.0" >
+ <class>PopulatorColumnWidget</class>
+ <widget class="QWidget" name="PopulatorColumnWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>390</width>
+    <height>136</height>
+   </rect>
+  </property>
+  <layout class="QGridLayout" >
+   <property name="leftMargin" >
+    <number>0</number>
+   </property>
+   <property name="topMargin" >
+    <number>0</number>
+   </property>
+   <property name="rightMargin" >
+    <number>0</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>0</number>
+   </property>
+   <property name="horizontalSpacing" >
+    <number>3</number>
+   </property>
+   <property name="verticalSpacing" >
+    <number>0</number>
+   </property>
+   <item row="0" column="0" >
+    <widget class="QComboBox" name="actionCombo" >
+     <item>
+      <property name="text" >
+       <string>Autonumber</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Random Number</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Random Text</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Prefixed Text</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Static Value</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QLineEdit" name="specEdit" />
+   </item>
+   <item row="1" column="1" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
