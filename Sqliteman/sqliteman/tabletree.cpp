@@ -175,6 +175,8 @@ void TableTree::buildViews(QTreeWidgetItem * viewsItem, const QString & schema)
 		QTreeWidgetItem * viewItem = new QTreeWidgetItem(viewsItem, ViewType);
 		viewItem->setText(0, view);
 		viewItem->setText(1, schema);
+		QTreeWidgetItem *triggersItem = new QTreeWidgetItem(viewItem, TriggersItemType);
+		buildTriggers(triggersItem, schema, view);
 	}
 }
 

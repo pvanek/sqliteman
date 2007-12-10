@@ -843,7 +843,8 @@ void LiteManWindow::tableTree_currentItemChanged(QTreeWidgetItem* cur, QTreeWidg
 
 		case TableTree::TriggersItemType:
 			contextMenu->addAction(createTriggerAct);
-			contextMenu->addAction(consTriggAct);
+			if (cur->parent()->type() != TableTree::ViewType)
+				contextMenu->addAction(consTriggAct);
 			break;
 
 		case TableTree::TriggerType:
