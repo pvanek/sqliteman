@@ -42,18 +42,29 @@ DataViewer::DataViewer(QWidget * parent)
 	DataViewerTools::KeyPressEater *keyPressEater = new DataViewerTools::KeyPressEater(this);
 	ui.tableView->installEventFilter(keyPressEater);
 
-	connect(ui.actionNew_Row, SIGNAL(triggered()), this, SLOT(addRow()));
-	connect(ui.actionRemove_Row, SIGNAL(triggered()), this, SLOT(removeRow()));
-	connect(ui.actionTruncate_Table, SIGNAL(triggered()), this, SLOT(truncateTable()));
-	connect(ui.actionExport_Data, SIGNAL(triggered()), this, SLOT(exportData()));
-	connect(ui.actionCommit, SIGNAL(triggered()), this, SLOT(commit()));
-	connect(ui.actionRollback, SIGNAL(triggered()), this, SLOT(rollback()));
-	connect(ui.actionRipOut, SIGNAL(triggered()), this, SLOT(openStandaloneWindow()));
-	connect(ui.actionClose, SIGNAL(triggered()), this, SLOT(close()));
-	connect(keyPressEater, SIGNAL(copyRequest()), this, SLOT(copyHandler()));
+	connect(ui.actionNew_Row, SIGNAL(triggered()),
+			this, SLOT(addRow()));
+	connect(ui.actionRemove_Row, SIGNAL(triggered()),
+			this, SLOT(removeRow()));
+	connect(ui.actionTruncate_Table, SIGNAL(triggered()),
+			this, SLOT(truncateTable()));
+	connect(ui.actionExport_Data, SIGNAL(triggered()),
+			this, SLOT(exportData()));
+	connect(ui.actionCommit, SIGNAL(triggered()),
+			this, SLOT(commit()));
+	connect(ui.actionRollback, SIGNAL(triggered()),
+			this, SLOT(rollback()));
+	connect(ui.actionRipOut, SIGNAL(triggered()),
+			this, SLOT(openStandaloneWindow()));
+	connect(ui.actionClose, SIGNAL(triggered()),
+			this, SLOT(close()));
+	connect(keyPressEater, SIGNAL(copyRequest()),
+			this, SLOT(copyHandler()));
 // 	connect(parent, SIGNAL(prefsChanged()), ui.tableView, SLOT(repaint()));
-	connect(ui.actionBLOB_Preview, SIGNAL(toggled(bool)), this, SLOT(handleBlobPreview(bool)));
-	connect(ui.tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabWidget_currentChanged(int)));
+	connect(ui.actionBLOB_Preview, SIGNAL(toggled(bool)),
+			this, SLOT(handleBlobPreview(bool)));
+	connect(ui.tabWidget, SIGNAL(currentChanged(int)),
+			this, SLOT(tabWidget_currentChanged(int)));
 }
 
 bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
@@ -351,6 +362,7 @@ const QString DataViewer::canFetchMore()
 {
 	return tr("(More rows can be fetched. Scroll the resultset for more rows and/or read the documentation.)");
 }
+
 
 
 /* Tools *************************************************** */
