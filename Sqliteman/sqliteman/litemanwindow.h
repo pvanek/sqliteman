@@ -149,6 +149,9 @@ class LiteManWindow : public QMainWindow
 		QString m_appName;
 		QString m_lang;
 
+		//! \brief True if is sqlite3 binary available in the path
+		bool m_sqliteBinAvailable;
+
 		/*! \brief alias name - connection name mappings
 		It's used for mapping of the attached databases for QSqlTableModel
 		as it does not support database.table naming schema */

@@ -59,8 +59,19 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 	: QMainWindow(),
 	m_mainDbPath(""),
 	m_appName("Sqliteman"),
+	m_sqliteBinAvailable(true),
 	helpBrowser(0)
 {
+	// test for sqlite3 binary
+	qDebug() << "Checking for " << SQLITE_BINARY << ":";
+	if (QProcess::execute(SQLITE_BINARY, QStringList() << "-version") != 0)
+	{
+		m_sqliteBinAvailable = false;
+		QMessageBox::warning(this, m_appName,
+							 tr("Sqlite3 executable '%1' is not found in your path. Some features will be disabled.")
+									 .arg(SQLITE_BINARY));
+	}
+
 	recentDocs.clear();
 	attachedDb.clear();
 	initUI();
@@ -74,13 +85,6 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 	qDebug() << "Initial DB: " << fileToOpen;
 	if (!fileToOpen.isNull() && !fileToOpen.isEmpty())
 		open(fileToOpen);
-
-	// test for sqlite3 binary
-	qDebug() << "Checking for " << SQLITE_BINARY << ":";
-	if (QProcess::execute(SQLITE_BINARY, QStringList() << "-version") != 0)
-		QMessageBox::warning(this, m_appName,
-							 tr("Sqlite3 executable '%1' is not found in your path. Some features will be disabled.")
-									 .arg(SQLITE_BINARY));
 }
 
 LiteManWindow::~LiteManWindow()
@@ -209,6 +213,7 @@ void LiteManWindow::initActions()
 
 	dumpDatabaseAct = new QAction(tr("&Dump Database..."), this);
 	connect(dumpDatabaseAct, SIGNAL(triggered()), this, SLOT(dumpDatabase()));
+	dumpDatabaseAct->setEnabled(m_sqliteBinAvailable);
 
 	createTableAct = new QAction(tr("&Create Table..."), this);
 	createTableAct->setShortcut(tr("Ctrl+T"));
