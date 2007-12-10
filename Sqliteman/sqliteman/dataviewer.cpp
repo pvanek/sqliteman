@@ -168,7 +168,11 @@ void DataViewer::truncateTable()
 		return;
 	SqlTableModel * model = qobject_cast<SqlTableModel *>(ui.tableView->model());
 	if(model)
+	{
+		while (model->canFetchMore())
+			model->fetchMore();
 		model->removeRows(0, model->rowCount());
+	}
 }
 
 void DataViewer::exportData()
