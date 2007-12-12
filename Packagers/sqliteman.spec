@@ -16,14 +16,14 @@ Release:      %{builddate}
 Source:       %{name}-%{version}.tar.gz
 
 %if 0%{?suse_version}
-Requires:     libqt4 >= 4.2.0 libqt4-sql-sqlite >= 4.2.0 sqlite
-BuildRequires: libqt4-devel >= 4.2.0 libqt4-sql-sqlite cmake
+Requires:     libqt4 >= 4.3.0 libqt4-sql-sqlite >= 4.3.0 sqlite
+BuildRequires: libqt4-devel >= 4.3.0 libqt4-sql-sqlite cmake
 %endif
 
 #%if 0%{?fedora_version}
 %if %{_target_vendor} == redhat
-Requires:     qt4 >= 4.2.0 qt4-sqlite >= 4.2.0
-BuildRequires: qt4-devel >= 4.2.0 qt4-sqlite cmake gcc-c++
+Requires:     qt4 >= 4.3.0 qt4-sqlite >= 4.3.0
+BuildRequires: qt4-devel >= 4.3.0 qt4-sqlite cmake gcc-c++
 %endif
 
 
@@ -51,6 +51,7 @@ cmake \
 	-DCMAKE_CXX_FLAGS="%{optflags}" \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DWANT_INTERNAL_QSCINTILLA=1 \
 	%{_builddir}/%{name}-%{version}
 %endif
 
@@ -61,6 +62,7 @@ cmake \
 	-DCMAKE_CXX_FLAGS="%{optflags}" \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_INSTALL_PREFIX=%{buildroot}/usr \
+	-DWANT_INTERNAL_QSCINTILLA=1 \
 	%{_builddir}/%{name}-%{version}
 %endif
 
