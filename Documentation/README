@@ -1,0 +1,38 @@
+This directory contains documentation for Sqliteman.
+
+Docs are written in KDE based Docbook.
+
+
+Directories:
+
+    common
+    - KDE4 common graphics and styles for HTML files
+
+    docbook
+    - local copy of the Docbook source
+
+    en
+    - Endlish documentation
+
+
+Files:
+
+    kde-chunk.xsl
+    kde-navig.xsl
+    kde-style.xsl
+    kde-ttlpg.xsl
+     - modified KDE4 stylesheets for local usage
+    meinproc4.kmdr
+     - meinproc4 launcher for Quanta XML editor
+
+
+simple usage. E.g.:
+
+    rm -rf RELEASE
+    mkdir -p RELEASE/en
+    cd RELEASE/en
+    echo `pwd`
+    meinproc4 --stylesheet `pwd`/../../kde-chunk.xsl ../../en/index.docbook
+    cp ../../common/* .
+    cp ../../en/* .
+    cd ../../
