@@ -21,6 +21,8 @@ INSTALL(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/..
           PATTERN "CMakeFiles" EXCLUDE
           PATTERN "Makefile" EXCLUDE
           PATTERN "cmake_install.cmake" EXCLUDE
+          PATTERN "CMakeCache.txt" EXCLUDE
+          PATTERN "install_manifest.txt" EXCLUDE
           PATTERN "*.html"
 )
 
