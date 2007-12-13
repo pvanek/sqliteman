@@ -23,7 +23,7 @@ SET (VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_SUFFIX}
 
 SET (EXE_NAME "sqliteman")
 
-MESSAGE(STATUS "Sqliteman ${VERSION} will be built to install into ${CMAKE_INSTALL_PREFIX}")
+MESSAGE(STATUS "Sqliteman ${VERSION} will be installed into ${CMAKE_INSTALL_PREFIX}")
 
 # set platform dependent stuff - e.g. sqlite3 binary name
 # NOTE: it's built with RESOURCES on Windows 
