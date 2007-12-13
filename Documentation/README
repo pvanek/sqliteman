@@ -1,6 +1,7 @@
 This directory contains documentation for Sqliteman.
 
-Docs are written in KDE based Docbook.
+Docs are written in KDE based Docbook. Documentaion building is
+cmake-based too!
 
 
 Directories:
@@ -27,12 +28,11 @@ Files:
 
 
 simple usage. E.g.:
+1) create a "build" directory: mkdir build
+2) cd mkdir
+3) cmake -DCMAKE_INSTALL_PREFIX=../release ..
+4) make install
+5) see the "release" directory for new documentation
 
-    rm -rf RELEASE
-    mkdir -p RELEASE/en
-    cd RELEASE/en
-    echo `pwd`
-    meinproc4 --stylesheet `pwd`/../../kde-chunk.xsl ../../en/index.docbook
-    cp ../../common/* .
-    cp ../../en/* .
-    cd ../../
+
+
