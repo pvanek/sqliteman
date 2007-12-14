@@ -6,17 +6,16 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QToolButton>
 #include <QModelIndex>
+#include <QFocusEvent>
 
 #include "sqldelegate.h"
 #include "utils.h"
 #include "multieditdialog.h"
 
 
-// #include <QtDebug>
 SqlDelegate::SqlDelegate(QObject * parent)
 	: QItemDelegate(parent)
 {
-// 	qDebug() << "SqlDelegate::SqlDelegate(QObject * parent)";
 }
 
 QWidget *SqlDelegate::createEditor(QWidget *parent,
@@ -24,21 +23,19 @@ QWidget *SqlDelegate::createEditor(QWidget *parent,
 								   const QModelIndex &/* index */) const
 {
 	SqlDelegateUi *editor = new SqlDelegateUi(parent);
-	editor->setFocus(/*Qt::OtherFocusReason*/);
+	editor->setFocus();
 	editor->setFocusPolicy(Qt::StrongFocus);
 	connect(editor, SIGNAL(closeEditor(QWidget *)),
 			this, SLOT(editor_closeEditor(QWidget *)));
-// 	qDebug() << "createEditor";
 	return editor;
 }
 
 void SqlDelegate::setEditorData(QWidget *editor,
 								const QModelIndex &index) const
 {
-	static_cast<SqlDelegateUi*>(editor)->setSqlData(index.model()->data(index, Qt::EditRole));
-// 	static_cast<SqlDelegateUi*>(editor)->lineEdit->setFocus(Qt::OtherFocusReason);
-// 	static_cast<SqlDelegateUi*>(editor)->lineEdit->setFocusPolicy(Qt::StrongFocus);
-// 	qDebug() << "setEditorData";
+	static_cast<SqlDelegateUi*>(editor)->setSqlData(
+								index.model()->data(index,
+								Qt::EditRole));
 }
 
 void SqlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
@@ -46,7 +43,6 @@ void SqlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 {
 	SqlDelegateUi *ed = static_cast<SqlDelegateUi*>(editor);
 	model->setData(index, ed->sqlData(), Qt::EditRole);
-// 	qDebug() << "setModelData";
 }
 
 void SqlDelegate::updateEditorGeometry(QWidget *editor,
@@ -54,12 +50,10 @@ void SqlDelegate::updateEditorGeometry(QWidget *editor,
 									   const QModelIndex &/* index */) const
 {
 	editor->setGeometry(option.rect);
-// 	qDebug() << "updateEditorGeometry";
 }
 
 void SqlDelegate::editor_closeEditor(QWidget * editor)
 {
-// 	qDebug() << "editor_closeEditor";
 	emit commitData(editor);
 	emit closeEditor(editor, QAbstractItemDelegate::EditNextItem /*NoHint does not work as expected*/);
 }
@@ -80,12 +74,16 @@ SqlDelegateUi::SqlDelegateUi(QWidget * parent)
 			this, SLOT(editButton_clicked(bool)));
 	connect(lineEdit, SIGNAL(textEdited(const QString &)),
 			this, SLOT(lineEdit_textEdited(const QString &)));
-// 	qDebug() << "SqlDelegateUi::SqlDelegateUi(QWidget * parent)";
+}
+
+void SqlDelegateUi::focusInEvent(QFocusEvent *e)
+{
+	if (e->gotFocus())
+		lineEdit->setFocus();
 }
 
 void SqlDelegateUi::setSqlData(const QVariant & data)
 {
-// 	qDebug() << "setSqlData";
 	m_sqlData = data;
 	// blob or multiline
 	if (data.type() == QVariant::ByteArray
@@ -93,7 +91,6 @@ void SqlDelegateUi::setSqlData(const QVariant & data)
 	{
 		lineEdit->setDisabled(true);
 		lineEdit->setToolTip(tr("Multiline texts can be edited by the enhanced editor only (Ctrl+Shift+E)"));
-// 		qDebug() << "m_openEditor1: "<<m_openEditor;
 		if (m_openEditor)
 			editButton_clicked(true);
 	}
@@ -102,13 +99,11 @@ void SqlDelegateUi::setSqlData(const QVariant & data)
 
 QVariant SqlDelegateUi::sqlData()
 {
-// 	qDebug() << "sqlData";
 	return m_sqlData;
 }
 
 void SqlDelegateUi::nullButton_clicked(bool)
 {
-// 	qDebug() << "nullButton_clicked";
 	lineEdit->setText(QString());
 	m_sqlData = QString();
 	emit closeEditor(this);
@@ -119,7 +114,6 @@ void SqlDelegateUi::editButton_clicked(bool)
 	MultiEditDialog * dia = new MultiEditDialog(this);
 	dia->setData(m_sqlData);
 	m_openEditor = false;
-// 	qDebug() << "editButton_clicked";
 	if (dia->exec())
 		setSqlData(dia->data());
 	emit closeEditor(this);
@@ -129,15 +123,3 @@ void SqlDelegateUi::lineEdit_textEdited(const QString & text)
 {
 	m_sqlData = text;
 }
-// #include <QtDebug>
-// void SqlDelegateUi::showEvent(QShowEvent * e)
-// {
-// 	qDebug() << "\n"<<QApplication::focusWidget ();
-// 	QWidget::showEvent(e);
-// 	qDebug() << "v: " << lineEdit->isVisible();
-// // 	lineEdit->setFocus(/*Qt::MouseFocusReason*/);
-// // 	lineEdit->setFocusPolicy(Qt::StrongFocus);
-// 	lineEdit->setCursorPosition(666);
-// // 	lineEdit->selectAll();
-// 	qDebug() <<QApplication::focusWidget ();
-// }
