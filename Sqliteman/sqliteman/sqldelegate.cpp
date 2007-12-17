@@ -55,13 +55,12 @@ void SqlDelegate::updateEditorGeometry(QWidget *editor,
 void SqlDelegate::editor_closeEditor(QWidget * editor)
 {
 	emit commitData(editor);
-	emit closeEditor(editor, QAbstractItemDelegate::EditNextItem /*NoHint does not work as expected*/);
+	emit closeEditor(editor , QAbstractItemDelegate::EditNextItem /*NoHint does not work as expected*/);
 }
 
 
 SqlDelegateUi::SqlDelegateUi(QWidget * parent)
-	: QWidget(parent),
-	  m_openEditor(true)
+	: QWidget(parent)
 {
 	setupUi(this);
 
@@ -90,9 +89,8 @@ void SqlDelegateUi::setSqlData(const QVariant & data)
 		   || m_sqlData.toString().contains("\n"))
 	{
 		lineEdit->setDisabled(true);
-		lineEdit->setToolTip(tr("Multiline texts can be edited by the enhanced editor only (Ctrl+Shift+E)"));
-		if (m_openEditor)
-			editButton_clicked(true);
+		lineEdit->setToolTip(tr("Multiline texts can be edited with the enhanced editor only (Ctrl+Shift+E)"));
+		editButton_clicked(true);
 	}
 	lineEdit->setText(data.toString());
 }
@@ -109,13 +107,14 @@ void SqlDelegateUi::nullButton_clicked(bool)
 	emit closeEditor(this);
 }
 
-void SqlDelegateUi::editButton_clicked(bool)
+void SqlDelegateUi::editButton_clicked(bool state)
 {
 	MultiEditDialog * dia = new MultiEditDialog(this);
+	qApp->setOverrideCursor(Qt::WaitCursor);
 	dia->setData(m_sqlData);
-	m_openEditor = false;
+	qApp->restoreOverrideCursor();
 	if (dia->exec())
-		setSqlData(dia->data());
+		m_sqlData = dia->data();
 	emit closeEditor(this);
 }
 

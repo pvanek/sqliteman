@@ -67,8 +67,6 @@ class SqlDelegateUi : public QWidget, public Ui::SqlDelegateUi
 
 	private:
 		QVariant m_sqlData;
-		//! Flag to prevent reopening the MultiEditDialog again and again in the setSqlData().
-		bool m_openEditor;
 
 		/*! Set focus to the proper place implementation.
 		Jørgen Lind (Trolltech): "We set focus on the widget after we have created it
