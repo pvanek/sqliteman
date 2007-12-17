@@ -6,7 +6,13 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QFileDialog>
 #include <QMessageBox>
+
+#if QT_VERSION >= 0x040300
 #include <QXmlStreamReader>
+#else
+#warning "QXmlStreamReader is disabled. Qt 4.3.x required."
+#endif
+
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QtDebug>
@@ -36,6 +42,10 @@ ImportTableDialog::ImportTableDialog(QWidget * parent, const QString & tableName
 	}
 	schemaComboBox->setCurrentIndex(currIx);
 	setTablesForSchema(schema);
+
+#if QT_VERSION < 0x040300
+	tabWidget->setTabEnabled(1, false);
+#endif
 
 	connect(schemaComboBox, SIGNAL(currentIndexChanged(const QString &)),
 			this, SLOT(setTablesForSchema(const QString &)));
@@ -275,6 +285,7 @@ ImportTable::CSVModel::CSVModel(QString fileName, QString separator, QObject * p
 ImportTable::XMLModel::XMLModel(QString fileName, QObject * parent, int maxRows)
 	: BaseModel(parent)
 {
+#if QT_VERSION >= 0x040300
 	QFile file(fileName);
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
@@ -327,6 +338,7 @@ ImportTable::XMLModel::XMLModel(QString fileName, QObject * parent, int maxRows)
     }
 
 	file.close();
+#endif
 }
 
 void ImportTableDialog::setTablesForSchema(const QString & schema)

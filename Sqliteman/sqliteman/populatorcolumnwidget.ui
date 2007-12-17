@@ -10,23 +10,11 @@
    </rect>
   </property>
   <layout class="QGridLayout" >
-   <property name="leftMargin" >
-    <number>0</number>
+   <property name="margin" >
+    <number>9</number>
    </property>
-   <property name="topMargin" >
-    <number>0</number>
-   </property>
-   <property name="rightMargin" >
-    <number>0</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>0</number>
-   </property>
-   <property name="horizontalSpacing" >
-    <number>3</number>
-   </property>
-   <property name="verticalSpacing" >
-    <number>0</number>
+   <property name="spacing" >
+    <number>6</number>
    </property>
    <item row="0" column="0" >
     <widget class="QComboBox" name="actionCombo" >

@@ -5,79 +5,59 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>32</height>
+    <width>402</width>
+    <height>48</height>
    </rect>
   </property>
   <layout class="QGridLayout" >
-   <property name="leftMargin" >
-    <number>1</number>
-   </property>
-   <property name="topMargin" >
-    <number>1</number>
-   </property>
-   <property name="rightMargin" >
-    <number>1</number>
-   </property>
-   <property name="bottomMargin" >
-    <number>1</number>
-   </property>
-   <property name="horizontalSpacing" >
+   <property name="margin" >
     <number>0</number>
    </property>
-   <property name="verticalSpacing" >
+   <property name="spacing" >
     <number>0</number>
    </property>
    <item row="0" column="0" >
-    <widget class="QLineEdit" name="lineEdit" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
      </property>
-     <property name="toolTip" >
-      <string>Edit data here</string>
+     <property name="spacing" >
+      <number>0</number>
      </property>
-    </widget>
-   </item>
-   <item row="0" column="1" >
-    <widget class="QToolButton" name="nullButton" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Fixed" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="toolTip" >
-      <string>Set value to the NULL</string>
-     </property>
-     <property name="text" >
-      <string>&amp;N</string>
-     </property>
-     <property name="shortcut" >
-      <string>Ctrl+Shift+N</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2" >
-    <widget class="QToolButton" name="editButton" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Expanding" hsizetype="Fixed" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="toolTip" >
-      <string>Open multiline editor</string>
-     </property>
-     <property name="text" >
-      <string>&amp;E</string>
-     </property>
-     <property name="shortcut" >
-      <string>Ctrl+Shift+E</string>
-     </property>
-    </widget>
+     <item>
+      <widget class="QLineEdit" name="lineEdit" >
+       <property name="toolTip" >
+        <string>Edit data here</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="nullButton" >
+       <property name="toolTip" >
+        <string>Set value to the NULL</string>
+       </property>
+       <property name="text" >
+        <string>&amp;N</string>
+       </property>
+       <property name="shortcut" >
+        <string>Ctrl+Shift+N</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="editButton" >
+       <property name="toolTip" >
+        <string>Open multiline editor</string>
+       </property>
+       <property name="text" >
+        <string>&amp;E</string>
+       </property>
+       <property name="shortcut" >
+        <string>Ctrl+Shift+E</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

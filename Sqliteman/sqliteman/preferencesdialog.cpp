@@ -33,6 +33,12 @@ PrefsSQLEditorWidget::PrefsSQLEditorWidget(QWidget * parent)
 	: QDialog(parent)
 {
 	setupUi(this);
+
+#if QT_VERSION < 0x040300
+	useShortcutsBox->hide();
+	shortcutsButton->hide();
+#endif
+
 	syntaxPreviewEdit->setText("-- this is a comment\n" \
 			"select *\n"
 			"from table_name\n" \

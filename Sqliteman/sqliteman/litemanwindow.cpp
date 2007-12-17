@@ -71,6 +71,12 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 							 tr("Sqlite3 executable '%1' is not found in your path. Some features will be disabled.")
 									 .arg(SQLITE_BINARY));
 	}
+	qDebug() << "Checking for Qt version: " << qVersion();
+#if QT_VERSION < 0x040300
+	QMessageBox::warning(this, m_appName,
+						 tr("Sqliteman is using Qt %1. Some features will be disabled.")
+							.arg(qVersion()));
+#endif
 
 	recentDocs.clear();
 	attachedDb.clear();

@@ -11,7 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "ui_importtabledialog.h"
 
 
-/*! \brief Import data into table using various importer types
+/*! \brief Import data into table using various importer types.
+\note XML import requires Qt library at least in the 4.3.0 version.
 \author Petr Vanek <petr@scribus.info>
 */
 class ImportTableDialog : public QDialog, public Ui::ImportTableDialog
@@ -84,7 +85,9 @@ namespace ImportTable
 			CSVModel(QString fileName, QString separator, QObject * parent = 0, int maxRows = 0);
 	};
 
-	//! \brief MS Excel XML importer
+	/*! \brief MS Excel XML importer
+	\note XML import requires Qt library at least in the 4.3.0 version.
+	*/
 	class XMLModel : public BaseModel
 	{
 		Q_OBJECT

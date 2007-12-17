@@ -2,7 +2,7 @@
 		xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 		version="1.0">
 
-<xsl:param name="callout.graphics.path" select="'common/'" doc:type='string'/>
+<xsl:param name="callout.graphics.path" select="''" doc:type='string'/>
 
 <xsl:template match="guilabel|guimenu|guisubmenu|guimenuitem|interface|guibutton">
   <span class="guiitem">

@@ -248,12 +248,14 @@ void TableTree::mousePressEvent(QMouseEvent *event)
 		   currentItem()->type() != TableTree::ColumnType)
 		return;
 
+#if QT_VERSION >= 0x040300
 	QDrag *drag = new QDrag(this);
 	QMimeData *mimeData = new QMimeData;
 
 	mimeData->setText(currentItem()->text(0));
 	drag->setMimeData(mimeData);
 	drag->exec(Qt::CopyAction);
+#endif
 
 	QTreeWidget::mouseMoveEvent(event);
 }

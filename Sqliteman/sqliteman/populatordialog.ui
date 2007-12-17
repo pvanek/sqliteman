@@ -13,6 +13,12 @@
    <string>Populate Table</string>
   </property>
   <layout class="QGridLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
    <item row="0" column="0" >
     <widget class="QSplitter" name="splitter" >
      <property name="orientation" >
@@ -20,26 +26,20 @@
      </property>
      <widget class="QWidget" native="1" name="widget" >
       <layout class="QGridLayout" >
-       <property name="leftMargin" >
-        <number>0</number>
-       </property>
-       <property name="topMargin" >
-        <number>0</number>
-       </property>
-       <property name="rightMargin" >
-        <number>0</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>0</number>
-       </property>
-       <property name="horizontalSpacing" >
-        <number>0</number>
-       </property>
-       <property name="verticalSpacing" >
+       <property name="margin" >
         <number>9</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
        </property>
        <item row="0" column="0" >
         <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
          <item>
           <widget class="QLabel" name="label" >
            <property name="text" >
@@ -65,6 +65,12 @@
           <string>Column &amp;Settings</string>
          </property>
          <layout class="QGridLayout" >
+          <property name="margin" >
+           <number>9</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
           <item row="0" column="0" >
            <widget class="QTableWidget" name="columnTable" >
             <property name="alternatingRowColors" >

@@ -13,6 +13,12 @@
    <string>Create Table</string>
   </property>
   <layout class="QGridLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
    <item row="0" column="0" >
     <widget class="QSplitter" name="tableEditorSplitter" >
      <property name="orientation" >
@@ -20,17 +26,11 @@
      </property>
      <widget class="QWidget" native="1" name="widget" >
       <layout class="QGridLayout" >
-       <property name="leftMargin" >
-        <number>0</number>
+       <property name="margin" >
+        <number>9</number>
        </property>
-       <property name="topMargin" >
-        <number>0</number>
-       </property>
-       <property name="rightMargin" >
-        <number>0</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>0</number>
+       <property name="spacing" >
+        <number>6</number>
        </property>
        <item row="0" column="0" colspan="2" >
         <widget class="QTabWidget" name="tabWidget" >
@@ -42,6 +42,12 @@
            <string>De&amp;sign</string>
           </attribute>
           <layout class="QGridLayout" >
+           <property name="margin" >
+            <number>9</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
            <item row="0" column="0" >
             <widget class="QLabel" name="label_2" >
              <property name="text" >
@@ -74,22 +80,10 @@
               <string>Co&amp;lumns</string>
              </property>
              <layout class="QGridLayout" >
-              <property name="leftMargin" >
+              <property name="margin" >
                <number>9</number>
               </property>
-              <property name="topMargin" >
-               <number>9</number>
-              </property>
-              <property name="rightMargin" >
-               <number>9</number>
-              </property>
-              <property name="bottomMargin" >
-               <number>9</number>
-              </property>
-              <property name="horizontalSpacing" >
-               <number>6</number>
-              </property>
-              <property name="verticalSpacing" >
+              <property name="spacing" >
                <number>6</number>
               </property>
               <item row="0" column="0" colspan="3" >
@@ -175,22 +169,10 @@
            <string>Ad&amp;vanced (SQL)</string>
           </attribute>
           <layout class="QGridLayout" >
-           <property name="leftMargin" >
+           <property name="margin" >
             <number>9</number>
            </property>
-           <property name="topMargin" >
-            <number>9</number>
-           </property>
-           <property name="rightMargin" >
-            <number>9</number>
-           </property>
-           <property name="bottomMargin" >
-            <number>9</number>
-           </property>
-           <property name="horizontalSpacing" >
-            <number>6</number>
-           </property>
-           <property name="verticalSpacing" >
+           <property name="spacing" >
             <number>6</number>
            </property>
            <item row="0" column="0" >
