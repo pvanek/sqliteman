@@ -7,7 +7,7 @@
 #
 
 Name:         sqliteman
-URL:          http://www.assembla.com/space/sqliteman
+URL:          http://sqliteman.com
 License:      GPL
 Group:        Development/Databases
 Summary:      Lightweigth but powerfull Sqlite3 manager. Development snapshot.
