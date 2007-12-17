@@ -51,29 +51,39 @@
           <number>1</number>
          </property>
          <property name="spacing" >
-          <number>2</number>
+          <number>3</number>
          </property>
-         <item row="0" column="0" >
-          <widget class="QLabel" name="label" >
+         <item row="0" column="3" >
+          <widget class="QToolButton" name="nextToolButton" >
+           <property name="toolTip" >
+            <string>Search Next</string>
+           </property>
+           <property name="shortcut" >
+            <string>F3</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="6" >
+          <widget class="QCheckBox" name="wholeWordsCheckBox" >
            <property name="text" >
-            <string>Search:</string>
+            <string>Whole Words</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1" >
           <widget class="QLineEdit" name="searchEdit" />
          </item>
-         <item row="0" column="4" >
+         <item row="0" column="5" >
           <widget class="QCheckBox" name="caseCheckBox" >
            <property name="text" >
             <string>Case Sensitive</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="5" >
-          <widget class="QCheckBox" name="wholeWordsCheckBox" >
+         <item row="0" column="0" >
+          <widget class="QLabel" name="label" >
            <property name="text" >
-            <string>Whole Words</string>
+            <string>Search:</string>
            </property>
           </widget>
          </item>
@@ -82,28 +92,25 @@
            <property name="toolTip" >
             <string>Search previous</string>
            </property>
-           <property name="text" >
-            <string>&lt;</string>
-           </property>
            <property name="shortcut" >
             <string>Shift+F3</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="3" >
-          <widget class="QToolButton" name="nextToolButton" >
-           <property name="toolTip" >
-            <string>Search Next</string>
+         <item row="0" column="7" >
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
            </property>
-           <property name="text" >
-            <string>></string>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
            </property>
-           <property name="shortcut" >
-            <string>F3</string>
-           </property>
-          </widget>
+          </spacer>
          </item>
-         <item row="0" column="6" >
+         <item row="0" column="4" >
           <spacer>
            <property name="orientation" >
             <enum>Qt::Horizontal</enum>

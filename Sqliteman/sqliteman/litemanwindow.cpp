@@ -70,12 +70,17 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 		QMessageBox::warning(this, m_appName,
 							 tr("Sqlite3 executable '%1' is not found in your path. Some features will be disabled.")
 									 .arg(SQLITE_BINARY));
+		qDebug() << "Sqlite3 executable '%1' is not found in your path. Some features will be disabled.";
 	}
 	qDebug() << "Checking for Qt version: " << qVersion();
 #if QT_VERSION < 0x040300
-	QMessageBox::warning(this, m_appName,
+	if (Preferences::instance()->checkQtVersion())
+	{
+		QMessageBox::warning(this, m_appName,
 						 tr("Sqliteman is using Qt %1. Some features will be disabled.")
 							.arg(qVersion()));
+		qDebug() << "Sqliteman is using Qt %1. Some features will be disabled.";
+	}
 #endif
 
 	recentDocs.clear();
@@ -83,7 +88,6 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 	initUI();
 	initActions();
 	initMenus();
-// 	initStatusBar();
 	statusBar();
 	readSettings();
 
@@ -171,11 +175,13 @@ void LiteManWindow::initUI()
 
 void LiteManWindow::initActions()
 {
-	newAct = new QAction(tr("&New..."), this);
+	newAct = new QAction(Utils::getIcon("document-new.png"),
+						 tr("&New..."), this);
 	newAct->setShortcut(tr("Ctrl+N"));
 	connect(newAct, SIGNAL(triggered()), this, SLOT(newDB()));
 
-	openAct = new QAction(tr("&Open..."), this);
+	openAct = new QAction(Utils::getIcon("document-open.png"),
+						  tr("&Open..."), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 
@@ -186,7 +192,7 @@ void LiteManWindow::initActions()
 	preferencesAct = new QAction(tr("&Preferences..."), this);
 	connect(preferencesAct, SIGNAL(triggered()), this, SLOT(preferences()));
 
-	exitAct = new QAction(tr("E&xit"), this);
+	exitAct = new QAction(Utils::getIcon("close.png"), tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
 	connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
@@ -221,7 +227,8 @@ void LiteManWindow::initActions()
 	connect(dumpDatabaseAct, SIGNAL(triggered()), this, SLOT(dumpDatabase()));
 	dumpDatabaseAct->setEnabled(m_sqliteBinAvailable);
 
-	createTableAct = new QAction(tr("&Create Table..."), this);
+	createTableAct = new QAction(Utils::getIcon("table.png"),
+								 tr("&Create Table..."), this);
 	createTableAct->setShortcut(tr("Ctrl+T"));
 	connect(createTableAct, SIGNAL(triggered()), this, SLOT(createTable()));
 
@@ -238,7 +245,8 @@ void LiteManWindow::initActions()
 	populateTableAct = new QAction(tr("&Populate Table..."), this);
 	connect(populateTableAct, SIGNAL(triggered()), this, SLOT(populateTable()));
 
-	createViewAct = new QAction(tr("Create &View..."), this);
+	createViewAct = new QAction(Utils::getIcon("view.png"),
+								tr("Create &View..."), this);
 	createViewAct->setShortcut(tr("Ctrl+G"));
 	connect(createViewAct, SIGNAL(triggered()), this, SLOT(createView()));
 
@@ -248,7 +256,8 @@ void LiteManWindow::initActions()
 	alterViewAct = new QAction(tr("&Alter View..."), this);
 	connect(alterViewAct, SIGNAL(triggered()), this, SLOT(alterView()));
 
-	createIndexAct = new QAction(tr("&Create Index..."), this);
+	createIndexAct = new QAction(Utils::getIcon("index.png"),
+								 tr("&Create Index..."), this);
 	connect(createIndexAct, SIGNAL(triggered()), this, SLOT(createIndex()));
 
 	dropIndexAct = new QAction(tr("&Drop Index"), this);
@@ -260,7 +269,8 @@ void LiteManWindow::initActions()
 	importTableAct = new QAction(tr("&Import Table Data..."), this);
 	connect(importTableAct, SIGNAL(triggered()), this, SLOT(importTable()));
 
-	createTriggerAct = new QAction(tr("&Create Trigger..."), this);
+	createTriggerAct = new QAction(Utils::getIcon("trigger.png"),
+								   tr("&Create Trigger..."), this);
 	connect(createTriggerAct, SIGNAL(triggered()), this, SLOT(createTrigger()));
 
 	alterTriggerAct = new QAction(tr("&Alter Trigger..."), this);

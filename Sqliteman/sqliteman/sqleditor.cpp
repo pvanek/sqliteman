@@ -43,6 +43,8 @@ SqlEditor::SqlEditor(QWidget * parent)
 
 	ui.searchFrame->hide();
 
+	ui.previousToolButton->setIcon(Utils::getIcon("go-previous.png"));
+	ui.nextToolButton->setIcon(Utils::getIcon("go-next.png"));
 	ui.action_Run_SQL->setIcon(Utils::getIcon("runsql.png"));
 	ui.actionRun_Explain->setIcon(Utils::getIcon("runexplain.png"));
 	ui.actionRun_as_Script->setIcon(Utils::getIcon("runscript.png"));
@@ -51,6 +53,7 @@ SqlEditor::SqlEditor(QWidget * parent)
 	ui.action_New->setIcon(Utils::getIcon("document-new.png"));
 	ui.actionSave_As->setIcon(Utils::getIcon("document-save-as.png"));
 	ui.actionCreateView->setIcon(Utils::getIcon("view.png"));
+	ui.actionSearch->setIcon(Utils::getIcon("system-search.png"));
 
 	connect(ui.action_Run_SQL, SIGNAL(triggered()),
 			this, SLOT(action_Run_SQL_triggered()));

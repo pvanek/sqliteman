@@ -29,6 +29,8 @@ class Preferences : public QObject
 		static QColor stdLightColor() { return QColor(255, 254, 205); };
 		static QColor stdDarkColor() { return QColor(225, 237, 255); };
 
+		bool checkQtVersion() { return m_checkQtVersion; };
+
 		bool nullHighlight() { return m_nullHighlight; };
 		void setNullHighlight(bool v) { m_nullHighlight = v; };
 
@@ -138,6 +140,7 @@ class Preferences : public QObject
 		*/
 		static Preferences* _instance;
 
+		bool m_checkQtVersion;
 		bool m_nullHighlight;
 		bool m_blobHighlight;
 		QString m_nullHighlightText;

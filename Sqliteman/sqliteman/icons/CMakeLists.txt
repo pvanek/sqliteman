@@ -8,32 +8,38 @@ IF (WANT_RESOURCES)
 ELSE (WANT_RESOURCES)
 
 INSTALL(FILES
-    clear_table_contents.png
-    column.png
-    document-new.png
-    document-save.png
-    edit.png
-    key.png
-    sqliteman.png
-    trigger.png
-    database.png
-    document-open.png
-    index.png
-    runexplain.png
-    setnull.png
-    system.png
-    view.png
-    delete_table_row.png
-    document-save-as.png
-    insert_table_row.png
-    runsql.png
-    runscript.png
-    setnull.png
-    table.png
-    database_commit.png
-    database_rollback.png
-    preferences-desktop-display.png
-    kate.png
+blob.png
+clear_table_contents.png
+close.png
+column.png
+database_commit.png
+database.png
+database_rollback.png
+delete_table_row.png
+document-export.png
+document-new.png
+document-open.png
+document-save-as.png
+document-save.png
+edit.png
+go-next.png
+go-previous.png
+index.png
+insert_table_row.png
+kate.png
+key.png
+preferences-desktop-display.png
+runexplain.png
+runscript.png
+runsql.png
+setnull.png
+snapshot.png
+sqliteman.png
+system.png
+system-search.png
+table.png
+trigger.png
+view.png
   DESTINATION ${ICON_DIR}
 )
 

@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSettings>
 
 #include "helpbrowser.h"
+#include "utils.h"
 
 
 HelpBrowser::HelpBrowser(const QString & lang, QWidget * parent)
@@ -20,6 +21,9 @@ HelpBrowser::HelpBrowser(const QString & lang, QWidget * parent)
 #endif
 {
 	ui.setupUi(this);
+	ui.actionBack->setIcon(Utils::getIcon("go-previous.png"));
+	ui.actionForward->setIcon(Utils::getIcon("go-next.png"));
+	ui.action_Close->setIcon(Utils::getIcon("close.png"));
 	// menu
 	QStringList spaths;
 

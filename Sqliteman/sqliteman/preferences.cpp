@@ -18,6 +18,8 @@ Preferences::Preferences(QObject *parent)
  : QObject(parent)
 {
 	QSettings s("yarpen.cz", "sqliteman");
+	m_checkQtVersion = s.value("checkQtVersion", true).toBool();
+	//
 	m_nullHighlight = s.value("prefs/nullCheckBox", true).toBool();
 	m_blobHighlight = s.value("prefs/blobCheckBox", true).toBool();
 	m_nullHighlightText = s.value("prefs/nullAliasEdit", "{null}").toString();
@@ -67,6 +69,7 @@ Preferences::Preferences(QObject *parent)
 Preferences::~Preferences()
 {
 	QSettings settings("yarpen.cz", "sqliteman");
+	settings.setValue("checkQtVersion", m_checkQtVersion);
 	// lnf
 	settings.setValue("prefs/languageComboBox", m_GUItranslator);
 	settings.setValue("prefs/styleComboBox", m_GUIstyle);

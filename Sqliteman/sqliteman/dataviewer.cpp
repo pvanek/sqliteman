@@ -34,6 +34,10 @@ DataViewer::DataViewer(QWidget * parent)
 	ui.actionTruncate_Table->setIcon(Utils::getIcon("clear_table_contents.png"));
 	ui.actionCommit->setIcon(Utils::getIcon("database_commit.png"));
 	ui.actionRollback->setIcon(Utils::getIcon("database_rollback.png"));
+	ui.actionRipOut->setIcon(Utils::getIcon("snapshot.png"));
+	ui.actionBLOB_Preview->setIcon(Utils::getIcon("blob.png"));
+	ui.actionExport_Data->setIcon(Utils::getIcon("document-export.png"));
+	ui.actionClose->setIcon(Utils::getIcon("close.png"));
 
 	// custom delegate
 	ui.tableView->setItemDelegate(new SqlDelegate(this));
