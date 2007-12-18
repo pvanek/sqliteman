@@ -1,21 +1,14 @@
-INSTALL(FILES
-    menu.html
-    index.html
-    license.html
-    sqlite.html
-    usage-run.html
-    usage-file.html
-    troubleshooting.html
-    usage-prefs.html
-    usage-context.html
-    usage-database.html
-    sqleditor.html
-    usage-system.html
-    results.html
-# pngs
-    main_window.png
-    create_table.png
-    sqleditor.png
-    results.png
-  DESTINATION ${DOC_DIR}/en/
+INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/sqliteman/doc/en/
+        DESTINATION ${DOC_DIR}/en/
+        USE_SOURCE_PERMISSIONS
+          PATTERN ".svn" EXCLUDE
+          PATTERN "CMakeFiles" EXCLUDE
+          PATTERN "Makefile" EXCLUDE
+          PATTERN "cmake_install.cmake" EXCLUDE
+          PATTERN "CMakeCache.txt" EXCLUDE
+          PATTERN "CMakeLists.txt" EXCLUDE
+          PATTERN "install_manifest.txt" EXCLUDE
+          PATTERN "*.html"
+          PATTERN "*.css"
+          PATTERN "*.png"
 )

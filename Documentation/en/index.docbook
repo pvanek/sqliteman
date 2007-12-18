@@ -794,8 +794,8 @@ the <ulink url="fdl-license.html">GNU Free Documentation License</ulink>.</para>
 <para>This program is licensed under the terms of the <ulink url="gpl-license.html">GNU
 General Public License</ulink>.</para>
 
-
 </chapter>
+
 
 <appendix id="installation">
 <title>Installation</title>
@@ -811,11 +811,11 @@ application -->
 <variablelist>
   <varlistentry>
     <term>A stable one</term>
-    <listitem>It's maintained only for bugfixes. No additional features with possible new bugs added.</listitem>
+    <listitem><para>It's maintained only for bugfixes. No additional features with possible new bugs added.</para></listitem>
   </varlistentry>
   <varlistentry>
     <term>A development branch called Trunk</term>
-    <listitem>It contains a lot of new features and tools. This version is sometimes released as a so called "snapshot" for public usage and -- mainly -- for testing. There can be incoplete localization for your language or some tweaky issues but these snapshots are at least crash-free and data-loss-free.</listitem>
+    <listitem><para>It contains a lot of new features and tools. This version is sometimes released as a so called "snapshot" for public usage and -- mainly -- for testing. There can be incoplete localization for your language or some tweaky issues but these snapshots are at least crash-free and data-loss-free.</para></listitem>
   </varlistentry>
 </variablelist>
 

@@ -26,7 +26,6 @@ class HelpBrowser : public QMainWindow
 		void setHistoryButtonsState();
 
 	private slots:
-		void menuBrowser_anchorClicked(const QUrl &);
 		void forward();
 		void backward();
 };

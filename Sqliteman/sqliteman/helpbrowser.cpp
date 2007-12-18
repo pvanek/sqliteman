@@ -39,9 +39,7 @@ HelpBrowser::HelpBrowser(const QString & lang, QWidget * parent)
 
 	spaths << docs;
 
-	ui.menuBrowser->setSearchPaths(spaths);
 	ui.textBrowser->setSearchPaths(spaths);
-	ui.menuBrowser->setSource(QUrl(docs + "menu.html"));
 	ui.textBrowser->setSource(QUrl(docs + "index.html"));
 
 	// settings
@@ -51,8 +49,6 @@ HelpBrowser::HelpBrowser(const QString & lang, QWidget * parent)
 
 	setHistoryButtonsState();
 
-	connect(ui.menuBrowser, SIGNAL(anchorClicked(const QUrl &)),
-			this, SLOT(menuBrowser_anchorClicked(const QUrl &)));
 	connect(ui.actionBack, SIGNAL(triggered()), this, SLOT(backward()));
 	connect(ui.actionForward, SIGNAL(triggered()), this, SLOT(forward()));
 	connect(ui.action_Close, SIGNAL(triggered()), this, SLOT(close()));
@@ -66,13 +62,6 @@ void HelpBrowser::closeEvent(QCloseEvent *e)
 	settings.setValue("help/splitter", ui.splitter->saveState());
 
 	QMainWindow::closeEvent(e);
-}
-
-void HelpBrowser::menuBrowser_anchorClicked(const QUrl & url)
-{
-	ui.textBrowser->setSource(url);
-	ui.menuBrowser->setSource(QUrl("menu.html"));
-	setHistoryButtonsState();
 }
 
 void HelpBrowser::setHistoryButtonsState()
