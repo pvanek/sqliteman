@@ -30,7 +30,7 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	setBraceMatching(SloppyBraceMatch);
 	setAutoIndent(true);
 
-	QsciLexerSQL * lexer = new QsciLexerSQL();
+	QsciLexerSQL * lexer = new QsciLexerSQL(this);
 
 	QsciAPIs * api = new QsciAPIs(lexer);
 	foreach(QString i, sqlKeywords())
