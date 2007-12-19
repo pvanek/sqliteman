@@ -4,11 +4,17 @@
 GET_FILENAME_COMPONENT(lang ${CMAKE_CURRENT_BINARY_DIR} NAME)
 MESSAGE(STATUS "Building for: ${lang}")
 
-SET (install_path ${CMAKE_INSTALL_PREFIX}/${lang})
+SET (install_path ${CMAKE_INSTALL_PREFIX}/${lang}/)
+MESSAGE(STATUS "Install Path: ${install_path}")
 SET (docbook_index index.docbook)
 
+
 ADD_CUSTOM_TARGET(docbook ALL
-    ${xsltcmd} ${xsltparams0} ${xsltparams} ${CMAKE_CURRENT_SOURCE_DIR}/${docbook_index}
+    ${xsltcmd} --output ${install_path}
+          --stringparam html.stylesheet ${cssstyle}
+          --stringparam chunker.output.encoding UTF-8
+          ${xslstyle}
+          ${CMAKE_CURRENT_SOURCE_DIR}/${docbook_index}
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${docbook_index}
     COMMENT "processing ${docbook_index}"
     VERBATIM

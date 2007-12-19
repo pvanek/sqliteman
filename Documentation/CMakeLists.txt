@@ -29,13 +29,13 @@ SET (VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_SUFFIX}
 MESSAGE(STATUS "Sqliteman ${VERSION} Docs will be installed into ${CMAKE_INSTALL_PREFIX}")
 
 
-FIND_PROGRAM(MEINPROC_EXECUTABLE NAMES meinproc4 meinproc)
-IF (MEINPROC_EXECUTABLE)
-    MESSAGE(STATUS "Meinproc4 found: ${MEINPROC_EXECUTABLE}")
-    SET (xsltcmd "${MEINPROC_EXECUTABLE}")
-    SET (xsltparams0 "--style")
-    SET (xsltparams "${CMAKE_CURRENT_SOURCE_DIR}/kde-chunk.xsl")
-ELSE (MEINPROC_EXECUTABLE)
+# FIND_PROGRAM(MEINPROC_EXECUTABLE NAMES meinproc4 meinproc)
+# IF (MEINPROC_EXECUTABLE)
+#     MESSAGE(STATUS "Meinproc4 found: ${MEINPROC_EXECUTABLE}")
+#     SET (xsltcmd "${MEINPROC_EXECUTABLE}")
+#     SET (xsltparams0 "--style")
+#     SET (xsltparams "${CMAKE_CURRENT_SOURCE_DIR}/kde-chunk.xsl")
+# ELSE (MEINPROC_EXECUTABLE)
 
     FIND_PROGRAM(XSLTPROC_EXECUTABLE xsltproc)
     IF (XSLTPROC_EXECUTABLE)
@@ -46,7 +46,10 @@ ELSE (MEINPROC_EXECUTABLE)
          MESSAGE(FATAL_ERROR "No XSL processor found!")
     ENDIF (XSLTPROC_EXECUTABLE)
 
-ENDIF (MEINPROC_EXECUTABLE)
+SET (xslstyle ${CMAKE_SOURCE_DIR}/docbook/xsl/html/chunk.xsl)
+SET (cssstyle kde-default.css)
+
+# ENDIF (MEINPROC_EXECUTABLE)
 
 MESSAGE(STATUS "Command to execute: ${xsltcmd} ${xsltparams0} ${xsltparams}")
 

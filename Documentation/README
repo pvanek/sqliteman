@@ -16,17 +16,6 @@ Directories:
     - Endlish documentation
 
 
-Files:
-
-    kde-chunk.xsl
-    kde-navig.xsl
-    kde-style.xsl
-    kde-ttlpg.xsl
-     - modified KDE4 stylesheets for local usage
-    meinproc4.kmdr
-     - meinproc4 launcher for Quanta XML editor
-
-
 simple usage. E.g.:
 1) create a "build" directory: mkdir build
 2) cd mkdir
