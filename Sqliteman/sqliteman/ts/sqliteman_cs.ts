@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1">
+<!DOCTYPE TS><TS version="1.1" language="cs">
+<defaultcodec></defaultcodec>
 <context>
     <name>AlterTableDialog</name>
     <message>
@@ -892,12 +893,12 @@ Vybráno záznamů: %1 %2</translation>
     <message>
         <location filename="../importtabledialog.cpp" line="263"/>
         <source>Data Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Import dat</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="264"/>
         <source>Cannot open file %1 for reading.</source>
-        <translation type="unfinished"></translation>
+        <translation>Neze číst ze souboru %1.</translation>
     </message>
 </context>
 <context>
@@ -905,12 +906,12 @@ Vybráno záznamů: %1 %2</translation>
     <message>
         <location filename="../importtabledialog.cpp" line="292"/>
         <source>Data Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Import dat</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="293"/>
         <source>Cannot open file %1 for reading.</source>
-        <translation type="unfinished"></translation>
+        <translation>Neze číst ze souboru %1.</translation>
     </message>
 </context>
 <context>
@@ -1021,7 +1022,7 @@ Vybráno záznamů: %1 %2</translation>
     <message>
         <location filename="../importtablelogdialog.ui" line="13"/>
         <source>Data Import Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Záznam importu dat</translation>
     </message>
     <message>
         <location filename="../importtablelogdialog.ui" line="22"/>
@@ -1031,7 +1032,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;There have been import errors. Check the error log above. Data in the database are not complette.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Perform commit anyway?&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(Yes=commit, No=rollback)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation> </translation>
     </message>
 </context>
 <context>
@@ -1453,7 +1454,7 @@ Vybráno záznamů: %1</translation>
         <location filename="../litemanwindow.cpp" line="618"/>
         <source>Error creating the dump. Reason: %1
 %2</source>
-        <translation type="unfinished">Chyba dumpu databáze. Důvod: %1
+        <translation>Chyba dumpu databáze. Důvod: %1
 %2</translation>
     </message>
     <message>
@@ -1496,7 +1497,7 @@ Vybráno záznamů: %1</translation>
         <source>Query OK
 Row(s) returned: %1 %2
 %3</source>
-        <translation type="unfinished">OK
+        <translation>OK
 Vybráno záznamů: %1 %2
 %3</translation>
     </message>
@@ -2276,12 +2277,12 @@ Vybráno záznamů: %1 %2
     <message>
         <location filename="../shortcutmodel.cpp" line="88"/>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Zkratka</translation>
     </message>
     <message>
         <location filename="../shortcutmodel.cpp" line="88"/>
         <source>Expanded Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Expandovaný text</translation>
     </message>
 </context>
 <context>
@@ -2681,27 +2682,27 @@ At line: %2</source>
     <message>
         <location filename="../sqliteprocess.cpp" line="44"/>
         <source>The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program.</source>
-        <translation type="unfinished">Program se nespustil. Buď chybí nebo máte nadostatečná práva k jeho spuštění.</translation>
+        <translation>Program se nespustil. Buď chybí nebo máte nadostatečná práva k jeho spuštění.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="47"/>
         <source>The process crashed some time after starting successfully.</source>
-        <translation type="unfinished">Program spadnul s chybou po úspěšném spuštění.</translation>
+        <translation>Program spadnul s chybou po úspěšném spuštění.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="50"/>
         <source>An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel.</source>
-        <translation type="unfinished">Chyba při pokusu o zápis dat do externího programu. Např. program neběží nebo nemá otevřený vstupní kanál.</translation>
+        <translation>Chyba při pokusu o zápis dat do externího programu. Např. program neběží nebo nemá otevřený vstupní kanál.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="53"/>
         <source>An error occurred when attempting to read from the process. For example, the process may not be running.</source>
-        <translation type="unfinished">Chyba při pokusu o čtení dat z externího programu. Např. program neběží nebo nemá otevřený výstupní kanál.</translation>
+        <translation>Chyba při pokusu o čtení dat z externího programu. Např. program neběží nebo nemá otevřený výstupní kanál.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="56"/>
         <source>An unknown error occurred.</source>
-        <translation type="unfinished">Neznámá chyba při spolupráci s externím programem.</translation>
+        <translation>Neznámá chyba při spolupráci s externím programem.</translation>
     </message>
 </context>
 <context>
@@ -2817,7 +2818,7 @@ At line: %2</source>
     <message>
         <location filename="../tabletree.cpp" line="24"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Sloupce</translation>
     </message>
 </context>
 <context>
