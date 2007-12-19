@@ -79,52 +79,7 @@ cmake \
 %defattr(-,root,root)
 %{_bindir}
 %{_datadir}
-%if 0%{?suse_version}
-%{_bindir}/sqliteman
-%{_datadir}/applications/
-%{_datadir}/applications/sqliteman.desktop
-%{_datadir}/icons/
-%{_datadir}/icons/sqliteman.png
-%{_datadir}/sqliteman/
-%{_datadir}/sqliteman/icons/
-%{_datadir}/sqliteman/icons/clear_table_contents.png
-%{_datadir}/sqliteman/icons/column.png
-%{_datadir}/sqliteman/icons/document-new.png
-%{_datadir}/sqliteman/icons/document-save.png
-%{_datadir}/sqliteman/icons/key.png
-%{_datadir}/sqliteman/icons/sqliteman.png
-%{_datadir}/sqliteman/icons/trigger.png
-%{_datadir}/sqliteman/icons/database.png
-%{_datadir}/sqliteman/icons/document-open.png
-%{_datadir}/sqliteman/icons/index.png
-%{_datadir}/sqliteman/icons/runexplain.png
-%{_datadir}/sqliteman/icons/system.png
-%{_datadir}/sqliteman/icons/view.png
-%{_datadir}/sqliteman/icons/delete_table_row.png
-%{_datadir}/sqliteman/icons/document-save-as.png
-%{_datadir}/sqliteman/icons/insert_table_row.png
-%{_datadir}/sqliteman/icons/runsql.png
-%{_datadir}/sqliteman/icons/table.png
-%{_datadir}/sqliteman/sqliteman_cs.qm
-%{_datadir}/sqliteman/sqliteman_de.qm
-%{_datadir}/sqliteman/sqliteman_pl.qm
-%{_datadir}/sqliteman/doc/en/index.html
-%{_datadir}/sqliteman/doc/en/license.html
-%{_datadir}/sqliteman/doc/en/menu.html
-%{_datadir}/sqliteman/doc/en/results.html
-%{_datadir}/sqliteman/doc/en/sqleditor.html
-%{_datadir}/sqliteman/doc/en/sqlite.html
-%{_datadir}/sqliteman/doc/en/troubleshooting.html
-%{_datadir}/sqliteman/doc/en/usage-context.html
-%{_datadir}/sqliteman/doc/en/usage-database.html
-%{_datadir}/sqliteman/doc/en/usage-file.html
-%{_datadir}/sqliteman/doc/en/usage-prefs.html
-%{_datadir}/sqliteman/doc/en/usage-run.html
-%{_datadir}/sqliteman/doc/en/usage-system.html
-%{_datadir}/sqliteman/doc/en/main_window.png
-%{_datadir}/sqliteman/doc/en/results.png
-%{_datadir}/sqliteman/doc/en/sqleditor.png
-%endif
+
 
 %changelog -n sqliteman
 * Tue Jun 12 2007 - Petr Vanek <petr@scribus.info>
