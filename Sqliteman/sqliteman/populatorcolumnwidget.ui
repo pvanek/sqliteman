@@ -11,60 +11,57 @@
   </property>
   <layout class="QGridLayout" >
    <property name="margin" >
-    <number>9</number>
+    <number>0</number>
    </property>
    <property name="spacing" >
-    <number>6</number>
+    <number>0</number>
    </property>
    <item row="0" column="0" >
-    <widget class="QComboBox" name="actionCombo" >
-     <item>
-      <property name="text" >
-       <string>Autonumber</string>
-      </property>
-     </item>
-     <item>
-      <property name="text" >
-       <string>Random Number</string>
-      </property>
-     </item>
-     <item>
-      <property name="text" >
-       <string>Random Text</string>
-      </property>
-     </item>
-     <item>
-      <property name="text" >
-       <string>Prefixed Text</string>
-      </property>
-     </item>
-     <item>
-      <property name="text" >
-       <string>Static Value</string>
-      </property>
-     </item>
-     <item>
-      <property name="text" >
-       <string>Ignore Column</string>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="0" column="1" >
-    <widget class="QLineEdit" name="specEdit" />
-   </item>
-   <item row="1" column="1" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
      </property>
-     <property name="sizeHint" >
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
+     <property name="spacing" >
+      <number>4</number>
      </property>
-    </spacer>
+     <item>
+      <widget class="QComboBox" name="actionCombo" >
+       <item>
+        <property name="text" >
+         <string>Autonumber</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Random Number</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Random Text</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Prefixed Text</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Static Value</string>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Ignore Column</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="specEdit" />
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
