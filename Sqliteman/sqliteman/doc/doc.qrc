@@ -12,5 +12,6 @@
         <file>en/ch06.html</file>
         <file>en/ch07.html</file>
         <file>en/index.html</file>
+	<file>en/kde-default.css</file>
     </qresource>
 </RCC>
