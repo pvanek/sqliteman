@@ -216,7 +216,7 @@ QVariantList PopulatorDialog::numberValues(Populator::PopColumn c)
 {
 	QVariantList ret;
 	for (int i = 0; i < spinBox->value(); ++i)
-		ret.append(qrand() % (int)pow(10, c.size));
+		ret.append(qrand() % (int)pow(10.0, c.size));
 	return ret;
 }
 
