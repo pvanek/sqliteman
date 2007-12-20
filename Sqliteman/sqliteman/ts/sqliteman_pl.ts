@@ -42,82 +42,82 @@
     <message>
         <location filename="../altertabledialog.cpp" line="35"/>
         <source>Indexed</source>
-        <translation type="unfinished"></translation>
+        <translation>Indeksowane</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="38"/>
         <source>Drop</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuń</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="74"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tak</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="77"/>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="107"/>
         <source>failed</source>
-        <translation type="unfinished"></translation>
+        <translation>błąd</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="111"/>
         <source>Old table is stored as %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Stara tabela została zachowana pod nazwą %1</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="126"/>
         <source>Cannot get index list. %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można pobrać listy indeksów. %1</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="161"/>
         <source>Rename original table to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmień nazwę tabeli na %1</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="176"/>
         <source>Creating new table: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tworzenie nowej tabeli: %1</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="182"/>
         <source>Begin Transaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Początek transakcji</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="192"/>
         <source>Data Transfer</source>
-        <translation type="unfinished"></translation>
+        <translation>Transfer danych</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="194"/>
         <source>Transaction Commit</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatwierdzenie transakcji</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="199"/>
         <source>Dropping original table %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuwanie oryginalnej tabeli %1</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="205"/>
         <source>Recreating original index/trigger</source>
-        <translation type="unfinished"></translation>
+        <translation>Odtwarzanie oryginalnego indeksu/wyzwalacza</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="215"/>
         <source>Alter Table Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Edycja tabeli zakończona</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="254"/>
         <source>Columns added successfully</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolumny zostały dodane</translation>
     </message>
 </context>
 <context>
@@ -258,7 +258,7 @@
     <message>
         <location filename="../blobpreviewwidget.cpp" line="37"/>
         <source>File content cannot be displayed</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawartość pliku nie może być wyświetlona</translation>
     </message>
 </context>
 <context>
@@ -747,58 +747,58 @@ Anuluj = wróć z powrotem do tabeli</translation>
         <location filename="../dataviewer.cpp" line="121"/>
         <source>Query OK
 Row(s) returned: %1 %2</source>
-        <translation type="unfinished">Zapytanie w porządku
-zwrócono: %1 %2 rekord(y/ów)</translation>
+        <translation>Zapytanie w porządku
+Zwrócone rekordy: %1 %2</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="301"/>
         <source>Data Snapshot</source>
-        <translation type="unfinished"></translation>
+        <translation>Migawka tabeli</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="314"/>
         <source>%1 snapshot for: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 migawka dla: %2</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="367"/>
         <source>(More rows can be fetched. Scroll the resultset for more rows and/or read the documentation.)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Jest możliwość pobrania większej liczby rekordów. Przewiń tabelę z wynikami i/lub przeczytaj dokumentację.)</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="88"/>
         <source>Item View is read only now.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ten widok rekordu jest teraz tylko do odczytu.</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="96"/>
         <source>Script Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Okno wyników skryptu</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="261"/>
         <source>BLOB Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Podgląd BLOB</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="184"/>
         <source>toolBar_2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="197"/>
         <source>toolBar_3</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="245"/>
         <source>Table Snapshot</source>
-        <translation type="unfinished"></translation>
+        <translation>Migawka tabeli</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="250"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknij</translation>
     </message>
 </context>
 <context>
@@ -871,7 +871,7 @@ zwrócono: %1 %2 rekord(y/ów)</translation>
     <message>
         <location filename="../database.cpp" line="234"/>
         <source>Error while describe object %1: %2.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wystąpił błąd podczas opisywania obiektu %1: %2.</translation>
     </message>
 </context>
 <context>
@@ -1028,7 +1028,7 @@ zwrócono: %1 %2 rekord(y/ów)</translation>
     <message>
         <location filename="../importtabledialog.ui" line="212"/>
         <source>&amp;Schema to Import:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Struktura do wczytania:</translation>
     </message>
 </context>
 <context>
@@ -1506,41 +1506,41 @@ zwrócono: %1 rekord(y/ów)</translation>
     <message>
         <location filename="../litemanwindow.cpp" line="72"/>
         <source>Sqlite3 executable &apos;%1&apos; is not found in your path. Some features will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie znaleziono pliku Sqlite3 &apos;%1&apos;. Niektóre opcje będą niedostępne.</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="81"/>
         <source>Sqliteman is using Qt %1. Some features will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sqliteman używa Qt %1. Niektóre opcje będą niedostępne.</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="242"/>
         <source>&amp;Rename Table...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zmień nazwę tabeli...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="245"/>
         <source>&amp;Populate Table...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wypełnij tabelę...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="269"/>
         <source>&amp;Import Table Data...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytaj &amp;dane do tabeli...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="590"/>
         <source>Query OK
 Row(s) returned: %1 %2
 %3</source>
-        <translation type="unfinished">Zapytanie w porządku
-zwrócono: %1 %2
-%3 rekord(y/ów)</translation>
+        <translation>Zapytanie w porządku
+Zwrócone rekordy: %1 %2
+%3</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="664"/>
         <source>New table name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nowa nazwa tabeli:</translation>
     </message>
 </context>
 <context>
@@ -1548,82 +1548,82 @@ zwrócono: %1 %2
     <message>
         <location filename="../multieditdialog.cpp" line="87"/>
         <source>Open File</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz plik</translation>
     </message>
     <message>
         <location filename="../multieditdialog.cpp" line="89"/>
         <source>All Files (* *.*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wszystkie pliki (* *.*)</translation>
     </message>
     <message>
         <location filename="../multieditdialog.cpp" line="101"/>
         <source>BLOB Save Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zapisu BLOB</translation>
     </message>
     <message>
         <location filename="../multieditdialog.cpp" line="96"/>
         <source>Cannot open file %1 for writting</source>
-        <translation type="unfinished">Nie można otworzyć pliku %1 do zapisu</translation>
+        <translation>Nie można otworzyć pliku %1 do zapisu</translation>
     </message>
     <message>
         <location filename="../multieditdialog.cpp" line="102"/>
         <source>Cannot write into file %1</source>
-        <translation type="unfinished">Nie można zapisać do pliku %1</translation>
+        <translation>Nie można zapisać do pliku %1</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="13"/>
         <source>Multiline Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Edytor wieloliniowy</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="23"/>
         <source>&amp;Text</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Text</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="33"/>
         <source>&amp;Blob</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Blob</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="39"/>
         <source>Select File for BLOB:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz plik dla BLOB:</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="51"/>
         <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Otwórz...</translation>
+        <translation>&amp;Otwórz...</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="124"/>
         <source>Save content of the current BLOB into chosen file</source>
-        <translation type="unfinished"></translation>
+        <translation>Zachowaj zawartość BLOB w wybranym pliku</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="127"/>
         <source>&amp;Save...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zapisz...</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="135"/>
         <source>&amp;Date to String</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Data na tekst</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="141"/>
         <source>&amp;Date:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Data:</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="158"/>
         <source>&amp;String Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Format tekstu:</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="198"/>
         <source>Insert &amp;NULL</source>
-        <translation type="unfinished"></translation>
+        <translation>Wstaw &amp;NULL</translation>
     </message>
 </context>
 <context>
@@ -1631,32 +1631,32 @@ zwrócono: %1 %2
     <message>
         <location filename="../populatorcolumnwidget.ui" line="31"/>
         <source>Autonumber</source>
-        <translation type="unfinished"></translation>
+        <translation>Autonumeracja</translation>
     </message>
     <message>
         <location filename="../populatorcolumnwidget.ui" line="36"/>
         <source>Random Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Przypadkowa liczba</translation>
     </message>
     <message>
         <location filename="../populatorcolumnwidget.ui" line="41"/>
         <source>Random Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Przypadkowy tekst</translation>
     </message>
     <message>
         <location filename="../populatorcolumnwidget.ui" line="46"/>
         <source>Prefixed Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst ze stałym przedrostkiem</translation>
     </message>
     <message>
         <location filename="../populatorcolumnwidget.ui" line="51"/>
         <source>Static Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Stała wartość</translation>
     </message>
     <message>
         <location filename="../populatorcolumnwidget.ui" line="56"/>
         <source>Ignore Column</source>
-        <translation type="unfinished"></translation>
+        <translation>Zignoruj kolumnę</translation>
     </message>
 </context>
 <context>
@@ -1664,77 +1664,77 @@ zwrócono: %1 %2
     <message>
         <location filename="../populatordialog.cpp" line="97"/>
         <source>Cannot get statistics for table.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można uzyskać statystyk dla tabeli.</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="146"/>
         <source>Begin transaction failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd przy otwieraniu transakcji.</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="178"/>
         <source>Data inserted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dane zostały wstawione.</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="181"/>
         <source>Transaction commit failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas kończenia transakcji.</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="184"/>
         <source>It&apos;s done. Check messages above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrobione. Przeczytaj wiadomość powyżej.</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="187"/>
         <source>Row(s) inserted: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Wstawiono rekordy: %1</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="199"/>
         <source>Cannot get MAX() for column: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można uzyskać MAX() dla kolumny: %1</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="13"/>
         <source>Populate Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Wypełnij tabelę</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="46"/>
         <source>Number of &amp;Rows to Populate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liczba &amp;rekordów do wstawienia:</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="65"/>
         <source>Column &amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ustawienia kolumny</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="90"/>
         <source>Column</source>
-        <translation type="unfinished">Kolumna</translation>
+        <translation>Kolumna</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="95"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="100"/>
         <source>Configure</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguracja</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="124"/>
         <source>&amp;Populate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wypełnij</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="131"/>
         <source>Continue on &amp;Error</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kontynuuj jeśli błąd</translation>
     </message>
 </context>
 <context>
@@ -1935,92 +1935,92 @@ zwrócono: %1 %2
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="22"/>
         <source>NULL handling</source>
-        <translation type="unfinished">Obsługa NULL</translation>
+        <translation>Obsługa NULL</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="34"/>
         <source>Highlight the NULL values in the data result table</source>
-        <translation type="unfinished">Wyróżnij wartości NULL w tabeli wyników</translation>
+        <translation>Wyróżnij wartości NULL w tabeli wyników</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="37"/>
         <source>&amp;Use NULL highlighting</source>
-        <translation type="unfinished">&amp;Używaj wyróżniania NULL</translation>
+        <translation>&amp;Używaj wyróżniania NULL</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="44"/>
         <source>Background color of the NULL value cell</source>
-        <translation type="unfinished">Kolor tła komórki z wartością NULL</translation>
+        <translation>Kolor tła komórki z wartością NULL</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="47"/>
         <source>B&amp;ackground</source>
-        <translation type="unfinished">&amp;Tło</translation>
+        <translation>&amp;Tło</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="54"/>
         <source>&amp;NULL alias:</source>
-        <translation type="unfinished">Nazwa dla wartości &amp;NULL:</translation>
+        <translation>Nazwa dla wartości &amp;NULL:</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="64"/>
         <source>Text to be used as a NULL mark</source>
-        <translation type="unfinished">Tekst używany jako oznaczenie NULL</translation>
+        <translation>Tekst używany jako oznaczenie NULL</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="67"/>
         <source>{null}</source>
-        <translation type="unfinished">{null}</translation>
+        <translation>{null}</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="77"/>
         <source>BLOB handling</source>
-        <translation type="unfinished">Obsługa BLOB</translation>
+        <translation>Obsługa BLOB</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="89"/>
         <source>Highlight the BLOB values in the data result table</source>
-        <translation type="unfinished">Wyróżnij wartości BLOB w tabeli wyników</translation>
+        <translation>Wyróżnij wartości BLOB w tabeli wyników</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="92"/>
         <source>&amp;Use BLOB highlighting</source>
-        <translation type="unfinished">&amp;Używaj wyróżniania BLOB</translation>
+        <translation>&amp;Używaj wyróżniania BLOB</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="99"/>
         <source>Background color of the BLOB value cell</source>
-        <translation type="unfinished">Kolor tła komórki z wartością BLOB</translation>
+        <translation>Kolor tła komórki z wartością BLOB</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="102"/>
         <source>Ba&amp;ckground</source>
-        <translation type="unfinished">Tł&amp;o</translation>
+        <translation>Tł&amp;o</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="109"/>
         <source>&amp;BLOB alias:</source>
-        <translation type="unfinished">Nazwa dla wartości &amp;BLOB:</translation>
+        <translation>Nazwa dla wartości &amp;BLOB:</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="116"/>
         <source>Text to be used as a BLOB mark</source>
-        <translation type="unfinished">Tekst używany jako oznaczenie BLOB</translation>
+        <translation>Tekst używany jako oznaczenie BLOB</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="119"/>
         <source>{blob}</source>
-        <translation type="unfinished">{blob}</translation>
+        <translation>{blob}</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="129"/>
         <source>Limit Text Length Display</source>
-        <translation type="unfinished">Ogranicz długość wyświetlanego tekstu</translation>
+        <translation>Ogranicz długość wyświetlanego tekstu</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="155"/>
         <source>Data Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Dane</translation>
     </message>
 </context>
 <context>
@@ -2028,52 +2028,52 @@ zwrócono: %1 %2
     <message>
         <location filename="../prefslnfwidget.ui" line="22"/>
         <source>These features require application restart</source>
-        <translation type="unfinished">Zmiana właściwości wymaga restartu programu</translation>
+        <translation>Zmiana właściwości wymaga restartu programu</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="34"/>
         <source>Select the application look/GUI theme</source>
-        <translation type="unfinished">Wybierz schemat wyglądu aplikacji</translation>
+        <translation>Wybierz temat dla wyglądu aplikacji</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="41"/>
         <source>GUI &amp;Language:</source>
-        <translation type="unfinished">&amp;Język interfejsu:</translation>
+        <translation>&amp;Język interfejsu:</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="51"/>
         <source>Select the application interface language</source>
-        <translation type="unfinished">Wybierz język interfejsu programu</translation>
+        <translation>Wybierz język interfejsu programu</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="58"/>
         <source>GUI &amp;Style:</source>
-        <translation type="unfinished">&amp;Styl interfejsu:</translation>
+        <translation>&amp;Styl interfejsu:</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="79"/>
         <source>&amp;Recently Used Databases:</source>
-        <translation type="unfinished">&amp;Ostatnio otwarte pliki:</translation>
+        <translation>&amp;Ostatnio otwarte pliki:</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="89"/>
         <source>Count of the items in the Recent menu</source>
-        <translation type="unfinished">Liczba ostatnio otwartych plików widocznych w menu</translation>
+        <translation>Liczba ostatnio otwartych plików widocznych w menu</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="123"/>
         <source>Look and Feel</source>
-        <translation type="unfinished"></translation>
+        <translation>Wygląd</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="130"/>
         <source>Remember the last used database for next application start</source>
-        <translation type="unfinished"></translation>
+        <translation>Pamiętaj ostatnio używaną bazę danych przy następnym uruchomieniu programu</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="133"/>
         <source>Ope&amp;n Last Database on Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz ostatnio &amp;używaną bazę danych automatycznie</translation>
     </message>
 </context>
 <context>
@@ -2081,77 +2081,77 @@ zwrócono: %1 %2
     <message>
         <location filename="../prefssqleditorwidget.ui" line="28"/>
         <source>SQL Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Edytor SQL</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="43"/>
         <source>&amp;Font:</source>
-        <translation type="unfinished">&amp;Czcionka:</translation>
+        <translation>&amp;Czcionka:</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="71"/>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="83"/>
         <source>Use &amp;Active Line Highlighting:</source>
-        <translation type="unfinished">Używaj &amp;podświetlania bieżącej linii:</translation>
+        <translation>Używaj &amp;podświetlania bieżącej linii:</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="90"/>
         <source>Color...</source>
-        <translation type="unfinished">Kolor...</translation>
+        <translation>Kolor...</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="97"/>
         <source>Use &amp;Maximum Text Width Mark:</source>
-        <translation type="unfinished">Używaj &amp;wielokropka gdy tekst dłuższy niż:</translation>
+        <translation>Używaj &amp;wielokropka gdy tekst dłuższy niż:</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="117"/>
         <source>Use &amp;Code Completion With Length:</source>
-        <translation type="unfinished">Używaj &amp;uzupełniania kodu przy długości:</translation>
+        <translation>Używaj &amp;uzupełniania kodu przy długości:</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="134"/>
         <source>Use Editor &amp;Shortcuts:</source>
-        <translation type="unfinished">Używaj &amp;skrótów edytora:</translation>
+        <translation>Używaj &amp;skrótów edytora:</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="141"/>
         <source>&amp;Define...</source>
-        <translation type="unfinished">Z&amp;definiuj...</translation>
+        <translation>Z&amp;definiuj...</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="148"/>
         <source>Syntax Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolory składni</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="167"/>
         <source>Default...</source>
-        <translation type="unfinished"></translation>
+        <translation>Domyślne...</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="174"/>
         <source>Keywords...</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyrazy kluczowe...</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="181"/>
         <source>Numbers...</source>
-        <translation type="unfinished"></translation>
+        <translation>Liczby...</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="188"/>
         <source>Strings...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst...</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="195"/>
         <source>Comments...</source>
-        <translation type="unfinished"></translation>
+        <translation>Komentarze...</translation>
     </message>
 </context>
 <context>
@@ -2222,7 +2222,7 @@ zwrócono: %1 %2
     <message>
         <location filename="../schemabrowser.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formularz</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="29"/>
@@ -2371,42 +2371,42 @@ zwrócono: %1 %2
     <message>
         <location filename="../sqldelegate.cpp" line="92"/>
         <source>Multiline texts can be edited with the enhanced editor only (Ctrl+Shift+E)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst wieloliniowy można edytować tylko specjalnym edytorem (Ctrl+Shift+E)</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="30"/>
         <source>Edit data here</source>
-        <translation type="unfinished"></translation>
+        <translation>Edytuj dane tutaj</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="37"/>
         <source>Set value to the NULL</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustaw wartość na NULL</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="40"/>
         <source>&amp;N</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;N</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="43"/>
         <source>Ctrl+Shift+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+N</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="50"/>
         <source>Open multiline editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz rozszerzony edytor</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="53"/>
         <source>&amp;E</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;E</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="56"/>
         <source>Ctrl+Shift+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+E</translation>
     </message>
 </context>
 <context>
@@ -2559,7 +2559,7 @@ zwrócono: %1 %2
     <message>
         <location filename="../sqleditor.cpp" line="325"/>
         <source>Abort</source>
-        <translation type="unfinished"></translation>
+        <translation>Przerwij</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="351"/>
@@ -2644,59 +2644,61 @@ zwrócono: %1 %2
     <message>
         <location filename="../sqleditor.cpp" line="222"/>
         <source>Executing all statements</source>
-        <translation type="unfinished"></translation>
+        <translation>Wykonywanie wszystkich wyrażeń</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="223"/>
         <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="235"/>
         <source>Script started</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrypt został uruchomiony</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="261"/>
         <source>Error: %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd: %1.</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="232"/>
         <source>Run as Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Uruchom jako skrypt</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="265"/>
         <source>This script contains the following error:
 %1
 At line: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Ten skrypt zawiera następujące błędy:
+%1
+W linii: %2</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="275"/>
         <source>No error</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak błędów</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="284"/>
         <source>Script finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakończono wykonywanie skryptu</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="528"/>
         <source>Script was cancelled by user</source>
-        <translation type="unfinished"></translation>
+        <translation>Wykonanie skryptu anulowane przez użytkownika</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="235"/>
         <source>Run multiple SQL statements from current cursor position in one batch (F5)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wykonaj zapytania SQL od pozycji kursora (F5)</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="238"/>
         <source>F5</source>
-        <translation type="unfinished">F5</translation>
+        <translation>F5</translation>
     </message>
 </context>
 <context>
