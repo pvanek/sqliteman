@@ -21,14 +21,6 @@
    </property>
    <item rowspan="6" row="0" column="0" >
     <widget class="QScrollArea" native="1" name="scrollWidget" >
-     <property name="sizePolicy" >
-      <sizepolicy>
-       <hsizetype>0</hsizetype>
-       <vsizetype>0</vsizetype>
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
      <layout class="QGridLayout" >
       <property name="margin" >
        <number>9</number>
