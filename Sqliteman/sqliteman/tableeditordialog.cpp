@@ -23,6 +23,8 @@ TableEditorDialog::TableEditorDialog(QWidget * parent)//, Mode mode, const QStri
 	
 	ui.databaseCombo->addItems(Database::getDatabases().keys());
 
+	ui.columnTable->setColumnWidth(1, 150);
+	ui.columnTable->setColumnWidth(2, 60);
 	connect(ui.nameEdit, SIGNAL(textChanged(const QString&)),
 			this, SLOT(nameEdit_textChanged(const QString&)));
 	connect(ui.columnTable, SIGNAL(itemSelectionChanged()), this, SLOT(fieldSelected()));
@@ -49,10 +51,11 @@ QComboBox * TableEditorDialog::makeTypeBox()
 	QComboBox * box;
 	QStringList types;
 	 
-	types << "Text" << "Primary Key" << "Integer" << "Real" << "Blob" << "Null";
+	types << "Text" << "PK Integer"  << "PK Autoincrement" << "Integer" << "Real" << "Blob" << "Null";
 	
 	box = new QComboBox();
 	box->addItems(types);
+	box->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 	
 	return box;
 }
@@ -123,9 +126,15 @@ DatabaseTableField TableEditorDialog::getColumn(int row)
 	// support translation of type names as well) the primary key type needs to be corrected
 	// at update time.
 	bool pk = false;
-	if (type == "Primary Key")
+	if (type == "PK Integer")
 	{
 		type = "Integer Primary Key";
+		pk = true;
+	}
+
+	if (type == "PK Autoincrement")
+	{
+		type = "Integer Primary Key Autoincrement";
 		pk = true;
 	}
 
