@@ -220,6 +220,10 @@ p, h1, h2, h3, h4, h5, h6, td, th {
   font-family: sans-serif;
 }
 
+.term {
+  font-weight: bold;
+}
+
 /* Visual cues for GUI elements etc in the text */
 
 .guimenu, .guimenuitem, .guisubmenu { 
