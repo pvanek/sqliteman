@@ -506,39 +506,52 @@ the alternative access to this menu by the right mouse button
     <guimenuitem>Create Table...</guimenuitem>
     </menuchoice></term>
     <listitem>
-      <para><action>Raise a dialog for table creation. You can use two ways to create table here.</action></para>
-
-      <orderedlist>
-        <listitem><para>First – as you see in the screenshot – you can create a table with mouse and only a few keyboard typing in the "Design" tab.</para></listitem>
-        <listitem><para>And the second one by pure SQL statement.</para></listitem>
-      </orderedlist>
-
-      <variablelist>
-        <varlistentry>
-          <term>Database</term>
-          <listitem><para>A combobox with databases attached. Select one and the table will be created in this schema.</para></listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>Table Name</term>
-          <listitem><para>Name of new table. It must be given.</para></listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>Columns</term>
-          <listitem><para>Use "Add" and "Remove" buttons to create columns for this table. Every column must have a table-unique name, chosen data type (prepared combobox), optional NOT NULL constraint, and optional DEFAULT value. Consult Sqlite documentation for data type, NOT NULL, and DEFAULT handling specials, please.</para></listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>Create</term>
-          <listitem><para>Press this button to create table. The result of this operation is shown in the text area below.</para></listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>Advanced (SQL) tab</term>
-          <listitem><para>You can write full featured SQL CREATE TABLE statement here. A helper template is prepared for you. Everytime you open yhis tab you will be asked to recreate a new SQL statement from the GUI settings in the first tab.</para></listitem>
-        </varlistentry>
-      </variablelist>
+      <para><action>Raise a dialog for table creation. You can use two ways to create table here.
+      <link linkend="createTable">See full Create Table docs</link></action></para>
     </listitem>
-
-
   </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Describe Table</guimenuitem></menuchoice></term>
+    <listitem><para><action>Show database physical information in the script output.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
+    <guimenu>Context</guimenu><guimenuitem>Alter Table...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Raise a dialog for table changing.
+      <link linkend="alterTable">See full Alter Table docs</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Rename Table...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Allow to rename a table.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Drop Table</guimenuitem></menuchoice></term>
+    <listitem><para><action>Really drop the table.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Reindex</guimenuitem></menuchoice></term>
+    <listitem><para><action>Perform REINDEX command. If is it called against index there is only this
+    index recreated. If is it called against the table then all indexes are recreated.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Import Table Data...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Import data into table. <link linkend="importTableData">See full Import Table Data docs</link>
+      </action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Populate Table...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Create table content - data for testing etc.
+    <link linkend="populateTable">See full Populate Table docs</link></action></para></listitem>
+  </varlistentry>
+
 </variablelist>
 </para>
 </sect2>
@@ -707,6 +720,79 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
 </sect2>
 
 </sect1>
+
+<sect1 id="createTable">
+<title>Create Table</title>
+      <orderedlist>
+        <listitem><para>First – as you see in the screenshot – you can create a table with mouse and only a few keyboard typing in the "Design" tab.</para></listitem>
+        <listitem><para>And the second one by pure SQL statement.</para></listitem>
+      </orderedlist>
+
+      <variablelist>
+        <varlistentry>
+          <term>Database</term>
+          <listitem><para>A combobox with databases attached. Select one and the table will be created in this schema.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Table Name</term>
+          <listitem><para>Name of new table. It must be given.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Columns</term>
+          <listitem><para>Use "Add" and "Remove" buttons to create columns for this table. Every column must have a table-unique name, chosen data type (prepared combobox), optional NOT NULL constraint, and optional DEFAULT value. Consult Sqlite documentation for data type, NOT NULL, and DEFAULT handling specials, please.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Create</term>
+          <listitem><para>Press this button to create table. The result of this operation is shown in the text area below.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Advanced (SQL) tab</term>
+          <listitem><para>You can write full featured SQL CREATE TABLE statement here. A helper template is prepared for you. Everytime you open yhis tab you will be asked to recreate a new SQL statement from the GUI settings in the first tab.</para></listitem>
+        </varlistentry>
+      </variablelist>
+
+</sect1>
+
+<sect1 id="alterTable">
+  <title>Alter Table</title>
+  <para>
+  Raise a dialog for table changing. This dialog looks quite similar like that "Create Table" one except a few things:
+  </para>
+
+  <important>
+    <para>Sqlite ALTER TABLE command is very limited so there is no DROP COLUMN clause etc.
+    &kmyapplication; handles custom ALTER TABLE with a workaround. It's strongly recomended
+    to backup your data before dropping columns. You can lost indexes or invalidate triggers
+    if you're not careful enough.
+    </para>
+  </important>
+
+  <para>In this dialog you can <guibutton>Add</guibutton> and <guibutton>Remove</guibutton> table
+  columns and set the options for new ones.</para>
+
+  <sect2>
+    <title>Steps to alter table</title>
+    <orderedlist>
+      <listitem><para>Remember triggers and indexes from the original table</para></listitem>
+      <listitem><para>Rename the original table with temporary name</para></listitem>
+      <listitem><para>Create new table with original name containing new column structure</para></listitem>
+      <listitem><para>Petrform INSERT INTO original SELECT FROM temporary</para></listitem>
+      <listitem><para>Drop temporary table</para></listitem>
+      <listitem><para>Try to recreate original indexes and triggers</para></listitem>
+    </orderedlist>
+    <para>When there is no request for column dropping only the <command>ALTER TABLE ADD COLUMN</command>
+    is performed.</para>
+  </sect2>
+</sect1>
+
+<sect1 id="importTableData">
+<title>Import Table Data</title>
+</sect1>
+
+<sect1 id="populateTable">
+<title>Populate Table</title>
+</sect1>
+
 </chapter>
 
 
