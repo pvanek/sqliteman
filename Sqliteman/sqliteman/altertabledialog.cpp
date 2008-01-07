@@ -27,6 +27,7 @@ AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, 
 	ui.databaseCombo->addItem(schema);
 	ui.databaseCombo->setDisabled(true);
 	ui.tabWidget->removeTab(1);
+	ui.adviceLabel->hide();
 	ui.createButton->setText(tr("Alte&r"));
 	ui.removeButton->setEnabled(false);
 	setWindowTitle(tr("Alter Table"));
