@@ -123,6 +123,13 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 	return true;
 }
 
+void DataViewer::freeResources()
+{
+	QSqlQueryModel * m = qobject_cast<QSqlQueryModel*>(ui.tableView->model());
+	if (m)
+		m->clear();
+}
+
 void DataViewer::resizeViewToContents(QAbstractItemModel * model)
 {
 	ui.tableView->resizeColumnsToContents();

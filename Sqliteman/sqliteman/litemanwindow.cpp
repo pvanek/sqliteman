@@ -566,7 +566,9 @@ void LiteManWindow::execSql(QString query)
 		return;
 	}
 
+	dataViewer->freeResources();
 	sqlEditor->setStatusMessage();
+
 	QTime time;
 	time.start();
 
@@ -795,6 +797,7 @@ void LiteManWindow::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
 	if (item->type() == TableTree::TableType || item->type() == TableTree::ViewType
 	    || item->type() == TableTree::SystemType)
 	{
+		dataViewer->freeResources();
 		if(item->type() == TableTree::ViewType || item->type() == TableTree::SystemType)
 		{
 			SqlQueryModel * model = new SqlQueryModel(this);

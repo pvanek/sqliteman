@@ -48,6 +48,9 @@ class DataViewer : public QMainWindow
 
 		static const QString canFetchMore();
 
+		/*! \brief Free locked resources */
+		void freeResources();
+
 	public slots:
 		//! \brief Append the line to the "Script Result" tab.
 		void showSqlScriptResult(QString line);
