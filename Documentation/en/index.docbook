@@ -336,7 +336,7 @@ E.g. : <command>sqliteman --lang cs</command>
 &kmyapplication; checks your environment and tries to setup iself
 by your locale settings. It affects the GUI language &ndash; it should be in your
 language if there is a translation available. If you wish to use this application
-in English use <command>--lang en</command> or use Preferences dialog.
+in English use <command>--lang en</command> or use <link linkend="preferences">Preferences dialog</link>.
 </para>
 </listitem>
 
@@ -419,6 +419,7 @@ Error log. Error messages and status is written here.
 </para></listitem>
 </itemizedlist>
 
+</chapter>
 
 <!-- (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
 application windows and their menubar and toolbar commands for easy reference.
@@ -426,10 +427,10 @@ Also include any keys that have a special function but have no equivalent in the
 menus or toolbars. This may not be necessary for small apps or apps with no tool
 or menu bars. -->
 
-<sect1 id="mainwindow-menu">
+<chapter id="mainwindow-menu">
 <title>&kmyapplication; Menu Structure</title>
 
-<sect2>
+<sect1>
 <title>The <guimenu>File</guimenu> Menu</title>
 <para>
 You can open your database files here.
@@ -474,7 +475,8 @@ Sqliteman can handle files created by Sqlite version 3. If you are using 2.x, yo
     <guimenu>File</guimenu>
     <guimenuitem>Preferences...</guimenuitem>
     </menuchoice></term>
-    <listitem><para><action>Opens the preferences dialog.</action></para></listitem>
+    <listitem><para><action>Opens the preferences dialog. 
+      <link linkend="preferences">See full Preferences docs</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -488,9 +490,9 @@ Sqliteman can handle files created by Sqlite version 3. If you are using 2.x, yo
 </variablelist>
 </para>
 
-</sect2>
+</sect1>
 
-<sect2 id="content-menu">
+<sect1 id="content-menu">
 <title>The <guimenu>Context</guimenu> Menu</title>
 <para>The "Context" is the set of operation you can use for
 the selected object in the object tree browser. You can use
@@ -500,6 +502,20 @@ the alternative access to this menu by the right mouse button
 
 <para>
 <variablelist>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Refresh Object Tree</guimenuitem></menuchoice></term>
+    <listitem><para><action>Enforce the refresh of the schema browser.
+      &kmyapplication; should handle self-initialized changes in the schema automatically but you
+      can use this option to promote changes made out of &kmyapplication;</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Detach Database</guimenuitem></menuchoice></term>
+    <listitem><para><action>Disconnect attacched database from current session.
+      <link linkend="attachDatabase">See full Attach Database docs</link>.</action></para></listitem>
+  </varlistentry>
+
   <varlistentry>
     <term><menuchoice>
     <guimenu>Context</guimenu>
@@ -552,12 +568,76 @@ the alternative access to this menu by the right mouse button
     <link linkend="populateTable">See full Populate Table docs</link></action></para></listitem>
   </varlistentry>
 
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Create View...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Create a view in special dialog.
+    <link linkend="createView">See full Create View docs</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Describe View</guimenuitem></menuchoice></term>
+    <listitem><para><action>Show database physical information in the script output.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Alter View...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Change a view in a separate dialog.
+    <link linkend="createView">See full View Handling docs</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Drop View...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Really drop the view.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Create Index...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Raise a dialog for the new index.
+      <link linkend="createIndex">See full Create Index docs</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Describe Index</guimenuitem></menuchoice></term>
+    <listitem><para><action>Show index physical information in the script result window.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Drop Index</guimenuitem></menuchoice></term>
+    <listitem><para><action>Really drop the index.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Create Trigger...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Raise a dialog for the new trigger. There is a trigger template prepared for you. Just modify it to your needs. Then press the "Create" button and check the result.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Alter Trigger...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Raise a similar dialog to the "Create Trigger" one with current trigger body preset. Sqlite does not support direct ALTER TRIGGER so there is a DROP and new CREATE performed after you click the <guibutton>Alter</guibutton> button.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Drop Trigger</guimenuitem></menuchoice></term>
+    <listitem><para><action>Really drop the trigger.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Describe Trigger</guimenuitem></menuchoice></term>
+    <listitem><para><action>Show trigger physical information in the script result window.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Constraint Triggers...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Raise a dialog to create FOREIGN KEY constraint checks in the teriggers.
+      <link linkend="constraintTriggers">See full Constraint Triggers docs</link>.</action></para></listitem>
+  </varlistentry>
+
 </variablelist>
 </para>
-</sect2>
+</sect1>
 
 
-<sect2 id="database-menu">
+<sect1 id="database-menu">
 <title>The <guimenu>Database</guimenu> Menu</title>
 <para>Frequently used database tasks are grouped in this menu.</para>
 <para>
@@ -569,7 +649,8 @@ the alternative access to this menu by the right mouse button
     <guimenu>Database</guimenu>
     <guimenuitem>Create Table...</guimenuitem>
     </menuchoice></term>
-    <listitem><para><action>The same as in the Context menu</action></para></listitem>
+    <listitem><para><action>The same as in the Context menu.
+      <link linkend="createTable">See full Create Table docs</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -578,7 +659,8 @@ the alternative access to this menu by the right mouse button
     <guimenu>Database</guimenu>
     <guimenuitem>Create View...</guimenuitem>
     </menuchoice></term>
-    <listitem><para><action>The same as in the Context menu</action></para></listitem>
+    <listitem><para><action>The same as in the Context menu.
+      <link linkend="createView">See full Create View docs</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -638,10 +720,10 @@ the alternative access to this menu by the right mouse button
 </variablelist>
 </para>
 
-</sect2>
+</sect1>
 
 
-<sect2 id="system-menu">
+<sect1 id="system-menu">
 <title>The <guimenu>System</guimenu> Menu</title>
 <para>Less used but still usefull database tasks are grouped in this menu.</para>
 <caution><para>All actions introduced here requires deep understanding
@@ -673,16 +755,15 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
     <guimenuitem>Attach Database...</guimenuitem>
     </menuchoice></term>
     <listitem><para><action>You can join another Sqlite database file into this session.
-                You'll be able to use new objects in your selects etc.
-                Use schema prefix then.</action></para></listitem>
+      <link linkend="attachDatabase">See full Attach Database docs</link>.</action></para></listitem>
   </varlistentry>
 </variablelist>
 </para>
 
-</sect2>
+</sect1>
 
 
-<sect2 id="help-menu">
+<sect1 id="help-menu">
 <title>The <guimenu>Help</guimenu> Menu</title>
 
 <para>
@@ -717,8 +798,117 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
 </variablelist>
 </para>
 
-</sect2>
+</sect1>
 
+</chapter>
+
+
+<chapter>
+<title>Features and Dialogs</title>
+
+<sect1 id="preferences">
+  <title>Preferences</title>
+  <para>Preferences dialog allows you to customize &kmyapplication; to fit your needs better.</para>
+
+  <sect2>
+    <title>Look and Feel</title>
+    <para>You can set GUI behaviour in in this section. Remember that Language and Style settings require &kmyapplication; restart to take effect. Some of these preferences can be overriden by the application
+    <link linkend="options">command line parameters</link>.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>GUI Language</term>
+        <listitem><para>Allow to choose one of the translations for user interface.
+        </para>
+        <caution><para>Remember that translations are provide by group of volunteers (not by &kmyapplication; developers). It's better <link linkend="credits">to contact translation authors</link> in the case of bug.</para></caution>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>GUI Style</term>
+        <listitem><para>Change the application "skin". Available styles are depending on platform. Default style should be good choice.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Recently Used Databases</term>
+        <listitem><para>Specify the count of items in the <guimenu>File</guimenu> <guimenuitem>Recent Databases</guimenuitem> menu.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Open Last Database on Start</term>
+        <listitem><para>When it's checked, the last used database will be opened on the next &kmyapplication; start.</para></listitem>
+      </varlistentry>
+
+    </variablelist>
+  </sect2>
+
+  <sect2>
+    <title>Data Display</title>
+    <para>Change settings of the data result viewer here. There is no application restart required here.
+    Viewer features are <link linkend="dataViewer">described in its own section</link>.</para>
+    <variablelist>
+      <varlistentry>
+        <term>NULL handling</term>
+        <listitem><para>There is no difference in displaying NULL value and an empty string if is this option disabled.</para>
+        <para>If you enable this feature, you can set the background color and the substitution
+        string to highlight real NULL value. The empty string display is unchanged.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>BLOB handling</term>
+        <listitem><para>If is this option disabled, you will get unfiltered binary content of
+        the BLOB cell.</para>
+        <para>If you enable this feature, you can set the background color and the substitution
+        string to highlight real BLOB value.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Limit Text Length Display</term>
+        <listitem><para>If it is enabled, the long data will be shortened in the resilt grid.</para></listitem>
+      </varlistentry>
+
+    </variablelist>
+  </sect2>
+
+  <sect2>
+    <title>SQL Editor</title>
+    <para>Change settings of the SQL editor here. There is no application restart required here.
+    SQL Editor features are <link linkend="sqlEditor">described in its own section</link>.</para>
+    <variablelist>
+      <varlistentry>
+        <term>Font</term>
+        <listitem><para>Specify font and font size. It's common and clever to use a non-proportional font for source code editor.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Use Active Line Highlighting</term>
+        <listitem><para>The active line will be highlighted if is this feature set. Change its color with <guibutton>Color...</guibutton> button.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Use Maximum Text Width Mark</term>
+        <listitem><para>When is this option set, the vertical line at the given column position will be shown. It's useful to keep coding standards.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Use Code Completion With Length</term>
+        <listitem><para>The code completion will be allowed if is this feature set. The editor will show popup menu with matching words when the currently edited word grows on the threshold length.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Use Editor Shortcuts</term>
+        <listitem><para>The editor shortcuts mechanism will be allowed if is this feature set.
+          Pressing <guibutton>Define...</guibutton> button will open a shortcut definition dialog.</para>
+          <para>You can define shortcuts and expansion in this sub-dialog.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Syntax Colors</term>
+        <listitem><para>Custom syntax highlighting colors can be defined here. Every button sets its syntax color. All is shown in the sample SQL statement preview.</para></listitem>
+      </varlistentry>
+
+    </variablelist>
+  </sect2>
 </sect1>
 
 <sect1 id="createTable">
@@ -739,7 +929,9 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
         </varlistentry>
         <varlistentry>
           <term>Columns</term>
-          <listitem><para>Use "Add" and "Remove" buttons to create columns for this table. Every column must have a table-unique name, chosen data type (prepared combobox), optional NOT NULL constraint, and optional DEFAULT value. Consult Sqlite documentation for data type, NOT NULL, and DEFAULT handling specials, please.</para></listitem>
+          <listitem><para>Use "Add" and "Remove" buttons to create columns for this table. Every column must have a table-unique name, chosen data type (prepared combobox), optional NOT NULL constraint, and optional DEFAULT value.
+          </para>
+          <important><para>Consult Sqlite documentation for data type, NOT NULL, and DEFAULT handling specials, please.</para></important></listitem>
         </varlistentry>
         <varlistentry>
           <term>Create</term>
@@ -791,6 +983,80 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
 
 <sect1 id="populateTable">
 <title>Populate Table</title>
+</sect1>
+
+<sect1 id="createView">
+<title>View related dialogs</title>
+<para>There is the list of required properties you should fill:</para>
+  <variablelist>
+    <varlistentry>
+      <term>Database</term>
+      <listitem><para>Select a database schema from this combobox.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>View Name</term>
+      <listitem><para>Mandatory and unique (related to the Database) view name.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Select Statement</term>
+      <listitem><para>A valid SQL statement. Please do not write any CREATE or ALTER like commands. Your statement fails if you will do so.</para></listitem>
+    </varlistentry>
+  </variablelist>
+
+  <para>You can create a view directly from SQL Editor - just use proper icon for chosen SQL statement.</para>
+</sect1>
+
+<sect1 id="createIndex">
+  <title>Create Index</title>
+  <para>There is the list of required properties you should fill:</para>
+  <variablelist>
+    <varlistentry>
+      <term>Index Name</term>
+      <listitem><para>You have to specify an unique index name.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Unique?</term>
+      <listitem><para>Check it if you want to have an unique index. Default is not unique.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Use?</term>
+      <listitem><para>Check it if you want to have this column contained in index.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Asc/Desc</term>
+      <listitem><para>Specify the index sort direction. Default is "ASC".</para></listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="constraintTriggers">
+  <title>Constraint Triggers</title>
+  <para>There is one more unsupported SQL feauture. Sqlite does not enforce foreign keys and not null constraints. This action will create a workaround triggers for you. Your SQL DML statements will be checked against these triggers before their execution.</para>
+  <para>There are three kind of constraint triggers – one for each DML (INSERT/UPDATE/DELETE) operations. This tool suggests trigger names but you can change it in the "Name" widgets.</para>
+  <para>All triggers will be created after the <guibutton>Create</guibutton> click. Then check the results carefully.</para>
+<important><para>Consult Sqlite WIKI for deeper understanding of <ulink url="http://www.sqlite.org/cvstrac/wiki?p=ForeignKeyTriggers">FOREIGN KEYS</ulink>, please.</para></important>
+</sect1>
+
+
+<sect1 id="attachDatabase">
+  <title>Attached Databases</title>
+  <para>You can add and remove another database files to the current database connection.
+    Every attached database is identified by its unique name (prefix). The names 'main' and 'temp' refer to the main database and the database used for temporary tables. These cannot be detached.
+    You should access database objects with full prefixed naming convention:</para>
+    <para><command>SELECT * FROM newdb.foo_table;</command></para>
+  <important><para>Consult <ulink url="http://www.sqlite.org/lang_attach.html">Sqlite documentation</ulink>.</para></important>
+</sect1>
+
+<sect1 id="schemaBrowser">
+  <title>Schema Browser</title>
+</sect1>
+
+<sect1 id="sqlEditor">
+  <title>SQL Editor</title>
+</sect1>
+
+<sect1 id="dataViewer">
+  <title>Data Viewer</title>
 </sect1>
 
 </chapter>

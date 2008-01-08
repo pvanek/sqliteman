@@ -207,6 +207,26 @@ table.screen {
 }
 */
 
+.caution, .warning, .note, .important {
+  border: 27px solid black;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-right: 0px;
+  padding: 0.5em;
+  padding-top: 0px;
+  padding-bottom: 0.2em;
+}
+
+.caution, .warning {
+  border-color: red;
+}
+.note {
+  border-color: dark-green;
+}
+.important {
+  border-color: yellow;
+}
+
 p { 
   text-align: justify; 
 }
