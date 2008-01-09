@@ -142,6 +142,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	m_syNumberColor = prefs->syNumberColor();
 	m_syStringColor = prefs->syStringColor();
 	m_syCommentColor = prefs->syCommentColor();
+	resetEditorPreview();
 }
 
 bool PreferencesDialog::saveSettings()
