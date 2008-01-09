@@ -38,3 +38,11 @@ INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/common/
           PATTERN ".svn" EXCLUDE
           PATTERN "*.*"
 )
+
+INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/en/
+        DESTINATION ${install_path}
+        USE_SOURCE_PERMISSIONS
+          PATTERN ".svn" EXCLUDE
+          PATTERN "*.docbook" EXCLUDE
+          PATTERN "*.*"
+)

@@ -359,6 +359,14 @@ in English use <command>--lang en</command> or use <link linkend="preferences">P
 <title>The First Overview</title>
 
 <para>
+You can see the &kmyapplication; user interface is quite simillar to
+classic database admin/developer tools. The main window contains
+<emphasis>Object Browser</emphasis>, <emphasis>SQL Editor</emphasis>,
+<emphasis>Data Result Grid</emphasis>, and many more &ndash; tools
+for Sqlite special features.
+</para>
+
+<para>
 <screenshot>
 <screeninfo>The main window of &kmyapplication;</screeninfo>
 	<mediaobject>
@@ -375,14 +383,6 @@ in English use <command>--lang en</command> or use <link linkend="preferences">P
 </screenshot>
 </para>
 
-<para>
-You can see the &kmyapplication; user interface is quite simillar to
-classic database admin/developer tools. The main window contains
-<emphasis>Object Browser</emphasis>, <emphasis>SQL Editor</emphasis>,
-<emphasis>Data Result Grid</emphasis>, and many more &ndash; tools
-for Sqlite special features.
-</para>
-
 <para>All interface elements contains so called "tooltips" &ndash; quick
 notes which are available when you stay with a mouse cursor in the element
 are for a while.</para>
@@ -393,31 +393,62 @@ are for a while.</para>
 <chapter id="mainwindow">
 <title>&kmyapplication; Main Window</title>
 
+<para>
+<screenshot>
+<screeninfo>Main components in the Main Window</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="mainwindow-notes.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="mainwindow-notes.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Main components in the Main Window</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
 
-<itemizedlist>
+<variablelist>
+<varlistentry>
+<term>Menu bar</term>
 <listitem><para>
-Menu bar. Most of the actions are started here.
+Most of the actions are started here.
 </para></listitem>
+</varlistentry>
 
+<varlistentry>
+<term>Object Tree</term>
 <listitem><para>
-Object tree. Database objects are stored in the
+Database objects are stored in the
     logical hierarchy here. "Main" is the
     core database (opened), all others databases can be
     "attached" only.
 </para></listitem>
+</varlistentry>
 
+<varlistentry>
+<term>SQL Editor</term>
 <listitem><para>
-SQL editor. Write your queries and the others commands here.
+Write your queries and the others commands here.
 </para></listitem>
+</varlistentry>
 
+<varlistentry>
+<term>Result Table</term>
 <listitem><para>
-Result table. All queries results and related stuff is shown here.
+All queries results and related stuff is shown here.
 </para></listitem>
+</varlistentry>
 
+<varlistentry>
+<term>Error Log</term>
 <listitem><para>
-Error log. Error messages and status is written here.
+Error messages and status is written here.
 </para></listitem>
-</itemizedlist>
+</varlistentry>
+</variablelist>
 
 </chapter>
 
@@ -815,6 +846,23 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
     <para>You can set GUI behaviour in in this section. Remember that Language and Style settings require &kmyapplication; restart to take effect. Some of these preferences can be overriden by the application
     <link linkend="options">command line parameters</link>.</para>
 
+<para>
+<screenshot>
+<screeninfo>Preferences: Look and Feel</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-lnf.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-lnf.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Preferences: Look and Feel</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
     <variablelist>
       <varlistentry>
         <term>GUI Language</term>
@@ -846,6 +894,24 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
     <title>Data Display</title>
     <para>Change settings of the data result viewer here. There is no application restart required here.
     Viewer features are <link linkend="dataViewer">described in its own section</link>.</para>
+
+<para>
+<screenshot>
+<screeninfo>Preferences: Data Display</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-display.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-display.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Preferences: Data Display</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
     <variablelist>
       <varlistentry>
         <term>NULL handling</term>
@@ -874,6 +940,24 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
     <title>SQL Editor</title>
     <para>Change settings of the SQL editor here. There is no application restart required here.
     SQL Editor features are <link linkend="sqlEditor">described in its own section</link>.</para>
+
+<para>
+<screenshot>
+<screeninfo>Preferences: SQL Editor</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-editor.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-editor.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Preferences: SQL Editor</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
     <variablelist>
       <varlistentry>
         <term>Font</term>
@@ -899,7 +983,24 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
         <term>Use Editor Shortcuts</term>
         <listitem><para>The editor shortcuts mechanism will be allowed if is this feature set.
           Pressing <guibutton>Define...</guibutton> button will open a shortcut definition dialog.</para>
-          <para>You can define shortcuts and expansion in this sub-dialog.</para></listitem>
+          <para>You can define shortcuts and expansion in this sub-dialog:</para>
+          <para>
+          <screenshot>
+          <screeninfo>Preferences: Editor Shortcuts</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="preferences-shortcuts.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="preferences-shortcuts.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Preferences: Editor Shortcuts</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+        </listitem>
       </varlistentry>
 
       <varlistentry>
@@ -917,6 +1018,23 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
         <listitem><para>First – as you see in the screenshot – you can create a table with mouse and only a few keyboard typing in the "Design" tab.</para></listitem>
         <listitem><para>And the second one by pure SQL statement.</para></listitem>
       </orderedlist>
+
+          <para>
+          <screenshot>
+          <screeninfo>Create table dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="createTable.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="createTable.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Create table dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
 
       <variablelist>
         <varlistentry>
@@ -939,7 +1057,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
         </varlistentry>
         <varlistentry>
           <term>Advanced (SQL) tab</term>
-          <listitem><para>You can write full featured SQL CREATE TABLE statement here. A helper template is prepared for you. Everytime you open yhis tab you will be asked to recreate a new SQL statement from the GUI settings in the first tab.</para></listitem>
+          <listitem><para>You can write full featured SQL CREATE TABLE statement here. A helper template is prepared for you. Everytime you open this tab you will be asked to recreate a new SQL statement from the GUI settings in the first tab.</para></listitem>
         </varlistentry>
       </variablelist>
 
@@ -962,6 +1080,23 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
   <para>In this dialog you can <guibutton>Add</guibutton> and <guibutton>Remove</guibutton> table
   columns and set the options for new ones.</para>
 
+          <para>
+          <screenshot>
+          <screeninfo>Alter table dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="alterTable.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="alterTable.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Alter table dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
   <sect2>
     <title>Steps to alter table</title>
     <orderedlist>
@@ -974,6 +1109,31 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
     </orderedlist>
     <para>When there is no request for column dropping only the <command>ALTER TABLE ADD COLUMN</command>
     is performed.</para>
+
+    <para>A sample log output from add one column and remove on too in one batch.
+      You can see two failed index recreation due missing column (that dropped one):</para>
+    <para><programlisting>
+Rename original table to _alter0_tags
+Creating new table: tags
+Begin Transaction
+Data Transfer
+Transaction Commit
+Dropping original table _alter0_tags
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger (failed) table tags has no column named deviceid:
+CREATE INDEX tags_deviceid_index ON tags( deviceid )
+Recreating original index/trigger (failed) table tags has no column named deviceid:
+CREATE UNIQUE INDEX url_tag ON tags( url, deviceid )
+Columns added successfully
+Alter Table Done
+    </programlisting></para>
   </sect2>
 </sect1>
 
@@ -988,6 +1148,24 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
 <sect1 id="createView">
 <title>View related dialogs</title>
 <para>There is the list of required properties you should fill:</para>
+
+          <para>
+          <screenshot>
+          <screeninfo>Create view dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="createView.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="createView.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Create view dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
   <variablelist>
     <varlistentry>
       <term>Database</term>
