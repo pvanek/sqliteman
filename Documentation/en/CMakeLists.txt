@@ -44,5 +44,6 @@ INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/en/
         USE_SOURCE_PERMISSIONS
           PATTERN ".svn" EXCLUDE
           PATTERN "*.docbook" EXCLUDE
+          PATTERN "CMakeLists.txt" EXCLUDE
           PATTERN "*.*"
 )

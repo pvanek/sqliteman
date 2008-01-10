@@ -297,7 +297,7 @@ command line options you can use too.
 </para>
 
 <sect1 id="cli-usage">
-<title>Usage in command line</title>
+<title>Usage in the command line</title>
 <para>
 <command>sqliteman [options] [databasefile]</command>
 </para>
@@ -523,7 +523,7 @@ Sqliteman can handle files created by Sqlite version 3. If you are using 2.x, yo
 
 </sect1>
 
-<sect1 id="content-menu">
+<sect1 id="context-menu">
 <title>The <guimenu>Context</guimenu> Menu</title>
 <para>The "Context" is the set of operation you can use for
 the selected object in the object tree browser. You can use
@@ -1227,6 +1227,54 @@ Alter Table Done
 
 <sect1 id="schemaBrowser">
   <title>Schema Browser</title>
+  <para>All database objects are listed in this widget. Objects 
+  are grouped into logical tree. Available actions for chosen
+  tree item (table, index, view etc.) are dynamically shown in
+  the <link linkend="context-menu">Context Menu</link> in the menubar
+  or in the popup menu (right mouse click).
+  </para>
+          <para>
+          <screenshot>
+          <screeninfo>Schema Browser (Object Tree)</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="schemaBrowser-schema.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="schemaBrowser-schema.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Schema Browser (Object Tree)</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+  <sect2 id="pragmaEditor">
+  <title>Pragma Editor</title>
+  <para>The database parameters can be changed comfortably in the Pragma Editor.
+  All available PRAGMAs are listed in the table. Currently selected PRAGMA can be
+  changed in the dialog opened with the <guibutton>Change Value...</guibutton>.
+  </para>
+  <warning><para>Every PRAGMA change affects the behviour of the database.
+    You should know what are you doing here.</para></warning>
+          <para>
+          <screenshot>
+          <screeninfo>Pragma editor</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="schemaBrowser-pragma.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="schemaBrowser-pragma.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Pragma editor</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+  </sect2>
 </sect1>
 
 <sect1 id="sqlEditor">
