@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QSqlDatabase>
 #include <QSqlError>
+#include <QSqlQuery>
 
 #include <QCoreApplication>
 #include <QCloseEvent>
@@ -473,31 +474,43 @@ void LiteManWindow::openDatabase(const QString & fileName)
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
 	db.setDatabaseName(fileName);
 
+	QString msg = tr("Unable to open or create file %1. It is probably not a database").arg(QFileInfo(fileName).fileName());
 	if(!db.open())
 	{
-		QString msg = tr("Unable to open or create file %1. It is probably not a database").arg(QFileInfo(fileName).fileName());
+		QMessageBox::warning(this, m_appName, msg);
+		return;
+	}
+	/* Qt database open() (exactly the sqlite API sqlite3_open16())
+	   method does not check if it is really database. So the dummy
+	   select statement shoudl perform a real "is it a database" check
+	   for us. */
+	QSqlQuery q("select 1 from sqlite_master where 1=2", db);
+	if (!q.exec())
+	{
 		QMessageBox::warning(this, m_appName, msg);
 		return;
 	}
 	else
+	{
 		isOpened = true;
 
-	attachedDb.clear();
-	attachedDb["main"] = SESSION_NAME;
-
-	QFileInfo fi(fileName);
-	QDir::setCurrent(fi.absolutePath());
-	m_mainDbPath = QDir::toNativeSeparators(QDir::currentPath() + "/" + fi.fileName());
-
-	updateRecent(fileName);
-
-	// Build tree & clean model
-	schemaBrowser->tableTree->buildTree();
-	schemaBrowser->buildPragmasTree();
-	dataViewer->setTableModel(new QSqlQueryModel(), false);
-
-	// Update the title
-	setWindowTitle(QString("%1 - %2").arg(fi.fileName()).arg(m_appName));
+		attachedDb.clear();
+		attachedDb["main"] = SESSION_NAME;
+	
+		QFileInfo fi(fileName);
+		QDir::setCurrent(fi.absolutePath());
+		m_mainDbPath = QDir::toNativeSeparators(QDir::currentPath() + "/" + fi.fileName());
+	
+		updateRecent(fileName);
+	
+		// Build tree & clean model
+		schemaBrowser->tableTree->buildTree();
+		schemaBrowser->buildPragmasTree();
+		dataViewer->setTableModel(new QSqlQueryModel(), false);
+	
+		// Update the title
+		setWindowTitle(QString("%1 - %2").arg(fi.fileName()).arg(m_appName));
+	}
 
 	// Enable UI
 	schemaBrowser->setEnabled(isOpened);
