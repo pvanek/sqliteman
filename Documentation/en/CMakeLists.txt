@@ -47,3 +47,20 @@ INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/en/
           PATTERN "CMakeLists.txt" EXCLUDE
           PATTERN "*.*"
 )
+
+#icons
+INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/../Sqliteman/sqliteman/icons/
+        DESTINATION ${install_path}
+        USE_SOURCE_PERMISSIONS
+          PATTERN ".svn" EXCLUDE
+          PATTERN "CMakeFiles" EXCLUDE
+          PATTERN "Makefile" EXCLUDE
+          PATTERN "cmake_install.cmake" EXCLUDE
+          PATTERN "CMakeCache.txt" EXCLUDE
+          PATTERN "CMakeLists.txt" EXCLUDE
+          PATTERN "install_manifest.txt" EXCLUDE
+          PATTERN "*.svg" EXCLUDE
+          PATTERN "*rc" EXCLUDE
+          PATTERN "AUTHORS" EXCLUDE
+          PATTERN "*.png"
+)

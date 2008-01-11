@@ -227,6 +227,10 @@ table.screen {
   border-color: yellow;
 }
 
+.guiicon img {
+  padding-right: 1em;
+}
+
 p { 
   text-align: justify; 
 }
