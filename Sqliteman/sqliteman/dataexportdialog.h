@@ -63,8 +63,13 @@ class DataExportDialog : public QDialog
 		bool header();
 		QString endl();
 
+		//! \brief Enable or Disable "OK" button depending on the GUI options
+		void checkButtonStatus();
+
 	private slots:
 		void fileButton_toggled(bool);
+		void clipboardButton_toggled(bool);
+		void fileEdit_textChanged(const QString &);
 		void searchButton_clicked();
 		void cancel();
 		void slotAccepted();

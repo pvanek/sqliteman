@@ -61,9 +61,18 @@ DataExportDialog::DataExportDialog(DataViewer * parent, const QString & tableNam
 	ui.clipboardButton->setChecked(prefs->exportDestination() == 1);
 	ui.headerCheckBox->setChecked(prefs->exportHeaders());
 
-	connect(ui.fileButton, SIGNAL(toggled(bool)), this, SLOT(fileButton_toggled(bool)));
-	connect(ui.searchButton, SIGNAL(clicked()), this, SLOT(searchButton_clicked()));
-	connect(ui.buttonBox, SIGNAL(accepted()), this, SLOT(slotAccepted()));
+	checkButtonStatus();
+
+	connect(ui.fileButton, SIGNAL(toggled(bool)),
+			this, SLOT(fileButton_toggled(bool)));
+	connect(ui.clipboardButton, SIGNAL(toggled(bool)),
+			this, SLOT(clipboardButton_toggled(bool)));
+	connect(ui.fileEdit, SIGNAL(textChanged(const QString &)),
+			this, SLOT(fileEdit_textChanged(const QString &)));
+	connect(ui.searchButton, SIGNAL(clicked()),
+			this, SLOT(searchButton_clicked()));
+	connect(ui.buttonBox, SIGNAL(accepted()),
+			this, SLOT(slotAccepted()));
 }
 
 void DataExportDialog::slotAccepted()
@@ -76,6 +85,17 @@ void DataExportDialog::slotAccepted()
 	prefs->setExportEol(ui.lineEndBox->currentIndex());
 
 	accept();
+}
+
+void DataExportDialog::checkButtonStatus()
+{
+	bool e = false;
+	// NULL
+	if (ui.fileButton->isChecked() && !ui.fileEdit->text().isEmpty())
+		e = true;
+	if (ui.clipboardButton->isChecked())
+		e = true;
+	ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(e);
 }
 
 bool DataExportDialog::doExport()
@@ -108,7 +128,7 @@ bool DataExportDialog::doExport()
 	progress->setValue(m_data->rowCount());
 	delete progress;
 	progress = 0;
-	
+
 	return res;
 }
 
@@ -314,6 +334,17 @@ void DataExportDialog::fileButton_toggled(bool state)
 	ui.fileEdit->setEnabled(state);
 	ui.searchButton->setEnabled(state);
 	ui.label_2->setEnabled(state);
+	checkButtonStatus();
+}
+
+void DataExportDialog::clipboardButton_toggled(bool)
+{
+	checkButtonStatus();
+}
+
+void DataExportDialog::fileEdit_textChanged(const QString &)
+{
+	checkButtonStatus();
 }
 
 void DataExportDialog::searchButton_clicked()
@@ -330,7 +361,7 @@ void DataExportDialog::searchButton_clicked()
 		mask = tr("SQL inserts (*.sql)");
 	if (curr == "py")
 		mask = tr("Python list (*.py)");
-	
+
 	QString fileName = QFileDialog::getSaveFileName(this,
 			tr("Export to File"),
 			QDir::homePath(),
