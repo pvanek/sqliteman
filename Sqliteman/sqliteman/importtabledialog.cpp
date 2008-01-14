@@ -172,13 +172,13 @@ void ImportTableDialog::slotAccepted()
 QString ImportTableDialog::sqliteSeparator()
 {
 	if (pipeRadioButton->isChecked())
-		return "\"|\"";
+		return "|";
 	else if (commaRadioButton->isChecked())
-		return "\",\"";
+		return ",";
 	else if (semicolonRadioButton->isChecked())
-		return "\";\"";
+		return ";";
 	else if (tabelatorRadioButton->isChecked())
-		return "\"\\t\"";
+		return "\\t";
 	return customEdit->text();
 }
 
