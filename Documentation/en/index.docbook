@@ -99,7 +99,7 @@ Do NOT change these in the translation. -->
 <para>
 &kmyapplication; is the best developer's and/or admin's GUI tool for
 Sqlite3 in the world. No joking here (or just a bit only) &ndash; it contains
-the most complette feature set of all tools available.
+the most complete feature set of all tools available.
 </para>
 </abstract>
 
@@ -138,7 +138,7 @@ revision history. (see installation appendix comment) -->
 The best developer's and/or admin's GUI tool for
 <ulink url="http://sqlite.org/">Sqlite3</ulink>in the world.
 No joking here (or just a bit only) &ndash; it contains
-the most complette feature set of all tools available.
+the most complete feature set of all tools available.
 And it's just the beginning&hellip;
 </para>
 
@@ -171,7 +171,7 @@ such this (<ulink url="http://www.kexi-project.org/">Kexi</ulink>,
 <title>&kmyapplication; Online</title>
 
 <itemizedlist>
-<listitem><para><ulink url="http://sqliteman.com/">Project Homepage</ulink></para></listitem>
+<listitem><para><ulink url="http://sqliteman.com/">Project Home page</ulink></para></listitem>
 <listitem><para><ulink url="http://sourceforge.net/project/showfiles.php?group_id=189610">Download new versions</ulink></para></listitem>
 <listitem><para><ulink url="http://sqliteman.com/bugtracker/">Report bugs and feature requests</ulink></para></listitem>
 <listitem><para><ulink url="https://sourceforge.net/projects/sqliteman/">Sourceforge.net Area</ulink></para></listitem>
@@ -186,7 +186,7 @@ such this (<ulink url="http://www.kexi-project.org/">Kexi</ulink>,
 
 <para>
 The text in this chapter is take from
-<ulink url="http://www.sqlite.org/">Sqlite homepage</ulink>.
+<ulink url="http://www.sqlite.org/">Sqlite home page</ulink>.
 Read more documentation there for deeper understanding of Sqlite
 features.
 </para>
@@ -198,7 +198,7 @@ zero-configuration SQL database engine.
 
 <caution>
 <para>
-It's strongly recomended to read and understand the Sqlite
+It's strongly recommended to read and understand the Sqlite
 documentation. Sqlite can be confusing for a programmer from the world
 of the <emphasis>real databases</emphasis> (like Postgresql, Oracle,
 MS SQL Server etc.).
@@ -333,7 +333,7 @@ the application. Option list:
 E.g. : <command>sqliteman --lang cs</command>
 </para>
 <para>
-&kmyapplication; checks your environment and tries to setup iself
+&kmyapplication; checks your environment and tries to setup itself
 by your locale settings. It affects the GUI language &ndash; it should be in your
 language if there is a translation available. If you wish to use this application
 in English use <command>--lang en</command> or use <link linkend="preferences">Preferences dialog</link>.
@@ -359,7 +359,7 @@ in English use <command>--lang en</command> or use <link linkend="preferences">P
 <title>The First Overview</title>
 
 <para>
-You can see the &kmyapplication; user interface is quite simillar to
+You can see the &kmyapplication; user interface is quite similar to
 classic database admin/developer tools. The main window contains
 <emphasis>Object Browser</emphasis>, <emphasis>SQL Editor</emphasis>,
 <emphasis>Data Result Grid</emphasis>, and many more &ndash; tools
@@ -383,7 +383,7 @@ for Sqlite special features.
 </screenshot>
 </para>
 
-<para>All interface elements contains so called "tooltips" &ndash; quick
+<para>All interface elements contains so called "tool tips" &ndash; quick
 notes which are available when you stay with a mouse cursor in the element
 are for a while.</para>
 
@@ -470,7 +470,7 @@ or menu bars. -->
 You can open your database files here.
 </para>
 <para>
-Sqliteman can handle files created by Sqlite version 3. If you are using 2.x, you should migrate your data. Sqlite developers change physical data format for its files quite often (in the 3.x releases too) so there can be some tweaky issues when you cannot e.g. open a 3.3.13 file with 3.3.8 driver etc. See troubleshooting chapter for more info.
+Sqliteman can handle files created by Sqlite version 3. If you are using 2.x, you should migrate your data. Sqlite developers change physical data format for its files quite often (in the 3.x releases too) so there can be some small issues when you cannot e.g. open a 3.3.13 file with 3.3.8 driver etc. See troubleshooting chapter for more info.
 </para>
 
 <para>
@@ -510,7 +510,7 @@ Sqliteman can handle files created by Sqlite version 3. If you are using 2.x, yo
     <guimenuitem>Preferences...</guimenuitem>
     </menuchoice></term>
     <listitem><para><action>Opens the preferences dialog. 
-      <link linkend="preferences">See full Preferences docs</link></action></para></listitem>
+      <link linkend="preferences">See full Preferences documentation</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -546,8 +546,8 @@ the alternative access to this menu by the right mouse button
 
   <varlistentry>
     <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Detach Database</guimenuitem></menuchoice></term>
-    <listitem><para><action>Disconnect attacched database from current session.
-      <link linkend="attachDatabase">See full Attach Database docs</link>.</action></para></listitem>
+    <listitem><para><action>Disconnect attached database from current session.
+      <link linkend="attachDatabase">See full Attach Database documentation</link>.</action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -557,7 +557,7 @@ the alternative access to this menu by the right mouse button
     </menuchoice></term>
     <listitem>
       <para><action>Raise a dialog for table creation. You can use two ways to create table here.
-      <link linkend="createTable">See full Create Table docs</link></action></para>
+      <link linkend="createTable">See full Create Table documentation</link></action></para>
     </listitem>
   </varlistentry>
 
@@ -571,7 +571,7 @@ the alternative access to this menu by the right mouse button
     <shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
     <guimenu>Context</guimenu><guimenuitem>Alter Table...</guimenuitem></menuchoice></term>
     <listitem><para><action>Raise a dialog for table changing.
-      <link linkend="alterTable">See full Alter Table docs</link></action></para></listitem>
+      <link linkend="alterTable">See full Alter Table documentation</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -592,20 +592,20 @@ the alternative access to this menu by the right mouse button
 
   <varlistentry>
     <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Import Table Data...</guimenuitem></menuchoice></term>
-    <listitem><para><action>Import data into table. <link linkend="importTableData">See full Import Table Data docs</link>
+    <listitem><para><action>Import data into table. <link linkend="importTableData">See full Import Table Data documentation</link>
       </action></para></listitem>
   </varlistentry>
 
   <varlistentry>
     <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Populate Table...</guimenuitem></menuchoice></term>
     <listitem><para><action>Create table content - data for testing etc.
-    <link linkend="populateTable">See full Populate Table docs</link></action></para></listitem>
+    <link linkend="populateTable">See full Populate Table documentation</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
     <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Create View...</guimenuitem></menuchoice></term>
     <listitem><para><action>Create a view in special dialog.
-    <link linkend="createView">See full Create View docs</link></action></para></listitem>
+    <link linkend="createView">See full Create View documentation</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -616,7 +616,7 @@ the alternative access to this menu by the right mouse button
   <varlistentry>
     <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Alter View...</guimenuitem></menuchoice></term>
     <listitem><para><action>Change a view in a separate dialog.
-    <link linkend="createView">See full View Handling docs</link></action></para></listitem>
+    <link linkend="createView">See full View Handling documentation</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -627,7 +627,7 @@ the alternative access to this menu by the right mouse button
   <varlistentry>
     <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Create Index...</guimenuitem></menuchoice></term>
     <listitem><para><action>Raise a dialog for the new index.
-      <link linkend="createIndex">See full Create Index docs</link></action></para></listitem>
+      <link linkend="createIndex">See full Create Index documentation</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -662,8 +662,8 @@ the alternative access to this menu by the right mouse button
 
   <varlistentry>
     <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Constraint Triggers...</guimenuitem></menuchoice></term>
-    <listitem><para><action>Raise a dialog to create FOREIGN KEY constraint checks in the teriggers.
-      <link linkend="constraintTriggers">See full Constraint Triggers docs</link>.</action></para></listitem>
+    <listitem><para><action>Raise a dialog to create FOREIGN KEY constraint checks in the triggers.
+      <link linkend="constraintTriggers">See full Constraint Triggers documentation</link>.</action></para></listitem>
   </varlistentry>
 
 </variablelist>
@@ -684,7 +684,7 @@ the alternative access to this menu by the right mouse button
     <guimenuitem>Create Table...</guimenuitem>
     </menuchoice></term>
     <listitem><para><action>The same as in the Context menu.
-      <link linkend="createTable">See full Create Table docs</link></action></para></listitem>
+      <link linkend="createTable">See full Create Table documentation</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -694,7 +694,7 @@ the alternative access to this menu by the right mouse button
     <guimenuitem>Create View...</guimenuitem>
     </menuchoice></term>
     <listitem><para><action>The same as in the Context menu.
-      <link linkend="createView">See full Create View docs</link></action></para></listitem>
+      <link linkend="createView">See full Create View documentation</link></action></para></listitem>
   </varlistentry>
 
   <varlistentry>
@@ -759,7 +759,7 @@ the alternative access to this menu by the right mouse button
 
 <sect1 id="system-menu">
 <title>The <guimenu>System</guimenu> Menu</title>
-<para>Less used but still usefull database tasks are grouped in this menu.</para>
+<para>Less used but still useful database tasks are grouped in this menu.</para>
 <caution><para>All actions introduced here requires deep understanding
 of the Sqlite internals &ndash; study its documentation, please.</para></caution>
 
@@ -771,7 +771,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
     <guimenuitem>Analyze Statistics...</guimenuitem>
     </menuchoice></term>
     <listitem><para><action>Raise a dialog to compute the database statistics.
-          You can drop, compute stats for the whole schema, or just
+          You can drop, compute statistics for the whole schema, or just
           select objects.</action></para></listitem>
   </varlistentry>
 
@@ -789,7 +789,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
     <guimenuitem>Attach Database...</guimenuitem>
     </menuchoice></term>
     <listitem><para><action>You can join another Sqlite database file into this session.
-      <link linkend="attachDatabase">See full Attach Database docs</link>.</action></para></listitem>
+      <link linkend="attachDatabase">See full Attach Database documentation</link>.</action></para></listitem>
   </varlistentry>
 </variablelist>
 </para>
@@ -846,7 +846,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
 
   <sect2>
     <title>Look and Feel</title>
-    <para>You can set GUI behaviour in in this section. Remember that Language and Style settings require &kmyapplication; restart to take effect. Some of these preferences can be overriden by the application
+    <para>You can set GUI behavior in in this section. Remember that Language and Style settings require &kmyapplication; restart to take effect. Some of these preferences can be overridden by the application
     <link linkend="options">command line parameters</link>.</para>
 
 <para>
@@ -933,7 +933,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
 
       <varlistentry>
         <term>Limit Text Length Display</term>
-        <listitem><para>If it is enabled, the long data will be shortened in the resilt grid.</para></listitem>
+        <listitem><para>If it is enabled, the long data will be shortened in the result grid.</para></listitem>
       </varlistentry>
 
     </variablelist>
@@ -979,7 +979,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
 
       <varlistentry>
         <term>Use Code Completion With Length</term>
-        <listitem><para>The code completion will be allowed if is this feature set. The editor will show popup menu with matching words when the currently edited word grows on the threshold length.</para></listitem>
+        <listitem><para>The code completion will be allowed if is this feature set. The editor will show pop-up menu with matching words when the currently edited word grows on the threshold length.</para></listitem>
       </varlistentry>
 
       <varlistentry>
@@ -1042,7 +1042,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
       <variablelist>
         <varlistentry>
           <term>Database</term>
-          <listitem><para>A combobox with databases attached. Select one and the table will be created in this schema.</para></listitem>
+          <listitem><para>A combo box with databases attached. Select one and the table will be created in this schema.</para></listitem>
         </varlistentry>
         <varlistentry>
           <term>Table Name</term>
@@ -1050,7 +1050,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
         </varlistentry>
         <varlistentry>
           <term>Columns</term>
-          <listitem><para>Use "Add" and "Remove" buttons to create columns for this table. Every column must have a table-unique name, chosen data type (prepared combobox), optional NOT NULL constraint, and optional DEFAULT value.
+          <listitem><para>Use "Add" and "Remove" buttons to create columns for this table. Every column must have a table-unique name, chosen data type (prepared combo box), optional NOT NULL constraint, and optional DEFAULT value.
           </para>
           <important><para>Consult Sqlite documentation for data type, NOT NULL, and DEFAULT handling specials, please.</para></important></listitem>
         </varlistentry>
@@ -1060,7 +1060,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
         </varlistentry>
         <varlistentry>
           <term>Advanced (SQL) tab</term>
-          <listitem><para>You can write full featured SQL CREATE TABLE statement here. A helper template is prepared for you. Everytime you open this tab you will be asked to recreate a new SQL statement from the GUI settings in the first tab.</para></listitem>
+          <listitem><para>You can write full featured SQL CREATE TABLE statement here. A helper template is prepared for you. Every time you open this tab you will be asked to recreate a new SQL statement from the GUI settings in the first tab.</para></listitem>
         </varlistentry>
       </variablelist>
 
@@ -1074,7 +1074,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
 
   <important>
     <para>Sqlite ALTER TABLE command is very limited so there is no DROP COLUMN clause etc.
-    &kmyapplication; handles custom ALTER TABLE with a workaround. It's strongly recomended
+    &kmyapplication; handles custom ALTER TABLE with a workaround. It's strongly recommended
     to backup your data before dropping columns. You can lost indexes or invalidate triggers
     if you're not careful enough.
     </para>
@@ -1106,7 +1106,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
       <listitem><para>Remember triggers and indexes from the original table</para></listitem>
       <listitem><para>Rename the original table with temporary name</para></listitem>
       <listitem><para>Create new table with original name containing new column structure</para></listitem>
-      <listitem><para>Petrform INSERT INTO original SELECT FROM temporary</para></listitem>
+      <listitem><para>Perform INSERT INTO original SELECT FROM temporary</para></listitem>
       <listitem><para>Drop temporary table</para></listitem>
       <listitem><para>Try to recreate original indexes and triggers</para></listitem>
     </orderedlist>
@@ -1115,6 +1115,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
 
     <para>A sample log output from add one column and remove on too in one batch.
       You can see two failed index recreation due missing column (that dropped one):</para>
+    <example><title>Full Alter Table Example</title>
     <para><programlisting>
 Rename original table to _alter0_tags
 Creating new table: tags
@@ -1137,15 +1138,157 @@ CREATE UNIQUE INDEX url_tag ON tags( url, deviceid )
 Columns added successfully
 Alter Table Done
     </programlisting></para>
+    </example>
   </sect2>
 </sect1>
 
 <sect1 id="importTableData">
 <title>Import Table Data</title>
+  <para>Data in supported formats can be imported into chosen table directly in
+    this dialog.</para>
+          <para>
+          <screenshot>
+          <screeninfo>Import Table Data dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="dataImport.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="dataImport.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Import Table Data dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Schema to Import</term>
+        <listitem><para>Chose one of available databases. "Main" is the default. All attached databases are available.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Table to Import Into</term>
+        <listitem><para>Select the table for import. Only tables from chosen database are shown.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>File to Import</term>
+        <listitem><para>A file from filesystem.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Table to Import Into</term>
+        <listitem><para>Select the table for import. Only tables from chosen database are shown.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Sqlite .import</term>
+        <listitem><para>This type of import handles plaintext files with separator as does the <command>sqlite3</command>
+          CLI console. Specify one of predefined field separators or create a custom one.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>MS Excel XML</term>
+        <listitem><para>This type of import handles special XML files used in MS Excel. This tool
+          cannot import any other XML file. This import filter does not contain any options.</para></listitem>
+      </varlistentry>
+
+
+      <varlistentry>
+        <term>Preview</term>
+        <listitem><para>Live preview of the selected file. You can check the result of import in the window.</para></listitem>
+      </varlistentry>
+
+    </variablelist>
 </sect1>
 
 <sect1 id="populateTable">
 <title>Populate Table</title>
+
+  <para>Simple (testing/QA) data generator for tables.</para>
+  <para>Populator tries to guess what to insert into the table. It
+    finds if the requested value is number. text, or primary key and
+    its size.</para>
+
+          <para>
+          <screenshot>
+          <screeninfo>Populate Table dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="populateTable.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="populateTable.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Populate Table dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>Number of Rows to Populate</term>
+      <listitem><para>Specify the amount of record to be created.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Continue on Error</term>
+      <listitem><para>If it's checked, the data population will continue after error.</para>
+      <para>If it's unchecked the process will stop right after the first error.</para>
+      <important><para>Why there could be errors? It's simple. Sqlite doesn't supply
+        any way to check e.g. constraints, or trigger modification on table before the
+        statement run. So the error can be raised for example when you want to add
+        already presented number into autoincrement column etc.</para></important>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Column Settings</term>
+      <listitem><para>Setup every column with custom action. Column actions are
+        prepared depending their data type and/or size.</para></listitem>
+    </varlistentry>
+  </variablelist>
+
+  <sect2>
+    <title>Column Settings</title>
+    <variablelist>
+      <varlistentry>
+        <term>Autonumber</term>
+        <listitem><para>Insert MAX()+1 for current number based column. Values inserted are unique,
+          so it should be used for Primary Keys, Autonumber columns and columns with unique indexes.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Random Number</term>
+        <listitem><para>Insert pseudo random number into column. If there is a size settings for
+          this column (e.g. NUMBER(3)) the size is used.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Random Text</term>
+        <listitem><para>Insert random text string into column. If there is a size settings for
+          this column (e.g. VARCHAR2(3)) the size is used.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Prefixed Text</term>
+        <listitem><para>Insert text string with custom prefix. For example set the prefix as "testvalue_"
+          then you'll get sequence of values: "testvalue_1", "testvalue_1", ..., "testvalue_N".</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Static Value</term>
+        <listitem><para>Insert custom constant value for all new records for current column.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Ignore Column</term>
+        <listitem><para>Skip this column. No data will be inserted except default values for columns.</para>
+        <warning><para>Remember that constraints are still active in the table. E.g. when you
+          set a NOT NULL constrained column with Ignore Column option, you'll get a Constraint Violated
+          error.</para></warning>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </sect2>
 </sect1>
 
 <sect1 id="createView">
@@ -1172,7 +1315,7 @@ Alter Table Done
   <variablelist>
     <varlistentry>
       <term>Database</term>
-      <listitem><para>Select a database schema from this combobox.</para></listitem>
+      <listitem><para>Select a database schema from this combo box.</para></listitem>
     </varlistentry>
     <varlistentry>
       <term>View Name</term>
@@ -1190,6 +1333,25 @@ Alter Table Done
 <sect1 id="createIndex">
   <title>Create Index</title>
   <para>There is the list of required properties you should fill:</para>
+
+          <para>
+          <screenshot>
+          <screeninfo>Create Index dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="createIndex.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="createIndex.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Create Index dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+
   <variablelist>
     <varlistentry>
       <term>Index Name</term>
@@ -1212,7 +1374,7 @@ Alter Table Done
 
 <sect1 id="constraintTriggers">
   <title>Constraint Triggers</title>
-  <para>There is one more unsupported SQL feauture. Sqlite does not enforce foreign keys and not null constraints. This action will create a workaround triggers for you. Your SQL DML statements will be checked against these triggers before their execution.</para>
+  <para>There is one more unsupported SQL feature. Sqlite does not enforce foreign keys and not null constraints. This action will create a workaround triggers for you. Your SQL DML statements will be checked against these triggers before their execution.</para>
   <para>There are three kind of constraint triggers – one for each DML (INSERT/UPDATE/DELETE) operations. This tool suggests trigger names but you can change it in the "Name" widgets.</para>
   <para>All triggers will be created after the <guibutton>Create</guibutton> click. Then check the results carefully.</para>
 <important><para>Consult Sqlite WIKI for deeper understanding of <ulink url="http://www.sqlite.org/cvstrac/wiki?p=ForeignKeyTriggers">FOREIGN KEYS</ulink>, please.</para></important>
@@ -1233,8 +1395,8 @@ Alter Table Done
   <para>All database objects are listed in this widget. Objects 
   are grouped into logical tree. Available actions for chosen
   tree item (table, index, view etc.) are dynamically shown in
-  the <link linkend="context-menu">Context Menu</link> in the menubar
-  or in the popup menu (right mouse click).
+  the <link linkend="context-menu">Context Menu</link> in the menu bar
+  or in the pop-up menu (right mouse click).
   </para>
           <para>
           <screenshot>
@@ -1259,7 +1421,7 @@ Alter Table Done
   All available PRAGMAs are listed in the table. Currently selected PRAGMA can be
   changed in the dialog opened with the <guibutton>Change Value...</guibutton>.
   </para>
-  <warning><para>Every PRAGMA change affects the behviour of the database.
+  <warning><para>Every PRAGMA change affects the behavior of the database.
     You should know what are you doing here.</para></warning>
           <para>
           <screenshot>
@@ -1284,12 +1446,12 @@ Alter Table Done
   <title>SQL Editor</title>
   <para>The SQL Editor is the place to create, test and examine your statements.
 There are some additional features made for your easier life. Of course you
-can <link linkend="preferences-sqlEditor">customize editor behaviour in Preferences</link>.</para>
+can <link linkend="preferences-sqlEditor">customize editor behavior in Preferences</link>.</para>
 
 <important><para>Transaction handling. Transactions in the SQL scripts (in this editor)
 are under user control. There is no autocommit and automatic transaction starting.
 You can use PRAGMAs on your own of course.</para>
-<para>It's strongly recomended not to mix transaction started in SQL Editor and
+<para>It's strongly recommended not to mix transaction started in SQL Editor and
 in Data Viewer. You can get some ugly collisions then.</para></important>
           <para>
           <screenshot>
@@ -1460,7 +1622,7 @@ from SQL Editor. You cannot commit your changes by <command>COMMIT</command> in 
     <term><guiicon><inlinegraphic fileref="blob.png"/>Blob Preview</guiicon>
     </term>
     <listitem><para><action>Open or close BLOB preview widget. Some binary data stored
-      in BLOB cells can be examinated and used as images. These values are shown then.
+      in BLOB cells can be examined  and used as images. These values are shown then.
     </action></para></listitem>
   </varlistentry>
 
@@ -1506,10 +1668,10 @@ from SQL Editor. You cannot commit your changes by <command>COMMIT</command> in 
       by double-click or <keycombo action="simul">&Ctrl;<keycap>Space</keycap></keycombo>.</para>
 
     <important><para>Remember that Sqlite recognizes NULL and empty string as two independent
-      values. So inserting an empty strings does not mean you are inderting a NULL. Use
+      values. So inserting an empty strings does not mean you are inserting a NULL. Use
       NULL buttons to do it.</para></important>
 
-    <para>When the cell value is a multiline text or it is recognized as a BLOB, the
+    <para>When the cell value is a multi line text or it is recognized as a BLOB, the
       Advanced Editor is opened automatically.</para>
 
           <para>
@@ -1544,7 +1706,7 @@ from SQL Editor. You cannot commit your changes by <command>COMMIT</command> in 
         <term><guiicon><inlinegraphic fileref="edit.png"/>Advanced Editor</guiicon>
         <shortcut><keycombo action="simul">&Ctrl;<keycap>&Alt;</keycap><keycap>E</keycap></keycombo></shortcut>
         </term>
-        <listitem><para><action>Open advanced editor. It allows you to edit multiline texts,
+        <listitem><para><action>Open advanced editor. It allows you to edit multi line texts,
           BLOBs and the others special data formats.</action></para></listitem>
       </varlistentry>
     </variablelist>
@@ -1586,20 +1748,22 @@ from SQL Editor. You cannot commit your changes by <command>COMMIT</command> in 
 
       <varlistentry>
         <term>Blob tab</term>
-        <listitem><para>Content of chosen file will be transfered into the cell as is. No
+        <listitem><para>Content of chosen file will be transferred into the cell as is. No
           data transformations are performed. Original value of the cell can be saved into
-          local file with <guibutton>Save...</guibutton> buton.</para></listitem>
+          local file with <guibutton>Save...</guibutton> button.</para></listitem>
       </varlistentry>
 
       <varlistentry>
         <term>Date to String tab</term>
         <listitem><para>A helper wizard for storing date and time in string values.</para>
         <important><para>Consult Sqlite manual for date and time problematics.</para></important>
-        <para>The <guilabel>Date</guilabel> item in this form can be set with popup calendar.</para>
+        <para>The <guilabel>Date</guilabel> item in this form can be set with pop-up calendar.</para>
         <para>The <guilabel>String Format</guilabel> should be set with <emphasis>date time
           transform mask</emphasis>. Consult <ulink url="http://doc.trolltech.com/4.3/qdatetime.html#toString">Qt4 documentation</ulink>
           to explain its codes.</para>
-        <example><para><command>dd.MM.yyyy hh:mm.ss</command> will produce e.g. <computeroutput>"24.12.2007 18:30:45"</computeroutput></para></example>
+        <example>
+          <title>Date to String</title>
+          <para><command>dd.MM.yyyy hh:mm.ss</command> will produce e.g. <computeroutput>"24.12.2007 18:30:45"</computeroutput></para></example>
 
         </listitem>
       </varlistentry>
@@ -1611,20 +1775,20 @@ from SQL Editor. You cannot commit your changes by <command>COMMIT</command> in 
   <sect2 id="dataViewer-fetching">
     <title>Fetching the data</title>
     <para>&kmyapplication; uses progressive (step-by-step) fetching of data in the result set.
-    It means that you don't need to wait until all data are transfered from database file to
+    It means that you don't need to wait until all data are transferred from database file to
     this result table.</para>
     <para>When you call a select statement from table with e.g. thousands of records only the first
     part of records is physically fetched. Remaining records are available on demand - scrolling
     down in the result table will perform next fetch.</para>
     <para>Message in the error log widget will inform you about this situation:</para>
-    <para><guilabel>More rows can be fetched. Scroll the resultset for more rows and/or read the documentation.</guilabel></para>
+    <para><guilabel>More rows can be fetched. Scroll the result set for more rows and/or read the documentation.</guilabel></para>
   </sect2>
 
 </sect1>
 
 <sect1 id="dataExport">
   <title>Export Data</title>
-  <para>Current resultset in the <link linkend="dataViever">Data Viewer</link> could be exported
+  <para>Current result set in the <link linkend="dataViever">Data Viewer</link> could be exported
     in this dialog. The export will contain all data even although there are records waiting for fetch.
     All missing data are fetched before export starts.</para>
 
@@ -1715,8 +1879,8 @@ application work. -->
   <para>How I can report a bug?</para>
   </question>
   <answer>
-  <para>Visit <ulink url="http://sqliteman.com/">&kmyapplication; homepage</ulink>,
-  register yourself in the bugtracker and report it.</para>
+  <para>Visit <ulink url="http://sqliteman.com/">&kmyapplication; home page</ulink>,
+  register yourself in the bug tracker and report it.</para>
 </answer>
 </qandaentry>
 <qandaentry>
@@ -1726,7 +1890,7 @@ application work. -->
   <answer>
   <para>Well... no. You're using MS Windows propably (or some strange Qt4 GUI theme).
   All GUI parts are connected into so-called sliders (mouse-stretchable borders).
-  Unfortunatelly Windows native (and some more themes) look does not highlight theese
+  Unfortunately Windows native (and some more themes) look does not highlight these
   borders. Try to catch the changed mouse cursor near the window borders or clear
   <link linkend="configuration">your preferences</link>.</para>
   </answer>
@@ -1739,7 +1903,7 @@ application work. -->
 <qandaset id="issues">
   <qandaentry>
   <question><para>I'm getting: Query Error: SQL logic error or missing database</para></question>
-  <answer><para>You can get this error on some INSERT statement in the databse
+  <answer><para>You can get this error on some INSERT statement in the database
     with triggers. It's a bug in some versions of the Qt library toolkit.
     It should be fixed in the Qt 4.2.3 and later.</para></answer>
   </qandaentry>
@@ -1796,7 +1960,7 @@ Program copyright 2007 Petr Vanek <email>petr@scribus.info</email>
 
 <sect2>
 <title>Icons</title>
-<para>Based on CrystalSVG and Kexi iconset.</para>
+<para>Based on CrystalSVG and Kexi icon set.</para>
 
 <itemizedlist>
 <listitem><para>Everaldo Coelho <email>everaldo@everaldo.com</email>, CrystalSVG and Kexi</para></listitem>
@@ -1836,11 +2000,11 @@ application -->
 <variablelist>
   <varlistentry>
     <term>A stable one</term>
-    <listitem><para>It's maintained only for bugfixes. No additional features with possible new bugs added.</para></listitem>
+    <listitem><para>It's maintained only for bug fixes. No additional features with possible new bugs added.</para></listitem>
   </varlistentry>
   <varlistentry>
     <term>A development branch called Trunk</term>
-    <listitem><para>It contains a lot of new features and tools. This version is sometimes released as a so called "snapshot" for public usage and -- mainly -- for testing. There can be incoplete localization for your language or some tweaky issues but these snapshots are at least crash-free and data-loss-free.</para></listitem>
+    <listitem><para>It contains a lot of new features and tools. This version is sometimes released as a so called "snapshot" for public usage and -- mainly -- for testing. There can be incomplete localization for your language or some small issues but these snapshots are at least crash-free and data-loss-free.</para></listitem>
   </varlistentry>
 </variablelist>
 
@@ -1854,8 +2018,8 @@ application -->
 
 <sect2>
 <title>Linux</title>
-<para>It's highly propable you have Sqliteman binary package prepared for your distribution. Use this way if it's possible.</para>
-<para>Fresh packages for some distributions are prepared in <ulink url=" http://download.opensuse.org/repositories/home:/subik/">dedicated repository</ulink> thnaks to the great Opensuse Build Service.</para>
+<para>It's highly probable you have Sqliteman binary package prepared for your distribution. Use this way if it's possible.</para>
+<para>Fresh packages for some distributions are prepared in <ulink url=" http://download.opensuse.org/repositories/home:/subik/">dedicated repository</ulink> thanks to the great Opensuse Build Service.</para>
 <para>When you cannot find your binary package, try to compile Sqliteman from sources.</para>
 </sect2>
 
@@ -1895,7 +2059,7 @@ In order to successfully use &kmyapplication;, you need Qt4 library at least 4.2
 With Sqlite support (QSql module).
 </para>
 
-<important><para>It's strongly recomended to use later versions of Qt4 because there
+<important><para>It's strongly recommended to use later versions of Qt4 because there
 are some serious bugs fixed. Unfortunately some Linux distribution does not contain
 latest Qt libraries&hellip;</para></important>
 
@@ -1916,16 +2080,16 @@ Linux packages should provide requirements by distribution package system.
 <!-- compilation instructions.  If your application requires any -->
 <!-- special handling, remove it, and replace with your own text. -->
 
-<para>Some more tools are required for compilling &kmyapplication;
+<para>Some more tools are required for compiling &kmyapplication;
 from source code:</para>
 
 <para>
 <itemizedlist>
 <listitem><para><ulink url="http://cmake.org">Cmake</ulink> build system</para></listitem>
 <listitem><para><ulink url="http://trolltech.com">Qt4</ulink> library with its development parts (headers etc.)</para></listitem>
-<listitem><para>A C++ compiller and linked. Tested with gcc(g++), MinGW and MSVC</para></listitem>
+<listitem><para>A C++ compiler and linked. Tested with gcc(g++), MinGW and MSVC</para></listitem>
 <listitem><para>Optional: <ulink url="http://www.riverbankcomputing.co.uk">Qscintilla2</ulink> library
-and its developemnt parts. You can use built-in QScintilla2 support in &kmyapplication; instead.</para></listitem>
+and its development parts. You can use built-in QScintilla2 support in &kmyapplication; instead.</para></listitem>
 <listitem><para>Then read the README file in the root directory.</para></listitem>
 </itemizedlist>
 </para>
