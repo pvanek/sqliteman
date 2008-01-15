@@ -84,7 +84,6 @@ padding: 0em 0em 0em 1em;
 .navLeft a:link, .navCenter a:link, .navRight a:link, .header a:link, .header a:visited, .bottom-nav a:link, .bottom-nav a:visited {
   color: #41597A;
   font-weight: bold;
-  text-decoration: underline;
 }
 
 
@@ -208,6 +207,30 @@ table.screen {
 }
 */
 
+.caution, .warning, .note, .important {
+  border: 27px solid black;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-right: 0px;
+  padding: 0.5em;
+  padding-top: 0px;
+  padding-bottom: 0.2em;
+}
+
+.caution, .warning {
+  border-color: red;
+}
+.note {
+  border-color: dark-green;
+}
+.important {
+  border-color: yellow;
+}
+
+.guiicon img {
+  padding-right: 1em;
+}
+
 p { 
   text-align: justify; 
 }
@@ -219,6 +242,10 @@ p {
 
 p, h1, h2, h3, h4, h5, h6, td, th { 
   font-family: sans-serif;
+}
+
+.term {
+  font-weight: bold;
 }
 
 /* Visual cues for GUI elements etc in the text */

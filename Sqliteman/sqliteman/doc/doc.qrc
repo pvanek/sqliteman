@@ -1,17 +1,89 @@
 <RCC>
     <qresource prefix="/doc" >
+        <file>en/alterTable.png</file>
         <file>en/apa.html</file>
         <file>en/apas02.html</file>
         <file>en/apas03.html</file>
         <file>en/apas04.html</file>
+        <file>en/blob.png</file>
+        <file>en/clear_table_contents.png</file>
+        <file>en/close.png</file>
+        <file>en/column.png</file>
+        <file>en/createIndex.png</file>
+        <file>en/createTable.png</file>
+        <file>en/createView.png</file>
+        <file>en/database_commit.png</file>
+        <file>en/database.png</file>
+        <file>en/database_rollback.png</file>
+        <file>en/dataExport.png</file>
+        <file>en/dataImport.png</file>
+        <file>en/dataViewer-advanced.png</file>
+        <file>en/dataViewer-editor.png</file>
+        <file>en/dataViewer.png</file>
+        <file>en/delete_table_row.png</file>
+        <file>en/document-export.png</file>
+        <file>en/document-new.png</file>
+        <file>en/document-open.png</file>
+        <file>en/document-save-as.png</file>
+        <file>en/document-save.png</file>
+        <file>en/edit.png</file>
+        <file>en/fdl-license.html</file>
+        <file>en/go-next.png</file>
+        <file>en/go-previous.png</file>
+        <file>en/gpl-license.html</file>
         <file>en/ch01.html</file>
         <file>en/ch02.html</file>
         <file>en/ch03.html</file>
         <file>en/ch04.html</file>
         <file>en/ch05.html</file>
         <file>en/ch06.html</file>
+        <file>en/ch06s02.html</file>
+        <file>en/ch06s03.html</file>
+        <file>en/ch06s04.html</file>
+        <file>en/ch06s05.html</file>
         <file>en/ch07.html</file>
+        <file>en/ch07s02.html</file>
+        <file>en/ch07s03.html</file>
+        <file>en/ch07s04.html</file>
+        <file>en/ch07s05.html</file>
+        <file>en/ch07s06.html</file>
+        <file>en/ch07s07.html</file>
+        <file>en/ch07s08.html</file>
+        <file>en/ch07s09.html</file>
+        <file>en/ch07s10.html</file>
+        <file>en/ch07s11.html</file>
+        <file>en/ch07s12.html</file>
+        <file>en/ch07s13.html</file>
+        <file>en/ch08.html</file>
+        <file>en/ch09.html</file>
+        <file>en/ch09s02.html</file>
         <file>en/index.html</file>
-	<file>en/kde-default.css</file>
+        <file>en/index.png</file>
+        <file>en/insert_table_row.png</file>
+        <file>en/kate.png</file>
+        <file>en/kde-default.css</file>
+        <file>en/key.png</file>
+        <file>en/mainwindow-notes.png</file>
+        <file>en/mainwindow.png</file>
+        <file>en/populateTable.png</file>
+        <file>en/preferences-desktop-display.png</file>
+        <file>en/preferences-display.png</file>
+        <file>en/preferences-editor.png</file>
+        <file>en/preferences-lnf.png</file>
+        <file>en/preferences-shortcuts.png</file>
+        <file>en/runexplain.png</file>
+        <file>en/runscript.png</file>
+        <file>en/runsql.png</file>
+        <file>en/setnull.png</file>
+        <file>en/schemaBrowser-pragma.png</file>
+        <file>en/schemaBrowser-schema.png</file>
+        <file>en/snapshot.png</file>
+        <file>en/sqlEditor.png</file>
+        <file>en/sqliteman.png</file>
+        <file>en/system.png</file>
+        <file>en/system-search.png</file>
+        <file>en/table.png</file>
+        <file>en/trigger.png</file>
+        <file>en/view.png</file>
     </qresource>
 </RCC>

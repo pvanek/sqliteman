@@ -1,0 +1,33 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Alter Table</title><link rel="stylesheet" href="kde-default.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.67.2"><meta name="keywords" content="Sqliteman, SQL, Sqlite, development, database"><link rel="start" href="index.html" title="The Sqliteman Handbook"><link rel="up" href="ch07.html" title="Chapter 7. Features and Dialogs"><link rel="prev" href="ch07s02.html" title="Create Table"><link rel="next" href="ch07s04.html" title="Import Table Data"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Alter Table</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch07s02.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Features and Dialogs</th><td width="20%" align="right"> <a accesskey="n" href="ch07s04.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="alterTable"></a>Alter Table</h2></div></div></div><p>
+  Raise a dialog for table changing. This dialog looks quite similar like that "Create Table" one except a few things:
+  </p><div class="important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3><p>Sqlite ALTER TABLE command is very limited so there is no DROP COLUMN clause etc.
+    <span class="application">Sqliteman</span> handles custom ALTER TABLE with a workaround. It's strongly recommended
+    to backup your data before dropping columns. You can lost indexes or invalidate triggers
+    if you're not careful enough.
+    </p></div><p>In this dialog you can <span class="guibutton">Add</span> and <span class="guibutton">Remove</span> table
+  columns and set the options for new ones.</p><p>
+          </p><div class="screenshot"><div class="mediaobject"><img src="alterTable.png" alt="Alter table dialog"></div></div><p>
+          </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2535890"></a>Steps to alter table</h3></div></div></div><div class="orderedlist"><ol type="1"><li><p>Remember triggers and indexes from the original table</p></li><li><p>Rename the original table with temporary name</p></li><li><p>Create new table with original name containing new column structure</p></li><li><p>Perform INSERT INTO original SELECT FROM temporary</p></li><li><p>Drop temporary table</p></li><li><p>Try to recreate original indexes and triggers</p></li></ol></div><p>When there is no request for column dropping only the <span><strong class="command">ALTER TABLE ADD COLUMN</strong></span>
+    is performed.</p><p>A sample log output from add one column and remove on too in one batch.
+      You can see two failed index recreation due missing column (that dropped one):</p><div class="example"><a name="id2535952"></a><p class="title"><b>Example 7.1. Full Alter Table Example</b></p><pre class="programlisting">
+Rename original table to _alter0_tags
+Creating new table: tags
+Begin Transaction
+Data Transfer
+Transaction Commit
+Dropping original table _alter0_tags
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger (failed) table tags has no column named deviceid:
+CREATE INDEX tags_deviceid_index ON tags( deviceid )
+Recreating original index/trigger (failed) table tags has no column named deviceid:
+CREATE UNIQUE INDEX url_tag ON tags( url, deviceid )
+Columns added successfully
+Alter Table Done
+    </pre></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch07s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch07.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch07s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Create Table </td><td width="20%" align="center"><a accesskey="h" href="index.html">Contents</a></td><td width="40%" align="right" valign="top"> Import Table Data</td></tr></table></div></body></html>
