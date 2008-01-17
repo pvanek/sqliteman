@@ -294,7 +294,6 @@ void DataViewer::copyHandler()
 
 void DataViewer::openStandaloneWindow()
 {
-	QString table;
 	SqlQueryModel *qm;
 	SqlTableModel *tm = qobject_cast<SqlTableModel*>(ui.tableView->model());
 
@@ -303,9 +302,11 @@ void DataViewer::openStandaloneWindow()
     DataViewer *w = new DataViewer(0);
 #else
     DataViewer *w = new DataViewer(this);
-#endif    
+#endif
 	w->setAttribute(Qt::WA_DeleteOnClose);
-	w->setWindowTitle(tr("Data Snapshot"));
+	w->setWindowTitle(tm->tableName() + " - "
+			+ QDateTime::currentDateTime().toString() + " - " 
+			+ tr("Data Snapshot"));
 
 	if (tm)
 	{
