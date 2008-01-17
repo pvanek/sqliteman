@@ -46,26 +46,18 @@ void TableEditorDialog::createButton_clicked()
 	qDebug() << "createButton_clicked() not implemented";
 }
 
-QComboBox * TableEditorDialog::makeTypeBox()
+void TableEditorDialog::addField()
 {
-	QComboBox * box;
+	QComboBox * box = new QComboBox(this);
 	QStringList types;
 	 
 	types << "Text" << "PK Integer"  << "PK Autoincrement" << "Integer" << "Real" << "Blob" << "Null";
-	
-	box = new QComboBox();
-	box->addItems(types);
 	box->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-	
-	return box;
-}
 
-// void TableEditorDialog::addField(DatabaseTableField * column)
-void TableEditorDialog::addField()
-{
 	int rc = ui.columnTable->rowCount();
 	ui.columnTable->setRowCount(rc + 1);
-	ui.columnTable->setCellWidget(rc, 1, makeTypeBox());
+	ui.columnTable->setCellWidget(rc, 1, box);
+	box->addItems(types);
 	ui.columnTable->setCellWidget(rc, 2, new QCheckBox(this));
 }
 

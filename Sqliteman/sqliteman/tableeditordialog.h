@@ -52,8 +52,6 @@ class TableEditorDialog : public QDialog
 		virtual void createButton_clicked();
 		virtual void tabWidget_currentChanged(int index);
 
-	private:
-		QComboBox * makeTypeBox();
 };
 
 #endif
