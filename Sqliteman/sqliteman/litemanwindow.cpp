@@ -977,12 +977,14 @@ void LiteManWindow::detachDatabase()
 
 void LiteManWindow::createTrigger()
 {
-	QString table(schemaBrowser->tableTree->currentItem()->parent()->text(0));
-	QString schema(schemaBrowser->tableTree->currentItem()->parent()->text(1));
-	CreateTriggerDialog *dia = new CreateTriggerDialog(table, schema, this);
+	QTreeWidgetItem * item = schemaBrowser->tableTree->currentItem();
+	QString table(item->parent()->text(0));
+	QString schema(item->parent()->text(1));
+	CreateTriggerDialog *dia = new CreateTriggerDialog(table, schema,
+											item->parent()->type(), this);
 	dia->exec();
 	if (dia->update)
-		schemaBrowser->tableTree->buildTriggers(schemaBrowser->tableTree->currentItem(), schema, table);
+		schemaBrowser->tableTree->buildTriggers(item, schema, table);
 	delete dia;
 }
 

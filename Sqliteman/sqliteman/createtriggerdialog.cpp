@@ -11,15 +11,21 @@ for which a new license (GPL+exception) is in place.
 
 #include "createtriggerdialog.h"
 #include "database.h"
+#include "tabletree.h"
 
 
-CreateTriggerDialog::CreateTriggerDialog(const QString & name, const QString & schema, QWidget * parent)
+CreateTriggerDialog::CreateTriggerDialog(const QString & name,
+										 const QString & schema,
+										 int itemType,
+										 QWidget * parent)
 	: QDialog(parent),
 	update(false)
 {
 	ui.setupUi(this);
 
-	ui.textEdit->setText(
+	if (itemType == TableTree::TableType)
+	{
+		ui.textEdit->setText(
 						 QString("-- sqlite3 simple trigger template\n\
 CREATE TRIGGER [IF NOT EXISTS] \"<trigger_name>\"\n\
    [ BEFORE | AFTER ]\n\
@@ -29,6 +35,19 @@ CREATE TRIGGER [IF NOT EXISTS] \"<trigger_name>\"\n\
 BEGIN\n\
     <select * from foo;>\n\
 END;").arg(schema).arg(name));
+	}
+	else
+	{
+		ui.textEdit->setText(
+						 QString("-- sqlite3 simple trigger template\n\
+CREATE TRIGGER [IF NOT EXISTS] \"<trigger_name>\"\n\
+INSTEAD OF [DELETE | INSERT | UPDATE | UPDATE OF <column-list>]\n\
+ON %1.%2\n\
+[ FOR EACH ROW | FOR EACH STATEMENT ] [ WHEN expression ]\n\
+BEGIN\n\
+<select * from foo;>\n\
+END;").arg(schema).arg(name));
+	}
 
 	connect(ui.createButton, SIGNAL(clicked()), this, SLOT(createButton_clicked()));
 }
