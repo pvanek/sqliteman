@@ -403,17 +403,22 @@ void SqlEditor::actionSave_As_triggered()
 void SqlEditor::saveFile()
 {
 	m_fileWatcher->blockSignals(true); // switch of watching for self-excited signal
+
 	QFile f(m_fileName);
 	if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
 	{
-		m_fileWatcher->blockSignals(false);
-		QMessageBox::warning(this, tr("Save SQL Script"), tr("Cannot write into file %1").arg(m_fileName));
-		return;
+		QMessageBox::warning(this, tr("Save SQL Script"),
+							 tr("Cannot write into file %1").arg(m_fileName));
 	}
-	QTextStream out(&f);
-	out << ui.sqlTextEdit->text();
-	f.close();
+	else
+	{
+		QTextStream out(&f);
+		out << ui.sqlTextEdit->text();
+		f.close();
+		setFileWatcher(m_fileName);
+	}
 	ui.sqlTextEdit->setModified(false);
+
 	m_fileWatcher->blockSignals(false);
 }
 
