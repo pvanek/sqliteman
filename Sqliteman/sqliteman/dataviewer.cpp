@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 #include <QClipboard>
 #include <QDateTime>
+#include <QHeaderView>
+#include <QResizeEvent>
 
 #include "dataviewer.h"
 #include "dataexportdialog.h"
@@ -22,7 +24,8 @@ for which a new license (GPL+exception) is in place.
 
 
 DataViewer::DataViewer(QWidget * parent)
-	: QMainWindow(parent)
+	: QMainWindow(parent),
+	  dataResized(true)
 {
 	ui.setupUi(this);
 	handleBlobPreview(false);
@@ -69,6 +72,10 @@ DataViewer::DataViewer(QWidget * parent)
 			this, SLOT(handleBlobPreview(bool)));
 	connect(ui.tabWidget, SIGNAL(currentChanged(int)),
 			this, SLOT(tabWidget_currentChanged(int)));
+	connect(ui.tableView->horizontalHeader(), SIGNAL(sectionResized(int, int, int)),
+			this, SLOT(tableView_dataResized(int, int, int)));
+	connect(ui.tableView->verticalHeader(), SIGNAL(sectionResized(int, int, int)),
+			this, SLOT(tableView_dataResized(int, int, int)));
 }
 
 bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
@@ -130,25 +137,38 @@ void DataViewer::freeResources()
 		m->clear();
 }
 
+void DataViewer::tableView_dataResized(int column, int oldWidth, int newWidth) 
+{
+	dataResized = true;
+}
+
+void DataViewer::resizeEvent(QResizeEvent * event)
+{
+	if (!dataResized && ui.tableView->model())
+		resizeViewToContents(ui.tableView->model());
+}
+
+
 void DataViewer::resizeViewToContents(QAbstractItemModel * model)
 {
-        if (model->columnCount() <= 0)
-            return;
+	if (model->columnCount() <= 0)
+		return;
 
 	ui.tableView->resizeColumnsToContents();
 	ui.tableView->resizeRowsToContents();
 
-        int total = 0;
+	int total = 0;
 	for (int i = 0; i < model->columnCount(); ++i)
-            total += ui.tableView->columnWidth(i);
-        
-        if (total < ui.tableView->viewport()->width()) 
-        {
-            int extra = (ui.tableView->viewport()->width() - total)
-                / model->columnCount();
-            for (int i = 0; i < model->columnCount(); ++i)
-                ui.tableView->setColumnWidth(i, ui.tableView->columnWidth(i) + extra);
-        }
+		total += ui.tableView->columnWidth(i);
+
+	if (total < ui.tableView->viewport()->width()) 
+	{
+		int extra = (ui.tableView->viewport()->width() - total)
+			/ model->columnCount();
+		for (int i = 0; i < model->columnCount(); ++i)
+			ui.tableView->setColumnWidth(i, ui.tableView->columnWidth(i) + extra);
+	}
+	dataResized = false;
 }
 
 void DataViewer::setStatusText(const QString & text)

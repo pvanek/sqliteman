@@ -18,6 +18,7 @@ class QToolBar;
 class QAction;
 class QSplitter;
 class QSqlQueryModel;
+class QResizeEvent;
 
 
 /*! \brief A Complex widget handling the database outputs and status messages.
@@ -59,8 +60,10 @@ class DataViewer : public QMainWindow
 
 	private:
 		Ui::DataViewer ui;
-
+		bool dataResized;
+		
 		void resizeViewToContents(QAbstractItemModel * model);
+		void resizeEvent(QResizeEvent * event);
 		//! \brief Show/hide action tools
 		void setShowButtons(bool show);
 
@@ -94,6 +97,7 @@ class DataViewer : public QMainWindow
 
 		void handleBlobPreview(bool);
 		void tableView_selectionChanged(const QItemSelection &, const QItemSelection &);
+		void tableView_dataResized(int column, int oldWidth, int newWidth);
 
 		//! \brief Set position in the models when user switches his views.
 		void tabWidget_currentChanged(int);
