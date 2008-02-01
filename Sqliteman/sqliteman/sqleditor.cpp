@@ -25,12 +25,13 @@ for which a new license (GPL+exception) is in place.
 
 
 SqlEditor::SqlEditor(QWidget * parent)
-	: QMainWindow(parent)
+	: QMainWindow(parent),
+   	  m_fileWatcher(0)
 {
 	ui.setupUi(this);
 	m_fileName = QString();
 
-	m_fileWatcher = new QFileSystemWatcher(this);
+	//m_fileWatcher = new QFileSystemWatcher(this);
 
 	ui.sqlTextEdit->prefsChanged();
 
@@ -85,11 +86,6 @@ SqlEditor::SqlEditor(QWidget * parent)
 	connect(ui.previousToolButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
 	connect(ui.nextToolButton, SIGNAL(clicked()), this, SLOT(findNext()));
 	connect(ui.searchEdit, SIGNAL(returnPressed()), this, SLOT(findNext()));
-
-	// misc
-	connect(m_fileWatcher, SIGNAL(fileChanged(const QString &)),
-			this, SLOT(externalFileChange(const QString &)));
-
 }
 
 void SqlEditor::setStatusMessage(const QString & message)
@@ -402,8 +398,6 @@ void SqlEditor::actionSave_As_triggered()
 
 void SqlEditor::saveFile()
 {
-	m_fileWatcher->blockSignals(true); // switch of watching for self-excited signal
-
 	QFile f(m_fileName);
 	if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
 	{
@@ -412,14 +406,17 @@ void SqlEditor::saveFile()
 	}
 	else
 	{
+   	   	// required for Win 
+	   	delete(m_fileWatcher);
+		m_fileWatcher = 0;
+
 		QTextStream out(&f);
 		out << ui.sqlTextEdit->text();
 		f.close();
-		setFileWatcher(m_fileName);
-	}
-	ui.sqlTextEdit->setModified(false);
+   	   	ui.sqlTextEdit->setModified(false);
 
-	m_fileWatcher->blockSignals(false);
+		setFileWatcher(m_fileName);
+   	}
 }
 
 bool SqlEditor::changedConfirm()
@@ -510,7 +507,7 @@ void SqlEditor::findPrevious()
 
 void SqlEditor::externalFileChange(const QString & path)
 {
-	int b = QMessageBox::information(this, tr("Unexpected File Change"),
+   	int b = QMessageBox::information(this, tr("Unexpected File Change"),
 									 tr("Your currently edited file has been changed outside " \
 									 "this application. Do you want to reload it?"),
 									 QMessageBox::Yes | QMessageBox::No,
@@ -522,9 +519,15 @@ void SqlEditor::externalFileChange(const QString & path)
 
 void SqlEditor::setFileWatcher(const QString & newFileName)
 {
-	QStringList pathList = m_fileWatcher->files();
-	if (pathList.count() > 0)
-		m_fileWatcher->removePaths(pathList);
+	if (m_fileWatcher)
+		m_fileWatcher->removePaths(m_fileWatcher->files());
+	else
+	{
+		m_fileWatcher = new QFileSystemWatcher(this);
+	   	connect(m_fileWatcher, SIGNAL(fileChanged(const QString &)),
+			this, SLOT(externalFileChange(const QString &)));
+	}
+
 	m_fileWatcher->addPath(newFileName);
 }
 

@@ -41,7 +41,7 @@ class SqlEditor : public QMainWindow
 
 		void setStatusMessage(const QString & message = 0);
 
-    signals:
+   	signals:
 		/*! \brief This signal is emitted when user clicks on the one
 		of "run" actions. It's handled in main window later.
 		\param command current SQL statement in the editor.
@@ -91,7 +91,7 @@ class SqlEditor : public QMainWindow
 		//! Reset the QFileSystemWatcher for new name.
 		void setFileWatcher(const QString & newFileName);
 
-    private slots:
+	private slots:
 		void action_Run_SQL_triggered();
 		void actionRun_Explain_triggered();
 		void actionRun_as_Script_triggered();
