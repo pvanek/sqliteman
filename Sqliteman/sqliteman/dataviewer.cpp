@@ -132,13 +132,23 @@ void DataViewer::freeResources()
 
 void DataViewer::resizeViewToContents(QAbstractItemModel * model)
 {
+        if (model->columnCount() <= 0)
+            return;
+
 	ui.tableView->resizeColumnsToContents();
 	ui.tableView->resizeRowsToContents();
+
+        int total = 0;
 	for (int i = 0; i < model->columnCount(); ++i)
-	{
-		if (ui.tableView->columnWidth(i) < 150)
-			ui.tableView->setColumnWidth(i, 150);
-	}
+            total += ui.tableView->columnWidth(i);
+        
+        if (total < ui.tableView->viewport()->width()) 
+        {
+            int extra = (ui.tableView->viewport()->width() - total)
+                / model->columnCount();
+            for (int i = 0; i < model->columnCount(); ++i)
+                ui.tableView->setColumnWidth(i, ui.tableView->columnWidth(i) + extra);
+        }
 }
 
 void DataViewer::setStatusText(const QString & text)
@@ -397,4 +407,5 @@ bool DataViewerTools::KeyPressEater::eventFilter(QObject *obj, QEvent *event)
 		return QObject::eventFilter(obj, event);
 	}
 }
+
 
