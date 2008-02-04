@@ -383,6 +383,9 @@ void DataViewer::tabWidget_currentChanged(int ix)
 	}
 	else
 		ui.itemView->setCurrentIndex(ui.tableView->currentIndex().row());
+	
+	if (ui.actionBLOB_Preview->isChecked())
+		ui.blobPreviewBox->setVisible(ix!=2);
 	ui.statusText->setVisible(ix != 2);
 }
 
