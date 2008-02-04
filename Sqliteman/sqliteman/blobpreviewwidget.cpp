@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Sqliteman
 for which a new license (GPL+exception) is in place.
 */
 #include <QVariant>
+#include <QFile>
 
 #include "blobpreviewwidget.h"
 
@@ -27,16 +28,23 @@ void BlobPreviewWidget::createPreview(QByteArray data)
 	if (pm.isNull())
 		setText(tr("File content cannot be displayed"));
 	else
-		setPixmap(pm.scaled(size(), Qt::KeepAspectRatio));
+	{
+		if (pm.width() > width() || pm.height() > height())
+			setPixmap(pm.scaled(size(), Qt::KeepAspectRatio));
+		else
+			setPixmap(pm);
+	}
 }
 
 void BlobPreviewWidget::setBlobFromFile(const QString & fileName)
 {
-	QPixmap pm(fileName);
-	if (pm.isNull())
-		setText(tr("File content cannot be displayed"));
-	else
-		setPixmap(pm.scaled(size(), Qt::KeepAspectRatio));
+	QByteArray pm;
+	QFile file(fileName);
+	if (file.open(QIODevice::ReadOnly))
+	{
+		pm = file.readAll();
+	}
+	createPreview(pm);
 }
 
 void BlobPreviewWidget::resizeEvent(QResizeEvent * event)
