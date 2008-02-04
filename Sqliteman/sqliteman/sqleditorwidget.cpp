@@ -109,8 +109,11 @@ void SqlEditorWidget::cursorPositionChanged(int line, int)
 
 void SqlEditorWidget::prefsChanged()
 {
-	lexer()->setFont(m_prefs->sqlFont());
-	setFont(m_prefs->sqlFont());
+	QFont baseFont(m_prefs->sqlFont());
+	baseFont.setPointSize(m_prefs->sqlFontSize());
+
+	lexer()->setFont(baseFont);
+	setFont(baseFont);
 
 	// syntax highlighting
 	lexer()->setColor(m_prefs->syDefaultColor(), QsciLexerSQL::Default);

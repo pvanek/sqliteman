@@ -18,19 +18,19 @@ for which a new license (GPL+exception) is in place.
 
 
 PrefsDataDisplayWidget::PrefsDataDisplayWidget(QWidget * parent)
-	: QDialog(parent)
+	: QWidget(parent)
 {
 	setupUi(this);
 }
 
 PrefsLNFWidget::PrefsLNFWidget(QWidget * parent)
-	: QDialog(parent)
+	: QWidget(parent)
 {
 	setupUi(this);
 }
 
 PrefsSQLEditorWidget::PrefsSQLEditorWidget(QWidget * parent)
-	: QDialog(parent)
+	: QWidget(parent)
 {
 	setupUi(this);
 

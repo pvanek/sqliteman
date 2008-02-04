@@ -16,21 +16,21 @@ for which a new license (GPL+exception) is in place.
 #include "ui_prefssqleditorwidget.h"
 
 
-class PrefsDataDisplayWidget : public QDialog, public Ui::PrefsDataDisplayWidget
+class PrefsDataDisplayWidget : public QWidget, public Ui::PrefsDataDisplayWidget
 {
 	Q_OBJECT
 	public:
 		PrefsDataDisplayWidget(QWidget * parent = 0);
 };
 
-class PrefsLNFWidget : public QDialog, public Ui::PrefsLNFWidget
+class PrefsLNFWidget : public QWidget, public Ui::PrefsLNFWidget
 {
 	Q_OBJECT
 	public:
 		PrefsLNFWidget(QWidget * parent = 0);
 };
 
-class PrefsSQLEditorWidget : public QDialog, public Ui::PrefsSQLEditorWidget
+class PrefsSQLEditorWidget : public QWidget, public Ui::PrefsSQLEditorWidget
 {
 	Q_OBJECT
 	public:
