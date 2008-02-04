@@ -40,7 +40,6 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	setUtf8(true);
 	setAutoCompletionReplaceWord(true);
 	m_currentLineHandle = markerDefine(QsciScintilla::Background);
-	cursorPositionChanged(0, 0);
 	setUtf8(true);
 
 	connect(this, SIGNAL(linesChanged()),
@@ -48,6 +47,8 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	connect(this, SIGNAL(cursorPositionChanged(int, int)),
 			this, SLOT(cursorPositionChanged(int, int)));
 
+	setCursorPosition(0, 0);
+	linesChanged();
 	prefsChanged();
 }
 
