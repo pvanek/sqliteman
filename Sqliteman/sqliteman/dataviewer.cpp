@@ -201,7 +201,10 @@ void DataViewer::addRow()
 {
 	SqlTableModel * model = qobject_cast<SqlTableModel *>(ui.tableView->model());
 	if(model)
+	{
 		model->insertRows(model->rowCount(), 1);
+		ui.tableView->scrollToBottom();
+	}
 }
 
 void DataViewer::removeRow()
