@@ -1,0 +1,646 @@
+#! /usr/bin/env bash
+
+# This is svn2dist
+# Based on cvs2dist by <jason@katzbrown.com>.
+
+# Original author (of cvs2pack.sh) was Sebastian Stein <seb.stein@hpfsc.de>
+# Heavy, heavy modifications by Jason Katz-Brown <jason@katzbrown.com>
+# Some modifications for i18n inclusion by Dominique Devriese <devriese@kde.org>
+# Added --no-i18n-lang and --replace-files by Michael Buesch <mbuesch@freenet.de>
+# License: GPL (http://www.gnu.org/)
+# Last modification: 2005/01/08
+#
+# Sqliteman related patch 2008/02/05 Petr Vanek <petr@scribus.info>
+#
+
+echo >&2 "Warning: this script needs more testing!"
+echo >&2 ""
+
+cmdline="$@"
+
+returndir=`pwd`
+override="README ChangeLog INSTALL AUTHORS AUTHOR COPYING COPYING.LIB TODO COPYING-DOCS"
+remove="config.cache config.log config.status Makefile configure inst-apps CVS acinclude.m4 aclocal.m4  libtool subdirs *.moc *.la .libs .deps .svn .cvsignore autom4te.cache {arch} .arch-ids *.lo *.o *.bbg *.da *.bb"
+toplevelremove="configure.in.bot config.h config.h.bot config.h.in config.status config.log stamp-h stamp-h.in stamp-h1 subdirs configure.files "
+# whitespace seperated list of languages to never include.
+always_skip_languages="xx"
+
+
+exit_cleanup()
+{
+    echo -n "Cleaning up... "
+    if [ -d $temp_dir ]; then
+        test -z "$debug" && rm -Rf $temp_dir
+    fi
+    echo "done."
+}
+
+trap "exit_cleanup; exit 1" SIGINT SIGTERM
+
+test -e ~/.svn2distrc && extraoptions=`cat ~/.svn2distrc`
+
+# getopt usage from the getopt bash example
+# --log has optional argument
+TEMP=`getopt \
+-o v:n:r:e:a:B:dhmbgol \
+--long log::,version:,name:,required-header:,required-header-error-message:,make-unpackaged,help,no-bz2,no-bzip2,no-gzip,only-directory,remove-hidden,admin-dir:,branch:,no-i18n,no-i18n-lang:,svn-root:,i18n-module:,debug,replace-files: \
+-n svn2dist -- $extraoptions "$@"`
+
+if [ $? != 0 ]; then
+	echo "Aborted." >&2
+	exit 1
+fi
+
+eval set -- "$TEMP"
+
+log="/dev/null"
+calclog=0
+doi18n="yes"
+noi18nlang=""
+replace_files=""
+i18nmodule=""
+svnroot=""
+debug=
+branch="trunk"
+version=
+
+while true; do
+	case "$1" in
+		-v|--version) version=$2; shift 2 ;;
+		-n|--name) name=$2; shift 2 ;;
+		-a|--admin-dir) admindir=$2;
+			if [ `echo $admindir | sed -e 's#^/##'` = $admindir ]; then
+				admindir="`pwd`/$admindir"
+			fi
+			shift 2 ;;
+		--debug) debug="non-empty"; shift 1 ;;
+		--svn-root) svnroot="$2"; shift 2 ;;
+		--i18n-module) i18nmodule="$2"; shift 2 ;;
+		-r|--required-header) requiredheader=$2; shift 2 ;;
+		--no-i18n) doi18n="no"; shift 1 ;;
+		--no-i18n-lang) noi18nlang="$2"; shift 2 ;;
+		-e|--required-header-error-message) requiredmsg=$2; shift 2 ;;
+		-m|--make-unpackaged) leavedir="non-empty"; shift 1 ;;
+		-h|--help) showhelp="non-empty"; shift 1 ;;
+		-b|--no-bz2|--no-bzip2) nobzip2="non-empty"; shift 1 ;;
+		-o|--only-directory)
+			nogzip="non-empty"
+			nobzip2="non-empty"
+			leavedir="non-empty"
+			shift 1 ;;
+		-g|--no-gzip) nogzip="non-empty"; shift 1 ;;
+		-d|--remove-hidden) removehidden="non-empty"; shift 1 ;;
+		-l) calclog=1; shift 1 ;;
+		--log) 
+			case "$2" in
+				# no-argument case
+				"") calclog=1; shift 2 ;;
+				# something, should be a file
+				*)  log=$2
+				    origlog=$log
+				    if [ `echo $log | sed -e 's#^/##'` = $log ]; then
+				    	log="`pwd`/$log"
+				    fi
+
+				    shift 2 ;;
+			esac ;;
+		--replace-files) replace_files="$2"; shift 2 ;;
+		--) shift
+			break ;;
+		*) echo "Aborted."
+			exit 1 ;;
+	esac
+done
+
+count=0
+for arg do
+	test $count = 0 && module=$arg
+	test $count = 1 && directory=$arg
+
+	if [ $count -ge 2 ]; then
+		modarg=$arg
+		if [ `echo $modarg | sed -e 's#^/##'` = $modarg ]; then
+			modarg="`pwd`/$modarg"
+		fi
+		addfiles="$addfiles $modarg"
+	fi
+
+	let count count++
+done
+
+# test if a module and directory name was given
+if [ ! -z $showhelp ] || [ -z $module ] || [ -z $directory ]; then
+	echo "Usage: svn2dist module directory [options] [addfile1] [addfile2] ..."
+	echo ""
+	echo "  -n --name <name>"
+	echo "  -v --version <version>"
+	echo "  --svn-root <root> the value to use as svn root"
+	echo "                    variable.  It is not necessary if you use --no-i18n."
+	echo "  --admin-dir <dir> admin/ location (default is module/admin)"
+	echo "                    (symbolic links are OK.)"
+	echo "  -B --branch <branch> use branch for i18n checkouts."
+	echo "  --no-i18n  don't try to automatically checkout the translations from svn."
+	echo "  --no-i18n-lang <languages> exclude all languages in the given comma"
+	echo "                             seperated list. example:"
+	echo "                             --no-i18n-lang uk,de,en_GB"
+	echo "  --i18n-module <name> i18n subdir"
+	echo "                       if not specified it is guessed"
+	echo "                       from module name by replacing \"/\" by \"-\""
+	echo "  --log=<logfile> If logfile unspecified, default file is used."
+	echo "                  (The '=' is essential and may not be ommited"
+	echo "                  when specifying the logfile.)"
+	echo "  -l Log to default logfile."
+	echo "  -m --make-unpackaged Also makes an unpacked distribution"
+	echo "                 in the current directory."
+	echo "  -g --no-gzip Do not create gzip package."
+	echo "  -b --no-bz2 Do not create bzip2 package."
+	echo "  --no-bzip2 Alias for the above."
+	echo "  -o --only-directory Alias for -mbg (no packages, only a directory.)"
+	echo "  -r --required-header <header> Errors if header is not installed."
+	echo "  -e --required-header-error-message <message>"
+	echo "                                     Error message for above."
+	echo "  -d --remove-hidden Remove hidden files/directories from packages"
+	echo "  --replace-files <file-pair-list>"
+	echo "       <file-pair-list> is a comma separated list of file pairs"
+	echo "       which should be replaced in the final distribution package."
+	echo "       Each element of a pair is separated by an @"
+	echo -n "       Example: --replace-files take_this_file@and_move_it_here,"
+	echo "configure.in.bot.dist@configure.in.bot"
+	echo "       The filenames are all relative to your package root."
+	echo "       Please be careful! Try to avoid the usage of .. in the path. It"
+	echo "       may break stuff! There can not be blank characters in the paths."
+	echo "  -h --help Show this help"
+	echo ""
+	echo "	Name defaults to the last part of the directory."
+	echo "By default, creates name[-version].tar.gz if gzip is installed"
+	echo "and/or name[-version].tar.bz2 if bzip2 is installed in the current"
+	echo "directory. Removes all temporary files it creates. Produces"
+	echo "tarballs that are standard distribution tarballs with a"
+	echo "configure script."
+	echo "  Unless --no-i18n is given, it automatically tries to check out "
+	echo "strings and documentation translation from svn."
+	echo "	Arguments after the second are added to the toplevel directory"
+	echo "in the package. Short options can be combined, eg -dm to create"
+	echo "a directory and remove hidden files. ~/.svn2distrc is added to"
+	echo "the beginning of command line arguments if it exists."
+	echo "	'--' signifies the end of options."
+	echo ""
+	echo "Example: svn2dist /sources/kdegames kolf/objects/picture \\"
+	echo "         -n kolf-picture -v 0.9 -r \"kolf/game.h\" \\"
+	echo "         --log ~/tmp/extra-file"
+	echo ""
+	echo "  	Creates packages of the kolf picture plugin, naming the"
+	echo "  packages kolf-picture-0.9 and logging the process. For configure"
+	echo "  to succeed, kolf/game.h must be installed or an error will occur."
+	echo "  ~/tmp/extra-file is added to the packages."
+	echo ""
+	echo "Webpage: http://www.katzbrown.com/shiritsu/programming/svn2dist/"
+	echo "Authors: Jason Katz-Brown <jason@katzbrown.com>,"
+	echo "         Sebastian Stein <seb.stein@hpfsc.de>,"
+	echo "         Dominique Devriese <devriese@kde.org>"
+	exit 1
+fi
+
+if [ -z $i18nmodule ]; then
+    i18nmodule=`echo $module | sed -e 's#/#-##'`
+fi
+
+# expand module
+module=`echo $module | sed -e 's#/$##'`
+if [ `echo $module | sed -e 's#^/##'` = $module ]; then
+	module="`pwd`/$module"
+fi
+
+# test if the given module is a directory
+test -d $module
+if [ $? -ne 0 ]; then
+	echo "$module is not a directory."
+	echo "Aborted."
+	exit 1
+fi
+
+# go to our module
+cd $module
+
+directory=`echo $directory | sed -e 's#^/##'`
+pofiles=""
+
+for makefile in `find $directory -name Makefile.am`; do
+    cat $makefile | while read line; do echo $line; done | perl -e '$mes=0; while (<STDIN>) { if (/^messages:/) { $mes=1; next; } if ($_ !~ m/^[^\t ]/) { $mes=0; } if ($mes && /\$\(XGETTEXT\)/ && / -o/) { s,.*-o \$\(podir\)/([a-z._-]+).*$,$1, ; chomp $_; $_ =~ s/\.pot/.po/; print "pofiles=\"$_ \$pofiles\"\n" }  }' > _tmppot
+    . _tmppot
+    rm -f _tmppot
+done
+
+if [ -z $name ]; then
+	name=$directory
+	# get rid of trailing slash
+	name=`echo $name | sed -e 's#/$##'`
+	# leading slash
+	name=`echo $name | sed -e 's#^/##'`
+
+	if [ `echo $name | sed -e 's#/##'` != $name ]; then
+		name=`echo $name | sed -e 's#^.*/##'`
+	fi
+fi
+
+test $calclog = 1 && log="$returndir/svn2dist-$name.log" && origlog="svn2dist-$name.log"
+
+# test if the given name is a sub-directory
+if [ ! -d "$directory" ]; then
+	echo "$directory is not a sub-directory of $module."
+	echo "Aborted."
+	exit 1
+fi
+
+test $log != "/dev/null" && echo "Logging to $log."
+
+echo "svn2dist log on "`date` > $log
+echo -n "Module: $module; Directory: $directory; Name: $name; " >> $log
+if [ -z $version ]; then
+	echo "Version unspecified." >> $log
+else
+	echo "Version $version." >> $log
+fi
+echo $cmdline >> $log
+echo "--------" >> $log
+
+if [ -z $version ]; then
+	filename=$name
+else
+	filename="$name-$version"
+        VERSION=$version
+	export VERSION
+fi
+
+if [ $doi18n = "yes" ]; then
+	# a little warning...
+	echo "Will try to fetch i18n files from KDE's SVN."
+	echo "If this doesn't work, use --no-i18n."
+
+    if [ -z "$svnroot" ]; then
+        echo "No svn root specified, and --no-i18n option is not given.." >> $log
+        echo "Using anonymous svn.." >> $log
+        svnroot="svn://anonsvn.kde.org/home/kde/trunk"
+    fi
+fi
+
+# the temporary directory
+temp_dir="$module/svn2dist-tmp"
+temp_dist="$temp_dir/$filename"
+
+echo "Temporary directory is $temp_dir." >> $log
+
+# make a temporary directory
+test -d $temp_dir && rm -Rf $temp_dir
+
+mkdir $temp_dir
+mkdir $temp_dist || (echo "failed to create $temp_dist"; exit 1; )
+
+# check if we were able to create temp_dir
+test -d $temp_dist
+if [ $? -ne 0 ]; then
+	echo "Could not create temporary directory $temp_dist."
+	echo "$temp_dist could not be created." >> $log
+	echo "Aborted."
+	exit 1
+fi
+
+test -z "$requiredmsg" && requiredmsg="Install development package needed first! $requiredheader, for one, is missing."
+
+### configure.in.in
+if [ ! -z $requiredheader ]; then
+	naiyou="KDE_CHECK_HEADER(
+$requiredheader,
+[],
+[AC_MSG_ERROR(\"$requiredmsg\")]
+)"
+	echo $naiyou > $temp_dir/configure.in.in
+	echo "configure.in.in contents: " >> $log
+	echo "--------" >> $log
+	echo $naiyou >> $log
+	appaddfiles="$appaddfiles $temp_dir/configure.in.in"
+fi
+
+# copy all files of the module to temp_dir/name
+cp -RL $module/$directory $temp_dist/$name
+
+echo "cp -R $module/$directory $temp_dist/$name" >> $log
+
+modulename="$module"
+# get rid of trailing slash
+modulename=`echo $modulename | sed -e 's#/$##'`
+# get the last part
+modulename=`echo $modulename | sed -e 's#^.*/##'`
+
+remove="$remove $modulename.lsm"
+
+# we check out kde-i18n/subdirs in temp_dir/kde-i18n..
+if [ $doi18n = "yes" ]; then
+    pushd $temp_dir
+    echo "Getting i18n subdirs" >> $log
+    i18nlangs_tmp=`svn cat "$svnroot/l10n/subdirs"`
+    skiplist="`echo $noi18nlang | sed -e 's/,/ /g'`"
+    skiplist="$skiplist $always_skip_languages"
+    for lang in $i18nlangs_tmp; do
+        must_skip="no"
+        for skip in $skiplist; do
+            if [ "$lang" = "$skip" ]; then
+                must_skip="yes"
+            fi
+        done
+        if [ "$must_skip" = "no" ]; then
+            i18nlangs="$i18nlangs $lang"
+        fi
+    done
+    echo "available languages: $i18nlangs (Pofiles to fetch: $pofiles)" >> $log
+    popd
+fi
+
+# if a handbook exists, we also copy it to the directory
+if [ -d $module/doc/$name ]; then
+	mkdir -p $temp_dist/doc/$name
+	cp -Rf $module/doc/$name $temp_dist/doc
+	find $module/doc/ -maxdepth 1 ! -xtype d | xargs --replace={} cp {} $temp_dist/doc
+
+	if [ $doi18n = "yes" ]; then
+	    pushd $temp_dir
+	    for lang in $i18nlangs; do
+		echo -n "Checking for $lang/$name... "
+		test -d $temp_dist/doc/$lang && rm -Rf $temp_dist/doc/$lang
+		docdirname="l10n/$lang/docs/$i18nmodule/$name"
+		echo "svn export $svnroot/$docdirname $temp_dist/doc/$lang" >> $log
+                mkdir -p $temp_dist/doc
+		svn export "$svnroot/$docdirname" $temp_dist/doc/$lang >> $log 2>&1
+		if [ ! -d "$temp_dist/doc/$lang" ]; then
+		    echo "$lang's $name documentation does not exist." >> $log
+		    echo "does not exist"
+		    continue
+		fi
+		echo "KDE_LANG = $lang
+KDE_DOCS = $name" > $temp_dist/doc/$lang/Makefile.am
+
+		echo "done."
+		echo "$lang documentation included." >> $log
+	    done
+	    popd
+	fi
+fi
+
+# clean up doc directory
+if [ -d $temp_dist/doc/$name ]; then
+	pushd $temp_dist/doc/$name
+	echo -n "make clean in $temp_dist/doc/$name/... "
+	echo >> $log
+	echo "make clean in $temp_dist/doc/$name/" >> $log
+	make clean >> $log
+	echo "--------" >> $log
+	echo "done."
+	popd
+fi
+
+if [ $doi18n = "yes" ]; then
+	test -d $temp_dist/po && rm -Rf $temp_dist/po
+	mkdir $temp_dist/po
+        pushd $temp_dir
+
+        for pofile in $pofiles; do
+	  echo "Getting translations for $pofile from i18n..."
+
+	  for lang in $i18nlangs; do
+		pofilename="l10n/$lang/messages/$i18nmodule/$pofile";
+		echo "Getting $pofilename" >> $log
+		svn cat "$svnroot/$pofilename" >$pofile 2>&1 || rm -f $pofile
+		if [ ! -f "$pofile" ]; then
+			echo "$lang's $pofile does not exist." >> $log
+			continue
+		fi
+
+		dest=$temp_dist/po/$lang
+		mkdir -p $dest
+		echo -n "Copying $lang's $pofile over... "
+		echo "$lang's $pofile file included." >> $log
+		mv $pofile $dest
+		echo "done."
+		
+		echo "KDE_LANG = $lang
+SUBDIRS = \$(AUTODIRS)
+POFILES = AUTO" > $dest/Makefile.am
+
+		subdirs="non_empty"
+	  done
+        done
+
+        popd
+	if [ -z "$subdirs" ]; then
+		rm -Rf $temp_dist/po
+	else
+		echo "SUBDIRS = \$(AUTODIRS)" > $temp_dist/po/Makefile.am
+	fi
+fi
+
+# copy the admin directory
+if [ -z $admindir ]; then
+	cp -pRL $module/admin $temp_dist
+	echo "cp -pRL $module/admin $temp_dist" >> $log
+else
+	cp -pRL $admindir $temp_dist
+	echo "cp -pRL $admindir $temp_dist" >> $log
+fi
+
+# custom cmake modules
+if [ -d $module/cmake ]; then
+    cp -Rf $module/cmake $temp_dist/cmake
+fi
+
+# and all files from the base dir, except directories
+echo "Copying over files from the module directory:" >> $log
+find $module -maxdepth 1 ! -xtype d | xargs --verbose --replace={} cp {} $temp_dist 2>> $log
+echo "--------" >> $log
+
+# we now enter the temp_dist and delete all unwanted files
+# and add wanted files
+cd $temp_dist
+
+# override top-level files
+echo "Override files: " >> $log
+for file in $override; do
+	test -e $temp_dist/$name/$file && mv $temp_dist/$name/$file . && echo "mv $temp_dist/$name/$file ." >> $log
+done
+
+test ! -z "$addfiles" && echo "Addfiles: " >> $log
+for file in $addfiles; do
+	test -e $file && cp -R $file $temp_dist && echo "cp -R $file $temp_dist" >> $log
+done
+
+test ! -z "$appaddfiles" && echo "Application addfiles: " >> $log
+for file in $appaddfiles; do
+	test -e $file && cp -R $file $temp_dist/$name/ && echo "cp -R $file $temp_dist/$name/" >> $log
+done
+
+echo "--------" >> $log
+
+# replace all user requested files
+if [ -n "$replace_files" ]; then
+	echo "Replace user requested files" >> $log
+	pair_list="`echo $replace_files | sed -e 's/,/ /g'`"
+	for pair in $pair_list; do
+		pair_tmp="`echo $pair | sed -e 's/@/ /g'`"
+		from="`echo $pair_tmp | awk '//{print $1}'`"
+		to="`echo $pair_tmp | awk '//{print $2}'`"
+		if [ -z "$from" ] || [ -z "$to" ]; then
+			echo "bogus pair \"$from@$to\"" >> $log
+			continue
+		fi
+		echo "Replacing \"$to\" by \"$from\"" >> $log
+		from_path="$temp_dist/$name/$from"
+		to_path="$temp_dist/$name/$to"
+		if [ ! -f "$from_path" ]; then
+			echo "$from_path does not exist!" >> $log
+			echo ""
+			echo "Warning: \"$from\" does not exist!"
+			echo -n "Please enter the path in --replace-files relative "
+			echo "to the package root of your project."
+			echo "Your package root is: \"$module/$directory\""
+			echo ""
+			continue
+		fi
+		rm -f "$to_path" && \
+		mv "$from_path" "$to_path"
+		if [ $? -ne 0 ]; then
+			echo -n "Moving \"$from_path\" failed! " >> $log
+			echo -n "This should not happen." >> $log
+			if [ -f "$to_path" ]; then
+				echo ""
+			else
+				echo " No \"$to\" will exist in the archive!" >> $log
+			fi
+		fi
+	done
+	echo "--------" >> $log
+fi
+
+# version file, if it doesn't exist
+test ! -z $version && test ! -e VERSION && echo "$name version $version" > VERSION
+
+cd $temp_dist/$name
+echo "make clean in $temp_dist/$name/:" >> $log
+echo "" >> $log
+echo -n "make clean in $temp_dist/$name/... "
+make clean >> $log
+echo "--------" >> $log
+echo "done."
+
+cd $temp_dist
+
+# remove files
+echo "Remove files: " >> $log
+for file in $remove; do
+	find . -name $file | xargs rm -Rf
+	echo "find . -name $file | xargs rm -Rf" >> $log
+done
+
+# remove more files
+echo "Remove toplevel files: " >> $log
+for file in $toplevelremove; do
+	test -e $file && rm -Rf $file && echo "rm -Rf $file" >> $log
+done
+unset file
+
+# remove hidden files
+test ! -z $removehidden && echo "Remove hidden files: " >> $log && find $temp_dist -name ".*" -and ! -name "." | xargs --verbose rm -Rf 2>> $log
+
+echo "--------" >> $log
+
+cd $temp_dist
+
+# create the configure script
+# working directory is $temp_dist
+export UNSERMAKE=no
+echo "make -f Makefile.cvs in $temp_dist/:" >> $log
+echo "" >> $log
+echo -n "make -f Makefile.cvs in $temp_dist/... "
+make -f Makefile.cvs >> $log 2>> $log
+echo "rm Makefile.cvs" >> $log
+rm -f Makefile.cvs
+echo "rm autom4te.cache" >> $log
+rm -Rf autom4te.cache
+echo "--------" >> $log
+echo "done."
+
+echo "Directory will be $filename."
+
+# play around with our tar file in temp_dir
+cd $temp_dir
+
+if [ ! -z $leavedir ]; then
+	test -e $returndir/$filename && rm -Rf $returndir/$filename
+	cp -R $filename $returndir
+fi
+
+# make a tar of temp_dist
+if [ -z $nogzip ] || [ -z $nobzip2 ]; then
+	echo -n "Tarring... "
+	echo "tar cf $filename.tar $filename" >> $log
+	tar cf $filename.tar $filename >> $log
+	echo "done."
+fi
+
+if [ -z $nogzip ] && [ ! -z `which gzip 2> /dev/null` ]; then
+	cp $filename.tar $filename.tar.tmp
+	echo -n "running gzip... "
+	echo "gzip $filename.tar" >> $log
+	gzip $filename.tar
+	echo "done."
+	mv $filename.tar.tmp $filename.tar
+	mv $filename.tar.gz $returndir
+	echo "mv $filename.tar.gz $returndir" >> $log
+fi
+if [ -z $nobzip2 ] && [ ! -z `which bzip2 2> /dev/null` ]; then
+	echo -n "running bzip2... "
+	echo "bzip2 $filename.tar" >> $log
+	bzip2 $filename.tar
+	echo "done."
+	mv $filename.tar.bz2 $returndir
+	echo "mv $filename.tar.bz2 $returndir" >> $log
+fi
+
+test -e $filename.tar && rm -f $filename.tar
+
+# cleanup all tempoaries
+exit_cleanup
+
+cd $returndir
+
+test -z $leavedir && test ! -z $nobzip2 && test ! -z $nogzip && echo "Finished - no created files." && exit 1
+
+# cool, everything went ok!
+if [ -z $leavedir ]; then
+	echo "Finished. Created packages:"
+else
+	if [ -z $nogzip ] || [ -z $nobzip2 ]; then
+		echo "Finished. Created packages/directories:"
+	else
+		echo "Finished. Created directory:"
+	fi
+fi
+
+echo "--------" >> $log
+echo "Done: " >> $log
+echo "Files are in `pwd`." >> $log
+
+if [ ! -z $leavedir ] && [ -d $filename ]; then
+	ls -ld $filename
+	ls -ld $filename >> $log
+fi
+if [ -z $nogzip ] && [ -e $filename.tar.gz ]; then
+	ls -l $filename.tar.gz
+	ls -l $filename.tar.gz >> $log
+fi
+if [ -z $nobzip2 ] && [ -e $filename.tar.bz2 ]; then
+	ls -l $filename.tar.bz2
+	ls -l $filename.tar.bz2 >> $log
+fi
+if [ $log != "/dev/null" ]; then
+	echo "Created log:"
+	ls -l $origlog
+fi
