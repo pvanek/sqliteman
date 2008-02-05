@@ -388,8 +388,8 @@ void SqlEditor::action_New_triggered()
 	if (!changedConfirm())
 		return;
 	m_fileName = QString();
-	ui.sqlTextEdit->setModified(false);
 	ui.sqlTextEdit->clear();
+	ui.sqlTextEdit->setModified(false);
 }
 
 void SqlEditor::actionSave_As_triggered()
