@@ -98,7 +98,14 @@ void SqlEditor::setStatusMessage(const QString & message)
 QString SqlEditor::query()
 {
 	if (ui.sqlTextEdit->hasSelectedText())
-		return ui.sqlTextEdit->selectedText();
+	{
+		// test the real selection. Qscintilla does not
+		// reset selection after file reopening.
+		int f1, f2, t1, t2;
+		ui.sqlTextEdit->getSelection(&f1, &f2, &t1, &t2);
+		if (f1 > 0 || f2 > 0 || t1 > 0 || t2 > 0)
+			return ui.sqlTextEdit->selectedText();
+	}
 	
 	toSQLParse::editorTokenizer tokens(ui.sqlTextEdit);
 
