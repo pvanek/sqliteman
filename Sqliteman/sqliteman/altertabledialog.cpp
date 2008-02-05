@@ -61,6 +61,7 @@ void AlterTableDialog::resetStructure()
 	{
 		QTableWidgetItem * nameItem = new QTableWidgetItem(fields[i].name);
 		QTableWidgetItem * typeItem = new QTableWidgetItem(fields[i].type);
+		typeItem->setFlags(Qt::ItemIsSelectable); // TODO: change afinity in ALTER TABLE too!
 		QTableWidgetItem * defItem = new QTableWidgetItem(fields[i].defval);
 		QTableWidgetItem * ixItem = new QTableWidgetItem();
 

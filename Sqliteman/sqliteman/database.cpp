@@ -81,6 +81,8 @@ FieldList Database::tableFields(const QString & table, const QString & schema)
 		field.cid = query.value(0).toInt();
 		field.name = query.value(1).toString();
 		field.type = query.value(2).toString();
+		if (field.type.isNull() || field.type.isEmpty())
+			field.type = "NULL";
 		field.notnull = query.value(3).toBool();
 		field.defval = query.value(4).toString();
 		field.pk = query.value(5).toBool();
