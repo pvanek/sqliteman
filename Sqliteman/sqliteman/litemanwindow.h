@@ -21,6 +21,7 @@ class HelpBrowser;
 
 class QAction;
 class QMenu;
+class QLabel;
 
 
 /*!
@@ -148,6 +149,7 @@ class LiteManWindow : public QMainWindow
 		QString m_mainDbPath;
 		QString m_appName;
 		QString m_lang;
+		QLabel * m_sqliteVersionLabel;
 
 		//! \brief True if is sqlite3 binary available in the path
 		bool m_sqliteBinAvailable;

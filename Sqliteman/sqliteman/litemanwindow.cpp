@@ -89,7 +89,11 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 	initUI();
 	initActions();
 	initMenus();
+
 	statusBar();
+	m_sqliteVersionLabel = new QLabel(this);
+	statusBar()->addPermanentWidget(m_sqliteVersionLabel);
+
 	readSettings();
 
 	// Check command line
@@ -493,6 +497,22 @@ void LiteManWindow::openDatabase(const QString & fileName)
 	else
 	{
 		isOpened = true;
+
+		// check for sqlite library version
+		QString ver;
+		if (q.exec("select sqlite_version(*);"))
+		{
+			if(!q.lastError().isValid())
+			{
+				q.next();
+				ver = q.value(0).toString();
+			}
+			else
+				ver = "n/a";
+		}
+		else
+			ver = "n/a";
+		m_sqliteVersionLabel->setText("Sqlite: " + ver);
 
 		attachedDb.clear();
 		attachedDb["main"] = SESSION_NAME;
