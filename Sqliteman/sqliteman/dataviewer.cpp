@@ -384,7 +384,7 @@ void DataViewer::tabWidget_currentChanged(int ix)
 		QModelIndex mi = ui.tableView->currentIndex().sibling(ui.itemView->currentIndex(), 0);
 		ui.tableView->setCurrentIndex(mi);
 	}
-	else
+	if (ix == 1)
 		ui.itemView->setCurrentIndex(ui.tableView->currentIndex().row());
 	
 	if (ui.actionBLOB_Preview->isChecked())
