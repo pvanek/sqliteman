@@ -55,4 +55,5 @@ MESSAGE(STATUS "Command to execute: ${xsltcmd} ${xsltparams0} ${xsltparams}")
 
 
 ADD_SUBDIRECTORY (en)
+ADD_SUBDIRECTORY (pl)
 
