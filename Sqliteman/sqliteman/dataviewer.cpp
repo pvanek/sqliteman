@@ -222,6 +222,9 @@ void DataViewer::truncateTable()
 	if(ret == QMessageBox::No)
 		return;
 	SqlTableModel * model = qobject_cast<SqlTableModel *>(ui.tableView->model());
+	// prevent cached data when truncating the table
+	if (model->pendingTransaction())
+		rollback();
 	if(model)
 	{
 		while (model->canFetchMore())
