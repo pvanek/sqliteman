@@ -13,7 +13,10 @@ Directories:
     - local copy of the Docbook source
 
     en
-    - Endlish documentation
+    - English documentation
+    
+    pl
+    - Polish documentation
 
 
 simple usage. E.g.:
