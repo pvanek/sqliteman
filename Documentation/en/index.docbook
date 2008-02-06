@@ -1018,7 +1018,7 @@ of the Sqlite internals &ndash; study its documentation, please.</para></caution
 <sect1 id="createTable">
 <title>Create Table</title>
       <orderedlist>
-        <listitem><para>First – as you see in the screenshot – you can create a table with mouse and only a few keyboard typing in the "Design" tab.</para></listitem>
+        <listitem><para>First - as you see in the screenshot - you can create a table with mouse and only a few keyboard typing in the "Design" tab.</para></listitem>
         <listitem><para>And the second one by pure SQL statement.</para></listitem>
       </orderedlist>
 
@@ -1375,7 +1375,7 @@ Alter Table Done
 <sect1 id="constraintTriggers">
   <title>Constraint Triggers</title>
   <para>There is one more unsupported SQL feature. Sqlite does not enforce foreign keys and not null constraints. This action will create a workaround triggers for you. Your SQL DML statements will be checked against these triggers before their execution.</para>
-  <para>There are three kind of constraint triggers – one for each DML (INSERT/UPDATE/DELETE) operations. This tool suggests trigger names but you can change it in the "Name" widgets.</para>
+  <para>There are three kind of constraint triggers - one for each DML (INSERT/UPDATE/DELETE) operations. This tool suggests trigger names but you can change it in the "Name" widgets.</para>
   <para>All triggers will be created after the <guibutton>Create</guibutton> click. Then check the results carefully.</para>
 <important><para>Consult Sqlite WIKI for deeper understanding of <ulink url="http://www.sqlite.org/cvstrac/wiki?p=ForeignKeyTriggers">FOREIGN KEYS</ulink>, please.</para></important>
 </sect1>
