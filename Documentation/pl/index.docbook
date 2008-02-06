@@ -1,0 +1,2141 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE
+       CVS -->
+  <!ENTITY kmyapplication "<application>Sqliteman</application>">
+  <!ENTITY kappname "Sqliteman"><!-- replace kmyapplication here
+                                            do *not* replace kappname-->
+  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
+                                     this unchanged if your
+                                     application is not maintained in KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"> <!-- ONLY If you are writing non-English
+                                     original documentation, change
+                                     the language here -->
+
+  <!-- Do not define any other entities; instead, use the entities
+       from entities/general.entities and $LANG/user.entities. -->
+]>
+<!-- kdoctemplate v0.9 January 10 2003
+     Changes to comments to clarify entity usage January 10 2003
+     Minor update to "Credits and Licenses" section on August 24, 2000
+     Removed "Revision history" section on 22 January 2001
+     Changed to Installation/Help menu entities 18 October 2001
+     Other minor cleanup and changes 18 October 2001
+     FPI change and minor changes November 2002 -->
+
+<!--
+This template was designed by: David Rugge davidrugge@mindspring.com
+with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
+and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
+of the KDE DocBook team.
+
+You may freely use this template for writing any sort of KDE documentation.
+If you have any changes or improvements, please let us know.
+
+Remember:
+- in XML, the case of the <tags> and attributes is relevant ;
+- also, quote all attributes.
+
+Please don't forget to remove all these comments in your final documentation,
+thanks ;-).
+-->
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+<!-- If you are writing original documentation in a language other -->
+<!-- than English, change the language above ONLY, not here -->
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title>The &kmyapplication; Handbook</title>
+
+<authorgroup>
+<author>
+<!-- This is just put in as an example.  For real documentation, please
+     define a general entity in entities/contributor.entities, e.g.
+<!ENTITY George.N.Ugnacious "<personname><firstname>George</firstname><othername>N.</othername><surname>Ugnacious</surname></personname>">
+<!ENTITY George.N.Ugnacious.mail "<email>gnu@kde.org</email>">
+and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
+ -->
+<personname>
+<firstname>Petr</firstname>
+<!--<othername></othername>-->
+<surname>Vanek</surname>
+</personname>
+<email>petr@scribus.info</email>
+</author>
+</authorgroup>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+<copyright>
+<year>2007</year>
+<holder>Petr Vanek</holder>
+</copyright>
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>This documentation is released under GNU Free Documentation License.
+See <link linkend="credits">Credits</link> for more.</legalnotice>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (YYYY-MM-DD) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>2007-12-12</date>
+<releaseinfo>1.1</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&kmyapplication; is the best developer's and/or admin's GUI tool for
+Sqlite3 in the world. No joking here (or just a bit only) &ndash; it contains
+the most complete feature set of all tools available.
+</para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword>Sqliteman</keyword>
+<keyword>SQL</keyword>
+<keyword>Sqlite</keyword>
+<keyword>development</keyword>
+<keyword>database</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label
+each chapter so with the id attribute. This is necessary for two reasons: it
+allows you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files will vary
+from time to time making it hard to manage for maintainers and for the CVS
+system. Any chapter labelled (OPTIONAL) may be left out at the author's
+discretion. Other chapters should not be left out in order to maintain a
+consistent documentation style across all KDE apps. -->
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<para>
+The best developer's and/or admin's GUI tool for
+<ulink url="http://sqlite.org/">Sqlite3</ulink>in the world.
+No joking here (or just a bit only) &ndash; it contains
+the most complete feature set of all tools available.
+And it's just the beginning&hellip;
+</para>
+
+<para>
+The ideal user of this application is a software developer
+forced to use <ulink url="http://sqlite.org/">Sqlite3</ulink>
+database in his code.
+</para>
+
+<para>
+If you are looking for a tool for tuning SQL statements,
+manage tables, views, or triggers, administrate the database
+space and index statistics &ndash; then &kmyapplication; is
+the perfect choice.
+</para>
+
+<para>
+If you are looking for a graphical queries creation wizards,
+user interface designers for your database, or an universal
+report tool &ndash; try the applications designed for tasks
+such this (<ulink url="http://www.kexi-project.org/">Kexi</ulink>,
+<ulink url="http://www.knoda.org/">knoda</ulink>).
+</para>
+
+<para>
+&kmyapplication; is a Qt4 based GPLv2 application.
+</para>
+
+<sect1 id="online">
+<title>&kmyapplication; Online</title>
+
+<itemizedlist>
+<listitem><para><ulink url="http://sqliteman.com/">Project Home page</ulink></para></listitem>
+<listitem><para><ulink url="http://sourceforge.net/project/showfiles.php?group_id=189610">Download new versions</ulink></para></listitem>
+<listitem><para><ulink url="http://sqliteman.com/bugtracker/">Report bugs and feature requests</ulink></para></listitem>
+<listitem><para><ulink url="https://sourceforge.net/projects/sqliteman/">Sourceforge.net Area</ulink></para></listitem>
+</itemizedlist>
+
+</sect1>
+</chapter>
+
+
+<chapter id="sqlite-specs">
+<title>Sqlite Specific Issues</title>
+
+<para>
+The text in this chapter is take from
+<ulink url="http://www.sqlite.org/">Sqlite home page</ulink>.
+Read more documentation there for deeper understanding of Sqlite
+features.
+</para>
+
+<para>
+SQLite is a small C library that implements a self-contained, embeddable,
+zero-configuration SQL database engine.
+</para>
+
+<caution>
+<para>
+It's strongly recommended to read and understand the Sqlite
+documentation. Sqlite can be confusing for a programmer from the world
+of the <emphasis>real databases</emphasis> (like Postgresql, Oracle,
+MS SQL Server etc.).
+</para>
+</caution>
+
+<para>Features include:</para>
+
+<itemizedlist>
+<listitem><para>Transactions are atomic, consistent, isolated, and durable (ACID)
+    even after system crashes and power failures.</para></listitem>
+<listitem><para>Zero-configuration - no setup or administration needed.</para></listitem>
+<listitem><para>Implements most of SQL92.
+    (<ulink url="http://www.sqlite.org/omitted.html">Features not supported</ulink>)</para></listitem>
+<listitem><para>A complete database is stored in a single disk file.</para></listitem>
+<listitem><para>Database files can be freely shared between machines with
+    different byte orders.</para></listitem>
+<listitem><para>Supports databases up to 2 tebibytes in size.</para></listitem>
+<listitem><para>Strings and BLOBs up to 2 gibibytes in size.</para></listitem>
+<listitem><para>Small code footprint: less than 250KiB fully configured or less
+    than 150KiB with optional features omitted.</para></listitem>
+<listitem><para><ulink url="http://www.sqlite.org/speed.html">Faster</ulink> than popular client/server database
+    engines for most common operations.</para></listitem>
+<listitem><para>Simple, easy to use <ulink url="http://www.sqlite.org/capi3.html">API</ulink>.</para></listitem>
+<listitem><para><ulink url="http://www.sqlite.org/tclsqlite.html">TCL bindings</ulink> included.
+    Bindings for many other languages 
+    <ulink url="http://www.sqlite.org/cvstrac/wiki?p=SqliteWrappers">available separately.</ulink></para></listitem>
+<listitem><para>Well-commented source code with over 95% test coverage.</para></listitem>
+<listitem><para>Self-contained: no external dependencies.</para></listitem>
+<listitem><para>Sources are in the <ulink url="http://www.sqlite.org/copyright.html">public domain</ulink>.
+    Use for any purpose.</para></listitem>
+</itemizedlist>
+
+<para>
+Sqlite specific properties affect &kmyapplication; feature set. E.g.
+Sqlite does not support foreign keys so there is a dedicated dialog
+for FK triggers creating.
+</para>
+
+</chapter>
+
+<!-- This chapter should tell the user how to use your app. You should use as
+many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
+your application. -->
+
+
+<!-- Note that all graphics should be in .png format. Use no gifs because of
+patent issues. -->
+<!--
+<screenshot>
+<screeninfo>Here's a screenshot of &kmyapplication;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Screenshot</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title>More &kmyapplication; features</title>
+
+<para>It slices! It dices! and it comes with a free toaster!</para>
+<para>
+The Squiggle Tool <guiicon><inlinemediaobject>
+	  <imageobject>
+	    <imagedata fileref="squiggle.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="squiggle.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Squiggle</phrase>
+	  </textobject>
+</inlinemediaobject></guiicon> is used to draw squiggly lines all over
+the &kmyapplication; main window. It's not a bug, it's a feature!
+</para>
+
+</sect1>
+</chapter> -->
+
+
+<chapter id="start-app">
+<title>Start the Application</title>
+
+<para>The most common way how to start &kmyapplication; is
+to run it from your desktop menu. But there are some
+command line options you can use too.
+</para>
+
+<sect1 id="cli-usage">
+<title>Usage in the command line</title>
+<para>
+<command>sqliteman [options] [databasefile]</command>
+</para>
+
+
+<sect2 id="databasefile">
+<title>databasefile</title>
+<para>
+An optional argument. A Sqlite3 file with absolute or relative path.
+This file will be loaded into the application directly.
+</para>
+</sect2>
+
+<sect2 id="options">
+<title>options</title>
+<para>
+Optional arguments. You can specify some switches to setup
+the application. Option list:
+</para>
+
+<itemizedlist>
+
+<listitem><para>
+<command>--help</command> or <command>-h</command> displays small help and exits
+</para></listitem>
+
+<listitem><para>
+<command>--version</command> or <command>-v</command> prints version and exits
+</para></listitem>
+
+<listitem><para>
+<command>--lang</command> or <command>-l</command> sets a GUI language.
+E.g. : <command>sqliteman --lang cs</command>
+</para>
+<para>
+&kmyapplication; checks your environment and tries to setup itself
+by your locale settings. It affects the GUI language &ndash; it should be in your
+language if there is a translation available. If you wish to use this application
+in English use <command>--lang en</command> or use <link linkend="preferences">Preferences dialog</link>.
+</para>
+</listitem>
+
+<listitem><para>
+<command>--langs</command> or <command>-la</command> lists available languages and exits
+</para></listitem>
+</itemizedlist>
+
+<para>There are standard Qt4 options available too.</para>
+
+</sect2>
+
+</sect1>
+
+</chapter>
+
+
+
+<chapter id="overview">
+<title>The First Overview</title>
+
+<para>
+You can see the &kmyapplication; user interface is quite similar to
+classic database admin/developer tools. The main window contains
+<emphasis>Object Browser</emphasis>, <emphasis>SQL Editor</emphasis>,
+<emphasis>Data Result Grid</emphasis>, and many more &ndash; tools
+for Sqlite special features.
+</para>
+
+<para>
+<screenshot>
+<screeninfo>The main window of &kmyapplication;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="mainwindow.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="mainwindow.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Screenshot of the Main Window</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+<para>All interface elements contains so called "tool tips" &ndash; quick
+notes which are available when you stay with a mouse cursor in the element
+are for a while.</para>
+
+</chapter>
+
+
+<chapter id="mainwindow">
+<title>&kmyapplication; Main Window</title>
+
+<para>
+<screenshot>
+<screeninfo>Main components in the Main Window</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="mainwindow-notes.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="mainwindow-notes.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Main components in the Main Window</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+<variablelist>
+<varlistentry>
+<term>Menu bar</term>
+<listitem><para>
+Most of the actions are started here. <link linkend="mainwindow-menu">See Menu Commands documentation</link>.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Object Tree</term>
+<listitem><para>
+Database objects are stored in the
+    logical hierarchy here. "Main" is the
+    core database (opened), all others databases can be
+    "attached" only.
+<link linkend="schemaBrowser">See Schema Browser documentation</link>.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>SQL Editor</term>
+<listitem><para>
+Write your queries and the others commands here.
+<link linkend="sqlEditor">See SQL Editor documentation</link>.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Result Table</term>
+<listitem><para>
+All queries results and related stuff is shown here.
+<link linkend="dataViewer">See Data Browser documentation</link>.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Error Log</term>
+<listitem><para>
+Error messages and status is written here.
+</para></listitem>
+</varlistentry>
+</variablelist>
+
+</chapter>
+
+<!-- (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
+application windows and their menubar and toolbar commands for easy reference.
+Also include any keys that have a special function but have no equivalent in the
+menus or toolbars. This may not be necessary for small apps or apps with no tool
+or menu bars. -->
+
+<chapter id="mainwindow-menu">
+<title>&kmyapplication; Menu Structure</title>
+
+<sect1>
+<title>The <guimenu>File</guimenu> Menu</title>
+<para>
+You can open your database files here.
+</para>
+<para>
+Sqliteman can handle files created by Sqlite version 3. If you are using 2.x, you should migrate your data. Sqlite developers change physical data format for its files quite often (in the 3.x releases too) so there can be some small issues when you cannot e.g. open a 3.3.13 file with 3.3.8 driver etc. See troubleshooting chapter for more info.
+</para>
+
+<para>
+<variablelist>
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo></shortcut>
+    <guimenu>File</guimenu>
+    <guimenuitem>New...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Create a new database file.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo></shortcut>
+    <guimenu>File</guimenu>
+    <guimenuitem>Open...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Open an existing file.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <guimenu>File</guimenu>
+    <guimenuitem>Recent Databases</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>If you have been using Sqliteman before, you can
+                            see previously opened database files here. Use
+                            this sub-menu for a quick access to these DBs.
+              </action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <guimenu>File</guimenu>
+    <guimenuitem>Preferences...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Opens the preferences dialog. 
+      <link linkend="preferences">See full Preferences documentation</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <guimenu>File</guimenu>
+    <guimenuitem>Exit</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Quit the application.</action></para></listitem>
+  </varlistentry>
+
+</variablelist>
+</para>
+
+</sect1>
+
+<sect1 id="context-menu">
+<title>The <guimenu>Context</guimenu> Menu</title>
+<para>The "Context" is the set of operation you can use for
+the selected object in the object tree browser. You can use
+the alternative access to this menu by the right mouse button
+(for right handed mouse).</para>
+<para>Not all operations are available for all database objects.</para>
+
+<para>
+<variablelist>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Refresh Object Tree</guimenuitem></menuchoice></term>
+    <listitem><para><action>Enforce the refresh of the schema browser.
+      &kmyapplication; should handle self-initialized changes in the schema automatically but you
+      can use this option to promote changes made out of &kmyapplication;</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Detach Database</guimenuitem></menuchoice></term>
+    <listitem><para><action>Disconnect attached database from current session.
+      <link linkend="attachDatabase">See full Attach Database documentation</link>.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <guimenu>Context</guimenu>
+    <guimenuitem>Create Table...</guimenuitem>
+    </menuchoice></term>
+    <listitem>
+      <para><action>Raise a dialog for table creation. You can use two ways to create table here.
+      <link linkend="createTable">See full Create Table documentation</link></action></para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Describe Table</guimenuitem></menuchoice></term>
+    <listitem><para><action>Show database physical information in the script output.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
+    <guimenu>Context</guimenu><guimenuitem>Alter Table...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Raise a dialog for table changing.
+      <link linkend="alterTable">See full Alter Table documentation</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Rename Table...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Allow to rename a table.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Drop Table</guimenuitem></menuchoice></term>
+    <listitem><para><action>Really drop the table.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Reindex</guimenuitem></menuchoice></term>
+    <listitem><para><action>Perform REINDEX command. If is it called against index there is only this
+    index recreated. If is it called against the table then all indexes are recreated.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Import Table Data...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Import data into table. <link linkend="importTableData">See full Import Table Data documentation</link>
+      </action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Populate Table...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Create table content - data for testing etc.
+    <link linkend="populateTable">See full Populate Table documentation</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Create View...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Create a view in special dialog.
+    <link linkend="createView">See full Create View documentation</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Describe View</guimenuitem></menuchoice></term>
+    <listitem><para><action>Show database physical information in the script output.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Alter View...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Change a view in a separate dialog.
+    <link linkend="createView">See full View Handling documentation</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Drop View...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Really drop the view.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Create Index...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Raise a dialog for the new index.
+      <link linkend="createIndex">See full Create Index documentation</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Describe Index</guimenuitem></menuchoice></term>
+    <listitem><para><action>Show index physical information in the script result window.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Drop Index</guimenuitem></menuchoice></term>
+    <listitem><para><action>Really drop the index.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Create Trigger...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Raise a dialog for the new trigger. There is a trigger template prepared for you. Just modify it to your needs. Then press the "Create" button and check the result.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Alter Trigger...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Raise a similar dialog to the "Create Trigger" one with current trigger body preset. Sqlite does not support direct ALTER TRIGGER so there is a DROP and new CREATE performed after you click the <guibutton>Alter</guibutton> button.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Drop Trigger</guimenuitem></menuchoice></term>
+    <listitem><para><action>Really drop the trigger.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Describe Trigger</guimenuitem></menuchoice></term>
+    <listitem><para><action>Show trigger physical information in the script result window.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice><guimenu>Context</guimenu><guimenuitem>Constraint Triggers...</guimenuitem></menuchoice></term>
+    <listitem><para><action>Raise a dialog to create FOREIGN KEY constraint checks in the triggers.
+      <link linkend="constraintTriggers">See full Constraint Triggers documentation</link>.</action></para></listitem>
+  </varlistentry>
+
+</variablelist>
+</para>
+</sect1>
+
+
+<sect1 id="database-menu">
+<title>The <guimenu>Database</guimenu> Menu</title>
+<para>Frequently used database tasks are grouped in this menu.</para>
+<para>
+<variablelist>
+
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>T</keycap></keycombo></shortcut>
+    <guimenu>Database</guimenu>
+    <guimenuitem>Create Table...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>The same as in the Context menu.
+      <link linkend="createTable">See full Create Table documentation</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>G</keycap></keycombo></shortcut>
+    <guimenu>Database</guimenu>
+    <guimenuitem>Create View...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>The same as in the Context menu.
+      <link linkend="createView">See full Create View documentation</link></action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo></shortcut>
+    <guimenu>Database</guimenu>
+    <guimenuitem>Build Query...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Simple and quick (and limited a bit) graphical query builder.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo></shortcut>
+    <guimenu>Database</guimenu>
+    <guimenuitem>SQL Editor</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Switch On/Off the SQL text editor in the main window.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>B</keycap></keycombo></shortcut>
+    <guimenu>Database</guimenu>
+    <guimenuitem>Object Browser</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Switch On/Off the Object Browser tree in the main window.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <guimenu>Database</guimenu>
+    <guimenuitem>Export Schema...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Export only structure of the database. The result is only
+                  "create database" script.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <guimenu>Database</guimenu>
+    <guimenuitem>Dump Database...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Export structure and data of the database. The result is the
+                  "create database" script and data inserts too.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <guimenu>Database</guimenu>
+    <guimenuitem>Import Table Data...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Import data into specified table. The import dialog with guided
+                steps is shown.</action></para></listitem>
+  </varlistentry>
+
+</variablelist>
+</para>
+
+</sect1>
+
+
+<sect1 id="system-menu">
+<title>The <guimenu>System</guimenu> Menu</title>
+<para>Less used but still useful database tasks are grouped in this menu.</para>
+<caution><para>All actions introduced here requires deep understanding
+of the Sqlite internals &ndash; study its documentation, please.</para></caution>
+
+<para>
+<variablelist>
+  <varlistentry>
+    <term><menuchoice>
+    <guimenu>System</guimenu>
+    <guimenuitem>Analyze Statistics...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Raise a dialog to compute the database statistics.
+          You can drop, compute statistics for the whole schema, or just
+          select objects.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <guimenu>System</guimenu>
+    <guimenuitem>Vacuum...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Raise a dialog to handle free space in the database file.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <guimenu>System</guimenu>
+    <guimenuitem>Attach Database...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>You can join another Sqlite database file into this session.
+      <link linkend="attachDatabase">See full Attach Database documentation</link>.</action></para></listitem>
+  </varlistentry>
+</variablelist>
+</para>
+
+</sect1>
+
+
+<sect1 id="help-menu">
+<title>The <guimenu>Help</guimenu> Menu</title>
+
+<para>
+<variablelist>
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycap>F1</keycap></shortcut>
+    <guimenu>Help</guimenu>
+    <guimenuitem>Help Content...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Open help window with &kmyapplication; documentation.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycap>F1</keycap></shortcut>
+    <guimenu>Help</guimenu>
+    <guimenuitem>About...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Small dialog with &kmyapplication; version and credits.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><menuchoice>
+    <shortcut><keycap>F1</keycap></shortcut>
+    <guimenu>Help</guimenu>
+    <guimenuitem>About Qt...</guimenuitem>
+    </menuchoice></term>
+    <listitem><para><action>Small dialog with Qt4 library version and credits.</action></para></listitem>
+  </varlistentry>
+
+</variablelist>
+</para>
+
+</sect1>
+
+</chapter>
+
+
+<chapter>
+<title>Features and Dialogs</title>
+
+<sect1 id="preferences">
+  <title>Preferences</title>
+  <para>Preferences dialog allows you to customize &kmyapplication; to fit your needs better.</para>
+
+  <sect2>
+    <title>Look and Feel</title>
+    <para>You can set GUI behavior in in this section. Remember that Language and Style settings require &kmyapplication; restart to take effect. Some of these preferences can be overridden by the application
+    <link linkend="options">command line parameters</link>.</para>
+
+<para>
+<screenshot>
+<screeninfo>Preferences: Look and Feel</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-lnf.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-lnf.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Preferences: Look and Feel</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>GUI Language</term>
+        <listitem><para>Allow to choose one of the translations for user interface.
+        </para>
+        <caution><para>Remember that translations are provide by group of volunteers (not by &kmyapplication; developers). It's better <link linkend="credits">to contact translation authors</link> in the case of bug.</para></caution>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>GUI Style</term>
+        <listitem><para>Change the application "skin". Available styles are depending on platform. Default style should be good choice.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Recently Used Databases</term>
+        <listitem><para>Specify the count of items in the <guimenu>File</guimenu> <guimenuitem>Recent Databases</guimenuitem> menu.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Open Last Database on Start</term>
+        <listitem><para>When it's checked, the last used database will be opened on the next &kmyapplication; start.</para></listitem>
+      </varlistentry>
+
+    </variablelist>
+  </sect2>
+
+  <sect2 id="preferences-dataViewer">
+    <title>Data Display</title>
+    <para>Change settings of the data result viewer here. There is no application restart required here.
+    Viewer features are <link linkend="dataViewer">described in its own section</link>.</para>
+
+<para>
+<screenshot>
+<screeninfo>Preferences: Data Display</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-display.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-display.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Preferences: Data Display</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>NULL handling</term>
+        <listitem><para>There is no difference in displaying NULL value and an empty string if is this option disabled.</para>
+        <para>If you enable this feature, you can set the background color and the substitution
+        string to highlight real NULL value. The empty string display is unchanged.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>BLOB handling</term>
+        <listitem><para>If is this option disabled, you will get unfiltered binary content of
+        the BLOB cell.</para>
+        <para>If you enable this feature, you can set the background color and the substitution
+        string to highlight real BLOB value.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Limit Text Length Display</term>
+        <listitem><para>If it is enabled, the long data will be shortened in the result grid.</para></listitem>
+      </varlistentry>
+
+    </variablelist>
+  </sect2>
+
+  <sect2 id="preferences-sqlEditor">
+    <title>SQL Editor</title>
+    <para>Change settings of the SQL editor here. There is no application restart required here.
+    SQL Editor features are <link linkend="sqlEditor">described in its own section</link>.</para>
+
+<para>
+<screenshot>
+<screeninfo>Preferences: SQL Editor</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-editor.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="preferences-editor.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Preferences: SQL Editor</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Font</term>
+        <listitem><para>Specify font and font size. It's common and clever to use a non-proportional font for source code editor.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Use Active Line Highlighting</term>
+        <listitem><para>The active line will be highlighted if is this feature set. Change its color with <guibutton>Color...</guibutton> button.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Use Maximum Text Width Mark</term>
+        <listitem><para>When is this option set, the vertical line at the given column position will be shown. It's useful to keep coding standards.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Use Code Completion With Length</term>
+        <listitem><para>The code completion will be allowed if is this feature set. The editor will show pop-up menu with matching words when the currently edited word grows on the threshold length.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Use Editor Shortcuts</term>
+        <listitem><para>The editor shortcuts mechanism will be allowed if is this feature set.
+          Pressing <guibutton>Define...</guibutton> button will open a shortcut definition dialog.</para>
+          <para>You can define shortcuts and expansion in this sub-dialog:</para>
+          <para>
+          <screenshot>
+          <screeninfo>Preferences: Editor Shortcuts</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="preferences-shortcuts.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="preferences-shortcuts.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Preferences: Editor Shortcuts</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Syntax Colors</term>
+        <listitem><para>Custom syntax highlighting colors can be defined here. Every button sets its syntax color. All is shown in the sample SQL statement preview.</para></listitem>
+      </varlistentry>
+
+    </variablelist>
+  </sect2>
+</sect1>
+
+<sect1 id="createTable">
+<title>Create Table</title>
+      <orderedlist>
+        <listitem><para>First – as you see in the screenshot – you can create a table with mouse and only a few keyboard typing in the "Design" tab.</para></listitem>
+        <listitem><para>And the second one by pure SQL statement.</para></listitem>
+      </orderedlist>
+
+          <para>
+          <screenshot>
+          <screeninfo>Create table dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="createTable.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="createTable.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Create table dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Database</term>
+          <listitem><para>A combo box with databases attached. Select one and the table will be created in this schema.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Table Name</term>
+          <listitem><para>Name of new table. It must be given.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Columns</term>
+          <listitem><para>Use "Add" and "Remove" buttons to create columns for this table. Every column must have a table-unique name, chosen data type (prepared combo box), optional NOT NULL constraint, and optional DEFAULT value.
+          </para>
+          <important><para>Consult Sqlite documentation for data type, NOT NULL, and DEFAULT handling specials, please.</para></important></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Create</term>
+          <listitem><para>Press this button to create table. The result of this operation is shown in the text area below.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Advanced (SQL) tab</term>
+          <listitem><para>You can write full featured SQL CREATE TABLE statement here. A helper template is prepared for you. Every time you open this tab you will be asked to recreate a new SQL statement from the GUI settings in the first tab.</para></listitem>
+        </varlistentry>
+      </variablelist>
+
+</sect1>
+
+<sect1 id="alterTable">
+  <title>Alter Table</title>
+  <para>
+  Raise a dialog for table changing. This dialog looks quite similar like that "Create Table" one except a few things:
+  </para>
+
+  <important>
+    <para>Sqlite ALTER TABLE command is very limited so there is no DROP COLUMN clause etc.
+    &kmyapplication; handles custom ALTER TABLE with a workaround. It's strongly recommended
+    to backup your data before dropping columns. You can lost indexes or invalidate triggers
+    if you're not careful enough.
+    </para>
+  </important>
+
+  <para>In this dialog you can <guibutton>Add</guibutton> and <guibutton>Remove</guibutton> table
+  columns and set the options for new ones.</para>
+
+          <para>
+          <screenshot>
+          <screeninfo>Alter table dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="alterTable.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="alterTable.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Alter table dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+  <sect2>
+    <title>Steps to alter table</title>
+    <orderedlist>
+      <listitem><para>Remember triggers and indexes from the original table</para></listitem>
+      <listitem><para>Rename the original table with temporary name</para></listitem>
+      <listitem><para>Create new table with original name containing new column structure</para></listitem>
+      <listitem><para>Perform INSERT INTO original SELECT FROM temporary</para></listitem>
+      <listitem><para>Drop temporary table</para></listitem>
+      <listitem><para>Try to recreate original indexes and triggers</para></listitem>
+    </orderedlist>
+    <para>When there is no request for column dropping only the <command>ALTER TABLE ADD COLUMN</command>
+    is performed.</para>
+
+    <para>A sample log output from add one column and remove on too in one batch.
+      You can see two failed index recreation due missing column (that dropped one):</para>
+    <example><title>Full Alter Table Example</title>
+    <para><programlisting>
+Rename original table to _alter0_tags
+Creating new table: tags
+Begin Transaction
+Data Transfer
+Transaction Commit
+Dropping original table _alter0_tags
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger
+Recreating original index/trigger (failed) table tags has no column named deviceid:
+CREATE INDEX tags_deviceid_index ON tags( deviceid )
+Recreating original index/trigger (failed) table tags has no column named deviceid:
+CREATE UNIQUE INDEX url_tag ON tags( url, deviceid )
+Columns added successfully
+Alter Table Done
+    </programlisting></para>
+    </example>
+  </sect2>
+</sect1>
+
+<sect1 id="importTableData">
+<title>Import Table Data</title>
+  <para>Data in supported formats can be imported into chosen table directly in
+    this dialog.</para>
+          <para>
+          <screenshot>
+          <screeninfo>Import Table Data dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="dataImport.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="dataImport.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Import Table Data dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Schema to Import</term>
+        <listitem><para>Chose one of available databases. "Main" is the default. All attached databases are available.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Table to Import Into</term>
+        <listitem><para>Select the table for import. Only tables from chosen database are shown.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>File to Import</term>
+        <listitem><para>A file from filesystem.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Table to Import Into</term>
+        <listitem><para>Select the table for import. Only tables from chosen database are shown.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Sqlite .import</term>
+        <listitem><para>This type of import handles plaintext files with separator as does the <command>sqlite3</command>
+          CLI console. Specify one of predefined field separators or create a custom one.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>MS Excel XML</term>
+        <listitem><para>This type of import handles special XML files used in MS Excel. This tool
+          cannot import any other XML file. This import filter does not contain any options.</para></listitem>
+      </varlistentry>
+
+
+      <varlistentry>
+        <term>Preview</term>
+        <listitem><para>Live preview of the selected file. You can check the result of import in the window.</para></listitem>
+      </varlistentry>
+
+    </variablelist>
+</sect1>
+
+<sect1 id="populateTable">
+<title>Populate Table</title>
+
+  <para>Simple (testing/QA) data generator for tables.</para>
+  <para>Populator tries to guess what to insert into the table. It
+    finds if the requested value is number. text, or primary key and
+    its size.</para>
+
+          <para>
+          <screenshot>
+          <screeninfo>Populate Table dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="populateTable.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="populateTable.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Populate Table dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>Number of Rows to Populate</term>
+      <listitem><para>Specify the amount of record to be created.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Continue on Error</term>
+      <listitem><para>If it's checked, the data population will continue after error.</para>
+      <para>If it's unchecked the process will stop right after the first error.</para>
+      <important><para>Why there could be errors? It's simple. Sqlite doesn't supply
+        any way to check e.g. constraints, or trigger modification on table before the
+        statement run. So the error can be raised for example when you want to add
+        already presented number into autoincrement column etc.</para></important>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Column Settings</term>
+      <listitem><para>Setup every column with custom action. Column actions are
+        prepared depending their data type and/or size.</para></listitem>
+    </varlistentry>
+  </variablelist>
+
+  <sect2>
+    <title>Column Settings</title>
+    <variablelist>
+      <varlistentry>
+        <term>Autonumber</term>
+        <listitem><para>Insert MAX()+1 for current number based column. Values inserted are unique,
+          so it should be used for Primary Keys, Autonumber columns and columns with unique indexes.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Random Number</term>
+        <listitem><para>Insert pseudo random number into column. If there is a size settings for
+          this column (e.g. NUMBER(3)) the size is used.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Random Text</term>
+        <listitem><para>Insert random text string into column. If there is a size settings for
+          this column (e.g. VARCHAR2(3)) the size is used.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Prefixed Text</term>
+        <listitem><para>Insert text string with custom prefix. For example set the prefix as "testvalue_"
+          then you'll get sequence of values: "testvalue_1", "testvalue_1", ..., "testvalue_N".</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Static Value</term>
+        <listitem><para>Insert custom constant value for all new records for current column.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Ignore Column</term>
+        <listitem><para>Skip this column. No data will be inserted except default values for columns.</para>
+        <warning><para>Remember that constraints are still active in the table. E.g. when you
+          set a NOT NULL constrained column with Ignore Column option, you'll get a Constraint Violated
+          error.</para></warning>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </sect2>
+</sect1>
+
+<sect1 id="createView">
+<title>View related dialogs</title>
+<para>There is the list of required properties you should fill:</para>
+
+          <para>
+          <screenshot>
+          <screeninfo>Create view dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="createView.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="createView.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Create view dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+  <variablelist>
+    <varlistentry>
+      <term>Database</term>
+      <listitem><para>Select a database schema from this combo box.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>View Name</term>
+      <listitem><para>Mandatory and unique (related to the Database) view name.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Select Statement</term>
+      <listitem><para>A valid SQL statement. Please do not write any CREATE or ALTER like commands. Your statement fails if you will do so.</para></listitem>
+    </varlistentry>
+  </variablelist>
+
+  <para>You can create a view directly from SQL Editor - just use proper icon for chosen SQL statement.</para>
+</sect1>
+
+<sect1 id="createIndex">
+  <title>Create Index</title>
+  <para>There is the list of required properties you should fill:</para>
+
+          <para>
+          <screenshot>
+          <screeninfo>Create Index dialog</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="createIndex.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="createIndex.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Create Index dialog</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+
+  <variablelist>
+    <varlistentry>
+      <term>Index Name</term>
+      <listitem><para>You have to specify an unique index name.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Unique?</term>
+      <listitem><para>Check it if you want to have an unique index. Default is not unique.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Use?</term>
+      <listitem><para>Check it if you want to have this column contained in index.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Asc/Desc</term>
+      <listitem><para>Specify the index sort direction. Default is "ASC".</para></listitem>
+    </varlistentry>
+  </variablelist>
+</sect1>
+
+<sect1 id="constraintTriggers">
+  <title>Constraint Triggers</title>
+  <para>There is one more unsupported SQL feature. Sqlite does not enforce foreign keys and not null constraints. This action will create a workaround triggers for you. Your SQL DML statements will be checked against these triggers before their execution.</para>
+  <para>There are three kind of constraint triggers – one for each DML (INSERT/UPDATE/DELETE) operations. This tool suggests trigger names but you can change it in the "Name" widgets.</para>
+  <para>All triggers will be created after the <guibutton>Create</guibutton> click. Then check the results carefully.</para>
+<important><para>Consult Sqlite WIKI for deeper understanding of <ulink url="http://www.sqlite.org/cvstrac/wiki?p=ForeignKeyTriggers">FOREIGN KEYS</ulink>, please.</para></important>
+</sect1>
+
+
+<sect1 id="attachDatabase">
+  <title>Attached Databases</title>
+  <para>You can add and remove another database files to the current database connection.
+    Every attached database is identified by its unique name (prefix). The names 'main' and 'temp' refer to the main database and the database used for temporary tables. These cannot be detached.
+    You should access database objects with full prefixed naming convention:</para>
+    <para><command>SELECT * FROM newdb.foo_table;</command></para>
+  <important><para>Consult <ulink url="http://www.sqlite.org/lang_attach.html">Sqlite documentation</ulink>.</para></important>
+</sect1>
+
+<sect1 id="schemaBrowser">
+  <title>Schema Browser</title>
+  <para>All database objects are listed in this widget. Objects 
+  are grouped into logical tree. Available actions for chosen
+  tree item (table, index, view etc.) are dynamically shown in
+  the <link linkend="context-menu">Context Menu</link> in the menu bar
+  or in the pop-up menu (right mouse click).
+  </para>
+          <para>
+          <screenshot>
+          <screeninfo>Schema Browser (Object Tree)</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="schemaBrowser-schema.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="schemaBrowser-schema.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Schema Browser (Object Tree)</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+  <sect2 id="pragmaEditor">
+  <title>Pragma Editor</title>
+  <para>The database parameters can be changed comfortably in the Pragma Editor.
+  All available PRAGMAs are listed in the table. Currently selected PRAGMA can be
+  changed in the dialog opened with the <guibutton>Change Value...</guibutton>.
+  </para>
+  <warning><para>Every PRAGMA change affects the behavior of the database.
+    You should know what are you doing here.</para></warning>
+          <para>
+          <screenshot>
+          <screeninfo>Pragma editor</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="schemaBrowser-pragma.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="schemaBrowser-pragma.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Pragma editor</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+  </sect2>
+</sect1>
+
+<sect1 id="sqlEditor">
+  <title>SQL Editor</title>
+  <para>The SQL Editor is the place to create, test and examine your statements.
+There are some additional features made for your easier life. Of course you
+can <link linkend="preferences-sqlEditor">customize editor behavior in Preferences</link>.</para>
+
+<important><para>Transaction handling. Transactions in the SQL scripts (in this editor)
+are under user control. There is no autocommit and automatic transaction starting.
+You can use PRAGMAs on your own of course.</para>
+<para>It's strongly recommended not to mix transaction started in SQL Editor and
+in Data Viewer. You can get some ugly collisions then.</para></important>
+          <para>
+          <screenshot>
+          <screeninfo>SQL editor</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="sqlEditor.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="sqlEditor.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>SQL editor</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+<variablelist>
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="runsql.png"/>Run current statement</guiicon>
+    <shortcut><keycap>F9</keycap></shortcut>
+    </term>
+    <listitem><para><action>The current statement is the SQL block under cursor or
+     the text in editor selection.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="runexplain.png"/>Explain Plan</guiicon>
+    <shortcut><keycap>F6</keycap></shortcut>
+    </term>
+    <listitem><para><action>The EXPLAIN tool is used for the current statement.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="runscript.png"/>Run Multiple Statements</guiicon>
+    <shortcut><keycap>F6</keycap></shortcut>
+    </term>
+    <listitem><para><action>Use this action when you need to run more statements in one batch.</action></para>
+    <para>If there is a selection in editor, all statements in this selection will be used. If there is no
+    selection, all statements <emphasis>from cursor position</emphasis> will be used.</para>
+    <para>The "Start from cursor" feature is very useful when your script contains an error.
+    You can continue after correction from the middle of file.  </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="view.png"/>Create View</guiicon>
+    </term>
+    <listitem><para><action>Create a view from the current statement. The <link linkend="createView">Create View Dialog</link>
+    with the current statement will be shown.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="document-new.png"/>New Document</guiicon>
+    </term>
+    <listitem><para><action>Create a new empty document in the editor. User is asked for save if there are any unsaved changes.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="document-open.png"/>Open Document</guiicon>
+    </term>
+    <listitem><para><action>Open an existing file.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="document-save.png"/>Save Document</guiicon>
+    </term>
+    <listitem><para><action>Save the current file. If the document does not have file name,
+    the Save As dialog is shown.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="document-save-as.png"/>Save Document As</guiicon>
+    </term>
+    <listitem><para><action>Save the current file with changed name.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="system-search.png"/>Search in the document</guiicon>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>F</keycap></keycombo></shortcut>
+    </term>
+    <listitem><para><action>Open or close the Search panel in the bottom of the SQL Editor.</action></para>
+    </listitem>
+  </varlistentry>
+
+</variablelist>
+
+
+</sect1>
+
+<sect1 id="dataViewer">
+  <title>Data Viewer</title>
+  <para>All data are displayed here. Data in the meaning of:</para>
+  <itemizedlist>
+    <listitem><para>Results of statements launched in <link linkend="sqlEditor">the SQL Editor</link>.</para></listitem>
+    <listitem><para>Content of tables and views listed in <link linkend="schemaBrowser">the Schema Browser</link>.
+      Use mouse double-click to fetch data.</para></listitem>
+  </itemizedlist>
+
+  <para>Changes in Data Viewer are handled in separate transaction. So you <emphasis>have to</emphasis>
+  click <guibutton>Commit</guibutton> or <guibutton>Rollback</guibutton> buttons to promote them
+  into database file.</para>
+
+<important><para>Transactions in the Data Viewer are separated
+from SQL Editor. You cannot commit your changes by <command>COMMIT</command> in the SQL Editor.
+</para>
+</important>
+
+  <para>Data changes are available only for tables (invoked in Schema Browser). There is no way to edit data returned
+  by SQL statement yet.</para>
+
+          <para>
+          <screenshot>
+          <screeninfo>Data Viewer/Browser</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="dataViewer.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="dataViewer.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Data Viewer/Browser</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+<variablelist>
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="insert_table_row.png"/>Insert Row</guiicon>
+    </term>
+    <listitem><para><action>Create new and empty record in the table. Default values are prefilled.
+    Commit Action is required to make this permanent.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="delete_table_row.png"/>Delete Row</guiicon>
+    </term>
+    <listitem><para><action>Delete current row from the table.
+    Commit Action is required to make this permanent.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="clear_table_contents.png"/>Delete All from table</guiicon>
+    </term>
+    <listitem><para><action>Delete all records from table.
+    Commit Action is required to make this permanent.</action></para>
+    <note><para>Remember that this action does not "truncate" the table. You should use <command>VACUUM</command>
+      if you need to reduce file size.</para></note>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="database_commit.png"/>Commit</guiicon>
+    </term>
+    <listitem><para><action>Promote changes from Data Viewer into database.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="database_rollback.png"/>Rollback</guiicon>
+    </term>
+    <listitem><para><action>Reject changes in Data Viewer.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="blob.png"/>Blob Preview</guiicon>
+    </term>
+    <listitem><para><action>Open or close BLOB preview widget. Some binary data stored
+      in BLOB cells can be examined  and used as images. These values are shown then.
+    </action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="document-export.png"/>Data Export</guiicon>
+    </term>
+    <listitem><para><action>Open the Data Export dialog. You can export currently selected
+      data in various formats. <link linkend="dataExport">See Data Export documentation</link>.</action></para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guiicon><inlinegraphic fileref="snapshot.png"/>Table Snapshot</guiicon>
+    </term>
+    <listitem><para><action>Duplicate current result table into new read only window.
+      You can compare data versions etc. with it.</action></para></listitem>
+  </varlistentry>
+
+</variablelist>
+
+  <sect2>
+    <title>Display Types</title>
+  <variablelist>
+    <varlistentry>
+      <term>Full View</term>
+      <listitem><para>Display data as a table. It's the most common view on SQL results.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Item View</term>
+      <listitem><para>Display data as record after record. You will see only one record at all.
+        This view is read only now.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Script Output</term>
+      <listitem><para>Describe action results and <command>Run As Script</command> from SQL Editor
+        results are listed in this tab.</para></listitem>
+    </varlistentry>
+</variablelist>
+  </sect2>
+
+  <sect2 id="dataViewer-editor">
+    <title>Data Editor</title>
+    <para>Basic data editation is handled directly in the table cell. Editation is invoked
+      by double-click or <keycombo action="simul">&Ctrl;<keycap>Space</keycap></keycombo>.</para>
+
+    <important><para>Remember that Sqlite recognizes NULL and empty string as two independent
+      values. So inserting an empty strings does not mean you are inserting a NULL. Use
+      NULL buttons to do it.</para></important>
+
+    <para>When the cell value is a multi line text or it is recognized as a BLOB, the
+      Advanced Editor is opened automatically.</para>
+
+          <para>
+          <screenshot>
+          <screeninfo>Simple Data Editor</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="dataViewer-editor.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="dataViewer-editor.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Simple Data Editor</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Line edit.</term>
+        <listitem><para>Simple strings can be edited in this widget.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><guiicon><inlinegraphic fileref="setnull.png"/>Set NULL</guiicon>
+        <shortcut><keycombo action="simul">&Ctrl;<keycap>&Alt;</keycap><keycap>N</keycap></keycombo></shortcut>
+        </term>
+        <listitem><para><action>Set the cell to the real NULL value.</action></para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><guiicon><inlinegraphic fileref="edit.png"/>Advanced Editor</guiicon>
+        <shortcut><keycombo action="simul">&Ctrl;<keycap>&Alt;</keycap><keycap>E</keycap></keycombo></shortcut>
+        </term>
+        <listitem><para><action>Open advanced editor. It allows you to edit multi line texts,
+          BLOBs and the others special data formats.</action></para></listitem>
+      </varlistentry>
+    </variablelist>
+  </sect2>
+
+  <sect2 id="dataViewer-advanced">
+    <title>Advanced Editor</title>
+    <para>This dialog is designed because the Simple Editor cannot handle advanced
+      features comfortably. In some cases (BLOB, multiple lines of text in cell)
+      is this dialog opened automatically when user requests editation.</para>
+
+          <para>
+          <screenshot>
+          <screeninfo>Advanced Data Editor</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="dataViewer-advanced.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="dataViewer-advanced.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Advanced Data Editor</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+    <para>When you accept changes in this dialog with <guibutton>OK</guibutton> button,
+      only result of active tab will be promoted to the Data Viewer (to press the Commit button
+      is required again). If is the <guibutton>Insert NULL</guibutton> option checked, only
+      NULL is inserted.</para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Text tab</term>
+        <listitem><para>Full plain text editor. There is no rich text support.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Blob tab</term>
+        <listitem><para>Content of chosen file will be transferred into the cell as is. No
+          data transformations are performed. Original value of the cell can be saved into
+          local file with <guibutton>Save...</guibutton> button.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term>Date to String tab</term>
+        <listitem><para>A helper wizard for storing date and time in string values.</para>
+        <important><para>Consult Sqlite manual for date and time problematics.</para></important>
+        <para>The <guilabel>Date</guilabel> item in this form can be set with pop-up calendar.</para>
+        <para>The <guilabel>String Format</guilabel> should be set with <emphasis>date time
+          transform mask</emphasis>. Consult <ulink url="http://doc.trolltech.com/4.3/qdatetime.html#toString">Qt4 documentation</ulink>
+          to explain its codes.</para>
+        <example>
+          <title>Date to String</title>
+          <para><command>dd.MM.yyyy hh:mm.ss</command> will produce e.g. <computeroutput>"24.12.2007 18:30:45"</computeroutput></para></example>
+
+        </listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </sect2>
+
+  <sect2 id="dataViewer-fetching">
+    <title>Fetching the data</title>
+    <para>&kmyapplication; uses progressive (step-by-step) fetching of data in the result set.
+    It means that you don't need to wait until all data are transferred from database file to
+    this result table.</para>
+    <para>When you call a select statement from table with e.g. thousands of records only the first
+    part of records is physically fetched. Remaining records are available on demand - scrolling
+    down in the result table will perform next fetch.</para>
+    <para>Message in the error log widget will inform you about this situation:</para>
+    <para><guilabel>More rows can be fetched. Scroll the result set for more rows and/or read the documentation.</guilabel></para>
+  </sect2>
+
+</sect1>
+
+<sect1 id="dataExport">
+  <title>Export Data</title>
+  <para>Current result set in the <link linkend="dataViever">Data Viewer</link> could be exported
+    in this dialog. The export will contain all data even although there are records waiting for fetch.
+    All missing data are fetched before export starts.</para>
+
+  <warning><para>Data exporting may be resource and time consuming operation. Be patient if you
+    are exporting large amount of data.</para></warning>
+
+          <para>
+          <screenshot>
+          <screeninfo>Export Data</screeninfo>
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="dataExport.png" format="PNG"/>
+              </imageobject>
+              <imageobject>
+                <imagedata fileref="dataExport.eps" format="EPS"/>
+              </imageobject>
+              <textobject>
+                <phrase>Export Data</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+          </para>
+
+  <variablelist>
+      <varlistentry>
+        <term>Format</term>
+        <listitem><para>Chose one of supported formats to export.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Export to</term>
+        <listitem>
+          <para><guilabel>File</guilabel> - export data into file on local filesystem.</para>
+          <para><guilabel>Clipboard</guilabel> - export data computer memory for pasting in the others applications directly.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>File</term>
+        <listitem><para>Path to file if is the <guilabel>File</guilabel> method selected.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Export Headers Too</term>
+        <listitem><para>Column names will be exported too if is this option enabled.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Encoding</term>
+        <listitem><para>Text encoding of the exported data. UTF8 is commonly the best option.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Line End</term>
+        <listitem><para>Allow to change text line ending (CR/LF) to fit various operation systems implementations.</para></listitem>
+      </varlistentry>
+  </variablelist>
+
+  <sect2>
+    <title>Supported Formats</title>
+    <itemizedlist>
+      <listitem><para>Comma Separated Values (CSV)</para></listitem>
+      <listitem><para>HTML table</para></listitem>
+      <listitem><para>Microsoft Excel XML</para><caution><para>MS Excel XML is not binary XLS document. It's special case of XML file.</para></caution></listitem>
+      <listitem><para>Python list. A list structure for Python programming language.</para></listitem>
+      <listitem><para>SQL inserts, Insert statements in ANSI form.</para></listitem>
+    </itemizedlist>
+  </sect2>
+</sect1>
+
+</chapter>
+
+
+<chapter id="faq">
+<title>Questions and Answers</title>
+
+<!-- (OPTIONAL but recommended) This chapter should include all of the silly
+(and not-so-silly) newbie questions that fill up your mailbox. This chapter
+should be reserved for BRIEF questions and answers! If one question uses more
+than a page or so then it should probably be part of the
+"Using this Application" chapter instead. You should use links to
+cross-reference questions to the parts of your documentation that answer them.
+This is also a great place to provide pointers to other FAQ's if your users
+must do some complicated configuration on other programs in order for your
+application work. -->
+
+<!--&reporting.bugs;
+&updating.documentation; -->
+
+<qandaset id="faqlist">
+<qandaentry>
+  <question>
+  <para>How I can report a bug?</para>
+  </question>
+  <answer>
+  <para>Visit <ulink url="http://sqliteman.com/">&kmyapplication; home page</ulink>,
+  register yourself in the bug tracker and report it.</para>
+</answer>
+</qandaentry>
+<qandaentry>
+  <question>
+  <para>My editor (data grid or output log etc.) GUI disappeared. Is it broken?</para>
+  </question>
+  <answer>
+  <para>Well... no. You're using MS Windows propably (or some strange Qt4 GUI theme).
+  All GUI parts are connected into so-called sliders (mouse-stretchable borders).
+  Unfortunately Windows native (and some more themes) look does not highlight these
+  borders. Try to catch the changed mouse cursor near the window borders or clear
+  <link linkend="configuration">your preferences</link>.</para>
+  </answer>
+</qandaentry>
+</qandaset>
+
+
+<sect1>
+<title>Known Issues</title>
+<qandaset id="issues">
+  <qandaentry>
+  <question><para>I'm getting: Query Error: SQL logic error or missing database</para></question>
+  <answer><para>You can get this error on some INSERT statement in the database
+    with triggers. It's a bug in some versions of the Qt library toolkit.
+    It should be fixed in the Qt 4.2.3 and later.</para></answer>
+  </qandaentry>
+
+  <qandaentry>
+  <question><para>I cannot update a value in the data grid</para></question>
+  <answer><para>Indeed, the problem seems to be that Qt sends an empty string ('') to
+    the database for fields that have a value of NULL and SQLite doesn't
+    seem to like this.</para>
+    <para>It's a <ulink url="http://trolltech.de/developer/task-tracker/index_html?method=entry&amp;id=189093">known bug</ulink>
+    in the Qt4 library. It should be fixed in the near future.</para></answer>
+  </qandaentry>
+
+</qandaset>
+</sect1>
+
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title>Credits and License</title>
+
+<para>
+&kmyapplication;
+</para>
+<para>
+Program copyright 2007 Petr Vanek <email>petr@scribus.info</email>
+</para>
+
+<sect1>
+<title>Contributors</title>
+<para>
+<itemizedlist>
+<listitem><para>Kamil Les <email>kamil_les@tlen.pl</email> (QA)</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<sect2>
+<title>Translations</title>
+<itemizedlist>
+<listitem><para>Petr Vanek <email>petr@scribus.info</email>, Czech</para></listitem>
+<listitem><para>Joerg Bernau <email>joerg.bernau@web.de</email>, German</para></listitem>
+<listitem><para>Francesco De Marchi <email>cix70@yahoo.it</email>, Italian</para></listitem>
+<listitem><para>Kamil Les <email>kamil_les@tlen.pl</email>, Polish</para></listitem>
+<listitem><para>Usachov D.Yu. <email>usd@srkb.ru</email>, Russian</para></listitem>
+</itemizedlist>
+</sect2>
+
+<sect2>
+<title>Icons</title>
+<para>Based on CrystalSVG and Kexi icon set.</para>
+
+<itemizedlist>
+<listitem><para>Everaldo Coelho <email>everaldo@everaldo.com</email>, CrystalSVG and Kexi</para></listitem>
+<listitem><para>Jaroslaw Staniek <email>js@iidea.pl</email>, Kexi</para></listitem>
+<listitem><para>Byron Hillis <email>metrics@score5.org</email>, custom icons</para></listitem>
+<listitem><para>Petr Vanek <email>petr@scribus.info</email>, custom icons</para></listitem>
+</itemizedlist>
+
+</sect2>
+</sect1>
+
+<sect1>
+<title>Licenses</title>
+<para>
+Documentation Copyright &copy; 2007 Petr Vanek <email>petr@scribus.info</email>
+</para>
+
+<para>This documentation is licensed under the terms of
+the <ulink url="fdl-license.html">GNU Free Documentation License</ulink>.</para>
+<para>This program is licensed under the terms of the <ulink url="gpl-license.html">GNU
+General Public License</ulink>.</para>
+</sect1>
+
+</chapter>
+
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-kapp">
+<title>How to obtain &kmyapplication;</title>
+
+<!-- This first entity contains boiler plate for applications that are
+part of KDE CVS.  You should remove it if you are releasing your
+application -->
+
+<para>Actually there are two available versions.</para>
+<variablelist>
+  <varlistentry>
+    <term>A stable one</term>
+    <listitem><para>It's maintained only for bug fixes. No additional features with possible new bugs added.</para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>A development branch called Trunk</term>
+    <listitem><para>It contains a lot of new features and tools. This version is sometimes released as a so called "snapshot" for public usage and -- mainly -- for testing. There can be incomplete localization for your language or some small issues but these snapshots are at least crash-free and data-loss-free.</para></listitem>
+  </varlistentry>
+</variablelist>
+
+<sect2>
+<title>MS Windows</title>
+<para>Download from <ulink url="http://sourceforge.net/project/platformdownload.php?group_id=189610">Sqliteman area at sourceforge.net</ulink>. You can find there packages named "sqliteman" (it's stable one) and "sqliteman-svn-snapshot". The differences are described above. You don't need any more downloads -- it contains everything required.</para>
+<para>MS Windows users can chose two packages. There is only one difference between them -- way of the installation.  "Sqliteman-<emphasis>version</emphasis>-Setup.exe" is created as a installer package so you will use well known "next-next-chose path-next-finish" procedure to get it working. The 2nd package "sqliteman-<emphasis>version</emphasis>-win.zip" does not contain any installer. It's prepared as a "unpack and run" for users with no administrator privileges.</para>
+<warning><para>Downloadable &kmyapplication; for MS Windows can be found on the various third party sites. You can not be sure what these packages contains. Everything is propably fine there but <emphasis>there is no content warranty of 3rd party packages</emphasis>. Use official download repository rather.</para></warning>
+</sect2>
+
+
+<sect2>
+<title>Linux</title>
+<para>It's highly probable you have Sqliteman binary package prepared for your distribution. Use this way if it's possible.</para>
+<para>Fresh packages for some distributions are prepared in <ulink url=" http://download.opensuse.org/repositories/home:/subik/">dedicated repository</ulink> thanks to the great Opensuse Build Service.</para>
+<para>When you cannot find your binary package, try to compile Sqliteman from sources.</para>
+</sect2>
+
+<sect2>
+<title>Mac OS X</title>
+<para>Unfortunately I have no access to any Mac machine. Sqliteman compiles and runs fine on this platform but it has to be provided by third parties.</para>
+</sect2>
+
+<sect2>
+<title>Other UNIXes</title>
+<para>Some reports from users tell that it can be setup on Solaris, Opensolaris, *BSD. It's provided by 3rd parties again.</para>
+</sect2>
+
+<sect2>
+<title>Source Code</title>
+<para>Download a <ulink url="http://sourceforge.net/project/showfiles.php?group_id=189610">tar.gz from sourceforge.net area</ulink> or use Subversion client to get the most up to date code.</para>
+</sect2>
+
+</sect1>
+
+<sect1 id="requirements">
+<title>Requirements</title>
+
+<!--
+List any special requirements for your application here. This should include:
+.Libraries or other software that is not included in kdesupport,
+kdelibs, or kdebase.
+.Hardware requirements like amount of RAM, disk space, graphics card
+capabilities, screen resolution, special expansion cards, etc.
+.Operating systems the app will run on. If your app is designed only for a
+specific OS, (you wrote a graphical LILO configurator for example) put this
+information here.
+-->
+
+<para>
+In order to successfully use &kmyapplication;, you need Qt4 library at least 4.2.
+With Sqlite support (QSql module).
+</para>
+
+<important><para>It's strongly recommended to use later versions of Qt4 because there
+are some serious bugs fixed. Unfortunately some Linux distribution does not contain
+latest Qt libraries&hellip;</para></important>
+
+<para>The Sqlite3 binary client is required for some actions. &kmyapplication; checks
+for its presence every start.</para>
+
+<para>
+Packages for MS Windows are prepared with all required tools and libraries to use.
+Linux packages should provide requirements by distribution package system.
+</para>
+
+</sect1>
+
+<sect1 id="compilation">
+<title>Compilation and Installation</title>
+
+<!-- This entity contains the boilerplate text for standard -->
+<!-- compilation instructions.  If your application requires any -->
+<!-- special handling, remove it, and replace with your own text. -->
+
+<para>Some more tools are required for compiling &kmyapplication;
+from source code:</para>
+
+<para>
+<itemizedlist>
+<listitem><para><ulink url="http://cmake.org">Cmake</ulink> build system</para></listitem>
+<listitem><para><ulink url="http://trolltech.com">Qt4</ulink> library with its development parts (headers etc.)</para></listitem>
+<listitem><para>A C++ compiler and linked. Tested with gcc(g++), MinGW and MSVC</para></listitem>
+<listitem><para>Optional: <ulink url="http://www.riverbankcomputing.co.uk">Qscintilla2</ulink> library
+and its development parts. You can use built-in QScintilla2 support in &kmyapplication; instead.</para></listitem>
+<listitem><para>Then read the README file in the root directory.</para></listitem>
+</itemizedlist>
+</para>
+
+<important><para>Please, don't compile &kmyapplication; if you are not
+interested in development and/or you are not a powered user. Use binary
+packages for your operating system instead.</para></important>
+
+</sect1>
+
+
+<sect1 id="configuration">
+<title>Configuration</title>
+
+<para>Configuration for &kmyapplication; is stored in the following places:</para>
+<para>
+<variablelist>
+  <varlistentry>
+    <term>MS Windows</term>
+    <listitem><para>In the system registry: <command>\\HKEY_CURRENT_USER\Software\yarpen.cz\sqliteman</command></para></listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>UNIX</term>
+    <listitem><para>In the home directory: <command>~/.config/yarpen.cz/sqliteman.conf</command></para></listitem>
+  </varlistentry>
+</variablelist>
+
+</para>
+
+</sect1>
+
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->
