@@ -52,7 +52,7 @@ thanks ;-).
 as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
-<title>The &kmyapplication; Handbook</title>
+<title>Podręcznik &kmyapplication;</title>
 
 <authorgroup>
 <author>
@@ -80,8 +80,8 @@ and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
 <!-- Translators: put here the copyright notice of the translation -->
 <!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
      and in the FDL itself on how to use it. -->
-<legalnotice>This documentation is released under GNU Free Documentation License.
-See <link linkend="credits">Credits</link> for more.</legalnotice>
+<legalnotice>Dokumentacja ta jest udostępniana na podstawie licencji: GNU Free Documentation License.
+Więcej informacji w rozdziale <link linkend="credits">Twórcy i licencja</link>.</legalnotice>
 
 <!-- Date and version information of the documentation
 Don't forget to include this last date and this last revision number, we
@@ -90,16 +90,15 @@ Please respect the format of the date (YYYY-MM-DD) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>2007-12-12</date>
+<date>2008-02-06</date>
 <releaseinfo>1.1</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
 <abstract>
 <para>
-&kmyapplication; is the best developer's and/or admin's GUI tool for
-Sqlite3 in the world. No joking here (or just a bit only) &ndash; it contains
-the most complete feature set of all tools available.
+&kmyapplication; jest najlepszym na świecie programem do obsługi baz danych SQLite dla projektantów i administratorów.
+ To nie żarty (no, może troszeczkę) &ndash; posiada największe możliwości wśród wszystkich dostępnych tego typu programów.
 </para>
 </abstract>
 
@@ -112,7 +111,11 @@ Please at least include KDE, the KDE package it is in, the name
 <keyword>SQL</keyword>
 <keyword>Sqlite</keyword>
 <keyword>development</keyword>
+<keyword>embedded</keyword>
 <keyword>database</keyword>
+<keyword>baza danych</keyword>
+<keyword>projektowanie</keyword>
+<keyword>administracja</keyword>
 </keywordset>
 
 </bookinfo>
@@ -127,7 +130,7 @@ discretion. Other chapters should not be left out in order to maintain a
 consistent documentation style across all KDE apps. -->
 
 <chapter id="introduction">
-<title>Introduction</title>
+<title>Wprowadzenie</title>
 
 <!-- The introduction chapter contains a brief introduction for the
 application that explains what it does and where to report
@@ -135,46 +138,42 @@ problems. Basically a long version of the abstract.  Don't include a
 revision history. (see installation appendix comment) -->
 
 <para>
-The best developer's and/or admin's GUI tool for
-<ulink url="http://sqlite.org/">Sqlite3</ulink>in the world.
-No joking here (or just a bit only) &ndash; it contains
-the most complete feature set of all tools available.
-And it's just the beginning&hellip;
+Najlepszy na świecie program do obsługi baz danych <ulink url="http://sqlite.org/">Sqlite3</ulink> dla projektantów i administratorów.
+ To nie żarty (no, może troszeczkę) &ndash; posiada największe możliwości wśród wszystkich dostępnych tego typu programów.
+A to tylko początek&hellip;
 </para>
 
 <para>
-The ideal user of this application is a software developer
-forced to use <ulink url="http://sqlite.org/">Sqlite3</ulink>
-database in his code.
+&kmyapplication; jest idealnym rozwiązaniem dla projektantów aplikacji,
+którzy zmuszeni są używać bazy danych <ulink url="http://sqlite.org/">Sqlite3</ulink>.
 </para>
 
 <para>
-If you are looking for a tool for tuning SQL statements,
-manage tables, views, or triggers, administrate the database
-space and index statistics &ndash; then &kmyapplication; is
-the perfect choice.
+Jeśli szukasz programu do optymalizacji zapytań SQL, zarządzania bazami danych,
+tabelami, widokami, indeksami, czy wyzwalaczami to &kmyapplication; jest
+najlepszym wyborem.
 </para>
 
 <para>
-If you are looking for a graphical queries creation wizards,
-user interface designers for your database, or an universal
-report tool &ndash; try the applications designed for tasks
-such this (<ulink url="http://www.kexi-project.org/">Kexi</ulink>,
+Jeśli szukasz narzędzi do graficznego tworzenia zapytań lub
+narzędzi posługujących sie kreatorami albo pozwalających na raportowanie
+to spróbuj innych narzędzi specjalnie do tego stworzonych:
+(<ulink url="http://www.kexi-project.org/">Kexi</ulink>,
 <ulink url="http://www.knoda.org/">knoda</ulink>).
 </para>
 
 <para>
-&kmyapplication; is a Qt4 based GPLv2 application.
+&kmyapplication; wykorzystuje biblioteki Qt4 oparte na licencji GPLv2.
 </para>
 
 <sect1 id="online">
-<title>&kmyapplication; Online</title>
+<title>&kmyapplication; w internecie</title>
 
 <itemizedlist>
-<listitem><para><ulink url="http://sqliteman.com/">Project Home page</ulink></para></listitem>
-<listitem><para><ulink url="http://sourceforge.net/project/showfiles.php?group_id=189610">Download new versions</ulink></para></listitem>
-<listitem><para><ulink url="http://sqliteman.com/bugtracker/">Report bugs and feature requests</ulink></para></listitem>
-<listitem><para><ulink url="https://sourceforge.net/projects/sqliteman/">Sourceforge.net Area</ulink></para></listitem>
+<listitem><para><ulink url="http://sqliteman.com/">Strona domowa projektu</ulink></para></listitem>
+<listitem><para><ulink url="http://sourceforge.net/project/showfiles.php?group_id=189610">Ściągnij najnowszą wersję</ulink></para></listitem>
+<listitem><para><ulink url="http://sqliteman.com/bugtracker/">Zgłoś błąd, usprawnienie lub pomysł</ulink></para></listitem>
+<listitem><para><ulink url="https://sourceforge.net/projects/sqliteman/">Strefa Sourceforge.net</ulink></para></listitem>
 </itemizedlist>
 
 </sect1>
@@ -182,60 +181,59 @@ such this (<ulink url="http://www.kexi-project.org/">Kexi</ulink>,
 
 
 <chapter id="sqlite-specs">
-<title>Sqlite Specific Issues</title>
+<title>Właściwości Sqlite</title>
 
 <para>
-The text in this chapter is take from
+Tekst w tym rozdziale jest zaczerpnięty ze strony
 <ulink url="http://www.sqlite.org/">Sqlite home page</ulink>.
-Read more documentation there for deeper understanding of Sqlite
-features.
+Jeśli pragniesz dowiedzieć się więcej o Sqlite, to tylko tam.
 </para>
 
 <para>
-SQLite is a small C library that implements a self-contained, embeddable,
-zero-configuration SQL database engine.
+SQLite jest biblioteką napisaną w języku C obsługującą plikową bazę danych.
+SQLite może być wbudowana w aplikację, nie trzeba instalować jakichkolwiek serwerów bazodanowych,
+żadnych dodatkowych narzędzi.
 </para>
 
 <caution>
+<title>Uwaga</title>
 <para>
-It's strongly recommended to read and understand the Sqlite
-documentation. Sqlite can be confusing for a programmer from the world
-of the <emphasis>real databases</emphasis> (like Postgresql, Oracle,
-MS SQL Server etc.).
+Bardzo zasadne jest dobre zrozumienie dokumentacji i specyfiki Sqlite.
+Sqlite może być trochę inne dla programistów pracujących na
+<emphasis>prawdziwych bazach danych</emphasis> (jak Postgresql, Oracle,
+MS SQL Server itp.).
 </para>
 </caution>
 
-<para>Features include:</para>
+<para>Właściwości:</para>
 
 <itemizedlist>
-<listitem><para>Transactions are atomic, consistent, isolated, and durable (ACID)
-    even after system crashes and power failures.</para></listitem>
-<listitem><para>Zero-configuration - no setup or administration needed.</para></listitem>
-<listitem><para>Implements most of SQL92.
-    (<ulink url="http://www.sqlite.org/omitted.html">Features not supported</ulink>)</para></listitem>
-<listitem><para>A complete database is stored in a single disk file.</para></listitem>
-<listitem><para>Database files can be freely shared between machines with
-    different byte orders.</para></listitem>
-<listitem><para>Supports databases up to 2 tebibytes in size.</para></listitem>
-<listitem><para>Strings and BLOBs up to 2 gibibytes in size.</para></listitem>
-<listitem><para>Small code footprint: less than 250KiB fully configured or less
-    than 150KiB with optional features omitted.</para></listitem>
-<listitem><para><ulink url="http://www.sqlite.org/speed.html">Faster</ulink> than popular client/server database
-    engines for most common operations.</para></listitem>
-<listitem><para>Simple, easy to use <ulink url="http://www.sqlite.org/capi3.html">API</ulink>.</para></listitem>
-<listitem><para><ulink url="http://www.sqlite.org/tclsqlite.html">TCL bindings</ulink> included.
-    Bindings for many other languages 
-    <ulink url="http://www.sqlite.org/cvstrac/wiki?p=SqliteWrappers">available separately.</ulink></para></listitem>
-<listitem><para>Well-commented source code with over 95% test coverage.</para></listitem>
-<listitem><para>Self-contained: no external dependencies.</para></listitem>
-<listitem><para>Sources are in the <ulink url="http://www.sqlite.org/copyright.html">public domain</ulink>.
-    Use for any purpose.</para></listitem>
+<listitem><para>Transakcje są niepodzielne, zwarte, izolowane i trwałe (angielski akronim: atomic, consistent, isolated and durable - ACID),
+    nawet po awarii zasilania czy zawieszenia systemu.</para></listitem>
+<listitem><para>Brak konfiguracji - nie potrzeba żadnych ustawień ani administracji.</para></listitem>
+<listitem><para>Obsługuje większość z SQL92.
+    (<ulink url="http://www.sqlite.org/omitted.html">Rzeczy nie obsługiwane</ulink>)</para></listitem>
+<listitem><para>Cała baza danych jest zapisana na dysku w jednym pliku.</para></listitem>
+<listitem><para>Pliki baz danych mogą być współdzielone między różnymi urządzeniami, nawet z odmienną kolejnościa, starszeństwem bajtów.</para></listitem>
+<listitem><para>Obsługuje bazy aż do 2 terabajtów.</para></listitem>
+<listitem><para>Dane tekstowe i binarne (BLOB) aż do 2 gigabajtów.</para></listitem>
+<listitem><para>Mały kod wynikowy biblioteki: mniej niż 250KB lub mniej niż 150KB bez opcjonalnych dodatków.</para></listitem>
+<listitem><para><ulink url="http://www.sqlite.org/speed.html">Szybsza</ulink> od popularnych baz danych typu klient/serwer
+dla standardowych operacji.</para></listitem>
+<listitem><para>Proste w użyciu <ulink url="http://www.sqlite.org/capi3.html">API</ulink>.</para></listitem>
+<listitem><para><ulink url="http://www.sqlite.org/tclsqlite.html">Wbudowana obsługa dla TCL</ulink>.
+    Obsługa dla innych środowisk
+    <ulink url="http://www.sqlite.org/cvstrac/wiki?p=SqliteWrappers">dostępna oddzielnie.</ulink></para></listitem>
+<listitem><para>Bardzo dobra dokumentacja źródeł.</para></listitem>
+<listitem><para>Samowystarczalność - brak zewnętrznych zależności.</para></listitem>
+<listitem><para>Źródła dostępne jako <ulink url="http://www.sqlite.org/copyright.html">public domain</ulink>.
+    Korzystaj w dowolny sposób.</para></listitem>
 </itemizedlist>
 
 <para>
-Sqlite specific properties affect &kmyapplication; feature set. E.g.
-Sqlite does not support foreign keys so there is a dedicated dialog
-for FK triggers creating.
+Specyfika bazy Sqlite ma duży wpływ na zbiór właściwości &kmyapplication; na przykład:
+Sqlite nie obsługuje zewnętrznych indeksów i dlatego &kmyapplication; posiada specjalne narzędzie
+do tworzenia ich poprzez odpowiednie wyzwalacze.
 </para>
 
 </chapter>
@@ -289,63 +287,61 @@ the &kmyapplication; main window. It's not a bug, it's a feature!
 
 
 <chapter id="start-app">
-<title>Start the Application</title>
+<title>Uruchomienie aplikacji</title>
 
-<para>The most common way how to start &kmyapplication; is
-to run it from your desktop menu. But there are some
-command line options you can use too.
+<para>Zwykle aplikację uruchamia się z menu systemowego pulpitu, ale
+istnieją jeszcze opcje, z których można skorzystać uruchamiająć program z wiersza poleceń.
 </para>
 
 <sect1 id="cli-usage">
-<title>Usage in the command line</title>
+<title>Komendy wiersza poleceń</title>
 <para>
-<command>sqliteman [options] [databasefile]</command>
+<command>sqliteman [opcje] [baza_danych]</command>
 </para>
 
 
 <sect2 id="databasefile">
-<title>databasefile</title>
+<title>baza_danych</title>
 <para>
-An optional argument. A Sqlite3 file with absolute or relative path.
-This file will be loaded into the application directly.
+Opcjonalny argument. Plik bazy danych podany z całą lub relatywną ścieżką dostępu.
+Plik ten zostanie bezpośrednio otwarty w aplikacji.
 </para>
 </sect2>
 
 <sect2 id="options">
-<title>options</title>
+<title>opcje</title>
 <para>
-Optional arguments. You can specify some switches to setup
-the application. Option list:
+Opcjonalne argumenty. Kilka przełączników ustawiających właściwości aplikacji. Lista opcji:
 </para>
 
 <itemizedlist>
 
 <listitem><para>
-<command>--help</command> or <command>-h</command> displays small help and exits
+<command>--help</command> lub <command>-h</command> wyświetla krótką pomoc i kończy pracę
 </para></listitem>
 
 <listitem><para>
-<command>--version</command> or <command>-v</command> prints version and exits
+<command>--version</command> lub <command>-v</command> wyświetla informację o wersji programu i kończy pracę
 </para></listitem>
 
 <listitem><para>
-<command>--lang</command> or <command>-l</command> sets a GUI language.
-E.g. : <command>sqliteman --lang cs</command>
+<command>--lang</command> lub <command>-l</command> ustawia język interfejsu.
+np.: <command>sqliteman --lang pl</command>
 </para>
 <para>
-&kmyapplication; checks your environment and tries to setup itself
-by your locale settings. It affects the GUI language &ndash; it should be in your
-language if there is a translation available. If you wish to use this application
-in English use <command>--lang en</command> or use <link linkend="preferences">Preferences dialog</link>.
+&kmyapplication; sprawdza śrdodowisko systemowe aplikacji i próbuje samodzielnie
+ustawić język korzytsając z ustawień lokalnych. Jeśli pragniesz używać aplikacji w języku
+angielskim, powinieneś użyć opcji <command>--lang en</command>
+lub zobacz <link linkend="preferences">Ustawienia programu</link>.
 </para>
 </listitem>
 
 <listitem><para>
-<command>--langs</command> or <command>-la</command> lists available languages and exits
+<command>--langs</command> lub <command>-la</command> wyświetla listę dostępnych języków i kończy pracę
 </para></listitem>
 </itemizedlist>
 
-<para>There are standard Qt4 options available too.</para>
+<para>Dostępne są także standardowe opcje Qt4.</para>
 
 </sect2>
 
@@ -356,19 +352,19 @@ in English use <command>--lang en</command> or use <link linkend="preferences">P
 
 
 <chapter id="overview">
-<title>The First Overview</title>
+<title>Omówienie wstępne</title>
 
 <para>
-You can see the &kmyapplication; user interface is quite similar to
-classic database admin/developer tools. The main window contains
-<emphasis>Object Browser</emphasis>, <emphasis>SQL Editor</emphasis>,
-<emphasis>Data Result Grid</emphasis>, and many more &ndash; tools
-for Sqlite special features.
+Jak widzisz, interfejs &kmyapplication; jest podobny do klasycznych programów narzędziowych.
+Okno główne zawiera <emphasis>przeglądarkę obiektów</emphasis>,
+<emphasis>edytor SQL</emphasis>, <emphasis>przeglądarke rekordów</emphasis>
+w formie arkusza lub formularza oraz jeszcze kilka dodatkowych narzędzi
+ułatwiających korzystanie i administrację bazy danych Sqlite.
 </para>
 
 <para>
 <screenshot>
-<screeninfo>The main window of &kmyapplication;</screeninfo>
+<screeninfo>Okno główne &kmyapplication;</screeninfo>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="mainwindow.png" format="PNG"/>
@@ -377,15 +373,14 @@ for Sqlite special features.
 	    <imagedata fileref="mainwindow.eps" format="EPS"/>
 	  </imageobject>
 	  <textobject>
-	    <phrase>Screenshot of the Main Window</phrase>
+	    <phrase>Obraz okna głównego</phrase>
 	  </textobject>
 	</mediaobject>
 </screenshot>
 </para>
 
-<para>All interface elements contains so called "tool tips" &ndash; quick
-notes which are available when you stay with a mouse cursor in the element
-are for a while.</para>
+<para>Wszystkie elementy interfejsu posiadają podpowiedzi jako tzw. "tool tip" &ndash;
+krótkie notatki dostępne po zatrzymaniu przez chwilę wskaźnika myszy na danym elementem.</para>
 
 </chapter>
 
