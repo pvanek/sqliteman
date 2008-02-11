@@ -62,7 +62,7 @@ void CreateTableDialog::createButton_clicked()
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
 	if(query.lastError().isValid())
 	{
-		ui.resultEdit->setText(tr("Error while creating table: %1.\n\n%2").arg(query.lastError().databaseText()).arg(sql));
+		ui.resultEdit->setText(tr("Error while creating table: %1.\n\n%2").arg(query.lastError().text()).arg(sql));
 		return;
 	}
 	update = true;

@@ -51,7 +51,7 @@ ConstraintsDialog::ConstraintsDialog(const QString & tabName, const QString & sc
 	if(query.lastError().isValid())
 	{
 		ui.resultEdit->setText(tr("Error while parsing constraints: %1.\n\n%2")
-				.arg(query.lastError().databaseText())
+				.arg(query.lastError().text())
 				.arg(sql));
 		return;
 	}
@@ -156,7 +156,7 @@ QString ConstraintsDialog::createTrigger(const QString & sql)
 	QString ret;
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
 	if(query.lastError().isValid())
-		return tr("Error while creating trigger: %1.").arg(query.lastError().databaseText());
+		return tr("Error while creating trigger: %1.").arg(query.lastError().text());
 	update = true;
 	return tr("Trigger created successfully");
 }

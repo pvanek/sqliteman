@@ -45,7 +45,7 @@ void AlterTriggerDialog::createButton_clicked()
 				  QSqlDatabase::database(SESSION_NAME));
 	if(drop.lastError().isValid())
 	{
-		ui.resultEdit->setText(tr("Cannot drop trigger: %1.\n\n%2").arg(drop.lastError().databaseText()).arg(m_name));
+		ui.resultEdit->setText(tr("Cannot drop trigger: %1.\n\n%2").arg(drop.lastError().text()).arg(m_name));
 		return;
 	}
 
@@ -54,7 +54,7 @@ void AlterTriggerDialog::createButton_clicked()
 	
 	if(query.lastError().isValid())
 	{
-		ui.resultEdit->setText(tr("Error while creating trigger: %2.\n\n%3").arg(query.lastError().databaseText()).arg(sql));
+		ui.resultEdit->setText(tr("Error while creating trigger: %2.\n\n%3").arg(query.lastError().text()).arg(sql));
 		return;
 	}
 	ui.resultEdit->setText(tr("Trigger created successfully"));

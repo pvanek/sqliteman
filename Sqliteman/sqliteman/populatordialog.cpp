@@ -95,7 +95,7 @@ qlonglong PopulatorDialog::tableRowCount()
 	if (query.lastError().isValid())
 	{
 		textBrowser->append(tr("Cannot get statistics for table."));
-		textBrowser->append(query.lastError().databaseText());
+		textBrowser->append(query.lastError().text());
 		return -1;
 	}
 	while(query.next())
@@ -173,7 +173,7 @@ void PopulatorDialog::populateButton_clicked()
 	}
 
 	if (!query.execBatch())
-		textBrowser->append(query.lastError().databaseText());
+		textBrowser->append(query.lastError().text());
 	else
 		textBrowser->append(tr("Data inserted."));
 
@@ -197,7 +197,7 @@ QVariantList PopulatorDialog::autoValues(Populator::PopColumn c)
 	if (query.lastError().isValid())
 	{
 		textBrowser->append(tr("Cannot get MAX() for column: %1").arg(c.name));
-		textBrowser->append(query.lastError().databaseText());
+		textBrowser->append(query.lastError().text());
 		return QVariantList();
 	}
 

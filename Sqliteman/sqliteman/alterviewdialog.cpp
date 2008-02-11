@@ -53,7 +53,7 @@ void AlterViewDialog::createButton_clicked()
 	QSqlQuery dropQuery(sql, QSqlDatabase::database(SESSION_NAME));
 	if (dropQuery.lastError().isValid())
 	{
-		ui.resultEdit->insertPlainText(tr("Error while altering view (drop phase): %1.\n\n%2").arg(dropQuery.lastError().databaseText()).arg(sql));
+		ui.resultEdit->insertPlainText(tr("Error while altering view (drop phase): %1.\n\n%2").arg(dropQuery.lastError().text()).arg(sql));
 		ui.resultEdit->moveCursor(QTextCursor::Start);
 	}
 
@@ -65,7 +65,7 @@ void AlterViewDialog::createButton_clicked()
 	
 	if(query.lastError().isValid())
 	{
-		ui.resultEdit->insertPlainText(tr("Error while altering view: %1.\n\n%2").arg(query.lastError().databaseText()).arg(sql));
+		ui.resultEdit->insertPlainText(tr("Error while altering view: %1.\n\n%2").arg(query.lastError().text()).arg(sql));
 		ui.resultEdit->insertPlainText("\n");
 		return;
 	}

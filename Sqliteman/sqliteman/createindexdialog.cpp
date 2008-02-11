@@ -74,7 +74,7 @@ void CreateIndexDialog::createButton_clicked()
 	if(q.lastError().isValid())
 	{
 		ui.resultEdit->setText(tr("Error while creating index: %1\n%2.")
-								.arg(q.lastError().databaseText())
+								.arg(q.lastError().text())
 								.arg(sql));
 		return;
 	}

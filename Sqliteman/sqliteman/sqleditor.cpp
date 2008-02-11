@@ -261,11 +261,11 @@ void SqlEditor::actionRun_as_Script_triggered()
 			query.exec(sql);
 			if (query.lastError().isValid())
 			{
-				emit showSqlScriptResult("-- " + tr("Error: %1.").arg(query.lastError().databaseText()));
+				emit showSqlScriptResult("-- " + tr("Error: %1.").arg(query.lastError().text()));
 				int com = QMessageBox::question(this, tr("Run as Script"),
 						tr("This script contains the following error:\n"
 							"%1\n"
-							"At line: %2").arg(query.lastError().databaseText()).arg(line),
+							"At line: %2").arg(query.lastError().text()).arg(line),
 							QMessageBox::Ignore, QMessageBox::Abort);
 				if (com == QMessageBox::Abort)
 				{

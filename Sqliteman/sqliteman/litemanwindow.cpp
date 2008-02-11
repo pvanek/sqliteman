@@ -475,7 +475,14 @@ void LiteManWindow::open(const QString & file)
 void LiteManWindow::openDatabase(const QString & fileName)
 {
 	bool isOpened = false;
-	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
+
+	QSqlDatabase db = QSqlDatabase::database(SESSION_NAME);
+	if (db.isValid())
+	{
+		db.close();
+		QSqlDatabase::removeDatabase(SESSION_NAME);
+	}
+	db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
 	db.setDatabaseName(fileName);
 
 	QString msg = tr("Unable to open or create file %1. It is probably not a database").arg(QFileInfo(fileName).fileName());
@@ -486,7 +493,7 @@ void LiteManWindow::openDatabase(const QString & fileName)
 	}
 	/* Qt database open() (exactly the sqlite API sqlite3_open16())
 	   method does not check if it is really database. So the dummy
-	   select statement shoudl perform a real "is it a database" check
+	   select statement should perform a real "is it a database" check
 	   for us. */
 	QSqlQuery q("select 1 from sqlite_master where 1=2", db);
 	if (!q.exec())
@@ -616,7 +623,7 @@ void LiteManWindow::execSql(QString query)
 	
 	// Check For Error in the SQL
 	if(model->lastError().isValid())
-		dataViewer->setStatusText(tr("Query Error: %1\n\n%2").arg(model->lastError().databaseText()).arg(query));
+		dataViewer->setStatusText(tr("Query Error: %1\n\n%2").arg(model->lastError().text()).arg(query));
 	else
 	{
 		QString cached;

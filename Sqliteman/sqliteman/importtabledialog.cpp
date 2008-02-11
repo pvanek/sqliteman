@@ -145,7 +145,7 @@ void ImportTableDialog::slotAccepted()
 		query.exec();
 		if (query.lastError().isValid())
 		{
-			log.append(tr("Row = %1; %2").arg(row).arg(query.lastError().databaseText()));
+			log.append(tr("Row = %1; %2").arg(row).arg(query.lastError().text()));
 			result = false;
 		}
 		else

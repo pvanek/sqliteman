@@ -107,7 +107,7 @@ bool AlterTableDialog::execSql(const QString & statement, const QString & messag
 	{
 		ui.resultEdit->append(QString("%1 (%2) %3:").arg(message)
 													.arg(tr("failed"))
-													.arg(query.lastError().databaseText()));
+													.arg(query.lastError().text()));
 		ui.resultEdit->append(statement);
 		if (!tmpName.isNull())
 			ui.resultEdit->append(tr("Old table is stored as %1").arg(tmpName));
@@ -125,7 +125,7 @@ QStringList AlterTableDialog::originalSource()
 
 	if (query.lastError().isValid())
 	{
-		ui.resultEdit->append(tr("Cannot get index list. %1").arg(query.lastError().databaseText()));
+		ui.resultEdit->append(tr("Cannot get index list. %1").arg(query.lastError().text()));
 		return QStringList();
 	}
 	while(query.next())
@@ -248,7 +248,7 @@ bool AlterTableDialog::addColumns()
 		{
 			ui.resultEdit->setText(tr("Error while altering table %1: %2.\n%3")
 										.arg(m_table)
-										.arg(query.lastError().databaseText())
+										.arg(query.lastError().text())
 										.arg(fullSql));
 			return false;
 		}

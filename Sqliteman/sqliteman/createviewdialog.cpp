@@ -44,7 +44,7 @@ void CreateViewDialog::createButton_clicked()
 	
 	if(query.lastError().isValid())
 	{
-		ui.resultEdit->setText(tr("Error while creating view: %2.\n\n%3").arg(query.lastError().databaseText()).arg(sql));
+		ui.resultEdit->setText(tr("Error while creating view: %2.\n\n%3").arg(query.lastError().text()).arg(sql));
 		return;
 	}
 	ui.resultEdit->setText(tr("View created successfully"));

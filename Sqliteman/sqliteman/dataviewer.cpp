@@ -99,7 +99,7 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 				int ret = QMessageBox::question(this, tr("Sqliteman"),
 						tr("There is a pending transaction in progress. That cannot be commited now."\
 						"\nError: %1\n"\
-						"Perform rollback?").arg(old->lastError().databaseText()),
+						"Perform rollback?").arg(old->lastError().text()),
 						QMessageBox::Yes, QMessageBox::No);
 				if(ret == QMessageBox::Yes)
 					rollback();
@@ -275,7 +275,7 @@ void DataViewer::commit()
 		int ret = QMessageBox::question(this, tr("Sqliteman"),
 				tr("There is a pending transaction in progress. That cannot be commited now."\
 				   "\nError: %1\n"\
-				   "Perform rollback?").arg(model->lastError().databaseText()),
+				   "Perform rollback?").arg(model->lastError().text()),
 				QMessageBox::Yes, QMessageBox::No);
 		if(ret == QMessageBox::Yes)
 			rollback();
