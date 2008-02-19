@@ -42,11 +42,12 @@ This file is based on the TOra source code. http://tora.sf.net
 * All trademarks belong to their respective owners.
 *
 *****/
+#include <QApplication>
+#include <QMessageBox>
 
 #include "tosqlparse.h"
 #include "sqleditorwidget.h"
 #include "sqlkeywords.h"
-
 
 // FIXME: Prefs!
 #define QUOTE_CHARACTER '\"'
@@ -507,73 +508,76 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 			realfirst = first = upp;
 
 // SQLITEMAN
-//		 if (upp == ("PROCEDURE") ||
-//				 upp == ("FUNCTION") ||
-//				 upp == ("PACKAGE"))
-//			 block = true;
-// 
-//		 if (upp == ("SELF"))
-//			 block = false;
-// 
-//		 if (first != ("END") && ((first == ("IF") && upp == ("THEN")) ||
-//								  upp == ("LOOP") ||
-//								  upp == ("DO") ||
-//								  (syntax.declareBlock() && upp == ("DECLARE")) ||
-//								  (block && upp == ("AS")) ||
-//								  (block && upp == ("IS")) ||
-//								  ((!declare || block) && upp == ("BEGIN"))))
-//		 {
-//			 block = false;
-//			 statement blk(statement::Block);
-//			 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
-//			 blk.subTokens().insert(blk.subTokens().end(), ret);
-//			 statement cur(statement::Statement);
-//			 bool dcl = (upp == ("DECLARE") || upp == ("IS") || upp == ("AS"));
-//			 do
-//			 {
-//				 cur = parseStatement(tokens, dcl, false);
-//				 if (cur.Type == statement::List)
-//					 toStatusMessage(qApp->translate("toSQLparse", "Unbalanced parenthesis (Too many ')')"));
-//				 blk.subTokens().insert(blk.subTokens().end(), cur);
-//				 if (cur.subTokens().begin() != cur.subTokens().end() &&
-//						 (*(cur.subTokens().begin())).String.upper() == ("BEGIN"))
-//					 dcl = false;
-//			 }
-//			 while (cur.subTokens().begin() != cur.subTokens().end() &&
-//					 (*cur.subTokens().begin()).String.upper() != ("END"));
-//			 return blk;
-//		 }
-//		 else if (((first == "IF" && upp == "THEN") ||
-//				   (first == "WHEN" && upp == "THEN") ||
-//				   (first == "ELSIF" && upp == "THEN") ||
-//				   upp == ("BEGIN") ||
-//				   upp == ("EXCEPTION") ||
-//				   first == ("ELSE")) && !lst)
-//		 {
-//			 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
-//			 return ret;
-//		 }
-//		 else if (first == ("ASSIGN") ||
-//				  first == ("SET") ||
-//				  first == ("PROMPT") ||
-//				  first == ("COLUMN") ||
-//				  first == ("SPOOL") ||
-//				  first == ("STORE") ||
-//				  first == ("REMARK") ||
-//				  first == ("REM"))
-//		 {
-//			 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
-//			 int line = tokens.line();
-//			 int offset = tokens.offset();
-//			 for (QString tmp = tokens.getToken(true, true);line == tokens.line();tmp = tokens.getToken(true, true))
-//				 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Token, tmp, line));
-//			 tokens.setLine(line);
-//			 tokens.setOffset(offset);
-//			 tokens.remaining(true);
-//			 return ret;
-//		 }
-//		 else if (upp == (",") ||
-		if (upp == (",") ||
+		 if (upp == ("PROCEDURE") ||
+				 upp == ("FUNCTION") ||
+				 upp == ("PACKAGE"))
+			 block = true;
+
+		 if (upp == ("SELF"))
+			 block = false;
+
+		 if (first != ("END") && ((first == ("IF") && upp == ("THEN")) ||
+								  upp == ("LOOP") ||
+								  upp == ("DO") ||
+								  (/*syntax.declareBlock()*/true && upp == ("DECLARE")) ||
+								  (block && upp == ("AS")) ||
+								  (block && upp == ("IS")) ||
+								  ((!declare || block) && upp == ("BEGIN"))))
+		 {
+			 block = false;
+			 statement blk(statement::Block);
+			 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
+			 blk.subTokens().insert(blk.subTokens().end(), ret);
+			 statement cur(statement::Statement);
+			 bool dcl = (upp == ("DECLARE") || upp == ("IS") || upp == ("AS"));
+			 do
+			 {
+				 cur = parseStatement(tokens, dcl, false);
+				 if (cur.Type == statement::List)
+				 {
+					 QMessageBox::warning(QApplication::activeWindow(), "Sqliteman",
+										  "toSQLparse: Unbalanced parenthesis (Too many ')')");
+				 }
+				 blk.subTokens().insert(blk.subTokens().end(), cur);
+				 if (cur.subTokens().begin() != cur.subTokens().end() &&
+						 (*(cur.subTokens().begin())).String.toUpper() == ("BEGIN"))
+					 dcl = false;
+			 }
+			 while (cur.subTokens().begin() != cur.subTokens().end() &&
+					 (*cur.subTokens().begin()).String.toUpper() != ("END"));
+			 return blk;
+		 }
+		 else if (((first == "IF" && upp == "THEN") ||
+				   (first == "WHEN" && upp == "THEN") ||
+				   (first == "ELSIF" && upp == "THEN") ||
+				   upp == ("BEGIN") ||
+				   upp == ("EXCEPTION") ||
+				   first == ("ELSE")) && !lst)
+		 {
+			 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
+			 return ret;
+		 }
+		 else if (first == ("ASSIGN") ||
+				  first == ("SET") ||
+				  first == ("PROMPT") ||
+				  first == ("COLUMN") ||
+				  first == ("SPOOL") ||
+				  first == ("STORE") ||
+				  first == ("REMARK") ||
+				  first == ("REM"))
+		 {
+			 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
+			 int line = tokens.line();
+			 int offset = tokens.offset();
+			 for (QString tmp = tokens.getToken(true, true);line == tokens.line();tmp = tokens.getToken(true, true))
+				 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Token, tmp, line));
+			 tokens.setLine(line);
+			 tokens.setOffset(offset);
+			 tokens.remaining(true);
+			 return ret;
+		 }
+		 else if (upp == (",") ||
+// 		if (upp == (",") ||
 //				  (syntax.reservedWord(upp) &&
 				  (isKeyword(upp) &&
 				  upp != ("NOT") &&
@@ -597,7 +601,10 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 			statement lst = parseStatement(tokens, false, true);
 			statement t = toPop(lst.subTokens());
 			if (lst.Type != statement::List)
-				qDebug("toSQLparse: Unbalanced parenthesis (Too many '(')");
+			{
+				QMessageBox::warning(QApplication::activeWindow(), "Sqliteman",
+									 "toSQLparse: Unbalanced parenthesis (Too many '(')");
+			}
 			nokey = false;
 			if (first == ("CREATE") && !block)
 			{
@@ -674,7 +681,10 @@ std::list<toSQLParse::statement> toSQLParse::parse(tokenizer &tokens)
 			cur = parseStatement(tokens, false, false))
 	{
 		if (cur.Type == statement::List)
-			qDebug("toSQLparse: Unbalanced parenthesis (Too many ')')");
+		{
+			QMessageBox::warning(QApplication::activeWindow(), "Sqliteman",
+								 "toSQLparse: Unbalanced parenthesis (Too many ')')");
+		}
 		ret.insert(ret.end(), cur);
 	}
 	QString str = tokens.remaining(false);
@@ -689,7 +699,10 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens)
 	statement cur(statement::Statement);
 	cur = parseStatement(tokens, false, false);
 	if (cur.Type == statement::List)
-		qDebug("toSQLparse: Unbalanced parenthesis (Too many ')')");
+	{
+		QMessageBox::warning(QApplication::activeWindow(), "Sqliteman",
+							 "toSQLparse: Unbalanced parenthesis (Too many ')')");
+	}
 	return cur;
 }
 
@@ -843,7 +856,10 @@ QString toSQLParse::indentStatement(statement &stat, int level/*SQLITEMAN, toSyn
 	switch (stat.Type)
 	{
 	default:
-		qDebug("toSQLparse: Internal error in toSQLParse, should never get here");
+		{
+			QMessageBox::warning(QApplication::activeWindow(), "Sqliteman",
+								 "toSQLparse: Internal error in toSQLParse, should never get here");
+		}
 	case statement::Block:
 	{
 		ret = IndentComment(level, 0, stat.Comment, false);

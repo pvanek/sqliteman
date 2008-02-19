@@ -42,6 +42,18 @@ SqlEditor::SqlEditor(QWidget * parent)
 	statusBar()->addPermanentWidget(cursorLabel);
 	sqlTextEdit_cursorPositionChanged(1, 1);
 
+	toSQLParse::settings cur;
+	cur.ExpandSpaces = false;
+	cur.CommaBefore = false;
+	cur.BlockOpenLine = false;
+	cur.OperatorSpace = false;
+	cur.KeywordUpper = false;
+	cur.RightSeparator = false;
+	cur.EndBlockNewline = false;
+	cur.IndentLevel = true;
+	cur.CommentColumn = false;
+	toSQLParse::setSetting(cur);
+
 	ui.searchFrame->hide();
 
 	ui.previousToolButton->setIcon(Utils::getIcon("go-previous.png"));
@@ -131,6 +143,7 @@ QString SqlEditor::prepareExec(toSQLParse::tokenizer &tokens, int line, int pos)
 	int LastLine = line;
 	int LastOffset = pos;
 	int endLine, endCol;
+
 	if (ui.sqlTextEdit->lines() <= tokens.line())
 	{
 		endLine = ui.sqlTextEdit->lines() - 1;
