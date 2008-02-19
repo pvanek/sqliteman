@@ -117,9 +117,9 @@ DbObjects Database::getObjects(const QString type, const QString schema)
 
 	QString sql;
 	if (type.isNull())
-		sql = QString("SELECT name, tbl_name FROM \"%1\".sqlite_master;").arg(schema);
+		sql = QString("SELECT lower(name), lower(tbl_name) FROM \"%1\".sqlite_master;").arg(schema);
 	else
-		sql = QString("SELECT name, tbl_name FROM \"%1\".sqlite_master WHERE type = '%2' and name not like 'sqlite_%';").arg(schema).arg(type);
+		sql = QString("SELECT lower(name), lower(tbl_name) FROM \"%1\".sqlite_master WHERE type = '%2' and name not like 'sqlite_%';").arg(schema).arg(type);
 
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
 	while(query.next())
@@ -157,7 +157,7 @@ DbObjects Database::getSysObjects(const QString & schema)
 {
 	DbObjects objs;
 
-	QSqlQuery query(QString("SELECT name, tbl_name FROM \"%1\".sqlite_master WHERE type = 'table' and name like 'sqlite_%';").arg(schema),
+	QSqlQuery query(QString("SELECT lower(name), lower(tbl_name) FROM \"%1\".sqlite_master WHERE type = 'table' and name like 'sqlite_%';").arg(schema),
 					QSqlDatabase::database(SESSION_NAME));
 
 	objs.insert("sqlite_master", "");
@@ -228,7 +228,7 @@ bool Database::exportSql(const QString & fileName)
 QString Database::describeObject(const QString & name,
 								 const QString & schema)
 {
-	QString sql("select sql from \"%1\".sqlite_master where name = \"%2\";");
+	QString sql("select sql from \"%1\".sqlite_master where lower(name) = \"%2\";");
 	QSqlQuery query(sql.arg(schema).arg(name), QSqlDatabase::database(SESSION_NAME));
 	
 	if (query.lastError().isValid())
