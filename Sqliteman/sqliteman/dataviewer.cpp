@@ -340,18 +340,24 @@ void DataViewer::openStandaloneWindow()
     DataViewer *w = new DataViewer(this);
 #endif
 	w->setAttribute(Qt::WA_DeleteOnClose);
-	w->setWindowTitle(tm->tableName() + " - "
-			+ QDateTime::currentDateTime().toString() + " - " 
-			+ tr("Data Snapshot"));
 
+	//! TODO: change setWindowTitle() to the unified QString().arg() sequence aftre string unfreezing
 	if (tm)
 	{
+		w->setWindowTitle(tm->tableName() + " - "
+				+ QDateTime::currentDateTime().toString() + " - " 
+				+ tr("Data Snapshot"));
 		qm = new SqlQueryModel(w);
 		qm->setQuery(QString("select * from \"%1\".\"%2\";").arg(tm->schema()).arg(tm->tableName()),
 					QSqlDatabase::database(SESSION_NAME));
 	}
 	else
+	{
+		w->setWindowTitle("SQL - "
+				+ QDateTime::currentDateTime().toString() + " - " 
+				+ tr("Data Snapshot"));
 		qm = qobject_cast<SqlQueryModel*>(ui.tableView->model());
+	}
 
 	w->setTableModel(qm);
 	w->ui.statusText->setText(tr("%1 snapshot for: %2")
