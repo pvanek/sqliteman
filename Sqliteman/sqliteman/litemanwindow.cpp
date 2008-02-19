@@ -109,14 +109,15 @@ LiteManWindow::~LiteManWindow()
 
 void LiteManWindow::closeEvent(QCloseEvent * e)
 {
+	sqlEditor->saveOnExit();
+	writeSettings();
+
 	// check for uncommited transaction in the DB
 	if (!dataViewer->setTableModel(new QSqlQueryModel()))
 	{
 		e->ignore();
 		return;
 	}
-
-	sqlEditor->saveOnExit();
 
 	QMapIterator<QString, QString> i(attachedDb);
 	while (i.hasNext())
@@ -126,7 +127,10 @@ void LiteManWindow::closeEvent(QCloseEvent * e)
 		QSqlDatabase::database(i.value()).close();
 	}
 
-	writeSettings();
+	// It has to go after writeSettings()!
+	foreach (QWidget *widget, QApplication::topLevelWidgets())
+		widget->close();
+
 	e->accept();
 }
 
