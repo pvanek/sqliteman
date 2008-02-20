@@ -35,6 +35,15 @@ SqlTableModel::SqlTableModel(QObject * parent, QSqlDatabase db)
 QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 {
 	QString curr(QSqlTableModel::data(item, Qt::DisplayRole).toString());
+	// numbers
+	if (role == Qt::TextAlignmentRole)
+	{
+		bool ok;
+		curr.toDouble(&ok);
+		if (ok)
+			return QVariant(Qt::AlignRight | Qt::AlignTop);
+		return QVariant(Qt::AlignTop);
+	}
 
 	// nulls
 	if (m_useNull && curr.isNull())
@@ -51,8 +60,9 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 	// are followed with serious perfromance issues.
 	// Users can see it through edit dialog.
 	if (/*f.type.toUpper() == "BLOB" || */
-		m_useBlob &&
-		record().field(item.column()).type() == QVariant::ByteArray)
+		m_useBlob /*&&
+		   record().field(item.column()).type() == QVariant::ByteArray*/
+		   && QSqlTableModel::data(item, Qt::DisplayRole).type() == QVariant::ByteArray)
 	{
 		if (role == Qt::BackgroundColorRole)
 			return QVariant(m_blobColor);
@@ -163,6 +173,16 @@ QVariant SqlQueryModel::data(const QModelIndex & item, int role) const
 {
 	QString curr(QSqlQueryModel::data(item, Qt::DisplayRole).toString());
 
+	// numbers
+	if (role == Qt::TextAlignmentRole)
+	{
+		bool ok;
+		curr.toDouble(&ok);
+		if (ok)
+			return QVariant(Qt::AlignRight | Qt::AlignTop);
+		return QVariant(Qt::AlignTop);
+	}
+
 	if (m_useNull && curr.isNull())
 	{
 		if (role == Qt::BackgroundColorRole)
@@ -173,7 +193,10 @@ QVariant SqlQueryModel::data(const QModelIndex & item, int role) const
 			return QVariant(m_nullText);
 	}
 
-	if (m_useBlob && info.field(item.column()).type() == QVariant::ByteArray)
+	if (/*f.type.toUpper() == "BLOB" || */
+		m_useBlob /*&&
+		   record().field(item.column()).type() == QVariant::ByteArray*/
+		   && QSqlQueryModel::data(item, Qt::DisplayRole).type() == QVariant::ByteArray)
 	{
 		if (role == Qt::BackgroundColorRole)
 			return QVariant(m_blobColor);
