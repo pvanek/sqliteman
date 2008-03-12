@@ -68,7 +68,8 @@ class ArgsParser
 /*! \brief Pre-fil available translations into QMap to cooperate
 with PreferencesDialog.
 */
-ArgsParser::ArgsParser(int c, char ** v) :	argc(c), argv(v), m_locale(""), m_file(0)
+ArgsParser::ArgsParser(int c, char ** v)
+	: argc(c), argv(v), m_locale(""), m_file(0)
 {
 	QDir d(TRANSLATION_DIR, "*.qm");
 	int i = 1; // 0 is for system default
@@ -114,7 +115,7 @@ const QString & ArgsParser::fileToOpen()
 	if (m_file.isNull())
 	{
 		Preferences* p = Preferences::instance();
-		if (p->openLastDB())
+		if (p->openLastDB() && QFileInfo(p->lastDB()).exists())
 			m_file = p->lastDB();
 	}
 	return m_file;
