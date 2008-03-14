@@ -45,6 +45,10 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 		return QVariant(Qt::AlignTop);
 	}
 
+	// mark rows prepared for a deletion in this trasnaction
+	if (role == Qt::BackgroundColorRole && m_deleteCache.contains(item.row()))
+		return QVariant(Qt::red);
+
 	// nulls
 	if (m_useNull && curr.isNull())
 	{
@@ -74,10 +78,6 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 // 			return Database::hex(QSqlTableModel::data(item, Qt::DisplayRole).toByteArray());
 			return QSqlTableModel::data(item, Qt::DisplayRole);
 	}
-
-	// mark rows prepared for a deletion in this trasnaction
-	if (role == Qt::BackgroundColorRole && m_deleteCache.contains(item.row()))
-		return QVariant(Qt::red);
 
 	// advanced tooltips
 	if (role == Qt::ToolTipRole)
@@ -135,7 +135,9 @@ bool SqlTableModel::removeRows ( int row, int count, const QModelIndex & parent)
 	bool ret = QSqlTableModel::removeRows(row, count, parent);
 	emit dataChanged( index(row, 0), index(row+count-1, columnCount()-1) );
 	emit headerDataChanged(Qt::Vertical, row, row+count-1);
-	m_deleteCache.append(row);
+	for (int i = 0; i < count; ++i)
+		m_deleteCache.append(row+i);
+
 	return ret;
 }
 
@@ -147,7 +149,7 @@ void SqlTableModel::setPendingTransaction(bool pending)
 	// If there is one...
 	if (!pending)
 	{
-		 for (int i = 0; i < m_deleteCache.size(); ++i)
+		for (int i = 0; i < m_deleteCache.size(); ++i)
 			emit headerDataChanged(Qt::Vertical, m_deleteCache[i], m_deleteCache[i]);
 	}
 	m_deleteCache.clear();
