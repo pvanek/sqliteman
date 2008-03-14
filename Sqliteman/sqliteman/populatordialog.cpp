@@ -129,6 +129,7 @@ void PopulatorDialog::populateButton_clicked()
 {
 	qlonglong cntPre, cntPost;
 	textBrowser->clear();
+	m_columnList.clear();
 
 	for (int i = 0; i < columnTable->rowCount(); ++i)
 		m_columnList.append(qobject_cast<PopulatorColumnWidget*>(columnTable->cellWidget(i, 2))->column());
