@@ -52,6 +52,7 @@ This file is based on the TOra source code. http://tora.sf.net
 // FIXME: Prefs!
 #define QUOTE_CHARACTER '\"'
 #define DEF_TAB_WIDTH 4
+// #define TOPARSE_DEBUG
 
 
 inline bool toIsIdent(QChar c)
@@ -499,9 +500,9 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 			token = tokens.getToken(true, true))
 	{
 		QString upp = token.toUpper();
-#ifdef TOPARSE_DEBUG
 
-		printf("%s (%d)\n", (const char*)token, tokens.line());
+#ifdef TOPARSE_DEBUG
+		printf("%s (%d)\n", (const char*)token.toUtf8(), tokens.line());
 #endif
 
 		if (first.isNull() && !token.startsWith(("/*")) && !token.startsWith("--") && !token.startsWith("//"))
@@ -984,9 +985,9 @@ QString toSQLParse::indentStatement(statement &stat, int level/*SQLITEMAN, toSyn
 		{
 			comment = AddComment(comment, (*i).Comment);
 			QString upp = (*i).String.toUpper();
-#ifdef TOPARSE_DEBUG
 
-			printf("%s\n", (const char*)(*i).String.latin1());
+#ifdef TOPARSE_DEBUG
+			printf("%s\n", (const char*)(*i).String.toUtf8());
 #endif
 
 			if ((*i).Type == statement::List)
