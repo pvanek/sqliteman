@@ -23,8 +23,8 @@ TableEditorDialog::TableEditorDialog(QWidget * parent)//, Mode mode, const QStri
 	
 	ui.databaseCombo->addItems(Database::getDatabases().keys());
 
-	ui.columnTable->setColumnWidth(1, 150);
-	ui.columnTable->setColumnWidth(2, 60);
+	ui.columnTable->setColumnWidth(0, 150);
+	ui.columnTable->setColumnWidth(1, 200);
 	connect(ui.nameEdit, SIGNAL(textChanged(const QString&)),
 			this, SLOT(nameEdit_textChanged(const QString&)));
 	connect(ui.columnTable, SIGNAL(itemSelectionChanged()), this, SLOT(fieldSelected()));

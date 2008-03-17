@@ -90,7 +90,7 @@ void AlterTableDialog::resetStructure()
 
 	m_protectedRows = ui.columnTable->rowCount();
 	m_dropColumns = 0;
-	ui.columnTable->resizeColumnsToContents();
+// 	ui.columnTable->resizeColumnsToContents();
 	checkChanges();
 }
 
