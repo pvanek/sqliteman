@@ -176,8 +176,6 @@
    <addaction name="separator" />
    <addaction name="actionCommit" />
    <addaction name="actionRollback" />
-   <addaction name="separator" />
-   <addaction name="actionBLOB_Preview" />
   </widget>
   <widget class="QToolBar" name="exportToolBar" >
    <property name="windowTitle" >
@@ -189,6 +187,7 @@
    <attribute name="toolBarArea" >
     <number>4</number>
    </attribute>
+   <addaction name="actionBLOB_Preview" />
    <addaction name="actionExport_Data" />
    <addaction name="actionClose" />
   </widget>

@@ -110,6 +110,7 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 		}
 	}
 
+	delete(ui.tableView->model());
 	ui.tableView->setModel(model);
 	connect(ui.tableView->selectionModel(),
 			SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
@@ -221,16 +222,17 @@ void DataViewer::truncateTable()
 					QMessageBox::Yes, QMessageBox::No);
 	if(ret == QMessageBox::No)
 		return;
+
 	SqlTableModel * model = qobject_cast<SqlTableModel *>(ui.tableView->model());
+	if (!model)
+		return;
+
 	// prevent cached data when truncating the table
 	if (model->pendingTransaction())
 		rollback();
-	if(model)
-	{
-		while (model->canFetchMore())
-			model->fetchMore();
-		model->removeRows(0, model->rowCount());
-	}
+	while (model->canFetchMore())
+		model->fetchMore();
+	model->removeRows(0, model->rowCount());
 }
 
 void DataViewer::exportData()
@@ -366,6 +368,7 @@ void DataViewer::openStandaloneWindow()
 	w->ui.mainToolBar->hide();
 	w->ui.snapshotToolBar->hide();
 	w->ui.actionClose->setVisible(true);
+	w->ui.tabWidget->removeTab(2);
 	w->show();
 }
 
