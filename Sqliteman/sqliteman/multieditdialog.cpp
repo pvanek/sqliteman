@@ -36,6 +36,11 @@ void MultiEditDialog::setData(const QVariant & data)
 	dateFormatEdit->setText(Preferences::instance()->dateTimeFormat());
 	dateTimeEdit->setDate(QDateTime::currentDateTime().date());
 	blobPreviewLabel->setBlobData(data);
+
+	// Prevent possible text related modification of BLOBs.
+	// It can be done in text editor.
+	if (data.type() == QVariant::ByteArray)
+		tabWidget->setCurrentIndex(1);
 }
 
 QVariant MultiEditDialog::data()
