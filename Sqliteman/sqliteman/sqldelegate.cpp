@@ -25,8 +25,8 @@ QWidget *SqlDelegate::createEditor(QWidget *parent,
 	SqlDelegateUi *editor = new SqlDelegateUi(parent);
 	editor->setFocus();
 	editor->setFocusPolicy(Qt::StrongFocus);
-	connect(editor, SIGNAL(closeEditor(QWidget *)),
-			this, SLOT(editor_closeEditor(QWidget *)));
+	connect(editor, SIGNAL(closeEditor()),
+			this, SLOT(editor_closeEditor()));
 	return editor;
 }
 
@@ -42,7 +42,10 @@ void SqlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 							   const QModelIndex &index) const
 {
 	SqlDelegateUi *ed = static_cast<SqlDelegateUi*>(editor);
-	model->setData(index, ed->sqlData(), Qt::EditRole);
+	if (ed->sqlData() != index.model()->data(index, Qt::EditRole))
+		model->setData(index, ed->sqlData(), Qt::EditRole);
+// 	else
+// 		qDebug("ed->sqlData() == index.model()->data(index, Qt::EditRole)");
 }
 
 void SqlDelegate::updateEditorGeometry(QWidget *editor,
@@ -52,10 +55,11 @@ void SqlDelegate::updateEditorGeometry(QWidget *editor,
 	editor->setGeometry(option.rect);
 }
 
-void SqlDelegate::editor_closeEditor(QWidget * editor)
+void SqlDelegate::editor_closeEditor()
 {
-	emit commitData(editor);
-	emit closeEditor(editor , QAbstractItemDelegate::EditNextItem /*NoHint does not work as expected*/);
+	SqlDelegateUi *ed = qobject_cast<SqlDelegateUi*>(sender());
+	emit commitData(ed);
+	emit closeEditor(ed);
 }
 
 
@@ -104,7 +108,7 @@ void SqlDelegateUi::nullButton_clicked(bool)
 {
 	lineEdit->setText(QString());
 	m_sqlData = QString();
-	emit closeEditor(this);
+	emit closeEditor();
 }
 
 void SqlDelegateUi::editButton_clicked(bool state)
@@ -115,7 +119,7 @@ void SqlDelegateUi::editButton_clicked(bool state)
 	qApp->restoreOverrideCursor();
 	if (dia->exec())
 		m_sqlData = dia->data();
-	emit closeEditor(this);
+	emit closeEditor();
 }
 
 void SqlDelegateUi::lineEdit_textEdited(const QString & text)
