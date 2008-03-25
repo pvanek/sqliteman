@@ -186,9 +186,23 @@ int main(int argc, char ** argv)
 	int style = Preferences::instance()->GUIstyle();
 	if (style != 0)
 	{
+		bool styleSuccess = false;
 		QStringList sl = QStyleFactory::keys();
 		sl.sort();
-		QApplication::setStyle(QStyleFactory::create(sl.at(style-1)));
+		if (sl.count() > (style-1))
+		{
+			QStyle * s = QStyleFactory::create(sl.at(style-1));
+			if (s)
+			{
+				QApplication::setStyle(s);
+				styleSuccess = true;
+			}
+		}
+		if (!styleSuccess)
+		{
+			QTextStream cout(stdout, QIODevice::WriteOnly);
+			cout << "Cannot setup GUI style. Default is used.";
+		}
 	}
 
 	app.setWindowIcon(Utils::getIcon("sqliteman.png"));
