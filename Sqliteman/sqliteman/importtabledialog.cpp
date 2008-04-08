@@ -178,7 +178,7 @@ QString ImportTableDialog::sqliteSeparator()
 	else if (semicolonRadioButton->isChecked())
 		return ";";
 	else if (tabelatorRadioButton->isChecked())
-		return "\\t";
+		return "\t";
 	return customEdit->text();
 }
 
