@@ -16,10 +16,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "sqleditorwidget.h"
 #include "preferences.h"
-#include "sqlkeywords.h"
+// #include "sqlkeywords.h"
 #include "utils.h"
 
-
+#include <QtDebug>
 SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	: QsciScintilla(parent),
 	  m_prevCurrentLine(0)
@@ -33,14 +33,25 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	QsciLexerSQL * lexer = new QsciLexerSQL(this);
 
 	QsciAPIs * api = new QsciAPIs(lexer);
-	foreach(QString i, sqlKeywords())
-		api->add(i);
-	setAutoCompletionSource(AcsAll);
-	setLexer(lexer);
-	setUtf8(true);
+	if (!api->load(":/api/sqlite.api"))
+		qDebug("api is not loaded");
+	else
+	{
+		api->prepare();
+		lexer->setAPIs(api);
+	}
+	setAutoCompletionSource(QsciScintilla::AcsAll);
+	setAutoCompletionCaseSensitivity(false);
 	setAutoCompletionReplaceWord(true);
+
 	m_currentLineHandle = markerDefine(QsciScintilla::Background);
 	setUtf8(true);
+
+	setFolding(QsciScintilla::BoxedFoldStyle);
+	lexer->setFoldComments(true);
+	lexer->setFoldCompact(false);
+
+	setLexer(lexer);
 
 	connect(this, SIGNAL(linesChanged()),
 			this, SLOT(linesChanged()));

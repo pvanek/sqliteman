@@ -1,0 +1,145 @@
+select
+from
+where
+or
+and
+join
+outer
+left
+right
+all
+distinct
+groupby
+having
+orderby
+limit
+offset
+as
+natural
+left
+right
+full
+outer
+inner
+cross
+on
+using
+collate
+asc
+desc
+union
+unionall
+intersect
+except
+explain
+alter
+table
+renameto
+addcolumn
+analyze
+vacuum
+attach
+database
+detach
+begin
+deferred
+immediate
+exclusive
+transaction
+end
+commit
+rollback
+create
+unique
+index
+if
+not
+exists
+drop
+into
+values
+replace
+set
+temp
+temporary
+table
+constraint
+null
+primarykey
+autoincrement
+unique
+check
+default
+collate
+conflict
+virtual
+trigger
+before
+after
+insteadof
+delete
+insert
+update
+foreach
+row
+statement
+abort
+fail
+ignore
+replace
+view
+escape
+isnull
+notnull
+between
+case
+then
+else
+cast
+like
+glob
+regexp
+match
+pragma
+reindex
+abs(X)Return the absolute value of the numeric argument X. Return NULL if X is NULL. Return 0.0 if X is not a numeric value. 
+coalesce(X,Y,...)Return a copy of the first non-NULL argument. If all arguments are NULL then NULL is returned. There must be at least 2 arguments. 
+glob(X,Y)This function is used to implement the "X GLOB Y" syntax of SQLite. The sqlite3_create_function() interface can be used to override this function and thereby change the operation of the GLOB operator.
+ifnull(X,Y)Return a copy of the first non-NULL argument. If both arguments are NULL then NULL is returned. This behaves the same as coalesce().
+hex(X)The argument is interpreted as a BLOB. The result is a hexadecimal rendering of the content of that blob. 
+last_insert_rowid()Return the ROWID of the last row insert from this connection to the database. This is the same value that would be returned from the sqlite3_last_insert_rowid() API function. 
+length(X)Return the string length of X in characters. If SQLite is configured to support UTF-8, then the number of UTF-8 characters is returned, not the number of bytes. 
+like(X,Y)
+like(X,Y,Z)This function is used to implement the "X LIKE Y [ESCAPE Z]" syntax of SQL. If the optional ESCAPE clause is present, then the user-function is invoked with three arguments. Otherwise, it is invoked with two arguments only. The sqlite3_create_function() interface can be used to override this function and thereby change the operation of the LIKE operator. When doing this, it may be important to override both the two and three argument versions of the like() function. Otherwise, different code may be called to implement the LIKE operator depending on whether or not an ESCAPE clause was specified. 
+load_extension(X)
+load_extension(X,Y)Load SQLite extensions out of the shared library file named X using the entry point Y. The result is a NULL. If Y is omitted then the default entry point of sqlite3_extension_init is used. This function raises an exception if the extension fails to load or initialize correctly. 
+This function will fail if the extension attempts to modify or delete a SQL function or collating sequence. The extension can add new functions or collating sequences, but cannot modify or delete existing functions or collating sequences because those functions and/or collating sequences might be used elsewhere in the currently running SQL statement. To load an extension that changes or deletes functions or collating sequences, use the sqlite3_load_extension() C-language API.
+lower(X)Return a copy of string X will all ASCII characters converted to lower case. The C library tolower() routine is used for the conversion, which means that this function might not work correctly on non-ASCII UTF-8 characters. 
+ltrim(X)
+ltrim(X,Y)Return a string formed by removing any and all characters that appear in Y from the left side of X. If the Y argument is omitted, spaces are removed. 
+max(X,Y,...)Return the argument with the maximum value. Arguments may be strings in addition to numbers. The maximum value is determined by the usual sort order. Note that max() is a simple function when it has 2 or more arguments but converts to an aggregate function if given only a single argument. 
+min(X,Y,...)Return the argument with the minimum value. Arguments may be strings in addition to numbers. The minimum value is determined by the usual sort order. Note that min() is a simple function when it has 2 or more arguments but converts to an aggregate function if given only a single argument. 
+nullif(X,Y)Return the first argument if the arguments are different, otherwise return NULL. 
+quote(X)This routine returns a string which is the value of its argument suitable for inclusion into another SQL statement. Strings are surrounded by single-quotes with escapes on interior quotes as needed. BLOBs are encoded as hexadecimal literals. The implementation of VACUUM uses this function. The function is also useful when writing triggers to implement undo/redo functionality. 
+random()Return a pseudo-random integer between -9223372036854775808 and +9223372036854775807. 
+randomblob(N)Return an N-byte blob containing pseudo-random bytes. N should be a postive integer. 
+hex(randomblob(16))
+replace(X,Y,Z)Return a string formed by substituting string Z for every occurrance of string Y in string X. The BINARY collating sequence is used for comparisons. 
+round(X)
+round(X,Y)Round off the number X to Y digits to the right of the decimal point. If the Y argument is omitted, 0 is assumed. 
+rtrim(X)
+rtrim(X,Y)Return a string formed by removing any and all characters that appear in Y from the right side of X. If the Y argument is omitted, spaces are removed. 
+soundex(X)Compute the soundex encoding of the string X. The string "?000" is returned if the argument is NULL. This function is omitted from SQLite by default. It is only available the -DSQLITE_SOUNDEX=1 compiler option is used when SQLite is built. 
+sqlite_version(X)Return the version string for the SQLite library that is running. Example: "3.5.9" 
+substr(X,Y,Z)
+substr(X,Y)Return a substring of input string X that begins with the Y-th character and which is Z characters long. If Z is omitted then all character through the end of the string are returned. The left-most character of X is number 1. If Y is negative the the first character of the substring is found by counting from the right rather than the left. If X is string then characters indices refer to actual UTF-8 characters. If X is a BLOB then the indices refer to bytes. 
+trim(X)
+trim(X,Y)Return a string formed by removing any and all characters that appear in Y from both ends of X. If the Y argument is omitted, spaces are removed. 
+typeof(X)Return the type of the expression X. The only return values are "null", "integer", "real", "text", and "blob". SQLite's type handling is explained in Datatypes in SQLite Version 3. 
+upper(X)Return a copy of input string X converted to all upper-case letters. The implementation of this function uses the C library routine toupper() which means it may not work correctly on non-ASCII UTF-8 strings. 
+zeroblob(N)Return a BLOB consisting of N bytes of 0x00. SQLite manages these zeroblobs very efficiently. Zeroblobs can be used to reserve space for a BLOB that is later written using incremental BLOB I/O.
+date(timestring, modifier, modifier, ...) 
+time(timestring, modifier, modifier, ...) 
+datetime(timestring, modifier, modifier, ...) 
+julianday(timestring, modifier, modifier, ...) 
+strftime(format, timestring, modifier, modifier, ...)
