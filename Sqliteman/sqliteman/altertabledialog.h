@@ -58,8 +58,20 @@ class AlterTableDialog : public TableEditorDialog
 		 */
 		bool addColumns();
 
-		//! \brief Execute statement, handle its errors and outputs message to the GUI.
+		/*! \brief Perform a rename table action if it's required.
+		This is done if user edits table name widget.
+		\retval true on success.
+		*/
+		bool renameTable();
+
+		/*! \brief Execute statement, handle its errors and outputs message to the GUI.
+		\param statement a SQL statement as QString
+		\param message a text message to display in the log widget
+		\param tmpName an addon text for log in the case of error
+		\retval bool true on SQL succes
+		*/
 		bool execSql(const QString & statement, const QString & message, const QString & tmpName=0);
+
 		//! \brief Returns a list of DDL statements to recreate reqired obejcts after all.
 		QStringList originalSource();
 

@@ -23,7 +23,7 @@ AlterTableDialog::AlterTableDialog(QWidget * parent, const QString & tableName, 
 	update = false;
 
 	ui.nameEdit->setText(tableName);
-	ui.nameEdit->setDisabled(true);
+// 	ui.nameEdit->setDisabled(true);
 	ui.databaseCombo->addItem(schema);
 	ui.databaseCombo->setDisabled(true);
 	ui.tabWidget->removeTab(1);
@@ -133,9 +133,31 @@ QStringList AlterTableDialog::originalSource()
 	return ret;
 }
 
+bool AlterTableDialog::renameTable()
+{
+	QString newTableName(ui.nameEdit->text().trimmed());
+	if (m_table == newTableName)
+		return true;
+	
+	QString sql = QString("ALTER TABLE \"%1\".\"%2\" RENAME TO \"%3\";")
+			.arg(m_schema)
+			.arg(m_table)
+			.arg(newTableName);
+	if (execSql(sql, tr("Renaming the table \"%1\" to \"%2\".").arg(m_table).arg(newTableName)))
+	{
+		m_table = newTableName;
+		return true;
+	}
+	return false;
+}
+
 void AlterTableDialog::createButton_clicked()
 {
 	ui.resultEdit->clear();
+	// rename table if it's required
+	if (!renameTable())
+		return;
+
 	// drop columns first
 	if (m_dropColumns > 0)
 	{
@@ -172,7 +194,7 @@ void AlterTableDialog::createButton_clicked()
 			sql += getColumnClause(f);
 			tmpInsertColumns.append(f.name);
 		}
-		sql = sql.remove(sql.size() - 2, 2); 	// cut the extra ", "
+		sql = sql.remove(sql.size() - 2, 2); // cut the extra ", "
 		sql += "\n);\n";
 
 		if (!execSql(sql, tr("Creating new table: %1").arg(m_table)))
@@ -226,6 +248,10 @@ bool AlterTableDialog::addColumns()
 	QString nn;
 	QString def;
 	QString fullSql;
+
+	// only if it's required to do
+	if (m_protectedRows == ui.columnTable->rowCount())
+		return true;
 
 	for(int i = m_protectedRows; i < ui.columnTable->rowCount(); i++)
 	{
