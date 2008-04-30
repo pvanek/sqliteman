@@ -22,8 +22,8 @@ class CreateIndexDialog : public QDialog
 
 	public:
 		/*! \brief Create a dialog
-		\param dbase a reference to the DB connection
 		\param tabName name of the index parent table
+		\param schema name of the db schema
 		\param parent standard Qt parent
 		*/
 		CreateIndexDialog(const QString & tabName, const QString & schema, QWidget * parent = 0);

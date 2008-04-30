@@ -64,6 +64,7 @@ class Database
 		/*! \brief Gather user objects from sqlite_master by type.
 		It skips the resrved names "sqlite_%". See getSysObjects().
 		\param type a "enum" 'table', 'view', index etc. If it's empty all objects are selected.
+		\param schema a name of the DB schema
 		\retval DbObjects a map with "object name"/"its parent"
 		*/
 		static DbObjects getObjects(const QString type = 0, const QString schema = "main");
@@ -104,17 +105,17 @@ class Database
 
 		/*!
 		@brief Drop a trigger from the database
-		@param table The name of the trigger to drop
+		\param name The name of the trigger to drop
 		\param schema a table own schema
 		\retval bool true on success, false on error. Error are reported in this method
 		             already. */
 		static bool dropTrigger(const QString & name, const QString & schema);
 
 		/*!
-		* @brief Returns the list of fields in a table
-		*
-		* @param table The table to retrive the fields from
-		* @return The list of fields in \a table
+		@brief Returns the list of fields in a table
+		@param table The table to retrive the fields from
+		\param schema a name of the DB schema
+		@return The list of fields in \a table
 		*/
 		static FieldList tableFields(const QString & table, const QString & schema);
 		
@@ -123,7 +124,7 @@ class Database
 		
 		/*!
 		@brief Drop a view from the database
-		@param table The name of the view to drop
+		\param view The name of the view to drop
 		\param schema a table own schema
 		\retval bool true on success, false on error. Error are reported in this method
 		             already. */
@@ -131,7 +132,7 @@ class Database
 
 		/*!
 		@brief Drop an index from the database
-		@param table The name of the index to drop
+		\param name The name of the index to drop
 		\param schema a table own schema
 		\retval bool true on success, false on error. Error are reported in this method
 		             already. */
