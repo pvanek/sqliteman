@@ -61,7 +61,7 @@ void AlterTableDialog::resetStructure()
 	{
 		QTableWidgetItem * nameItem = new QTableWidgetItem(fields[i].name);
 		QTableWidgetItem * typeItem = new QTableWidgetItem(fields[i].type);
-		typeItem->setFlags(Qt::ItemIsSelectable); // TODO: change afinity in ALTER TABLE too!
+// 		typeItem->setFlags(Qt::ItemIsSelectable); // TODO: change afinity in ALTER TABLE too!
 		QTableWidgetItem * defItem = new QTableWidgetItem(fields[i].defval);
 		QTableWidgetItem * ixItem = new QTableWidgetItem();
 
@@ -159,7 +159,7 @@ void AlterTableDialog::createButton_clicked()
 		return;
 
 	// drop columns first
-	if (m_dropColumns > 0)
+// 	if (m_dropColumns > 0)
 	{
 		QStringList existingObjects = Database::getObjects().keys();
 		// indexes and triggers on the original table
@@ -319,5 +319,6 @@ void AlterTableDialog::cellClicked(int row, int)
 
 void AlterTableDialog::checkChanges()
 {
-	ui.createButton->setEnabled(m_dropColumns > 0 || m_protectedRows < ui.columnTable->rowCount());
+// 	ui.createButton->setEnabled(m_dropColumns > 0 || m_protectedRows < ui.columnTable->rowCount());
+	ui.createButton->setEnabled(true);
 }
