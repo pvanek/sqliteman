@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1">
+<!DOCTYPE TS><TS version="1.1" language="de">
+<defaultcodec></defaultcodec>
 <context>
     <name>AlterTableDialog</name>
     <message>
@@ -1127,7 +1128,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="239"/>
         <source>Ctrl+A</source>
-        <translation>STRG+A</translation>
+        <translation>Ctrl+A</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="249"/>
@@ -1137,7 +1138,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="250"/>
         <source>Ctrl+G</source>
-        <translation>STRG+G</translation>
+        <translation>Ctrl+G</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="253"/>
