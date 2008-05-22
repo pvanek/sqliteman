@@ -4,6 +4,12 @@
 #
 
 CMAKE_MINIMUM_REQUIRED( VERSION 2.4.3 )
+# sets for bleeding edge cmake
+if(COMMAND cmake_policy)
+    cmake_policy(SET CMP0003 OLD)
+    cmake_policy(SET CMP0005 OLD)
+endif(COMMAND cmake_policy)
+
 #Pretty colors
 SET(CMAKE_COLOR_MAKEFILE ON)
 #Dont force verbose
@@ -99,6 +105,9 @@ SET (QT_MIN_VERSION "4.2.0")
 SET( QT_USE_QTSQL TRUE )
 SET( QT_USE_QTXML TRUE )
 FIND_PACKAGE( Qt4 REQUIRED )
+MESSAGE(STATUS Qt4 version: ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH})
+MESSAGE(STATUS Qt4 includes: ${QT_INCLUDES})
+MESSAGE(STATUS Qt4 libs: ${QT_LIBRARY_DIR})
 
 INCLUDE( ${QT_USE_FILE} )
 
