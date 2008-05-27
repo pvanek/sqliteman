@@ -32,8 +32,12 @@ class SqlItemView : public QWidget, public Ui::SqlItemView
 		again depending on the new model QSqlRecord structure. */
 		void setModel(QAbstractItemModel * model);
 		QAbstractItemModel * model();
-		
-		void setCurrentIndex(int);
+
+		/*! \brief Set the current index for "item view".
+		\param row is the row number starting from 0.
+		Use model->currentIndex().row() from "real" indexes for it.
+		*/
+		void setCurrentIndex(int row);
 		int currentIndex();
 
 	private:

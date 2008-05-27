@@ -74,9 +74,10 @@ void SqlItemView::updateButtons(int row)
 	nextButton->setEnabled(row < m_mapper->model()->rowCount() - 1);
 }
 
-void SqlItemView::setCurrentIndex(int ix)
+void SqlItemView::setCurrentIndex(int row)
 {
-	m_mapper->setCurrentIndex(ix);
+	m_mapper->setCurrentIndex(row);
+	updateButtons(row);
 }
 
 int SqlItemView::currentIndex()
