@@ -189,8 +189,8 @@ void DataViewer::showStatusText(bool show)
 
 void DataViewer::setShowButtons(bool show)
 {
-	ui.actionTruncate_Table->setEnabled(show);
-	ui.actionRemove_Row->setEnabled(show);
+	ui.actionTruncate_Table->setEnabled(show && ui.tableView->model()->rowCount() > 0);
+	ui.actionRemove_Row->setEnabled(show && ui.tableView->model()->rowCount() > 0);
 	ui.actionNew_Row->setEnabled(show);
 	ui.actionCommit->setEnabled(show);
 	ui.actionRollback->setEnabled(show);
@@ -205,6 +205,7 @@ void DataViewer::addRow()
 	{
 		model->insertRows(model->rowCount(), 1);
 		ui.tableView->scrollToBottom();
+		setShowButtons(true);
 	}
 }
 
@@ -212,7 +213,10 @@ void DataViewer::removeRow()
 {
 	SqlTableModel * model = qobject_cast<SqlTableModel *>(ui.tableView->model());
 	if(model)
+	{
 		model->removeRows(ui.tableView->currentIndex().row(), 1);
+		setShowButtons(true);
+	}
 }
 
 void DataViewer::truncateTable()
@@ -285,6 +289,7 @@ void DataViewer::commit()
 	}
 	model->setPendingTransaction(false);
 	resizeViewToContents(model);
+	setShowButtons(true);
 }
 
 void DataViewer::rollback()
@@ -297,6 +302,7 @@ void DataViewer::rollback()
 	model->revertAll();
 	model->setPendingTransaction(false);
 	resizeViewToContents(model);
+	setShowButtons(true);
 }
 
 void DataViewer::copyHandler()
