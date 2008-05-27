@@ -13,6 +13,14 @@
    <string>Data Viewer</string>
   </property>
   <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>37</y>
+     <width>976</width>
+     <height>570</height>
+    </rect>
+   </property>
    <layout class="QGridLayout" >
     <property name="margin" >
      <number>9</number>
@@ -25,15 +33,29 @@
       <property name="orientation" >
        <enum>Qt::Vertical</enum>
       </property>
+      <property name="childrenCollapsible" >
+       <bool>false</bool>
+      </property>
       <widget class="QSplitter" name="splitterBlob" >
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="childrenCollapsible" >
+        <bool>false</bool>
        </property>
        <widget class="QTabWidget" name="tabWidget" >
         <property name="currentIndex" >
          <number>0</number>
         </property>
         <widget class="QWidget" name="tab" >
+         <property name="geometry" >
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>805</width>
+           <height>266</height>
+          </rect>
+         </property>
          <attribute name="title" >
           <string>Full View</string>
          </attribute>
@@ -69,6 +91,14 @@
          </layout>
         </widget>
         <widget class="QWidget" name="tab_2" >
+         <property name="geometry" >
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>840</width>
+           <height>420</height>
+          </rect>
+         </property>
          <attribute name="title" >
           <string>Item View</string>
          </attribute>
@@ -92,6 +122,14 @@
          </layout>
         </widget>
         <widget class="QWidget" name="tab_3" >
+         <property name="geometry" >
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>840</width>
+           <height>420</height>
+          </rect>
+         </property>
          <attribute name="title" >
           <string>Script Output</string>
          </attribute>
@@ -124,23 +162,7 @@
           <number>6</number>
          </property>
          <item row="0" column="0" >
-          <widget class="BlobPreviewWidget" name="blobPreview" >
-           <property name="minimumSize" >
-            <size>
-             <width>150</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="frameShape" >
-            <enum>QFrame::Box</enum>
-           </property>
-           <property name="alignment" >
-            <set>Qt::AlignCenter</set>
-           </property>
-           <property name="wordWrap" >
-            <bool>true</bool>
-           </property>
-          </widget>
+          <widget class="BlobPreviewWidget" native="1" name="blobPreview" />
          </item>
         </layout>
        </widget>
@@ -161,6 +183,14 @@
    </layout>
   </widget>
   <widget class="QToolBar" name="mainToolBar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>551</width>
+     <height>37</height>
+    </rect>
+   </property>
    <property name="toolTip" >
     <string>Open a new standalone window with current results</string>
    </property>
@@ -168,7 +198,10 @@
     <enum>Qt::Horizontal</enum>
    </property>
    <attribute name="toolBarArea" >
-    <number>4</number>
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
    </attribute>
    <addaction name="actionNew_Row" />
    <addaction name="actionRemove_Row" />
@@ -178,6 +211,14 @@
    <addaction name="actionRollback" />
   </widget>
   <widget class="QToolBar" name="exportToolBar" >
+   <property name="geometry" >
+    <rect>
+     <x>551</x>
+     <y>0</y>
+     <width>262</width>
+     <height>37</height>
+    </rect>
+   </property>
    <property name="windowTitle" >
     <string>toolBar_2</string>
    </property>
@@ -185,13 +226,24 @@
     <enum>Qt::Horizontal</enum>
    </property>
    <attribute name="toolBarArea" >
-    <number>4</number>
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
    </attribute>
    <addaction name="actionBLOB_Preview" />
    <addaction name="actionExport_Data" />
    <addaction name="actionClose" />
   </widget>
   <widget class="QToolBar" name="snapshotToolBar" >
+   <property name="geometry" >
+    <rect>
+     <x>813</x>
+     <y>0</y>
+     <width>163</width>
+     <height>37</height>
+    </rect>
+   </property>
    <property name="windowTitle" >
     <string>toolBar_3</string>
    </property>
@@ -199,7 +251,10 @@
     <enum>Qt::Horizontal</enum>
    </property>
    <attribute name="toolBarArea" >
-    <number>4</number>
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
    </attribute>
    <addaction name="actionRipOut" />
   </widget>
@@ -263,20 +318,21 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>SqlEditorWidget</class>
+   <extends>QTextEdit</extends>
+   <header>sqleditorwidget.h</header>
+  </customwidget>
+  <customwidget>
    <class>SqlItemView</class>
    <extends>QWidget</extends>
    <header>sqlitemview.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>SqlEditorWidget</class>
-   <extends>QTextEdit</extends>
-   <header>sqleditorwidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>BlobPreviewWidget</class>
-   <extends>QLabel</extends>
+   <extends>QWidget</extends>
    <header>blobpreviewwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

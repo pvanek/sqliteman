@@ -16,9 +16,17 @@
    <item row="0" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>380</width>
+        <height>247</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>&amp;Text</string>
       </attribute>
@@ -29,6 +37,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_2" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>380</width>
+        <height>247</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>&amp;Blob</string>
       </attribute>
@@ -59,7 +75,7 @@
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>40</width>
            <height>20</height>
@@ -68,7 +84,7 @@
         </spacer>
        </item>
        <item rowspan="3" row="2" column="1" >
-        <widget class="BlobPreviewWidget" name="blobPreviewLabel" >
+        <widget class="BlobPreviewWidget" native="1" name="blobPreviewLabel" >
          <property name="minimumSize" >
           <size>
            <width>200</width>
@@ -81,13 +97,7 @@
            <height>150</height>
           </size>
          </property>
-         <property name="frameShape" >
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="alignment" >
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="wordWrap" >
+         <property name="wordWrap" stdset="0" >
           <bool>true</bool>
          </property>
         </widget>
@@ -97,7 +107,7 @@
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>74</width>
            <height>20</height>
@@ -110,7 +120,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -131,6 +141,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_3" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>840</width>
+        <height>420</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>&amp;Date to String</string>
       </attribute>
@@ -170,7 +188,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -188,7 +206,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -204,8 +222,9 @@
  <customwidgets>
   <customwidget>
    <class>BlobPreviewWidget</class>
-   <extends>QLabel</extends>
+   <extends>QWidget</extends>
    <header>blobpreviewwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

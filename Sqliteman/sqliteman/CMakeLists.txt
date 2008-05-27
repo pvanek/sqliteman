@@ -104,6 +104,7 @@ SET( SQLITEMAN_MOC
 
 SET( SQLITEMAN_UI
     analyzedialog.ui
+    blobpreviewwidget.ui
     constraintsdialog.ui
     createindexdialog.ui
     createtriggerdialog.ui
