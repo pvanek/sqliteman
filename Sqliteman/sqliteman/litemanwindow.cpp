@@ -419,7 +419,7 @@ void LiteManWindow::readSettings()
 	execSqlAct->setChecked(settings.value("sqleditor/show", false).toBool());
 
 	QString fn(settings.value("sqleditor/filename", QString()).toString());
-	if (!fn.isNull() && !fn.isEmpty())
+	if (!fn.isNull() && !fn.isEmpty() && Preferences::instance()->openLastSqlFile())
 	   sqlEditor->setFileName(fn);
 
 	recentDocs = settings.value("recentDocs/files").toStringList();
