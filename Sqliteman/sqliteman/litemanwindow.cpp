@@ -580,9 +580,9 @@ void LiteManWindow::help()
 
 void LiteManWindow::buildQuery()
 {
-	QueryEditorDialog dlg(QueryEditorDialog::BuildQuery, this);
+	QueryEditorDialog dlg(this);
 
-	dlg.resize(500, 400);
+// 	dlg.resize(500, 400);
 	int ret = dlg.exec();
 
 	if(ret == QDialog::Accepted)

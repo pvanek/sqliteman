@@ -121,6 +121,7 @@ SET( SQLITEMAN_UI
     prefsdatadisplaywidget.ui
     prefslnfwidget.ui
     prefssqleditorwidget.ui
+    queryeditordialog.ui
     schemabrowser.ui
     shortcuteditordialog.ui
     sqldelegateui.ui
