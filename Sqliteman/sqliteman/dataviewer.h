@@ -101,6 +101,14 @@ class DataViewer : public QMainWindow
 
 		//! \brief Set position in the models when user switches his views.
 		void tabWidget_currentChanged(int);
+		/*! \brief Handle table view and item view cooperation and
+		synchronization.
+		\warning This slot must be active only when is user in the item view.
+		Sync table to items is done only in the tabWidget switch.
+		Sync items to table is done by SqlItemView::indexChanged() signal;
+		it's catched for sync itself and for BLOB preview as well.
+		*/
+		void itemView_indexChanged();
 };
 
 

@@ -394,20 +394,34 @@ void DataViewer::tableView_selectionChanged(const QItemSelection &, const QItemS
 							   );
 	
 }
-
 void DataViewer::tabWidget_currentChanged(int ix)
 {
 	if (ix == 0)
 	{
-		QModelIndex mi = ui.tableView->currentIndex().sibling(ui.itemView->currentIndex(), 0);
-		ui.tableView->setCurrentIndex(mi);
+		// be carefull with this. See itemView_indexChanged() docs.
+		disconnect(ui.itemView, SIGNAL(indexChanged()),
+				this, SLOT(itemView_indexChanged()));
 	}
 	if (ix == 1)
-		ui.itemView->setCurrentIndex(ui.tableView->currentIndex().row());
+	{
+		ui.itemView->setCurrentIndex(ui.tableView->currentIndex().row(),
+									 ui.tableView->currentIndex().column());
+		// be carefull with this. See itemView_indexChanged() docs.
+		connect(ui.itemView, SIGNAL(indexChanged()),
+				this, SLOT(itemView_indexChanged()));
+	}
 	
 	if (ui.actionBLOB_Preview->isChecked())
 		ui.blobPreviewBox->setVisible(ix!=2);
 	ui.statusText->setVisible(ix != 2);
+}
+
+void DataViewer::itemView_indexChanged()
+{
+	ui.tableView->setCurrentIndex(
+		ui.tableView->model()->index(ui.itemView->currentIndex(),
+								     ui.itemView->currentColumn())
+							);
 }
 
 void DataViewer::showSqlScriptResult(QString line)

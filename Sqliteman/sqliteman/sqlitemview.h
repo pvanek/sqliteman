@@ -37,10 +37,21 @@ class SqlItemView : public QWidget, public Ui::SqlItemView
 		\param row is the row number starting from 0.
 		Use model->currentIndex().row() from "real" indexes for it.
 		*/
-		void setCurrentIndex(int row);
+		void setCurrentIndex(int row, int column);
 		int currentIndex();
+		int currentColumn();
+
+	signals:
+		/*! Emitted when there is a focus change in
+		the m_mapper's widgets only. It's used in DataViewer
+		for syncing BLOB preview and table view indexes. */
+		void indexChanged();
 
 	private:
+		//! Current active "column"
+		int m_column;
+		int m_count;
+
 		/*! \brief A "shadow" widget for new layout recreated every time is the model set.
 		This widget is owned by scroll area. It's deleted and re-created on every setModel()
 		call. */
@@ -51,6 +62,9 @@ class SqlItemView : public QWidget, public Ui::SqlItemView
 	private slots:
 		//! \brief Set the navigation buttons state and "X of Y" label.
 		void updateButtons(int row);
+		/*! Handle app focus change. It chatches only m_mapper's
+		widgets. It emits indexChanged() for DataViewer. */
+		void aApp_focusChanged(QWidget* old, QWidget* now);
 };
 
 #endif
