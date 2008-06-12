@@ -111,6 +111,7 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 	}
 
 	delete(ui.tableView->model());
+	delete(ui.tableView->selectionModel());
 	ui.tableView->setModel(model);
 	connect(ui.tableView->selectionModel(),
 			SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),

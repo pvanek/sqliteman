@@ -844,13 +844,13 @@ void LiteManWindow::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
 		dataViewer->freeResources();
 		if(item->type() == TableTree::ViewType || item->type() == TableTree::SystemType)
 		{
-			SqlQueryModel * model = new SqlQueryModel(this);
+			SqlQueryModel * model = new SqlQueryModel(0);
 			model->setQuery(QString("select * from %1.%2").arg(item->text(1)).arg(item->text(0)), QSqlDatabase::database(SESSION_NAME));
 			dataViewer->setTableModel(model, false);
 		}
 		else
 		{
-			SqlTableModel * model = new SqlTableModel(this, QSqlDatabase::database(attachedDb[item->text(1)]));
+			SqlTableModel * model = new SqlTableModel(0, QSqlDatabase::database(attachedDb[item->text(1)]));
 			model->setSchema(item->text(1));
 			model->setTable(item->text(0));
 			model->select();
