@@ -6,7 +6,7 @@
         any way to check e.g. constraints, or trigger modification on table before the
         statement run. So the error can be raised for example when you want to add
         already presented number into autoincrement column etc.</p></div></dd><dt><span class="term">Column Settings</span></dt><dd><p>Setup every column with custom action. Column actions are
-        prepared depending their data type and/or size.</p></dd></dl></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2536247"></a>Column Settings</h3></div></div></div><div class="variablelist"><dl><dt><span class="term">Autonumber</span></dt><dd><p>Insert MAX()+1 for current number based column. Values inserted are unique,
+        prepared depending their data type and/or size.</p></dd></dl></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2551205"></a>Column Settings</h3></div></div></div><div class="variablelist"><dl><dt><span class="term">Autonumber</span></dt><dd><p>Insert MAX()+1 for current number based column. Values inserted are unique,
           so it should be used for Primary Keys, Autonumber columns and columns with unique indexes.</p></dd><dt><span class="term">Random Number</span></dt><dd><p>Insert pseudo random number into column. If there is a size settings for
           this column (e.g. NUMBER(3)) the size is used.</p></dd><dt><span class="term">Random Text</span></dt><dd><p>Insert random text string into column. If there is a size settings for
           this column (e.g. VARCHAR2(3)) the size is used.</p></dd><dt><span class="term">Prefixed Text</span></dt><dd><p>Insert text string with custom prefix. For example set the prefix as "testvalue_"
