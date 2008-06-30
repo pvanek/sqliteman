@@ -485,6 +485,8 @@ QString toSQLParse::editorTokenizer::remaining(bool eol)
 	}
 }
 
+/*#define TOPARSE_DEBUG
+#include <QtDebug>*/
 toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare, bool lst)
 {
 	statement ret(statement::Statement);
@@ -501,23 +503,36 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 	{
 		QString upp = token.toUpper();
 
-#ifdef TOPARSE_DEBUG
-		printf("%s (%d)\n", (const char*)token.toUtf8(), tokens.line());
-#endif
-
 		if (first.isNull() && !token.startsWith(("/*")) && !token.startsWith("--") && !token.startsWith("//"))
 			realfirst = first = upp;
+
+#ifdef TOPARSE_DEBUG
+        printf("%s (%d)\n", (const char*)token.toUtf8(), tokens.line());
+        printf("    %s - %s\n", (const char*)first.toUtf8(), (const char*)realfirst.toUtf8());
+#endif
 
 // SQLITEMAN
 		 if (upp == ("PROCEDURE") ||
 				 upp == ("FUNCTION") ||
 				 upp == ("PACKAGE"))
+         {
+//              qDebug() << "PROCEDURE";
 			 block = true;
+         }
 
 		 if (upp == ("SELF"))
+         {
+//              qDebug() << "SELF";
 			 block = false;
+         }
 
-		 if (first != ("END") && ((first == ("IF") && upp == ("THEN")) ||
+        if (upp == "BEGIN" && (first.isNull() || first == "BEGIN"))
+        {
+//             qDebug() << "plain BEGIN";
+            ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
+            nokey = false;            
+        }
+		else if (first != ("END") && ((first == ("IF") && upp == ("THEN")) ||
 								  upp == ("LOOP") ||
 								  upp == ("DO") ||
 								  (/*syntax.declareBlock()*/true && upp == ("DECLARE")) ||
@@ -525,6 +540,7 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 								  (block && upp == ("IS")) ||
 								  ((!declare || block) && upp == ("BEGIN"))))
 		 {
+//              qDebug() << "first != (\"END\") ";
 			 block = false;
 			 statement blk(statement::Block);
 			 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
@@ -555,6 +571,7 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 				   upp == ("EXCEPTION") ||
 				   first == ("ELSE")) && !lst)
 		 {
+//              qDebug() << "else if first==IF";
 			 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
 			 return ret;
 		 }
@@ -567,6 +584,7 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 				  first == ("REMARK") ||
 				  first == ("REM"))
 		 {
+//              qDebug() << "ASSIGN";
 			 ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
 			 int line = tokens.line();
 			 int offset = tokens.offset();
@@ -593,11 +611,11 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 				  upp != ("DESC") &&
 				  upp != ("NULL")) && !nokey)
 		{
-			ret.subTokens().insert(ret.subTokens().end(), statement(statement::Keyword, token, tokens.line()));
-			nokey = false;
+
 		}
 		else if (upp == ("("))
 		{
+//             qDebug() << "start (";
 			ret.subTokens().insert(ret.subTokens().end(), statement(statement::Token, token, tokens.line()));
 			statement lst = parseStatement(tokens, false, true);
 			statement t = toPop(lst.subTokens());
@@ -625,17 +643,20 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 		}
 		else if (upp == (")"))
 		{
+//             qDebug() << "end )";
 			ret.Type = statement::List;
 			ret.subTokens().insert(ret.subTokens().end(), statement(statement::Token, token, tokens.line()));
 			return ret;
 		}
 		else if (upp == (";"))
 		{
+//             qDebug() << "bodkociarka";
 			ret.subTokens().insert(ret.subTokens().end(), statement(statement::Token, token, tokens.line()));
 			return ret;
 		}
 		else if (upp.startsWith(("/*+")) || upp.startsWith(("--+")))
 		{
+//             qDebug() << "hint --+";
 			QString com = token;
 			if (com.startsWith(("--+")))
 				com = ("/*+ ") + com.mid(3) + (" */");
@@ -644,6 +665,7 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 		}
 		else if (upp.startsWith(("/*")) || upp.startsWith(("--")) || upp.startsWith("//"))
 		{
+//             qDebug() << "comment";
 			if ( ret.subTokens().empty() )
 			{
 				if (ret.Comment.isNull())
@@ -662,13 +684,20 @@ toSQLParse::statement toSQLParse::parseStatement(tokenizer &tokens, bool declare
 		}
 		else
 		{
+//             qDebug() << "plain else" <<token<< tokens.line();
 			ret.subTokens().insert(ret.subTokens().end(), statement(statement::Token, token, tokens.line()));
 			nokey = (token == ("."));
 		}
 		if (upp == ("AS") || upp == ("IS"))
+        {
+//             qDebug() << "setting first: " << upp;
 			first = upp;
+        }
 		else if (first == ("IS") && upp == ("NULL"))
+        {
+//             qDebug() << "setting first (real): " << realfirst;
 			first = realfirst;
+        }
 	}
 	return ret;
 }
