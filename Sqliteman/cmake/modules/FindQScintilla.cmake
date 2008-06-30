@@ -18,7 +18,10 @@ SET(QSCINTILLA_FOUND "NO")
 
 IF(QT4_FOUND)
     FIND_PATH(QSCINTILLA_INCLUDE_DIR qsciglobal.h
-    "${QT_INCLUDE_DIR}/Qsci"
+              PATHS 
+              "${QT_INCLUDE_DIR}/Qsci"
+              /usr/include/Qsci
+              /usr/include/
     )
 
     SET(QSCINTILLA_NAMES ${QSCINTILLA_NAMES} qscintilla2 libqscintilla2)
@@ -46,6 +49,7 @@ ENDIF(QT4_FOUND)
 IF (QSCINTILLA_FOUND)
   IF (NOT QScintilla_FIND_QUIETLY)
     MESSAGE(STATUS "Found QScintilla2: ${QSCINTILLA_LIBRARY}")
+    MESSAGE(STATUS "         includes: ${QSCINTILLA_INCLUDE_DIR}")
   ENDIF (NOT QScintilla_FIND_QUIETLY)
 ELSE (QSCINTILLA_FOUND)
   IF (QScintilla_FIND_REQUIRED)
