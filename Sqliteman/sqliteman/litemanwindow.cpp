@@ -180,6 +180,8 @@ void LiteManWindow::initUI()
 			dataViewer, SLOT(showSqlScriptResult(QString)));
 	connect(sqlEditor, SIGNAL(rebuildViewTree(QString, QString)),
 			schemaBrowser->tableTree, SLOT(buildViewTree(QString,QString)));
+	connect(sqlEditor, SIGNAL(buildTree()),
+			schemaBrowser->tableTree, SLOT(buildTree()));
 }
 
 void LiteManWindow::initActions()
@@ -467,9 +469,9 @@ void LiteManWindow::open(const QString & file)
 		fileName = file;
 	else
 		fileName = QFileDialog::getOpenFileName(this,
-			                    tr("Open Database"),
-			                    QDir::currentPath(),
-			                    tr("SQLite database (*)"));
+								tr("Open Database"),
+								QDir::currentPath(),
+								tr("SQLite database (*)"));
 
 	if(fileName.isNull())
 		return;
@@ -839,7 +841,7 @@ void LiteManWindow::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
 		return;
 
 	if (item->type() == TableTree::TableType || item->type() == TableTree::ViewType
-	    || item->type() == TableTree::SystemType)
+		|| item->type() == TableTree::SystemType)
 	{
 		dataViewer->freeResources();
 		if(item->type() == TableTree::ViewType || item->type() == TableTree::SystemType)
@@ -973,8 +975,8 @@ void LiteManWindow::attachDatabase()
 	bool ok;
 	QFileInfo f(fileName);
 	QString schema = QInputDialog::getText(this, tr("Attach Database"),
-                                          tr("Enter a Schema Alias:"), QLineEdit::Normal,
-                                          f.baseName(), &ok);
+										  tr("Enter a Schema Alias:"), QLineEdit::Normal,
+										  f.baseName(), &ok);
 	if (!ok || schema.isEmpty())
 		return;
 	if (!Database::execSql(QString("attach database '%1' as \"%2\";").arg(fileName).arg(schema)))

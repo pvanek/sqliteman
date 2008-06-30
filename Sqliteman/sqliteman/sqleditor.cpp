@@ -288,7 +288,11 @@ void SqlEditor::actionRun_as_Script_triggered()
 				}
 			}
 			else
+			{
+				if (Utils::updateObjectTree(query.lastQuery()))
+					emit buildTree();
 				emit showSqlScriptResult("-- " + tr("No error"));
+			}
 			emit showSqlScriptResult("--");
 		}
 	}

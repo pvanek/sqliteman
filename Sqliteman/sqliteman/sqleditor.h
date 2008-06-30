@@ -52,6 +52,11 @@ class SqlEditor : public QMainWindow
 		/*! \brief Emitted on demand in the script.
 		Line is appended to the script output. */
 		void showSqlScriptResult(QString line);
+
+		/*! \brief Request for complete object tree refresh.
+		It's used in "Run as Script" */
+		void buildTree();
+		/*! \brief Rebuild part of the tree */
 		void rebuildViewTree(QString schema, QString name);
 
 	private:
