@@ -7,9 +7,9 @@
     </p></div><p>In this dialog you can <span class="guibutton">Add</span> and <span class="guibutton">Remove</span> table
   columns and set the options for new ones.</p><p>
           </p><div class="screenshot"><div class="mediaobject"><img src="alterTable.png" alt="Alter table dialog"></div></div><p>
-          </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2550813"></a>Steps to alter table</h3></div></div></div><div class="orderedlist"><ol type="1"><li><p>Remember triggers and indexes from the original table</p></li><li><p>Rename the original table with temporary name</p></li><li><p>Create new table with original name containing new column structure</p></li><li><p>Perform INSERT INTO original SELECT FROM temporary</p></li><li><p>Drop temporary table</p></li><li><p>Try to recreate original indexes and triggers</p></li></ol></div><p>When there is no request for column dropping only the <span><strong class="command">ALTER TABLE ADD COLUMN</strong></span>
+          </p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id2526118"></a>Steps to alter table</h3></div></div></div><div class="orderedlist"><ol type="1"><li><p>Remember triggers and indexes from the original table</p></li><li><p>Rename the original table with temporary name</p></li><li><p>Create new table with original name containing new column structure</p></li><li><p>Perform INSERT INTO original SELECT FROM temporary</p></li><li><p>Drop temporary table</p></li><li><p>Try to recreate original indexes and triggers</p></li></ol></div><p>When there is no request for column dropping only the <span><strong class="command">ALTER TABLE ADD COLUMN</strong></span>
     is performed.</p><p>A sample log output from add one column and remove on too in one batch.
-      You can see two failed index recreation due missing column (that dropped one):</p><div class="example"><a name="id2550881"></a><p class="title"><b>Example 7.1. Full Alter Table Example</b></p><pre class="programlisting">
+      You can see two failed index recreation due missing column (that dropped one):</p><div class="example"><a name="id2526183"></a><p class="title"><b>Example 7.1. Full Alter Table Example</b></p><pre class="programlisting">
 Rename original table to _alter0_tags
 Creating new table: tags
 Begin Transaction

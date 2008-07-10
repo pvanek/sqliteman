@@ -1469,6 +1469,7 @@ in Data Viewer. You can get some ugly collisions then.</para></important>
   <varlistentry>
     <term><guiicon><inlinegraphic fileref="runsql.png"/>Run current statement</guiicon>
     <shortcut><keycap>F9</keycap></shortcut>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>Return</keycap></keycombo></shortcut>
     </term>
     <listitem><para><action>The current statement is the SQL block under cursor or
      the text in editor selection.</action></para></listitem>
@@ -1483,7 +1484,7 @@ in Data Viewer. You can get some ugly collisions then.</para></important>
 
   <varlistentry>
     <term><guiicon><inlinegraphic fileref="runscript.png"/>Run Multiple Statements</guiicon>
-    <shortcut><keycap>F6</keycap></shortcut>
+    <shortcut><keycap>F5</keycap></shortcut>
     </term>
     <listitem><para><action>Use this action when you need to run more statements in one batch.</action></para>
     <para>If there is a selection in editor, all statements in this selection will be used. If there is no
@@ -1783,7 +1784,7 @@ from SQL Editor. You cannot commit your changes by <command>COMMIT</command> in 
 
 <sect1 id="dataExport">
   <title>Export Data</title>
-  <para>Current result set in the <link linkend="dataViever">Data Viewer</link> could be exported
+  <para>Current result set in the <link linkend="dataViewer">Data Viewer</link> could be exported
     in this dialog. The export will contain all data even although there are records waiting for fetch.
     All missing data are fetched before export starts.</para>
 

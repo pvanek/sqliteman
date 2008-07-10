@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressDialog>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QShortcut>
 
 #include <qscilexer.h>
 
@@ -34,6 +35,7 @@ SqlEditor::SqlEditor(QWidget * parent)
 	//m_fileWatcher = new QFileSystemWatcher(this);
 
 	ui.sqlTextEdit->prefsChanged();
+    // addon run sql shortcut
 
 	changedLabel = new QLabel(this);
 	cursorTemplate = tr("Col: %1 Row: %2/%3");
@@ -68,8 +70,14 @@ SqlEditor::SqlEditor(QWidget * parent)
 	ui.actionCreateView->setIcon(Utils::getIcon("view.png"));
 	ui.actionSearch->setIcon(Utils::getIcon("system-search.png"));
 
+    QShortcut * alternativeSQLRun = new QShortcut(this);
+    alternativeSQLRun->setKey(Qt::CTRL + Qt::Key_Return);
+
 	connect(ui.action_Run_SQL, SIGNAL(triggered()),
 			this, SLOT(action_Run_SQL_triggered()));
+    // alternative run action for Ctrl+Enter
+    connect(alternativeSQLRun, SIGNAL(activated()),
+            this, SLOT(action_Run_SQL_triggered()));
 	connect(ui.actionRun_Explain, SIGNAL(triggered()),
 			this, SLOT(actionRun_Explain_triggered()));
 	connect(ui.actionRun_as_Script, SIGNAL(triggered()),
