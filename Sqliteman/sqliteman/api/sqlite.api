@@ -1,4 +1,9 @@
 select
+avg
+sum
+min
+max
+count
 from
 where
 or
