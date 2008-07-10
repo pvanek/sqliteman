@@ -125,7 +125,11 @@ bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)
 	QString cached;
 	if (qobject_cast<QSqlQueryModel*>(model)->rowCount() != 0
 		   && qobject_cast<QSqlQueryModel*>(model)->canFetchMore())
+    {
 		cached = DataViewer::canFetchMore();
+    }
+    else
+        cached = "";
 
 	setStatusText(tr("Query OK\nRow(s) returned: %1 %2").arg(model->rowCount()).arg(cached));
 
