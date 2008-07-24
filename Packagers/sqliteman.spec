@@ -11,19 +11,19 @@ URL:          http://sqliteman.com
 License:      GPL
 Group:        Development/Databases
 Summary:      Lightweigth but powerfull Sqlite3 manager. Development snapshot.
-Version:      1.1
+Version:      1.3.svn
 Release:      %{builddate}
 Source:       %{name}-%{version}.tar.gz
 
 %if 0%{?suse_version}
-Requires:     libqt4 >= 4.2.0 libqt4-sql-sqlite >= 4.2.0 sqlite
-BuildRequires: libqt4-devel >= 4.2.0 libqt4-sql-sqlite cmake
+Requires:     libqt4 >= 4.3.0 libqt4-sql-sqlite >= 4.3.0 sqlite
+BuildRequires: libqt4-devel >= 4.3.0 libqt4-sql-sqlite cmake >= 2.6.0
 %endif
 
 #%if 0%{?fedora_version}
 %if %{_target_vendor} == redhat
-Requires:     qt4 >= 4.2.0 qt4-sqlite >= 4.2.0
-BuildRequires: qt4-devel >= 4.2.0 qt4-sqlite cmake gcc-c++
+Requires:     qt4 >= 4.3.0 qt4-sqlite >= 4.3.0
+BuildRequires: qt4-devel >= 4.3.0 qt4-sqlite cmake 2.6.0 gcc-c++
 %endif
 
 
@@ -31,7 +31,7 @@ BuildRoot:    %{_tmppath}/%{name}-%{version}-build
 
 %description
 Warning: this is a bleeding edge development version. You
-can use stable 1.0 version if you observe any problems.
+can use stable 1.2 version if you observe any problems.
 The best developer's and/or admin's GUI tool for Sqlite3
 in the world. No joking here (or just a bit only) - it
 contains the most complette feature set of all tools available.
