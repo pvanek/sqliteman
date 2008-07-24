@@ -19,13 +19,13 @@ BlobPreviewWidget::BlobPreviewWidget(QWidget * parent)
 void BlobPreviewWidget::setBlobData(QVariant data)
 {
 	m_data = data.toByteArray();
-	createPreview(m_data);
+	createPreview();
 }
 
-void BlobPreviewWidget::createPreview(QByteArray data)
+void BlobPreviewWidget::createPreview()
 {
 	QPixmap pm;
-	pm.loadFromData(data);
+	pm.loadFromData(m_data);
 
 	if (pm.isNull())
 		m_blobPreview->setText("<qt>" + tr("File content cannot be displayed") + "</qt>");
@@ -42,24 +42,24 @@ void BlobPreviewWidget::createPreview(QByteArray data)
 		else
 			m_blobPreview->setPixmap(pm);
 	}
-
 	m_blobSize->setText(formatSize(m_data.size()));
 }
 
 void BlobPreviewWidget::setBlobFromFile(const QString & fileName)
 {
-	QByteArray pm;
 	QFile file(fileName);
 	if (file.open(QIODevice::ReadOnly))
 	{
-		pm = file.readAll();
+		m_data = file.readAll();
 	}
-	createPreview(pm);
+	else
+		m_data = QByteArray();
+	createPreview();
 }
 
 void BlobPreviewWidget::resizeEvent(QResizeEvent * event)
 {
-	createPreview(m_data);
+	createPreview();
 	QWidget::resizeEvent(event);
 }
 

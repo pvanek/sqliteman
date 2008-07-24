@@ -41,6 +41,8 @@ void MultiEditDialog::setData(const QVariant & data)
 	// It can be done in text editor.
 	if (data.type() == QVariant::ByteArray)
 		tabWidget->setCurrentIndex(1);
+	else
+		tabWidget->setCurrentIndex(0);
 }
 
 QVariant MultiEditDialog::data()

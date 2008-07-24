@@ -29,7 +29,7 @@ class BlobPreviewWidget : public QWidget, public Ui::BlobPreviewWidget
 		QByteArray m_data;
 
 		void resizeEvent(QResizeEvent * event);
-		void createPreview(QByteArray data);
+		void createPreview();
 
 		/*! \brief Format m_data size to the human readable form.
 		It's taken from FatRat http://fatrat.dolezel.info/. Cheers!
