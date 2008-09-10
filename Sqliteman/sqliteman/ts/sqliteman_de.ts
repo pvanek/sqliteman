@@ -164,7 +164,6 @@
         <translation>View verändern</translation>
     </message>
     <message>
-        <location filename="" line="2097269"/>
         <source>Error while altering view (drop phase): %2.
 
 %3</source>
@@ -1048,7 +1047,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="184"/>
         <source>&amp;Open...</source>
-        <translation>Öf&amp;nen ...</translation>
+        <translation>Öff&amp;nen ...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="185"/>
@@ -1389,32 +1388,26 @@ Hinweis: Bauen Sie Ihre Abfrage im Editor</translation>
         <translation>Datenbank exportieren</translation>
     </message>
     <message>
-        <location filename="" line="2097269"/>
         <source>The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program.</source>
         <translation type="obsolete">Prozeß schlug fehl. Entweder fehlt das benötigte Programm, oder sie haben nicht das Recht es auszuführen.</translation>
     </message>
     <message>
-        <location filename="" line="2097269"/>
         <source>The process crashed some time after starting successfully.</source>
         <translation type="obsolete">Das Programm stürzte nach einiger Zeit ab.</translation>
     </message>
     <message>
-        <location filename="" line="2097269"/>
         <source>An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel.</source>
         <translation type="obsolete">Fehler beim Schreiben zum Prozeß. Entweder wurde er nicht gestartet, oder der Eingabekanal worde geschlossen.</translation>
     </message>
     <message>
-        <location filename="" line="2097269"/>
         <source>An error occurred when attempting to read from the process. For example, the process may not be running.</source>
         <translation type="obsolete">Fehler beim Lesen vom Prozeß. Entweder wurde er nicht gestartet, oder der Eingabekanal worde geschlossen.</translation>
     </message>
     <message>
-        <location filename="" line="2097269"/>
         <source>An unknown error occurred.</source>
         <translation type="obsolete">Unbekannter Fehler.</translation>
     </message>
     <message>
-        <location filename="" line="2097269"/>
         <source>Error creating the dump. Reason: %1</source>
         <translation type="obsolete">Fehler beim erzeugen des Dumps. Grund: %1</translation>
     </message>
