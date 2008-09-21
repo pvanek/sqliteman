@@ -160,6 +160,12 @@ class Database
 		*/
 		static QString pragma(const QString & name);
 
+		/*! \brief Try to load given extensions
+		\param list a QStringList with full paths to load in loop
+		\retval bool true on full success
+		*/
+		static bool loadExtension(const QStringList & list);
+
 	private:
 		//! \brief Error feedback to the user.
 		static void exception(const QString & message);

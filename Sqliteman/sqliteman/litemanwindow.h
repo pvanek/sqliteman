@@ -133,6 +133,7 @@ class LiteManWindow : public QMainWindow
 		void vacuumDialog();
 		void attachDatabase();
 		void detachDatabase();
+		void loadExtension();
 
 		void createTrigger();
 		void alterTrigger();
@@ -213,6 +214,7 @@ class LiteManWindow : public QMainWindow
 		QAction * vacuumAct;
 		QAction * attachAct;
 		QAction * detachAct;
+		QAction * loadExtensionAct;
 		QAction * refreshTreeAct;
 
 		QAction * consTriggAct;

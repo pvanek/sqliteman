@@ -285,4 +285,55 @@ QString Database::pragma(const QString & name)
 		return query.value(0).toString();
 	return tr("Not Set");
 }
+#include <QtDebug>
+#include <QSqlDriver>
+#include <sqlite3.h>
 
+bool Database::loadExtension(const QStringList & list)
+{
+#ifndef SQLITE_OMIT_LOAD_EXTENSION
+#warning foo
+	QVariant v = QSqlDatabase::database(SESSION_NAME).driver()->handle();
+	if (!v.isValid())
+	{
+		exception(tr("DB driver is not valid"));
+		return false;
+	}
+	if (qstrcmp(v.typeName(), "sqlite3*") != 0)
+	{
+		exception(tr("DB type name does not equal sqlite3"));
+		return false;
+	}
+
+	sqlite3 *handle = *static_cast<sqlite3 **>(v.data());
+	if (handle == 0)
+	{
+		exception(tr("DB handler is not valid"));
+		return false;
+	}
+
+	bool retval = true;
+	foreach(QString f, list)
+	{
+		qDebug() << "load: "<< f;
+
+		const char *zFile, *zProc;
+		char *zErrMsg = 0;
+		int rc;
+		zFile = f.toUtf8().data();
+		zProc = 0;
+// 		open_db(p);
+		rc = sqlite3_load_extension(handle, zFile, zProc, &zErrMsg);
+		if (rc != SQLITE_OK)
+		{
+			exception(tr("Error loading exception (%1):\n(%2)").arg(f).arg(zErrMsg));
+			sqlite3_free(zErrMsg);
+			retval = false;
+		}
+	}
+
+	return retval;
+#else
+	return true;
+#endif
+}

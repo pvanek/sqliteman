@@ -314,6 +314,9 @@ void LiteManWindow::initActions()
 	detachAct = new QAction(tr("&Detach Database"), this);
 	connect(detachAct, SIGNAL(triggered()), this, SLOT(detachDatabase()));
 
+	loadExtensionAct = new QAction(tr("&Load Extension"), this);
+	connect(loadExtensionAct, SIGNAL(triggered()), this, SLOT(loadExtension()));
+
 	refreshTreeAct = new QAction(tr("&Refresh Object Tree"), this);
 	connect(refreshTreeAct, SIGNAL(triggered()), schemaBrowser->tableTree, SLOT(buildTree()));
 
@@ -352,6 +355,8 @@ void LiteManWindow::initMenus()
 	adminMenu->addAction(vacuumAct);
 	adminMenu->addSeparator();
 	adminMenu->addAction(attachAct);
+	adminMenu->addSeparator();
+	adminMenu->addAction(loadExtensionAct);
 
 	QMenu * helpMenu = menuBar()->addMenu(tr("&Help"));
 	helpMenu->addAction(helpAct);
@@ -1008,6 +1013,24 @@ void LiteManWindow::detachDatabase()
 	attachedDb.remove(dbname);
 
 	delete schemaBrowser->tableTree->currentItem();
+}
+
+void LiteManWindow::loadExtension()
+{
+	QString mask(tr("Sqlite3 extensions "));
+#ifdef Q_WS_WIN
+	mask += "(*.dll)";
+#else
+	mask += "(*.so)";
+#endif
+
+	QStringList files = QFileDialog::getOpenFileNames(
+						this,
+						tr("Select one or more Sqlite3 extensions to load"),
+						QDir::currentPath(),
+						mask);
+	if (files.count() != 0)
+		Database::loadExtension(files);
 }
 
 void LiteManWindow::createTrigger()
