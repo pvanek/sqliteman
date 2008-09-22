@@ -6,9 +6,10 @@ IF (WANT_INTERNAL_QSCINTILLA)
     ADD_SUBDIRECTORY(qscintilla2)
 ENDIF(WANT_INTERNAL_QSCINTILLA)
 # build extensions if there is sqlite3 lib present
-IF (SQLITE_FOUND)
+ADD_SUBDIRECTORY(sqlite)
+# IF (SQLITE_FOUND)
 	ADD_SUBDIRECTORY(extensions)
-ENDIF (SQLITE_FOUND)
+# ENDIF (SQLITE_FOUND)
 
 
 SET( SQLITEMAN_SRC
@@ -123,6 +124,7 @@ SET( SQLITEMAN_UI
     populatordialog.ui
     preferencesdialog.ui
     prefsdatadisplaywidget.ui
+	prefsextensionwidget.ui
     prefslnfwidget.ui
     prefssqleditorwidget.ui
     queryeditordialog.ui
@@ -164,6 +166,8 @@ ELSE (WANT_INTERNAL_QSCINTILLA)
     INCLUDE_DIRECTORIES( ${QSCINTILLA_INCLUDE_DIR} )
 ENDIF (WANT_INTERNAL_QSCINTILLA)
 
+INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR}/sqliteman/sqlite )
+
 
 IF (MSVC)
     # this is a must to switch off subsystem:console (console window poping up)
@@ -199,9 +203,13 @@ ELSE (WANT_INTERNAL_QSCINTILLA)
     TARGET_LINK_LIBRARIES(${EXE_NAME} ${QSCINTILLA_LIBRARIES} ${QT_LIBRARIES})
 ENDIF (WANT_INTERNAL_QSCINTILLA)
 
-IF (SQLITE_FOUND)
-	TARGET_LINK_LIBRARIES(${EXE_NAME} ${SQLITE_LIBRARIES})
-ENDIF (SQLITE_FOUND)
+# sqlite is now included in the sqliteman source due system-lib limitations
+# e.g. disabled extensions stuff etc.
+# IF (SQLITE_FOUND)
+# 	TARGET_LINK_LIBRARIES(${EXE_NAME} ${SQLITE_LIBRARIES})
+# ENDIF (SQLITE_FOUND)
+SET (SQLITE_LIB sqlite_lib)
+TARGET_LINK_LIBRARIES(${EXE_NAME} ${SQLITE_LIB})
 
 # compress it
 # IF (SELF_PACKER_FOR_EXECUTABLE)

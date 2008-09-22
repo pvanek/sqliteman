@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 
 #include "database.h"
+#include "preferences.h"
 
 
 void Database::exception(const QString & message)
@@ -291,8 +292,6 @@ QString Database::pragma(const QString & name)
 
 bool Database::loadExtension(const QStringList & list)
 {
-#ifndef SQLITE_OMIT_LOAD_EXTENSION
-#warning foo
 	QVariant v = QSqlDatabase::database(SESSION_NAME).driver()->handle();
 	if (!v.isValid())
 	{
@@ -311,6 +310,12 @@ bool Database::loadExtension(const QStringList & list)
 		exception(tr("DB handler is not valid"));
 		return false;
 	}
+
+    if (sqlite3_enable_load_extension(handle, 1) != SQLITE_OK)
+    {
+        exception(tr("Failed to enable extension loading"));
+        return false;
+    }
 
 	bool retval = true;
 	foreach(QString f, list)
@@ -333,7 +338,4 @@ bool Database::loadExtension(const QStringList & list)
 	}
 
 	return retval;
-#else
-	return true;
-#endif
 }

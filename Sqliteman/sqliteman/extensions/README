@@ -1,0 +1,8 @@
+Files *.c are 3rd party extensions taken from
+sqlite.org and/or its mailing list. These files
+are distributed under Public Domain license.
+These files are not modified in any way. Copyright
+stays for its original authors.
+
+Files test.* are part of testing subproject.
+It's not compiled in the Sqliteman main package.

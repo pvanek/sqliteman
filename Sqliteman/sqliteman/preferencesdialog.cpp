@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 #include <QStyleFactory>
 #include <QSettings>
 #include <QColorDialog>
+#include <QStringListModel>
+#include <QFileDialog>
 #include <qscilexersql.h>
 
 #include "preferencesdialog.h"
@@ -47,6 +49,69 @@ PrefsSQLEditorWidget::PrefsSQLEditorWidget(QWidget * parent)
 			"      like '%foo%';\n");
 }
 
+PrefsExtensionWidget::PrefsExtensionWidget(QWidget * parent)
+	: QWidget(parent)
+{
+	setupUi(this);
+
+    m_paths = new QStringListModel(this);
+    pathsListView->setModel(m_paths);
+    m_ext = new QStringListModel(this);
+    extensionsListView->setModel(m_ext);
+
+    connect(allowExtensionsBox, SIGNAL(clicked(bool)),
+             this, SLOT(allowExtensionsBox_clicked(bool)));
+    connect(addPathButton, SIGNAL(clicked()),
+             this, SLOT(addPathButton_clicked()));
+    connect(removePathButton, SIGNAL(clicked()),
+             this, SLOT(removePathButton_clicked()));
+
+    reload();
+}
+
+void PrefsExtensionWidget::allowExtensionsBox_clicked(bool checked)
+{
+    extensionsTab->setEnabled(checked);
+}
+
+void PrefsExtensionWidget::addPathButton_clicked()
+{
+    QString dir = QFileDialog::getExistingDirectory(this,
+                                                     tr("Open Directory"),
+                                                     QDir::currentPath(),
+                                                     QFileDialog::ShowDirsOnly);
+    if (dir.isNull())
+        return;
+    QStringList l = m_paths->stringList();
+    l.append(dir);
+    m_paths->setStringList(l);
+    reload();
+}
+
+void PrefsExtensionWidget::reload()
+{
+    QStringList l;
+    QStringList mask;
+#ifdef Q_WS_WIN
+    mask.append("*.dll");
+#else
+    mask.append("*.so");
+#endif
+
+    foreach(QString s, m_paths->stringList())
+    {
+        QDir d(s);
+        foreach(QString i, d.entryList(mask))
+            l.append(s+i);
+    }
+
+    m_ext->setStringList(l);
+}
+
+void PrefsExtensionWidget::removePathButton_clicked()
+{
+}
+
 
 PreferencesDialog::PreferencesDialog(QWidget * parent)
 	: QDialog(parent)
@@ -56,10 +121,12 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	m_prefsData = new PrefsDataDisplayWidget(this);
 	m_prefsLNF = new PrefsLNFWidget(this);
 	m_prefsSQL = new PrefsSQLEditorWidget(this);
+	m_prefsExtension = new PrefsExtensionWidget(this);
 
 	stackedWidget->addWidget(m_prefsLNF);
 	stackedWidget->addWidget(m_prefsData);
 	stackedWidget->addWidget(m_prefsSQL);
+	stackedWidget->addWidget(m_prefsExtension);
 	stackedWidget->setCurrentIndex(0);
 
 	listWidget->addItem(new QListWidgetItem(Utils::getIcon("preferences-desktop-display.png"),
@@ -68,6 +135,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 						m_prefsData->titleLabel->text(), listWidget));
 	listWidget->addItem(new QListWidgetItem(Utils::getIcon("kate.png"),
 						m_prefsSQL->titleLabel->text(), listWidget));
+	listWidget->addItem(new QListWidgetItem(Utils::getIcon("extensions.png"),
+						m_prefsExtension->titleLabel->text(), listWidget));
 	listWidget->setCurrentRow(0);
 
 	connect(m_prefsData->nullBgButton, SIGNAL(clicked()),
@@ -144,6 +213,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	m_syStringColor = prefs->syStringColor();
 	m_syCommentColor = prefs->syCommentColor();
 	resetEditorPreview();
+
+    m_prefsExtension->allowExtensionsBox->setChecked(prefs->allowExtensionLoading());
 }
 
 bool PreferencesDialog::saveSettings()
@@ -178,6 +249,8 @@ bool PreferencesDialog::saveSettings()
 	prefs->setSyNumberColor(m_syNumberColor);
 	prefs->setSyStringColor(m_syStringColor);
 	prefs->setSyCommentColor(m_syCommentColor);
+    // extensions
+    prefs->setAllowExtensionLoading(m_prefsExtension->allowExtensionsBox->isChecked());
 
 	return true;
 }
@@ -219,6 +292,9 @@ void PreferencesDialog::restoreDefaults()
 	m_syCommentColor = syntaxLexer.defaultColor(QsciLexerSQL::Comment);
 
 	resetEditorPreview();
+
+    // extensions
+    m_prefsExtension->allowExtensionsBox->setChecked(true);
 }
 
 void PreferencesDialog::blobBgButton_clicked()

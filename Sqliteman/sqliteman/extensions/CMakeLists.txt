@@ -1,7 +1,14 @@
-MESSAGE(STATUS "Extension dir")
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/sqliteman/sqlite) #${SQLITE_INCLUDE_DIR} )
 
-INCLUDE_DIRECTORIES( ${SQLITE_INCLUDE_DIR} )
+SET(EXT_COMPRESS "sqlitecompress")
+SET(EXT_FUNCTIONS "sqlitefunctions")
+SET(EXT_IPV4 "sqliteipv4")
 
-ADD_LIBRARY(sqlitecompress SHARED compress.c)
-ADD_LIBRARY(sqlitefunctions SHARED functions.c)
-ADD_LIBRARY(sqliteipv4 SHARED ipv4-ext.c)
+ADD_LIBRARY(${EXT_COMPRESS} MODULE compress.c)
+ADD_LIBRARY(${EXT_FUNCTIONS} MODULE functions.c)
+ADD_LIBRARY(${EXT_IPV4} MODULE ipv4-ext.c)
+
+IF (UNIX)
+    INSTALL(TARGETS ${EXT_COMPRESS} ${EXT_FUNCTIONS} ${EXT_IPV4}
+        LIBRARY DESTINATION lib/sqliteman)
+ENDIF (UNIX)

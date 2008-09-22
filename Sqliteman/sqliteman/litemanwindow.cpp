@@ -316,6 +316,7 @@ void LiteManWindow::initActions()
 
 	loadExtensionAct = new QAction(tr("&Load Extension"), this);
 	connect(loadExtensionAct, SIGNAL(triggered()), this, SLOT(loadExtension()));
+    loadExtensionAct->setEnabled(Preferences::instance()->allowExtensionLoading());
 
 	refreshTreeAct = new QAction(tr("&Refresh Object Tree"), this);
 	connect(refreshTreeAct, SIGNAL(triggered()), schemaBrowser->tableTree, SLOT(buildTree()));
@@ -1099,5 +1100,8 @@ void LiteManWindow::preferences()
 	PreferencesDialog prefs(this);
 	if (prefs.exec())
 		if (prefs.saveSettings())
+        {
 			emit prefsChanged();
+            loadExtensionAct->setEnabled(Preferences::instance()->allowExtensionLoading());
+        }
 }

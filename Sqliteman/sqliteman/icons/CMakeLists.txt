@@ -22,6 +22,7 @@ document-open.png
 document-save-as.png
 document-save.png
 edit.png
+extensions.png
 go-next.png
 go-previous.png
 index.png

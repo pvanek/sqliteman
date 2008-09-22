@@ -132,6 +132,16 @@ class Preferences : public QObject
 		QColor syCommentColor() { return m_syCommentColor; };
 		void setSyCommentColor(const QColor & v ) { m_syCommentColor = v; };
 
+        // extensions
+        bool allowExtensionLoading() { return m_allowExtensionLoading; };
+        void setAllowExtensionLoading(bool v) { m_allowExtensionLoading = v; };
+
+        QStringList extensionPaths() { return m_extensionPaths; };
+        void setExtensionPaths(const QStringList & v) { m_extensionPaths = v; };
+
+        QStringList extensionList() { return m_extensionList; };
+        void setExtensionList(const QStringList & v) { m_extensionList = v; };
+
 	signals:
 		void prefsChanged();
 
@@ -178,6 +188,10 @@ class Preferences : public QObject
 		bool m_exportHeaders;
 		QString m_exportEncoding;
 		int m_exportEol;
+        // extensions
+        bool m_allowExtensionLoading;
+        QStringList m_extensionPaths;
+        QStringList m_extensionList;
 
 		// used in MultieditDialog
 		QString m_dateTimeFormat;

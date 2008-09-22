@@ -65,6 +65,10 @@ Preferences::Preferences(QObject *parent)
 	m_exportHeaders = s.value("dataExport/headers", true).toBool();
 	m_exportEncoding = s.value("dataExport/encoding", "UTF-8").toString();
 	m_exportEol = s.value("dataExport/eol", 0).toInt();
+    // extensions
+    m_allowExtensionLoading = s.value("extensions/allowLoading", true).toBool();
+    m_extensionPaths = s.value("extensions/paths", QStringList()).toStringList();
+    m_extensionList = s.value("extensions/list", QStringList()).toStringList();
 }
 
 Preferences::~Preferences()
@@ -110,6 +114,10 @@ Preferences::~Preferences()
 	settings.setValue("dataExport/headers", m_exportHeaders);
 	settings.setValue("dataExport/encoding", m_exportEncoding);
 	settings.setValue("dataExport/eol", m_exportEol);
+    // extensions
+    settings.setValue("extensions/allowLoading", m_allowExtensionLoading);
+    settings.setValue("extensions/paths", m_extensionPaths);
+    settings.setValue("extensions/list", m_extensionList);
 }
 
 Preferences* Preferences::instance()

@@ -14,6 +14,9 @@ for which a new license (GPL+exception) is in place.
 #include "ui_prefsdatadisplaywidget.h"
 #include "ui_prefslnfwidget.h"
 #include "ui_prefssqleditorwidget.h"
+#include "ui_prefsextensionwidget.h"
+
+class QStringListModel;
 
 
 class PrefsDataDisplayWidget : public QWidget, public Ui::PrefsDataDisplayWidget
@@ -37,6 +40,22 @@ class PrefsSQLEditorWidget : public QWidget, public Ui::PrefsSQLEditorWidget
 		PrefsSQLEditorWidget(QWidget * parent = 0);
 };
 
+class PrefsExtensionWidget : public QWidget, public Ui::PrefsExtensionWidget
+{
+	Q_OBJECT
+	public:
+		PrefsExtensionWidget(QWidget * parent = 0);
+    private:
+        QStringListModel * m_paths;
+        QStringListModel * m_ext;
+
+        void reload();
+    private slots:
+        void allowExtensionsBox_clicked(bool);
+        void addPathButton_clicked();
+        void removePathButton_clicked();
+};
+
 
 /*! \brief Basic preferences dialog and handling.
 It constructs GUI to manage the prefs. The static methods
@@ -58,6 +77,7 @@ class PreferencesDialog : public QDialog, public Ui::PreferencesDialog
 		PrefsDataDisplayWidget * m_prefsData;
 		PrefsLNFWidget * m_prefsLNF;
 		PrefsSQLEditorWidget * m_prefsSQL;
+		PrefsExtensionWidget * m_prefsExtension;
 
 		// temporary qscintilla syntax colors
 		QColor m_syDefaultColor;
