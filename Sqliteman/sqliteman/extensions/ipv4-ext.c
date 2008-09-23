@@ -1,5 +1,5 @@
 /*
-This library will provide the ipv4 ISINNET, IP2INT, INT2IP, NET2INT, NET2LENGTH, NETMASK2LENGTH functions in
+This library will provide the ipv4 ISINNET, IP2INT, INT2IP, NETFROM, NETLENGTH, NETMASKLENGTH functions in
 SQL queries.
 
 The functions was coded by Alexey Pechnikov (pechnikov@mobigroup.ru) and tested on linux only. Tests are writed and performed by Alexander Romanov (romanov@mobigroup.ru).
@@ -10,11 +10,11 @@ The code is public domain. Author use these functions for store ip addresses as 
 
 For example, 
 	ip_from = ('172.16.1.193/255.255.255.0')
-	ip_to = ('172.16.1.193/255.255.255.0') + NET2LENGTH('172.16.1.193/255.255.255.0')
+	ip_to = ('172.16.1.193/255.255.255.0') + NETLENGTH('172.16.1.193/255.255.255.0')
 or
-	ip_to = ('172.16.1.193/24') + NET2LENGTH('172.16.1.193/24')
+	ip_to = ('172.16.1.193/24') + NETLENGTH('172.16.1.193/24')
 or 
-	ip_to = ('172.16.1.193/24') + NETMASK2LENGTH('24');
+	ip_to = ('172.16.1.193/24') + NETMASKLENGTH('24');
 
 
 The description of IP2INT function:
@@ -56,92 +56,166 @@ The description of INT2IP function:
 	        ==>0.0.0.0	
 	        
 
-The description of NET2INT function:
+The description of NETFROM function:
 
-	NET2INT( network, mask ) or
-	NET2INT( network/mask )
+	NETFROM( network, mask ) or
+	NETFROM( network/mask )
 	mask may be specified the CIDR way as a number of bits,
 	or as a standard 4 bytes notation.
 	if CIDR notation is used, mask may be a string ('24' for
 	example) or a number (24 for example).
 
-	NET2INT returns NULL if there is any kind of error, mainly :
+	NETFROM returns NULL if there is any kind of error, mainly :
 		- strings are not valid standard 4 bytes notation or
 		- number of bits is not a number or is out of range
-	NET2INT returns integer number of mask otherwise.
+	NETFROM returns integer number of mask otherwise.
 
-	SELECT NET2INT('192.168.1.1/255.255.255.0');
-	SELECT NET2INT('192.168.1.1/24');
-	SELECT NET2INT('192.168.1.1','255.255.255.0');
-	SELECT NET2INT('192.168.1.1','24');
-	SELECT NET2INT('192.168.1.1',24);
+	SELECT NETFROM('192.168.1.1/255.255.255.0');
+	SELECT NETFROM('192.168.1.1/24');
+	SELECT NETFROM('192.168.1.1','255.255.255.0');
+	SELECT NETFROM('192.168.1.1','24');
+	SELECT NETFROM('192.168.1.1',24);
 	        ==>3232235776
-	SELECT NET2INT('192.168.1.1/255.255.255.255');
-	SELECT NET2INT('192.168.1.1/32');
-	SELECT NET2INT('192.168.1.1','255.255.255.255');
-	SELECT NET2INT('192.168.1.1','32');
-	SELECT NET2INT('192.168.1.1',32);
+	SELECT NETFROM('192.168.1.1/255.255.255.255');
+	SELECT NETFROM('192.168.1.1/32');
+	SELECT NETFROM('192.168.1.1','255.255.255.255');
+	SELECT NETFROM('192.168.1.1','32');
+	SELECT NETFROM('192.168.1.1',32);
 	        ==>3232235777
-	SELECT NET2INT('192.168.1.1/255.255.128.0');
-	SELECT NET2INT('192.168.1.1/17');
-	SELECT NET2INT('192.168.1.1','255.255.128.0');
-	SELECT NET2INT('192.168.1.1','17');
-	SELECT NET2INT('192.168.1.1',17);
+	SELECT NETFROM('192.168.1.1/255.255.128.0');
+	SELECT NETFROM('192.168.1.1/17');
+	SELECT NETFROM('192.168.1.1','255.255.128.0');
+	SELECT NETFROM('192.168.1.1','17');
+	SELECT NETFROM('192.168.1.1',17);
 	        ==>3232235520
 
 
-The description of NET2LENGTH function:
+The description of NETLENGTH function:
 
-	NET2LENGTH( network, mask ) or
-	NET2LENGTH( network/mask )
+	NETLENGTH( network, mask ) or
+	NETLENGTH( network/mask )
 	mask may be specified the CIDR way as a number of bits,
 	or as a standard 4 bytes notation.
 
-	NET2LENGTH returns NULL if there is any kind of error, mainly :
+	NETLENGTH returns NULL if there is any kind of error, mainly :
 		- strings are not valid standard 4 bytes notation or
 		- number of bits is not a number or is out of range
-	NET2LENGTH returns integer number of mask length otherwise.
+	NETLENGTH returns integer number of mask length otherwise.
 
-	SELECT NET2LENGTH('192.168.1.1','255.255.255.0');
-	SELECT NET2LENGTH('192.168.1.1,'24');
-	SELECT NET2LENGTH('192.168.1.1,24);
-	SELECT NET2LENGTH('192.168.1.1/255.255.255.0');
-	SELECT NET2LENGTH('192.168.1.1/24');
+	SELECT NETLENGTH('192.168.1.1','255.255.255.0');
+	SELECT NETLENGTH('192.168.1.1,'24');
+	SELECT NETLENGTH('192.168.1.1,24);
+	SELECT NETLENGTH('192.168.1.1/255.255.255.0');
+	SELECT NETLENGTH('192.168.1.1/24');
 	        ==>256
-	SELECT NET2LENGTH('192.168.1.1','255.255.255.255');
-	SELECT NET2LENGTH('192.168.1.1,'32');
-	SELECT NET2LENGTH('192.168.1.1,32);
-	SELECT NET2LENGTH('192.168.1.1/255.255.255.255');
-	SELECT NET2LENGTH('192.168.1.1/32');
+	SELECT NETLENGTH('192.168.1.1','255.255.255.255');
+	SELECT NETLENGTH('192.168.1.1,'32');
+	SELECT NETLENGTH('192.168.1.1,32);
+	SELECT NETLENGTH('192.168.1.1/255.255.255.255');
+	SELECT NETLENGTH('192.168.1.1/32');
 	        ==>1
-	SELECT NET2LENGTH('192.168.1.1','255.255.128.0');
-	SELECT NET2LENGTH('192.168.1.1,'17');
-	SELECT NET2LENGTH('192.168.1.1,17);
-	SELECT NET2LENGTH('192.168.1.1/255.255.128.0');
-	SELECT NET2LENGTH('192.168.1.1/17');
+	SELECT NETLENGTH('192.168.1.1','255.255.128.0');
+	SELECT NETLENGTH('192.168.1.1,'17');
+	SELECT NETLENGTH('192.168.1.1,17);
+	SELECT NETLENGTH('192.168.1.1/255.255.128.0');
+	SELECT NETLENGTH('192.168.1.1/17');
 	        ==>32768
 
 
-The description of NETMASK2LENGTH function:
+The description of NETMASKLENGTH function:
 
-	NETMASK2LENGTH( mask )
+	NETMASKLENGTH( mask )
 	mask should be specified the CIDR way as a number of bits,
 	in CIDR notation mask may be a string ('24' for
 	example) or a number (24 for example). In CIDR notation
 	mask should be in range from 8 to 32.
 
-	NET2LENGTH returns integer number of mask length.
+	NETLENGTH returns integer number of mask length.
 	
-	SELECT NETMASK2LENGTH('24');
-	SELECT NETMASK2LENGTH(24);
+	SELECT NETMASKLENGTH('24');
+	SELECT NETMASKLENGTH(24);
 	        ==>256
-	SELECT NETMASK2LENGTH('32');
-	SELECT NETMASK2LENGTH(32);
+	SELECT NETMASKLENGTH('32');
+	SELECT NETMASKLENGTH(32);
 	        ==>1
-	SELECT NETMASK2LENGTH('17');
-	SELECT NETMASK2LENGTH(17);
+	SELECT NETMASKLENGTH('17');
+	SELECT NETMASKLENGTH(17);
 	        ==>32768
 
+The description for intpoolfrom and intpoolto functions:
+pool2start('ip_from-ip_to') where ip_from,ip_to are long integers and ip_from,ip_to > 0 and ip_to>ip_from
+
+	select intpoolfrom('3232235777-3232235778');
+	        ==>3232235777
+	select intpoolto('3232235777-3232235778');
+	        ==>3232235778
+
+If internal value is not correct functions return NULL:
+
+	select intpoolfrom('') is null;
+	        ==>1
+	select intpoolto('') is null;
+	        ==>1
+
+	select intpoolfrom('-') is null;
+	        ==>1
+	select intpoolto('-') is null;
+	        ==>1
+
+	select intpoolfrom('-3232235778') is null;
+	        ==>1
+	select intpoolto('-3232235778') is null;
+	        ==>1
+
+	select intpoolfrom('a-3232235778') is null;
+	        ==>1
+	select intpoolto('a-3232235778') is null;
+	        ==>1
+
+	select intpoolfrom('3232235777-') is null;
+	        ==>1
+	select intpoolto('3232235777-') is null;
+	        ==>1
+
+	select intpoolfrom('3232235777-a') is null;
+	        ==>1
+	select intpoolto('3232235777-a') is null;
+	        ==>1
+
+
+	select intpoolfrom('3232235777,2');
+	        ==>3232235777
+	select intpoolto('3232235777,2');
+	        ==>3232235778
+
+
+	select intpoollength('3232235777-3232235778');
+	        ==>2
+	select intpoollength('3232235777,2');
+	        ==>2
+
+
+The NETTO function:
+	SELECT NETTO('192.168.1.1/24') - NETFROM('192.168.1.1/24');
+	        ==>255
+	SELECT NETTO('192.168.1.1/255.255.255.0') - NETFROM('192.168.1.1/255.255.255.0');
+	        ==>255
+
+
+	SELECT NETTO('192.168.1.1','255.255.255.0') - NETFROM('192.168.1.1','255.255.255.0');
+	        ==>255
+	SELECT NETTO('192.168.1.1','24') - NETFROM('192.168.1.1','24');
+	        ==>255
+
+
+The intpoollength function:
+	select intpoollength(intpool (netfrom('192.168.1.0/28'),netto('192.168.1.0/28')));
+	        ==>16
+
+or it has equal as
+
+	select netlength('192.168.1.0/28');
+	        ==>16
 
 The ISINNET function reimplemented by Alexey Pechnikov (pechnikov@mobigroup.ru). Tests is saved as original author provide it. Thanks for idea! The code is public domain.
 
@@ -283,6 +357,7 @@ Liam Healy (with little modifications by Schplurtz le deboulonne)
 #include <sys/types.h>
 #include <string.h>
 #include <arpa/inet.h>
+#include <stdio.h>
 
 #include <assert.h>
 
@@ -313,8 +388,8 @@ static void isinnet3Func(
 		return;
 	}
 
-	if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&ad) < 1) ||
-	    (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[1]),&net) < 1)
+	if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&ad)) < 1 ||
+	    (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[1]),&net)) < 1
 	) {
 		sqlite3_result_null(context);
 		return;
@@ -329,7 +404,7 @@ static void isinnet3Func(
 		mask = ~ ( (((u_int32_t)1) << (32 - mask)) -1 );
 	} else {
 		/* mask is in dotted form */
-		if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[2]),&mask) < 1) ) {
+		if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[2]),&mask)) < 1 ) {
 			sqlite3_result_null(context);
 			return;
 		}
@@ -357,7 +432,7 @@ static void isinnet2Func(
 		sqlite3_result_null(context);
 		return;
 	}
-	if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&ad) < 1) ) {
+	if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&ad)) < 1 ) {
 		sqlite3_result_null(context);
 		return;
 	}
@@ -394,6 +469,7 @@ static void isinnet2Func(
 
 	if ( (rval = inet_pton(AF_INET,(char*)stringIP,&net)) < 1) {
 		sqlite3_result_null(context);
+		sqlite3_free(stringIP);
 		return;
 	};
 	net = htonl(net);
@@ -413,7 +489,7 @@ static void ip2intFunc(
 	if( sqlite3_value_type(argv[0]) == SQLITE_NULL ){
 		sqlite3_result_null(context);
 	} else {
-  		if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&ad) < 1) ) {
+  		if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&ad)) < 1 ) {
 			sqlite3_result_null(context);
 			return;
 		}
@@ -444,7 +520,7 @@ static void int2ipFunc(
 	}
 }
 
-static void net2int1Func(
+static void netfrom1Func(
 	sqlite3_context *context,
 	int argc,
 	sqlite3_value **argv
@@ -481,26 +557,25 @@ static void net2int1Func(
 			}
 			mask = htonl(mask);
 		}
-		int ipLen = (uintptr_t)slashPos  - (uintptr_t)(char*)sqlite3_value_text(argv[0]);
-		/* divide the string into ip and mask portion */
-		stringIP = sqlite3_malloc( ipLen +1 );
-		strncpy( stringIP, (char*)sqlite3_value_text(argv[0]), ipLen );
-		stringIP[ipLen] = '\0';
 	}
+	int ipLen = slashPos  - (char*)sqlite3_value_text(argv[0]);
+	/* divide the string into ip and mask portion */
+	stringIP = sqlite3_malloc( ipLen +1 );
+	strncpy( stringIP, (char*)sqlite3_value_text(argv[0]), ipLen );
+	stringIP[ipLen] = '\0';
 
 	if ( (rval = inet_pton(AF_INET,(char*)stringIP,&net)) < 1) {
 		sqlite3_result_null(context);
+		sqlite3_free(stringIP);
 		return;
 	};
+	sqlite3_free(stringIP);
 	net = htonl(net);
 
 	sqlite3_result_int64( context, ((net & mask)) );
-	sqlite3_free(stringIP);
-
-
 }
 
-static void net2int2Func(
+static void netfrom2Func(
 	sqlite3_context *context,
 	int argc,
 	sqlite3_value **argv
@@ -514,7 +589,7 @@ static void net2int2Func(
 		return;
 	}
 
-	if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&net) < 1) ) {
+	if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&net)) < 1 ) {
 		sqlite3_result_null(context);
 		return;
 	}
@@ -527,7 +602,7 @@ static void net2int2Func(
 		mask = ~ ( (((u_int32_t)1) << (32 - mask)) -1 );
 	} else {
 		/* mask is in dotted form */
-		if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[1]),&mask) < 1) ) {
+		if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[1]),&mask)) < 1 ) {
 			sqlite3_result_null(context);
 			return;
 		}
@@ -537,7 +612,7 @@ static void net2int2Func(
 }
 
 
-static void net2length1Func(
+static void netlength1Func(
 	sqlite3_context *context,
 	int argc,
 	sqlite3_value **argv
@@ -580,7 +655,7 @@ static void net2length1Func(
 	sqlite3_result_int64( context, mask );
 }
 
-static void net2length2Func(
+static void netlength2Func(
 	sqlite3_context *context,
 	int argc,
 	sqlite3_value **argv
@@ -594,7 +669,7 @@ static void net2length2Func(
 		return;
 	}
 
-	if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&net) < 1) ) {
+	if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&net)) < 1 ) {
 		sqlite3_result_null(context);
 		return;
 	}
@@ -607,7 +682,7 @@ static void net2length2Func(
 		mask = ( (u_int32_t)1 << (32 - mask) );
 	} else {
 		/* mask is in dotted form */
-		if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[1]),&mask) < 1) ) {
+		if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[1]),&mask)) < 1 ) {
 			sqlite3_result_null(context);
 			return;
 		}
@@ -617,7 +692,7 @@ static void net2length2Func(
 	sqlite3_result_int64( context, mask );
 }
 
-static void netmask2lengthFunc(
+static void netmasklengthFunc(
 	sqlite3_context *context,
 	int argc,
 	sqlite3_value **argv
@@ -633,6 +708,372 @@ static void netmask2lengthFunc(
 	mask = ( (u_int32_t)1 << (32 - mask) );
 
 	sqlite3_result_int64( context, mask );
+}
+
+// get pool as '3232235777-3232235778' and return integer value 3232235778
+// select intpoolto('3232235777-3232235778');
+static void intpoolto1Func(
+	sqlite3_context *context,
+	int argc,
+	sqlite3_value **argv
+) {
+	u_int32_t startIp=0, endIp=0, length=0;
+	char *delimPos, *stringIp;
+
+	if( sqlite3_value_type(argv[0]) == SQLITE_NULL ){
+		sqlite3_result_null(context);
+		return;
+	}
+
+	/*  split the pool to ip_start and ip_end */
+	delimPos = strchr((char*)sqlite3_value_text(argv[0]), (int) '-');
+	if ( NULL != delimPos && delimPos != (char*)sqlite3_value_text(argv[0]) ) {
+		stringIp = delimPos +1;
+		endIp = atoll(stringIp);
+		startIp = atoll((char*)sqlite3_value_text(argv[0]));
+		if ( 0 == endIp || 0 == startIp || startIp>endIp ) {
+			sqlite3_result_null(context);
+			return;
+		}
+		sqlite3_result_int64( context, endIp );
+		return;
+	}
+	sqlite3_result_null(context);
+}
+
+// get pool as '3232235777-3232235778' and return integer value 3232235777
+// select intpoolfrom('3232235777-3232235778');
+static void intpoolfrom1Func(
+	sqlite3_context *context,
+	int argc,
+	sqlite3_value **argv
+) {
+	u_int32_t startIp=0, endIp=0, length=0;
+	char *delimPos=NULL, *stringIp=NULL;
+
+	if( sqlite3_value_type(argv[0]) == SQLITE_NULL ){
+		sqlite3_result_null(context);
+		return;
+	}
+	/*  split the pool to ip_start and ip_end */
+	delimPos = strchr((char*)sqlite3_value_text(argv[0]), (int) '-');
+	if ( NULL != delimPos && delimPos != (char*)sqlite3_value_text(argv[0]) ) {
+		stringIp = delimPos +1;
+		endIp = atoll(stringIp);
+		startIp = atoll((char*)sqlite3_value_text(argv[0]));
+		if ( 0 == endIp || 0 == startIp || startIp>endIp ) {
+			sqlite3_result_null(context);
+			return;
+		}
+		sqlite3_result_int64( context, startIp );
+		return;
+	}
+	sqlite3_result_null(context);
+}
+
+
+// get pool as '3232235777-3232235778' and return integer value 2
+// select intpoollength('3232235777-3232235778');
+static void intpoollength1Func(
+	sqlite3_context *context,
+	int argc,
+	sqlite3_value **argv
+) {
+	u_int32_t startIp=0, endIp=0, length=0;
+	char *delimPos=NULL, *stringIp=NULL;
+
+	if( sqlite3_value_type(argv[0]) == SQLITE_NULL ){
+		sqlite3_result_null(context);
+		return;
+	}
+	/*  split the pool to ip_start and ip_end */
+	delimPos = strchr((char*)sqlite3_value_text(argv[0]), (int) '-');
+	if ( NULL != delimPos && delimPos != (char*)sqlite3_value_text(argv[0]) ) {
+		stringIp = delimPos +1;
+		endIp = atoll(stringIp);
+		startIp = atoll((char*)sqlite3_value_text(argv[0]));
+		if ( 0 == endIp || 0 == startIp || startIp>endIp ) {
+			sqlite3_result_null(context);
+			return;
+		}
+		sqlite3_result_int64( context, endIp - startIp + 1 );
+		return;
+	}
+	sqlite3_result_null(context);
+}
+
+
+// get pool as '3232235777-3232235778' and return value '192.168.1.1-192.168.1.2'
+// select intpool2ip ('3232235777-3232235778');
+static void intpool2ip1Func(
+	sqlite3_context *context,
+	int argc,
+	sqlite3_value **argv
+) {
+	u_int32_t startIp=0, endIp=0, length=0;
+	char *delimPos;
+	char *pool;
+	unsigned char start_ad[32];
+	unsigned char end_ad[32];
+
+	if( sqlite3_value_type(argv[0]) == SQLITE_NULL ){
+		sqlite3_result_null(context);
+		return;
+	}
+
+	/*  split the pool to ip_start and ip_end */
+	delimPos = strchr((char*)sqlite3_value_text(argv[0]), (int) '-');
+	if ( NULL != delimPos && delimPos != (char*)sqlite3_value_text(argv[0]) ) {
+		endIp = atoll(delimPos +1);
+		startIp = atoll((char*)sqlite3_value_text(argv[0]));
+		if ( 0 == endIp || 0 == startIp || startIp>endIp ) {
+			sqlite3_result_null(context);
+			return;
+		}
+		startIp = ntohl(startIp);
+  		if( inet_ntop(AF_INET, &startIp, start_ad, 32) == NULL ) {
+			sqlite3_result_null(context);
+			return;
+		}
+		endIp = ntohl(endIp);
+  		if( inet_ntop(AF_INET, &endIp, end_ad, 32) == NULL ) {
+			sqlite3_result_null(context);
+			return;
+		}
+		pool = sqlite3_mprintf("%s-%s", start_ad, end_ad);
+		sqlite3_result_text( context, pool, strlen(pool), sqlite3_free);
+		return;
+	}
+	sqlite3_result_null(context);
+}
+
+
+// get pool as ip_from,ip_to and return value '3232235777-3232235778'
+// select intpool (3232235777,3232235778);
+// 3232235777-3232235778
+static void intpool2Func(
+	sqlite3_context *context,
+	int argc,
+	sqlite3_value **argv
+) {
+	char *pool;
+
+	if( sqlite3_value_type(argv[0]) == SQLITE_NULL || sqlite3_value_type(argv[1]) == SQLITE_NULL ){
+		sqlite3_result_null(context);
+		return;
+	}
+	if ( 0 != sqlite3_value_int64(argv[0]) && 0 != sqlite3_value_int64(argv[1]) && sqlite3_value_int64(argv[1]) >= sqlite3_value_int64(argv[0]) ) {
+		pool = sqlite3_mprintf( "%u-%u",sqlite3_value_int(argv[0]),sqlite3_value_int(argv[1]));
+		sqlite3_result_text( context, pool, strlen(pool), sqlite3_free);
+		return;
+	}
+	sqlite3_result_null(context);
+
+}
+
+// get pool as '192.168.1.1-192.168.1.2' and return value '3232235777-3232235778'
+// select ippool2int ('192.168.1.1-192.168.1.2');
+static void ippool2int1Func(
+	sqlite3_context *context,
+	int argc,
+	sqlite3_value **argv
+) {
+	u_int32_t length, startIp, endIp;
+	char *delimPos, *stringIp;
+	char *pool;
+	int rval;
+
+	if( sqlite3_value_type(argv[0]) == SQLITE_NULL ){
+		sqlite3_result_null(context);
+		return;
+	}
+
+	/*  split the pool to ip_start and ip_end */
+	delimPos = strchr((char*)sqlite3_value_text(argv[0]), (int) '-');
+	if ( NULL != delimPos && delimPos != (char*)sqlite3_value_text(argv[0]) ) {
+		int length = delimPos  - (char*)sqlite3_value_text(argv[0]);
+		stringIp = sqlite3_malloc( length +1 );
+		strncpy( stringIp, (char*)sqlite3_value_text(argv[0]), length );
+		stringIp[length] = '\0';
+  		if( (rval = inet_pton(AF_INET,stringIp,&startIp)) < 1 ) {
+			sqlite3_result_null(context);
+			sqlite3_free(stringIp);
+			return;
+		}
+		sqlite3_free(stringIp);
+		startIp = htonl(startIp);
+
+		stringIp = delimPos + 1;
+		length =strlen(stringIp);
+  		if( (rval = inet_pton(AF_INET,stringIp,&endIp)) < 1 ) {
+			sqlite3_result_null(context);
+			return;
+		}
+		endIp = htonl(endIp);
+
+		if ( 0 != endIp && 0 != startIp && endIp-startIp>=0 ) {
+			pool = sqlite3_mprintf("%u-%u",startIp, endIp);
+			sqlite3_result_text( context, pool, strlen(pool), sqlite3_free);
+			return;
+		}
+	}
+	sqlite3_result_null(context);
+}
+
+static void netto1Func(
+	sqlite3_context *context,
+	int argc,
+	sqlite3_value **argv
+) {
+	u_int32_t net, mask, mask_length;
+
+	int rval, maskLen;
+	char *slashPos, *stringMask, *stringIP=NULL;
+
+	if( sqlite3_value_type(argv[0]) == SQLITE_NULL ){
+		sqlite3_result_null(context);
+		return;
+	}
+
+	/*  split the ip address and mask */
+	slashPos = strchr((char*)sqlite3_value_text(argv[0]), (int) '/');
+	if (slashPos == NULL) {
+		/*  straight ip address without mask */
+		mask = (u_int32_t)1;
+		mask_length = 1;
+	} else {
+		/* ipaddress has the mask, handle the mask and seperate out the  */
+		/*  ip address */
+		stringMask = slashPos +1;
+		maskLen =strlen(stringMask);
+		/* put mask in hex form */
+		if (maskLen < 3) {
+			mask = atoi(stringMask);
+			mask_length = ( (u_int32_t)1 << (32 - mask) );
+			mask = ~ ( (((u_int32_t)1) << (32 - mask)) -1 );
+		} else {
+			/* mask is in dotted form */
+			if ((rval = inet_pton(AF_INET,stringMask,&mask)) < 1 ) {
+				sqlite3_result_null(context);
+				return;
+			}
+			mask = htonl(mask);
+			mask_length = (~(u_int32_t)mask) + 1; 
+		}
+	}
+	int ipLen = slashPos  - (char*)sqlite3_value_text(argv[0]);
+	/* divide the string into ip and mask portion */
+	stringIP = sqlite3_malloc( ipLen +1 );
+	strncpy( stringIP, (char*)sqlite3_value_text(argv[0]), ipLen );
+	stringIP[ipLen] = '\0';
+
+	if ( (rval = inet_pton(AF_INET,(char*)stringIP,&net)) < 1) {
+		sqlite3_result_null(context);
+		sqlite3_free(stringIP);
+		return;
+	};
+	sqlite3_free(stringIP);
+	net = htonl(net);
+
+	sqlite3_result_int64( context, ((net & mask)) + mask_length - 1 );
+}
+
+static void netto2Func(
+	sqlite3_context *context,
+	int argc,
+	sqlite3_value **argv
+) {
+	u_int32_t net, mask, mask_length;
+
+	int rval, maskLen;
+
+	if( sqlite3_value_type(argv[0]) == SQLITE_NULL || sqlite3_value_type(argv[1]) == SQLITE_NULL ){
+		sqlite3_result_null(context);
+		return;
+	}
+
+	if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[0]),&net)) < 1 ) {
+		sqlite3_result_null(context);
+		return;
+	}
+	net = htonl(net);
+
+	maskLen =strlen((char*)sqlite3_value_text(argv[1]));
+	/* put mask in hex form */
+	if (maskLen < 3) {
+		mask = atoi((char*)sqlite3_value_text(argv[1]));
+		mask_length = ( (u_int32_t)1 << (32 - mask) );
+		mask = ~ ( (((u_int32_t)1) << (32 - mask)) -1 );
+	} else {
+		/* mask is in dotted form */
+		if( (rval = inet_pton(AF_INET,(char*)sqlite3_value_text(argv[1]),&mask)) < 1 ) {
+			sqlite3_result_null(context);
+			return;
+		}
+		mask = htonl(mask);
+		mask_length = (~(u_int32_t)mask) + 1; 
+	}
+	sqlite3_result_int64( context, ((net & mask )) + mask_length - 1 );
+}
+
+/*
+pool as '3232235777-3232235778', table name
+
+create table testpool(rowid);
+select intpool2table ('3232235777-3232235778','testpool');
+select * from testpool;
+3232235777
+3232235778
+*/
+static void intpool2table2Func(
+	sqlite3_context *context,
+	int argc,
+	sqlite3_value **argv
+) {
+	u_int32_t startIp=0, endIp=0, length=0, i;
+	char *delimPos, *stringIp;
+	const unsigned char *zTable;
+	sqlite3 *db;
+    sqlite3_stmt *pStmt;        /* A statement */
+    int rc;                     /* Result code */
+    char *zSql;                 /* An SQL statement */
+
+	if( sqlite3_value_type(argv[0]) == SQLITE_NULL || sqlite3_value_type(argv[1]) == SQLITE_NULL ){
+		sqlite3_result_null(context);
+		return;
+	}
+	zTable = sqlite3_value_text(argv[1]);
+	/*  split the pool to ip_start and ip_end */
+	delimPos = strchr((char*)sqlite3_value_text(argv[0]), (int) '-');
+	if ( NULL != delimPos && delimPos != (char*)sqlite3_value_text(argv[0]) ) {
+		stringIp = delimPos +1;
+		endIp = atoll(stringIp);
+		startIp = atoll((char*)sqlite3_value_text(argv[0]));
+		if ( 0 == endIp || 0 == startIp || startIp>endIp ) {
+			sqlite3_result_null(context);
+			return;
+		}
+		db = (sqlite3*) sqlite3_context_db_handle(context);
+		zSql = sqlite3_mprintf("INSERT INTO %Q (rowid) VALUES (?)", zTable);
+    	rc = sqlite3_prepare(db, zSql, -1, &pStmt, 0);
+		sqlite3_free(zSql);
+    	if( rc != SQLITE_OK ){
+			sqlite3_result_error(context, sqlite3_errmsg(db), -1);
+			return;
+    	}
+		for (i=startIp;i<=endIp;i++) {
+			sqlite3_bind_int64(pStmt, 1, i);
+			sqlite3_step(pStmt);
+			if( rc != SQLITE_OK ) {
+				sqlite3_result_error(context, sqlite3_errmsg(db), -1);
+				return;
+			}
+			rc = sqlite3_reset(pStmt);
+		}
+		sqlite3_finalize(pStmt);
+		return;
+	}
+	sqlite3_result_null(context);
 }
 
 /* SQLite invokes this routine once when it loads the extension.
@@ -651,13 +1092,22 @@ int sqlite3InetInit(sqlite3 *db){
   } aFuncs[] = {
 	{ "ip2int",             1, 0, SQLITE_UTF8,    ip2intFunc },
 	{ "int2ip",             1, 0, SQLITE_UTF8,    int2ipFunc },
-	{ "net2int",            1, 0, SQLITE_UTF8,    net2int1Func },
-	{ "net2int",            2, 0, SQLITE_UTF8,    net2int2Func },
-	{ "net2length",         1, 0, SQLITE_UTF8,    net2length1Func },
-	{ "net2length",         2, 0, SQLITE_UTF8,    net2length2Func },
-	{ "netmask2length",     1, 0, SQLITE_UTF8,    netmask2lengthFunc },
+	{ "netfrom",            1, 0, SQLITE_UTF8,    netfrom1Func },
+	{ "netfrom",            2, 0, SQLITE_UTF8,    netfrom2Func },
+	{ "netto",              1, 0, SQLITE_UTF8,    netto1Func },
+	{ "netto",              2, 0, SQLITE_UTF8,    netto2Func },
+	{ "netlength",          1, 0, SQLITE_UTF8,    netlength1Func },
+	{ "netlength",          2, 0, SQLITE_UTF8,    netlength2Func },
+	{ "netmasklength",      1, 0, SQLITE_UTF8,    netmasklengthFunc },
 	{ "isinnet",            3, 0, SQLITE_UTF8,    isinnet3Func },
 	{ "isinnet",            2, 0, SQLITE_UTF8,    isinnet2Func },
+	{ "intpoolfrom",        1, 0, SQLITE_UTF8,    intpoolfrom1Func },
+	{ "intpoolto",          1, 0, SQLITE_UTF8,    intpoolto1Func },
+	{ "intpoollength",      1, 0, SQLITE_UTF8,    intpoollength1Func },
+	{ "intpool2ip",         1, 0, SQLITE_UTF8,    intpool2ip1Func },
+	{ "intpool",            2, 0, SQLITE_UTF8,    intpool2Func },
+	{ "ippool2int",         1, 0, SQLITE_UTF8,    ippool2int1Func },
+	{ "intpool2table",      2, 0, SQLITE_UTF8,    intpool2table2Func },
   };
 
   int i;
