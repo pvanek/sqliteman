@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Sqliteman
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QSqlDriver>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QTextStream>
@@ -286,42 +287,49 @@ QString Database::pragma(const QString & name)
 		return query.value(0).toString();
 	return tr("Not Set");
 }
-#include <QtDebug>
-#include <QSqlDriver>
-#include <sqlite3.h>
 
-bool Database::loadExtension(const QStringList & list)
+sqlite3 * Database::sqlite3handle()
 {
-	QVariant v = QSqlDatabase::database(SESSION_NAME).driver()->handle();
-	if (!v.isValid())
-	{
-		exception(tr("DB driver is not valid"));
-		return false;
-	}
-	if (qstrcmp(v.typeName(), "sqlite3*") != 0)
-	{
-		exception(tr("DB type name does not equal sqlite3"));
-		return false;
-	}
-
-	sqlite3 *handle = *static_cast<sqlite3 **>(v.data());
-	if (handle == 0)
-	{
-		exception(tr("DB handler is not valid"));
-		return false;
-	}
-
-    if (sqlite3_enable_load_extension(handle, 1) != SQLITE_OK)
+    QVariant v = QSqlDatabase::database(SESSION_NAME).driver()->handle();
+    if (!v.isValid())
     {
-        exception(tr("Failed to enable extension loading"));
-        return false;
+        exception(tr("DB driver is not valid"));
+        return 0;
+    }
+    if (qstrcmp(v.typeName(), "sqlite3*") != 0)
+    {
+        exception(tr("DB type name does not equal sqlite3"));
+        return 0;
     }
 
-	bool retval = true;
+    sqlite3 *handle = *static_cast<sqlite3 **>(v.data());
+    if (handle == 0)
+        exception(tr("DB handler is not valid"));
+
+    return handle;
+}
+
+bool Database::setEnableExtensions(bool enable)
+{
+    sqlite3 * handle = Database::sqlite3handle();
+    if (handle && sqlite3_enable_load_extension(handle, enable ? 1 : 0) != SQLITE_OK)
+    {
+        exception(tr("Failed to %1 extension loading").arg(enable?tr("enable"):tr("disable")));
+        return false;
+    }
+    return true;
+}
+
+QStringList Database::loadExtension(const QStringList & list)
+{
+    sqlite3 * handle = Database::sqlite3handle();
+    if (!handle)
+        return QStringList();
+
+	QStringList retval;
+
 	foreach(QString f, list)
 	{
-		qDebug() << "load: "<< f;
-
 		const char *zFile, *zProc;
 		char *zErrMsg = 0;
 		int rc;
@@ -333,9 +341,9 @@ bool Database::loadExtension(const QStringList & list)
 		{
 			exception(tr("Error loading exception (%1):\n(%2)").arg(f).arg(zErrMsg));
 			sqlite3_free(zErrMsg);
-			retval = false;
 		}
+        else
+            retval.append(f);
 	}
-
 	return retval;
 }

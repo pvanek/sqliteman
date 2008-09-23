@@ -24,8 +24,16 @@ class SchemaBrowser : public QWidget, public Ui::SchemaBrowser
 
 		//! \brief Clear and reset the pragma values.
 		void buildPragmasTree();
+        /*! \brief Append all loaded extensions to display
+        \param list a filenames to append
+        \param switchToTab bool, true when the schemaTabWidget have to be set to Extension tab.
+        */
+        void appendExtensions(const QStringList & list, bool switchToTab = false);
 
 	private:
+        //! Already loaded extensions
+        QStringList m_extensions;
+
 		/*! \brief Add a pragma into the list (QTableWidget).
 		Query the DB for its value and store it in the widget.
 		\param name name of the pragma (PRAGMA name;)

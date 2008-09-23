@@ -54,62 +54,68 @@ PrefsExtensionWidget::PrefsExtensionWidget(QWidget * parent)
 {
 	setupUi(this);
 
-    m_paths = new QStringListModel(this);
-    pathsListView->setModel(m_paths);
     m_ext = new QStringListModel(this);
-    extensionsListView->setModel(m_ext);
+    listView->setModel(m_ext);
 
     connect(allowExtensionsBox, SIGNAL(clicked(bool)),
              this, SLOT(allowExtensionsBox_clicked(bool)));
-    connect(addPathButton, SIGNAL(clicked()),
-             this, SLOT(addPathButton_clicked()));
-    connect(removePathButton, SIGNAL(clicked()),
-             this, SLOT(removePathButton_clicked()));
+    connect(addExtensionButton, SIGNAL(clicked()),
+             this, SLOT(addExtensionButton_clicked()));
+    connect(removeExtensionButton, SIGNAL(clicked()),
+             this, SLOT(removeExtensionButton_clicked()));
+}
 
-    reload();
+QStringList PrefsExtensionWidget::extensions()
+{
+    return m_ext->stringList();
+}
+
+void PrefsExtensionWidget::setExtensions(const QStringList & v)
+{
+    m_ext->setStringList(v);
 }
 
 void PrefsExtensionWidget::allowExtensionsBox_clicked(bool checked)
 {
-    extensionsTab->setEnabled(checked);
+    groupBox->setEnabled(checked);
 }
 
-void PrefsExtensionWidget::addPathButton_clicked()
+void PrefsExtensionWidget::addExtensionButton_clicked()
 {
-    QString dir = QFileDialog::getExistingDirectory(this,
-                                                     tr("Open Directory"),
-                                                     QDir::currentPath(),
-                                                     QFileDialog::ShowDirsOnly);
-    if (dir.isNull())
-        return;
-    QStringList l = m_paths->stringList();
-    l.append(dir);
-    m_paths->setStringList(l);
-    reload();
-}
-
-void PrefsExtensionWidget::reload()
-{
-    QStringList l;
-    QStringList mask;
+    QString mask(tr("Sqlite3 extensions "));
 #ifdef Q_WS_WIN
-    mask.append("*.dll");
+    mask += "(*.dll)";
 #else
-    mask.append("*.so");
+    mask += "(*.so)";
 #endif
 
-    foreach(QString s, m_paths->stringList())
-    {
-        QDir d(s);
-        foreach(QString i, d.entryList(mask))
-            l.append(s+i);
-    }
+    QStringList files = QFileDialog::getOpenFileNames(
+                        this,
+                        tr("Select one or more Sqlite3 extensions to load"),
+                        QDir::currentPath(),
+                        mask);
+    if (files.count() == 0)
+        return;
 
+    QStringList l = m_ext->stringList();
+    // avoid duplications
+    foreach(QString newItem, files)
+    {
+        l.removeAll(newItem);
+        l.append(newItem);
+    }
     m_ext->setStringList(l);
 }
 
-void PrefsExtensionWidget::removePathButton_clicked()
+void PrefsExtensionWidget::removeExtensionButton_clicked()
 {
+    if (!listView->currentIndex().isValid())
+        return;
+
+    QStringList l = m_ext->stringList();
+    int row = listView->currentIndex().row();
+    l.removeAt(row);
+    m_ext->setStringList(l);
 }
 
 
@@ -215,6 +221,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	resetEditorPreview();
 
     m_prefsExtension->allowExtensionsBox->setChecked(prefs->allowExtensionLoading());
+    m_prefsExtension->setExtensions(prefs->extensionList());
 }
 
 bool PreferencesDialog::saveSettings()
@@ -251,6 +258,7 @@ bool PreferencesDialog::saveSettings()
 	prefs->setSyCommentColor(m_syCommentColor);
     // extensions
     prefs->setAllowExtensionLoading(m_prefsExtension->allowExtensionsBox->isChecked());
+    prefs->setExtensionList(m_prefsExtension->extensions());
 
 	return true;
 }

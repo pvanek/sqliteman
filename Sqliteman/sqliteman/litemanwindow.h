@@ -79,6 +79,9 @@ class LiteManWindow : public QMainWindow
 		*/
 		void openDatabase(const QString & fileName);
 
+        //! \brief Setup loading extensions actions and environment depending on prefs.
+        void handleExtensions(bool enable);
+
 	protected:
 		/*! \brief This method handles closing of the main window by saving the window's state and accepting
 		the event. */

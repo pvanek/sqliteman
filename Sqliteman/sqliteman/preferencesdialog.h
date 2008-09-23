@@ -45,15 +45,14 @@ class PrefsExtensionWidget : public QWidget, public Ui::PrefsExtensionWidget
 	Q_OBJECT
 	public:
 		PrefsExtensionWidget(QWidget * parent = 0);
+        QStringList extensions();
+        void setExtensions(const QStringList & v);
     private:
-        QStringListModel * m_paths;
         QStringListModel * m_ext;
-
-        void reload();
     private slots:
         void allowExtensionsBox_clicked(bool);
-        void addPathButton_clicked();
-        void removePathButton_clicked();
+        void addExtensionButton_clicked();
+        void removeExtensionButton_clicked();
 };
 
 

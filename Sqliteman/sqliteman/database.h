@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <QSqlDatabase>
 #include <QStringList>
 
+#include "sqlite3.h"
+
 
 #define SESSION_NAME "sqliteman-db"
 
@@ -160,11 +162,21 @@ class Database
 		*/
 		static QString pragma(const QString & name);
 
+        /*! \brief Prepare Sqlite3 C API handler for usage in Sqliteman.
+        \retval sqlite3* handle or 0 on error.
+        */
+        static sqlite3 * sqlite3handle();
+
+        /*! \brief Enable or disable extension loading.
+        \param enable true enables; false disables.
+        */
+        static bool setEnableExtensions(bool enable);
+
 		/*! \brief Try to load given extensions
 		\param list a QStringList with full paths to load in loop
-		\retval bool true on full success
+		\retval QStringList list of the really loaded extensions
 		*/
-		static bool loadExtension(const QStringList & list);
+		static QStringList loadExtension(const QStringList & list);
 
 	private:
 		//! \brief Error feedback to the user.

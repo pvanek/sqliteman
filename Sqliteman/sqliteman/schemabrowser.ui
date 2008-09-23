@@ -135,6 +135,30 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab" >
+      <attribute name="title" >
+       <string>E&amp;xtensions</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout" >
+       <item row="0" column="0" >
+        <widget class="QTreeWidget" name="extensionTreeWidget" >
+         <property name="alternatingRowColors" >
+          <bool>true</bool>
+         </property>
+         <column>
+          <property name="text" >
+           <string>Extension</string>
+          </property>
+         </column>
+         <column>
+          <property name="text" >
+           <string>Path</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

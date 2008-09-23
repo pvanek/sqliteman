@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Sqliteman
 for which a new license (GPL+exception) is in place.
 */
 #include <QInputDialog>
+#include <QFileInfo>
 
 #include "schemabrowser.h"
 #include "database.h"
@@ -80,4 +81,29 @@ void SchemaBrowser::setPragmaButton_clicked()
 		Database::execSql(QString("PRAGMA main.%1 = %2;").arg(text).arg(newValue));
 		buildPragmasTree();
 	}
+}
+
+void SchemaBrowser::appendExtensions(const QStringList & list, bool switchToTab)
+{
+    QString s;
+    foreach (s, list)
+    {
+        m_extensions.removeAll(s);
+        m_extensions.append(s);
+    }
+
+    extensionTreeWidget->clear();
+    QFileInfo f;
+    foreach (s, m_extensions)
+    {
+        f.setFile(s);
+        QTreeWidgetItem * item = new QTreeWidgetItem(extensionTreeWidget);
+        item->setText(0, f.fileName());
+        item->setText(1, f.filePath());
+    }
+
+    extensionTreeWidget->resizeColumnToContents(0);
+    extensionTreeWidget->resizeColumnToContents(1);
+    if (switchToTab)
+        schemaTabWidget->setCurrentIndex(2);
 }

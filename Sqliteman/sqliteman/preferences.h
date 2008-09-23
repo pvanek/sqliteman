@@ -136,9 +136,6 @@ class Preferences : public QObject
         bool allowExtensionLoading() { return m_allowExtensionLoading; };
         void setAllowExtensionLoading(bool v) { m_allowExtensionLoading = v; };
 
-        QStringList extensionPaths() { return m_extensionPaths; };
-        void setExtensionPaths(const QStringList & v) { m_extensionPaths = v; };
-
         QStringList extensionList() { return m_extensionList; };
         void setExtensionList(const QStringList & v) { m_extensionList = v; };
 
@@ -190,7 +187,6 @@ class Preferences : public QObject
 		int m_exportEol;
         // extensions
         bool m_allowExtensionLoading;
-        QStringList m_extensionPaths;
         QStringList m_extensionList;
 
 		// used in MultieditDialog
