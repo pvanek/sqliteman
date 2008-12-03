@@ -4,6 +4,7 @@ ELSE (WANT_RESOURCES)
 
 INSTALL(FILES
     sqliteman_en.qm
+    sqliteman_bg.qm
     sqliteman_cs.qm
     sqliteman_de.qm
     sqliteman_it.qm

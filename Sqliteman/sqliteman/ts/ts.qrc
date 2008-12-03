@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/ts" >
+        <file>sqliteman_bg.qm</file>
         <file>sqliteman_cs.qm</file>
         <file>sqliteman_de.qm</file>
         <file>sqliteman_en.qm</file>
