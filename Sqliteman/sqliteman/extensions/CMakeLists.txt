@@ -1,6 +1,7 @@
-IF (UNIX)
+
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/sqliteman/sqlite) #${SQLITE_INCLUDE_DIR} )
 
+IF (UNIX)
 SET(EXT_COMPRESS "sqlitecompress")
 SET(EXT_FUNCTIONS "sqlitefunctions")
 SET(EXT_IPV4 "sqliteipv4")
@@ -26,3 +27,10 @@ IF (WIN32)
     MESSAGE(STATUS "Volunteers to port it are welcomed")
     MESSAGE(STATUS)
 ENDIF (WIN32)
+
+
+# sample dummy extension on all platforms
+SET (EXT_DUMMY "dummy")
+ADD_LIBRARY(${EXT_DUMMY} MODULE dummy.c)
+INSTALL(TARGETS ${EXT_DUMMY} LIBRARY DESTINATION lib/sqliteman)
+
