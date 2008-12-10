@@ -24,6 +24,7 @@ int main (int argc, char ** argv)
 //             ...
 //         }
     }
+    qDebug() << "end";
 
 	return 0;
 }
