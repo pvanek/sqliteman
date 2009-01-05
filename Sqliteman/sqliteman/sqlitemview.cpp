@@ -68,6 +68,11 @@ void SqlItemView::setModel(QAbstractItemModel * model)
 		m_mapper->addMapping(w, i);
 	}
 	scrollWidget->setWidget(layoutWidget);
+
+	// bug #143 - crash - just to be sure if it'll be focused on 1st column
+	m_column = 0;
+
+	positionLabel->setText(tr("%1 of %2").arg(0).arg(0));
 	m_mapper->toFirst();
 	m_count = rec.count();
 }
@@ -80,9 +85,15 @@ QAbstractItemModel * SqlItemView::model()
 void SqlItemView::updateButtons(int row)
 {
 	positionLabel->setText(tr("%1 of %2").arg(m_mapper->currentIndex()+1).arg(m_mapper->model()->rowCount()));
+
 	previousButton->setEnabled(row > 0);
+	firstButton->setEnabled(row > 0);
 	nextButton->setEnabled(row < m_mapper->model()->rowCount() - 1);
-	m_mapper->mappedWidgetAt(m_column)->setFocus(Qt::OtherFocusReason);
+	lastButton->setEnabled(row < m_mapper->model()->rowCount() - 1);
+
+	QWidget * w = m_mapper->mappedWidgetAt(m_column);
+	if (w)
+		w->setFocus(Qt::OtherFocusReason);
 }
 
 void SqlItemView::setCurrentIndex(int row, int column)
