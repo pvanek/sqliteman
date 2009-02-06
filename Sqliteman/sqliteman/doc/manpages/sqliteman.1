@@ -1,0 +1,41 @@
+.\" groff -man -Tascii  sqliteman.1
+.TH SQLITEMAN 1 "NOVEMBRE 2008" sqliteman "An SQLite3 admin tool"
+.SH NAME
+sqliteman \- SQLite3 admin GUI tool
+.SH SYNOPSIS
+.B sqliteman [options] [databasefile]
+.SH DESCRIPTION
+.B Sqliteman
+is a simple graphical interface to manage simple aspects
+of sqlite database: queries, table views, simple modifications, 
+indexes and trigger creation.
+.SH OPTIONS
+.TP
+.B \-h, \-\-help
+Show help about options
+.TP
+.B -v, --version
+Prints version
+.TP
+.B -la, --langs
+lists available languages
+.TP
+.B -l, --lang \fI<language>\fB
+set a GUI language
+.SH AUTHOR
+Petr Vanek    <petr@scribus.info>
+
+Igor Khanin    <igorkh@freeshell.org>
+.SH "COPYRIGHT"
+.PP
+This manual page was written by Brice Maron\&.
+<bmaron@gmail\&.com>
+.PP
+Permission is granted to copy, distribute and/or modify this document under the terms of the
+GNU
+General Public License, Version 2 or any later version published by the Free Software Foundation\&.
+.PP
+On Debian systems, the complete text of the GNU General Public License can be found in
+\fI/usr/share/common\-licenses/GPL\fR\&.
+.SH "SEE ALSO"
+.BR sqlite3 (1).
