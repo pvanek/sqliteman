@@ -7,6 +7,7 @@ INSTALL(FILES
     sqliteman_bg.qm
     sqliteman_cs.qm
     sqliteman_de.qm
+    sqliteman_fr.qm
     sqliteman_it.qm
     sqliteman_pl.qm
     sqliteman_ru.qm

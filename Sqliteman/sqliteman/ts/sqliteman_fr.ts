@@ -1,120 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="it_IT">
+<!DOCTYPE TS><TS version="1.1" language="fr">
 <defaultcodec></defaultcodec>
 <context>
     <name>AlterTableDialog</name>
     <message>
         <location filename="../altertabledialog.cpp" line="30"/>
         <source>Alte&amp;r</source>
-        <translation>Esegui Alte&amp;r</translation>
+        <translation>Modifie&amp;r</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="32"/>
         <source>Alter Table</source>
-        <translation>Modifica Tabella</translation>
-    </message>
-    <message>
-        <location filename="../altertabledialog.cpp" line="73"/>
-        <source>Error while renaming table %1: %2.
-
-%3</source>
-        <translation type="obsolete">Errore modificando la tabella %1: %2.%3</translation>
-    </message>
-    <message>
-        <location filename="../altertabledialog.cpp" line="81"/>
-        <source>Table renamed successfully</source>
-        <translation type="obsolete">Tabella rinominata con successo</translation>
+        <translation>Modifier la Table</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="248"/>
         <source>Error while altering table %1: %2.
 %3</source>
-        <translation>Errore durante la modifica della tabella %1: %2.%3</translation>
-    </message>
-    <message>
-        <location filename="../altertabledialog.cpp" line="124"/>
-        <source>Table altered successfully</source>
-        <translation type="obsolete">Tabella Modificata con successo</translation>
+        <translation>Erreur lors de la modification de la table %1: %2. %3</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="35"/>
         <source>Indexed</source>
-        <translation>Indicizzata</translation>
+        <translation>Indexé</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="38"/>
         <source>Drop</source>
-        <translation>Elimina</translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="74"/>
         <source>Yes</source>
-        <translation>Si</translation>
+        <translation>Oui</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="77"/>
         <source>No</source>
-        <translation>No</translation>
+        <translation>Non</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="107"/>
         <source>failed</source>
-        <translation>fallito</translation>
+        <translation>échoué</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="111"/>
         <source>Old table is stored as %1</source>
-        <translation>La vecchia tabella è stata salvata in %1</translation>
+        <translation>L&apos;ancienne table est stockée en tant que %1</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="126"/>
         <source>Cannot get index list. %1</source>
-        <translation>Non è possibile recuperare l&apos;indice. %1</translation>
+        <translation>Impossible d&apos;obtenir la liste d&apos;index. %1</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="161"/>
         <source>Rename original table to %1</source>
-        <translation>Rinomino la tabella originale in %1</translation>
+        <translation>Renommer la table d&apos;origine en %1</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="176"/>
         <source>Creating new table: %1</source>
-        <translation>Sto per creare una nuova Tabella: %1</translation>
+        <translation>Créer une nouvelle table: %1</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="182"/>
         <source>Begin Transaction</source>
-        <translation>Inizio la Transazione</translation>
+        <translation>Début de la transaction</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="192"/>
         <source>Data Transfer</source>
-        <translation>Trasferimento Dati</translation>
+        <translation>Transfert des données</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="194"/>
         <source>Transaction Commit</source>
-        <translation>Chiudo la Transazione</translation>
+        <translation>Transaction validée</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="199"/>
         <source>Dropping original table %1</source>
-        <translation>Elimino la tabella originale %1</translation>
+        <translation>Suppression de la la table originale %1</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="205"/>
         <source>Recreating original index/trigger</source>
-        <translation>Ricreo l&apos;indice/trigger originale</translation>
+        <translation>Recréer les index/déclencheurs d&apos;origine</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="215"/>
         <source>Alter Table Done</source>
-        <translation>Alter Table Eseguito</translation>
+        <translation>Modification de la table terminée</translation>
     </message>
     <message>
         <location filename="../altertabledialog.cpp" line="254"/>
         <source>Columns added successfully</source>
-        <translation>Colonna aggiunta con successo</translation>
+        <translation>Colonnes ajoutées avec succès</translation>
     </message>
 </context>
 <context>
@@ -122,19 +105,19 @@
     <message>
         <location filename="../altertriggerdialog.cpp" line="22"/>
         <source>&amp;Alter</source>
-        <translation>&amp;Modifica</translation>
+        <translation>&amp;Modifier</translation>
     </message>
     <message>
         <location filename="../altertriggerdialog.cpp" line="28"/>
         <source>Cannot get trigger from the database.</source>
-        <translation>Non ci sono trigger nel database.</translation>
+        <translation>Impossible d&apos;obtenir le déclencheur de la base de données.</translation>
     </message>
     <message>
         <location filename="../altertriggerdialog.cpp" line="48"/>
         <source>Cannot drop trigger: %1.
 
 %2</source>
-        <translation>Non posso cancellare il trigger: %1.
+        <translation>Impossible de supprimer le déclencheur: %1.
 
 %2</translation>
     </message>
@@ -143,12 +126,14 @@
         <source>Error while creating trigger: %2.
 
 %3</source>
-        <translation>Errore nella creazione del trigger: %2.%3</translation>
+        <translation>Erreur lors de la création du déclencheur: %2
+
+%3</translation>
     </message>
     <message>
         <location filename="../altertriggerdialog.cpp" line="60"/>
         <source>Trigger created successfully</source>
-        <translation>Trigger creato correttamente </translation>
+        <translation>Déclencheur créé avec succès</translation>
     </message>
 </context>
 <context>
@@ -156,26 +141,29 @@
     <message>
         <location filename="../alterviewdialog.cpp" line="40"/>
         <source>Alter View</source>
-        <translation>Modifica Vista</translation>
+        <translation>Modification de la vue</translation>
     </message>
     <message>
         <location filename="../alterviewdialog.cpp" line="56"/>
         <source>Error while altering view (drop phase): %1.
 
 %2</source>
-        <translation>Errore modificando la vista (in fase di cancellazione): %1.%2</translation>
+        <translation>Erreur lors de la modification de la vue (phase de suppression): %1.
+%2</translation>
     </message>
     <message>
         <location filename="../alterviewdialog.cpp" line="68"/>
         <source>Error while altering view: %1.
 
 %2</source>
-        <translation>Errore modificando la vista: %1.%2</translation>
+        <translation>Erreur lors de la modification de la vue: %1
+
+%2</translation>
     </message>
     <message>
         <location filename="../alterviewdialog.cpp" line="72"/>
         <source>View altered successfully</source>
-        <translation>Vista modificata con successo</translation>
+        <translation>Vue modifiée avec succès</translation>
     </message>
 </context>
 <context>
@@ -183,47 +171,47 @@
     <message>
         <location filename="../analyzedialog.ui" line="13"/>
         <source>Analyze Database</source>
-        <translation>Analizza Database</translation>
+        <translation>Analyser la base de données</translation>
     </message>
     <message>
         <location filename="../analyzedialog.ui" line="25"/>
         <source>Compute Statistics for Selected Tables</source>
-        <translation>Esegui Statistiche sulla tabella selezionata</translation>
+        <translation>Calcul des statistiques pour les tables sélectionnées</translation>
     </message>
     <message>
         <location filename="../analyzedialog.ui" line="44"/>
         <source>&amp;Compute</source>
-        <translation>&amp;Computa</translation>
+        <translation>&amp;Calculer</translation>
     </message>
     <message>
         <location filename="../analyzedialog.ui" line="77"/>
         <source>Compute All Statistics</source>
-        <translation>Computa tutte le statistiche</translation>
+        <translation>Calcul de toutes les statistiques</translation>
     </message>
     <message>
         <location filename="../analyzedialog.ui" line="89"/>
         <source>Calculate &amp;All</source>
-        <translation>Calcola &amp;Tutto</translation>
+        <translation>Calculer &amp;Tout</translation>
     </message>
     <message>
         <location filename="../analyzedialog.ui" line="109"/>
         <source>Recalculate the statistics for all objects in the DB.</source>
-        <translation>Ricalcola le statistiche per tutti gli oggetti nel DB.</translation>
+        <translation>Recalculer les statistiques pour tous les objets dans la BD.</translation>
     </message>
     <message>
         <location filename="../analyzedialog.ui" line="119"/>
         <source>Drop Statistics</source>
-        <translation>Cancella Statistiche</translation>
+        <translation>Supprimer les statistiques</translation>
     </message>
     <message>
         <location filename="../analyzedialog.ui" line="131"/>
         <source>&amp;Drop</source>
-        <translation>&amp;Cancella</translation>
+        <translation>&amp;Supprimer</translation>
     </message>
     <message>
         <location filename="../analyzedialog.ui" line="151"/>
         <source>&lt;qt&gt;Statistics for all objects in the database will be dropped.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Le statistiche per tutti gli oggetti nel database saranno cancellate.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Les statistiques pour tous les objets dans la base de données seront supprimées&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -231,7 +219,7 @@
     <message>
         <location filename="../blobpreviewwidget.cpp" line="37"/>
         <source>File content cannot be displayed</source>
-        <translation>Il contenuto del file non può essere mostrato</translation>
+        <translation>Le contenu du fichier ne peut pas être affiché</translation>
     </message>
 </context>
 <context>
@@ -241,64 +229,64 @@
         <source>Error while parsing constraints: %1.
 
 %2</source>
-        <translation>Errore mentre analizzo i constraints: %1.
+        <translation>Erreur lors de l&apos;analyse des contraintes: %1.
 
 %2</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.cpp" line="123"/>
         <source>No action for INSERT</source>
-        <translation>Non ci sono azioni per l&apos;INSERT</translation>
+        <translation>Aucune action pour INSERT</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.cpp" line="136"/>
         <source>No action for UPDATE</source>
-        <translation>Non ci sono azioni per l&apos;UPDATE</translation>
+        <translation>Aucune action pour UPDATE</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.cpp" line="149"/>
         <source>No action for DELETE</source>
-        <translation>Non ci sono azioni per l&apos;DELETE</translation>
+        <translation>Aucune action pour DELETE</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.cpp" line="159"/>
         <source>Error while creating trigger: %1.</source>
-        <translation>Errore nella crreazione del trigger: %1.</translation>
+        <translation>Error lors de la création du déclencheur: %1.</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.cpp" line="161"/>
         <source>Trigger created successfully</source>
-        <translation>Trigger creato con successo</translation>
+        <translation>Déclencheur créé avec succès</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.ui" line="13"/>
         <source>Constraints Triggers</source>
-        <translation></translation>
+        <translation>Déclencheurs de contraintes</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.ui" line="29"/>
         <source>&amp;Insert</source>
-        <translation>&amp;Inserisci</translation>
+        <translation>&amp;Insertion</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.ui" line="110"/>
         <source>&amp;Name:</source>
-        <translation>&amp;Nome:</translation>
+        <translation>&amp;Nom:</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.ui" line="62"/>
         <source>&amp;Update</source>
-        <translation>&amp;Aggiorna</translation>
+        <translation>&amp;Mise à jour</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.ui" line="95"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Cancella</translation>
+        <translation>&amp;Suppression</translation>
     </message>
     <message>
         <location filename="../constraintsdialog.ui" line="167"/>
         <source>C&amp;reate</source>
-        <translation>C&amp;rea</translation>
+        <translation>&amp;Création</translation>
     </message>
 </context>
 <context>
@@ -307,38 +295,38 @@
         <location filename="../createindexdialog.cpp" line="77"/>
         <source>Error while creating index: %1
 %2.</source>
-        <translation>Errore nella creazione dell&apos;indice: %1
+        <translation>Erreur lors de la création de l&apos;index: %1
 %2.</translation>
     </message>
     <message>
         <location filename="../createindexdialog.cpp" line="81"/>
         <source>Index created successfully.</source>
-        <translation>Indice Creato correttamente.</translation>
+        <translation>Index créé avec succès.</translation>
     </message>
     <message>
         <location filename="../createindexdialog.ui" line="13"/>
         <source>Create Index</source>
-        <translation>Crea Indice</translation>
+        <translation>Créer l&apos;index</translation>
     </message>
     <message>
         <location filename="../createindexdialog.ui" line="32"/>
         <source>Table Name:</source>
-        <translation>Nome Tabella:</translation>
+        <translation>Nom de la table:</translation>
     </message>
     <message>
         <location filename="../createindexdialog.ui" line="39"/>
         <source>Index &amp;Name:</source>
-        <translation>&amp;Nome Indice:</translation>
+        <translation>&amp;Nom de l&apos;index:</translation>
     </message>
     <message>
         <location filename="../createindexdialog.ui" line="75"/>
         <source>&amp;Unique?</source>
-        <translation>&amp;Unico?</translation>
+        <translation>&amp;Unique?</translation>
     </message>
     <message>
         <location filename="../createindexdialog.ui" line="104"/>
         <source>TextLabel</source>
-        <translation>Etichetta di Testo</translation>
+        <translation>LabelText</translation>
     </message>
     <message>
         <location filename="../createindexdialog.ui" line="97"/>
@@ -348,12 +336,12 @@
     <message>
         <location filename="../createindexdialog.ui" line="136"/>
         <source>Column</source>
-        <translation>Colonna</translation>
+        <translation>Colonne</translation>
     </message>
     <message>
         <location filename="../createindexdialog.ui" line="141"/>
         <source>Use?</source>
-        <translation>Usa?</translation>
+        <translation>Utiliser?</translation>
     </message>
     <message>
         <location filename="../createindexdialog.ui" line="146"/>
@@ -363,7 +351,7 @@
     <message>
         <location filename="../createindexdialog.ui" line="164"/>
         <source>C&amp;reate</source>
-        <translation>C&amp;rea</translation>
+        <translation>C&amp;réer</translation>
     </message>
 </context>
 <context>
@@ -371,19 +359,21 @@
     <message>
         <location filename="../createtabledialog.cpp" line="23"/>
         <source>Create Table</source>
-        <translation>Crea tabella</translation>
+        <translation>Créer une table</translation>
     </message>
     <message>
         <location filename="../createtabledialog.cpp" line="65"/>
         <source>Error while creating table: %1.
 
 %2</source>
-        <translation>Errore nella creazione della tabella: %1.%2</translation>
+        <translation>Erreur lors de la création de la table: %1
+
+%2</translation>
     </message>
     <message>
         <location filename="../createtabledialog.cpp" line="69"/>
         <source>Table created successfully</source>
-        <translation>Tabella creata con successo</translation>
+        <translation>Table créée avec succès</translation>
     </message>
     <message>
         <location filename="../createtabledialog.cpp" line="76"/>
@@ -393,7 +383,7 @@
     <message>
         <location filename="../createtabledialog.cpp" line="78"/>
         <source>The current content of the Advanced SQL editor will be lost.Do you really want to recreate your SQL?</source>
-        <translation>L&apos;attuale contenuto dell&apos;editor SQL Avanzato verrà perso. Sei sicuro di voler ricreare il tuo SQL?</translation>
+        <translation>Le contenu de l&apos;Éditeur Avancé de SQL sera perdu. Voulez-vous vraiment recréer votre SQL?</translation>
     </message>
 </context>
 <context>
@@ -403,22 +393,24 @@
         <source>Error while creating trigger: %2.
 
 %3</source>
-        <translation>Errore nella creazione del trigger: %2.%3</translation>
+        <translation>Erreur lors de la création du déclencheur: %2.
+
+%3</translation>
     </message>
     <message>
         <location filename="../createtriggerdialog.cpp" line="47"/>
         <source>Trigger created successfully</source>
-        <translation>Trigger creato con successo</translation>
+        <translation>Déclencheur créé avec succès</translation>
     </message>
     <message>
         <location filename="../createtriggerdialog.ui" line="13"/>
         <source>Create Trigger</source>
-        <translation>Crea Trigger</translation>
+        <translation>Créer un déclencheur</translation>
     </message>
     <message>
         <location filename="../createtriggerdialog.ui" line="25"/>
         <source>C&amp;reate</source>
-        <translation>C&amp;rea</translation>
+        <translation>C&amp;réer</translation>
     </message>
 </context>
 <context>
@@ -428,37 +420,39 @@
         <source>Error while creating view: %2.
 
 %3</source>
-        <translation>Errore creando la vista: %2.%3</translation>
+        <translation>Erreur lors de la création de la vue: %2
+
+%3</translation>
     </message>
     <message>
         <location filename="../createviewdialog.cpp" line="50"/>
         <source>View created successfully</source>
-        <translation>Vistra crata con successo</translation>
+        <translation>Vue créée avec succès</translation>
     </message>
     <message>
         <location filename="../createviewdialog.ui" line="13"/>
         <source>Create View</source>
-        <translation>Crea Vista</translation>
+        <translation>Créer une vue</translation>
     </message>
     <message>
         <location filename="../createviewdialog.ui" line="46"/>
         <source>C&amp;reate</source>
-        <translation>C&amp;rea</translation>
+        <translation>C&amp;réer</translation>
     </message>
     <message>
         <location filename="../createviewdialog.ui" line="78"/>
         <source>&amp;Select Statement (AS)</source>
-        <translation>Dichisazione &amp;Select</translation>
+        <translation>Instruction de &amp;Sélection (AS)</translation>
     </message>
     <message>
         <location filename="../createviewdialog.ui" line="96"/>
         <source>&amp;Database:</source>
-        <translation>&amp;Database:</translation>
+        <translation>Base de &amp;Données:</translation>
     </message>
     <message>
         <location filename="../createviewdialog.ui" line="112"/>
         <source>&amp;View Name:</source>
-        <translation>Nome &amp;Vista:</translation>
+        <translation>Nom de la &amp;Vue:</translation>
     </message>
 </context>
 <context>
@@ -466,7 +460,7 @@
     <message>
         <location filename="../dataexportdialog.cpp" line="40"/>
         <source>Comma Separated Values (CSV)</source>
-        <translation>Comma Separated Values (CSV)</translation>
+        <translation>Séparé par des virgules (CSV)</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.cpp" line="41"/>
@@ -481,27 +475,27 @@
     <message>
         <location filename="../dataexportdialog.cpp" line="43"/>
         <source>SQL inserts</source>
-        <translation>Codice SQL</translation>
+        <translation>SQL inserts</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.cpp" line="44"/>
         <source>Python List</source>
-        <translation>Lista Python</translation>
+        <translation>Python List</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.cpp" line="138"/>
         <source>Export Error</source>
-        <translation>Errore di esportazione</translation>
+        <translation>Erreur d&apos;Exportation</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.cpp" line="139"/>
         <source>Cannot open file %1 for writting</source>
-        <translation>Non Posso aprire il file %1 in scrittura</translation>
+        <translation>Impossible d&apos;ouvrir le fichier %1 en écriture</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.cpp" line="324"/>
         <source>Comma Separated Value (*.csv)</source>
-        <translation>Comma Separated Value (*.csv)</translation>
+        <translation>Séparé par des virgules (*.csv)</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.cpp" line="326"/>
@@ -516,87 +510,87 @@
     <message>
         <location filename="../dataexportdialog.cpp" line="330"/>
         <source>SQL inserts (*.sql)</source>
-        <translation>Codice SQL (*.sql)</translation>
+        <translation>SQL inserts (*.sql)</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.cpp" line="332"/>
         <source>Python list (*.py)</source>
-        <translation>Lista Python (*.py)</translation>
+        <translation>Python list (*.py)</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.cpp" line="335"/>
         <source>Export to File</source>
-        <translation>Esporta in un File</translation>
+        <translation>Exporter dans un fichier</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="13"/>
         <source>Export Data</source>
-        <translation>Esporta Dati</translation>
+        <translation>Exporter les données</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="38"/>
         <source>Export Options</source>
-        <translation>Esporta Opzioni</translation>
+        <translation>Options d&apos;exportation</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="50"/>
         <source>If it is checked the table header will be exported with the data too.</source>
-        <translation>Se è selezionalo l&apos;header della tabella verranno esportati anche i dati.</translation>
+        <translation>Si coché, les entêtes de la table seront exportées avec les données.</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="53"/>
         <source>&amp;Export Headers Too</source>
-        <translation>&amp;Esporta gli Headers anche</translation>
+        <translation>&amp;Export les entêtes également</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="63"/>
         <source>Specify the output encoding. UTF-8 is a good choice for most exports.</source>
-        <translation>Specifica la codifica di uscita. Solitamente UTF-8 è una buona scelta per la maggior parte delle esportazioni.</translation>
+        <translation>Précisez le codage de sortie. UTF-8 est un bon choix pour la plupart des exports.</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="70"/>
         <source>E&amp;ncoding:</source>
-        <translation>Co&amp;difica:</translation>
+        <translation>&amp;Codage:</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="80"/>
         <source>&amp;Line End:</source>
-        <translation>Fine &amp;Linea:</translation>
+        <translation>Fin de &amp;ligne:</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="90"/>
         <source>You can choose the End of Line style here.</source>
-        <translation>Puoi scegliere lo stile del Fine linea qui.</translation>
+        <translation>Vous pouvez choisir ici le style de fin de ligne.</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="118"/>
         <source>File:</source>
-        <translation>File:</translation>
+        <translation>Fichier:</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="128"/>
         <source>S&amp;earch...</source>
-        <translation>C&amp;erca...</translation>
+        <translation>R&amp;echercher...</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="140"/>
         <source>&amp;Format:</source>
-        <translation>&amp;Formato:</translation>
+        <translation>&amp;Format:</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="158"/>
         <source>Export to:</source>
-        <translation>Esporta in:</translation>
+        <translation>Exporter vers:</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="165"/>
         <source>F&amp;ile</source>
-        <translation>F&amp;ile</translation>
+        <translation>F&amp;ichier</translation>
     </message>
     <message>
         <location filename="../dataexportdialog.ui" line="175"/>
         <source>Cli&amp;pboard</source>
-        <translation>A&amp;ppunti</translation>
+        <translation>&amp;Presse-papiers</translation>
     </message>
 </context>
 <context>
@@ -614,133 +608,133 @@ Help:
 Yes = commit
 No = rollback
 Cancel = skip this operation and stay in the current table</source>
-        <translation>C&apos;è una transazione in corso. Decidi il commit?
+        <translation>Une transaction est actuellement en cours. Effectuer la validation?
 
-Aiuto:
-Si = commit
-No = rollback
-Cancel = annulla l&apos;operazione e stai nella tabella corrente </translation>
+Aide:
+Oui = Validation
+Non = Restauration
+Annuler = Annulation de cette opération et retour à la table courante</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="235"/>
         <source>There is a pending transaction in progress. That cannot be commited now.
 Error: %1
 Perform rollback?</source>
-        <translation>C&apos;è una transazione attualmente in corso. Non può essere committato adesso.
-Errore: %1
-Eseguo il rollback?</translation>
+        <translation>Une transaction est actuellement en cours.  Impossible de valider actuellement.
+Erreur: %1
+Effectuer la restauration?</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="180"/>
         <source>Are you sure you want to remove all content from this table?</source>
-        <translation>Sei sicuro di voler rimuovere tutto il contenuto di questa tabella?</translation>
+        <translation>Êtes vous sûr de vouloir supprimer tout le contenu de cette table?</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="203"/>
         <source>Export Error</source>
-        <translation>Errore di Esportazione</translation>
+        <translation>Erreur d&apos;export</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="203"/>
         <source>Data export failed</source>
-        <translation>Esportazione Dati fallita</translation>
+        <translation>Erreur de l&apos;exportation des données</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="13"/>
         <source>Data Viewer</source>
-        <translation>Visualizza Dati</translation>
+        <translation>Visualiseur de données</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="209"/>
         <source>New Row</source>
-        <translation>Nuova Riga</translation>
+        <translation>Nouvelle ligne</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="214"/>
         <source>Remove Row</source>
-        <translation>Rimuovi Riga</translation>
+        <translation>Supprimer la ligne</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="219"/>
         <source>Truncate Table</source>
-        <translation>Tronca Tabella</translation>
+        <translation>Tronquer la Table</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="224"/>
         <source>Export Data</source>
-        <translation>Esporta i Dati</translation>
+        <translation>Exporter les données</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="229"/>
         <source>Commit</source>
-        <translation>Commit</translation>
+        <translation>Valider</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="232"/>
         <source>Commit the current transaction in the result table</source>
-        <translation>Esegui il Commit delle transazioni correnti nella tabella risultante</translation>
+        <translation>Valider la transaction courrante dans la table de résultats</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="237"/>
         <source>Rollback</source>
-        <translation>Rollback</translation>
+        <translation>Restaurer</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="240"/>
         <source>Rollback the current transaction in the result table</source>
-        <translation>Rollback delle transazioni correnti nella tabella risultante</translation>
+        <translation>Restaurer la transaction courrante dans la table de résultats</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="38"/>
         <source>Full View</source>
-        <translation>Vista Completa</translation>
+        <translation>Vue complète</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="73"/>
         <source>Item View</source>
-        <translation>Vista per Record</translation>
+        <translation>Vue d&apos;un élément</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="165"/>
         <source>Open a new standalone window with current results</source>
-        <translation>Apri una nuova finestra con i risultati correnti</translation>
+        <translation>Ouvrir une nouvelle fenêtre autonome avec les résultats</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="121"/>
         <source>Query OK
 Row(s) returned: %1 %2</source>
-        <translation>Query OK
-Record Trovati: %1 %2</translation>
+        <translation>Requête OK
+Ligne(s) retournée(s): %1 %2</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="301"/>
         <source>Data Snapshot</source>
-        <translation></translation>
+        <translation>Instantané de données</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="314"/>
         <source>%1 snapshot for: %2</source>
-        <translation>%1 snapshot per: %2</translation>
+        <translation>%1 instantané pour: %2</translation>
     </message>
     <message>
         <location filename="../dataviewer.cpp" line="367"/>
         <source>(More rows can be fetched. Scroll the resultset for more rows and/or read the documentation.)</source>
-        <translation>(Altre righe posso essere mostrate. Scorri il resultset per avere altre righe e/o leggi la documentazione.)</translation>
+        <translation>(Plus de lignes peuvent être récupérées. Faites défiler les résultats pour obtenir plus de lignes et/ou lisez la documentation.)</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="88"/>
         <source>Item View is read only now.</source>
-        <translation>La Vista per record è in sola lettura adesso.</translation>
+        <translation>La vue d&apos;un élément est actuellement en lecture seule.</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="96"/>
         <source>Script Output</source>
-        <translation>Script Output</translation>
+        <translation>Script de sortie</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="261"/>
         <source>BLOB Preview</source>
-        <translation>Anteprima BOLB</translation>
+        <translation>Prévisualiser BLOB</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="184"/>
@@ -755,12 +749,12 @@ Record Trovati: %1 %2</translation>
     <message>
         <location filename="../dataviewer.ui" line="245"/>
         <source>Table Snapshot</source>
-        <translation>Snapshot della tabella</translation>
+        <translation>Instantané de Table</translation>
     </message>
     <message>
         <location filename="../dataviewer.ui" line="250"/>
         <source>Close</source>
-        <translation>Chiudi</translation>
+        <translation>Fermer</translation>
     </message>
 </context>
 <context>
@@ -768,72 +762,72 @@ Record Trovati: %1 %2</translation>
     <message>
         <location filename="../database.cpp" line="20"/>
         <source>SQL Error</source>
-        <translation>Errore SQL</translation>
+        <translation>Erreur SQL</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="278"/>
         <source>Error executing: %1.</source>
-        <translation>Errore eseguendo: %1.</translation>
+        <translation>Erreur d&apos;execution: %1.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="46"/>
         <source>Cannot get databases list. %1</source>
-        <translation>Impossibile ottenere la lista dei database. %1</translation>
+        <translation>Impossible d&apos;obtenir la liste des bases de données. %1</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="61"/>
         <source>Error while dropping table %1: %2.</source>
-        <translation>Errore durante l&apos;eliminazioine della tabella %1: %2.</translation>
+        <translation>Error lors de la suppression de la table %1: %2.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="102"/>
         <source>Error while getting the fileds of %1: %2.</source>
-        <translation>Errore nella lettura dei campi %1: %2.</translation>
+        <translation>Erreur lors de l&apos;obtention des champs de %1: %2.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="127"/>
         <source>Error while the list of %1: %2.</source>
-        <translation>Errore nella lista di %1: %2.</translation>
+        <translation>Erreur lors de la liste de %1: %2.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="166"/>
         <source>Error while the list of the system catalogue: %2.</source>
-        <translation>Errore nella lista del catalogo di sistema: %2.</translation>
+        <translation>Erreur lors de la liste du catalogue système: %2.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="178"/>
         <source>Error while dropping the view %1: %2.</source>
-        <translation>Errore nella cancellazione delle viste %1: %2.</translation>
+        <translation>Erreur lors de la suppression de la vue %1: %2.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="191"/>
         <source>Error while dropping the index %1: %2.</source>
-        <translation>Errore nella cancellazione dell&apos;indice %1: %2.</translation>
+        <translation>Erreur lors de la suppression de l&apos;index %1: %2.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="203"/>
         <source>Unable to open file %1 for writing.</source>
-        <translation>Non posso aprire il file %1 in scrittura.</translation>
+        <translation>Impossible d&apos;ouvrir le fichier %1 pour écriture.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="215"/>
         <source>Error while exporting SQL: %1.</source>
-        <translation>Errore in esportazione dell&apos;SQL: %1.</translation>
+        <translation>Erreur lors de l&apos;exportation SQL: %1.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="251"/>
         <source>Error while dropping the trigger %1: %2.</source>
-        <translation>Errore nella cancellazione del trigger %1: %2.</translation>
+        <translation>Erreur lors de la suppression du déclencheur %1: %2.</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="284"/>
         <source>Not Set</source>
-        <translation>Non impostato</translation>
+        <translation>Non défini</translation>
     </message>
     <message>
         <location filename="../database.cpp" line="234"/>
         <source>Error while describe object %1: %2.</source>
-        <translation>Errore nella descrizione dell&apos;oggetto %1: %2.</translation>
+        <translation>Erreur lors de la description de l&apos;objet %1: %2.</translation>
     </message>
 </context>
 <context>
@@ -841,27 +835,22 @@ Record Trovati: %1 %2</translation>
     <message>
         <location filename="../helpbrowser.ui" line="13"/>
         <source>Sqliteman Help</source>
-        <translation>Sqliteman Aiuto</translation>
-    </message>
-    <message>
-        <location filename="../helpbrowser.ui" line="62"/>
-        <source>&amp;Document</source>
-        <translation type="obsolete">&amp;Documentazione</translation>
+        <translation>Aide Sqliteman </translation>
     </message>
     <message>
         <location filename="../helpbrowser.ui" line="52"/>
         <source>&amp;Back</source>
-        <translation>&amp;Indietro</translation>
+        <translation>&amp;Précédent</translation>
     </message>
     <message>
         <location filename="../helpbrowser.ui" line="57"/>
         <source>&amp;Forward</source>
-        <translation>&amp;Avanti</translation>
+        <translation>&amp;Suivant</translation>
     </message>
     <message>
         <location filename="../helpbrowser.ui" line="62"/>
         <source>&amp;Close</source>
-        <translation>&amp;Chiudi</translation>
+        <translation>&amp;Fermer</translation>
     </message>
 </context>
 <context>
@@ -869,12 +858,12 @@ Record Trovati: %1 %2</translation>
     <message>
         <location filename="../importtabledialog.cpp" line="263"/>
         <source>Data Import</source>
-        <translation>Importazione Dati</translation>
+        <translation>Importer des données</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="264"/>
         <source>Cannot open file %1 for reading.</source>
-        <translation>Non posso aprire il file %1 per la lettura.</translation>
+        <translation>Impossible d&apos;ouvrir le fichier %1 en lecture.</translation>
     </message>
 </context>
 <context>
@@ -882,12 +871,12 @@ Record Trovati: %1 %2</translation>
     <message>
         <location filename="../importtabledialog.cpp" line="292"/>
         <source>Data Import</source>
-        <translation>Importazione Dati</translation>
+        <translation>Importation de données</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="293"/>
         <source>Cannot open file %1 for reading.</source>
-        <translation>Non posso aprire il file %1 per la lettura.</translation>
+        <translation>Impossible d&apos;ouvrir le fichier %1 en lecture.</translation>
     </message>
 </context>
 <context>
@@ -895,47 +884,47 @@ Record Trovati: %1 %2</translation>
     <message>
         <location filename="../importtabledialog.cpp" line="75"/>
         <source>File to Import</source>
-        <translation>File da importare</translation>
+        <translation>Fichier à importer</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="77"/>
         <source>CSV Files (*.csv);;MS Excel XML (*.xml);;Text Files (*.txt);;All Files (*)</source>
-        <translation>CSV Files (*.csv);;MS Excel XML (*.xml);;Text Files (*.txt);;All Files (*)</translation>
+        <translation>Fichiers CSV (*.csv);;MS Excel XML (*.xml);; Fichiers Texte(*.txt);;Tous les Fichiers (*)</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="13"/>
         <source>Data Import</source>
-        <translation>Importazione Dati</translation>
+        <translation>Import de données</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="98"/>
         <source>Fields separator must be given</source>
-        <translation>Deve essere fornito un separatore di campo</translation>
+        <translation>Séparateurs de champs doivent être donnés</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="136"/>
         <source>Row = %1; Imported values = %2; Table columns count = %3; Values = (%4)</source>
-        <translation>Righe = %1; Valori importati = %2; Conteggio colonne nella tabella = %3; Valori = (%4)</translation>
+        <translation>Ligne = %1; Valeurs importées = %2; Nombre de colonnes de la table = %3; Valeurs = (%4)</translation>
     </message>
     <message>
         <location filename="../importtabledialog.cpp" line="148"/>
         <source>Row = %1; %2</source>
-        <translation>Riga = %1; %2</translation>
+        <translation>Ligne = %1;%2</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="25"/>
         <source>&amp;Table to Import Into:</source>
-        <translation>&amp;Tabella da importare in:</translation>
+        <translation>&amp;Table à importer dans:</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="38"/>
         <source>&amp;File to Import:</source>
-        <translation>&amp;File da importare:</translation>
+        <translation>&amp;Fichier à importer:</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="51"/>
         <source>&amp;Search...</source>
-        <translation>&amp;Ricerca...</translation>
+        <translation>&amp;Rechercher...</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="62"/>
@@ -945,32 +934,32 @@ Record Trovati: %1 %2</translation>
     <message>
         <location filename="../importtabledialog.ui" line="74"/>
         <source>Column Separators</source>
-        <translation>Separatori di colonne</translation>
+        <translation>Séparateurs de colonnes</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="86"/>
         <source>Pipe Symbol (Default)</source>
-        <translation>Pipe Symbol (Default)</translation>
+        <translation>Barre Verticale (Défaut)</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="96"/>
         <source>Comma</source>
-        <translation>Virgola</translation>
+        <translation>Virgule</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="103"/>
         <source>Semicolon</source>
-        <translation>Punto e virgola</translation>
+        <translation>Virgule</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="110"/>
         <source>Tabelator</source>
-        <translation>Tabulatore</translation>
+        <translation>Tabulation</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="125"/>
         <source>Custom:</source>
-        <translation>Personalizzato:</translation>
+        <translation>Personnalisé:</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="154"/>
@@ -980,17 +969,17 @@ Record Trovati: %1 %2</translation>
     <message>
         <location filename="../importtabledialog.ui" line="166"/>
         <source>There are no options for this import type.</source>
-        <translation>Non ci sono opzioni per questo tipo di importazione.</translation>
+        <translation>Il n&apos;y a aucune option pour ce type d&apos;import.</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="180"/>
         <source>Preview</source>
-        <translation>Anteprima</translation>
+        <translation>Prévisualisation</translation>
     </message>
     <message>
         <location filename="../importtabledialog.ui" line="212"/>
         <source>&amp;Schema to Import:</source>
-        <translation>&amp;Schema da importare:</translation>
+        <translation>&amp;Schéma à importer:</translation>
     </message>
 </context>
 <context>
@@ -998,7 +987,7 @@ Record Trovati: %1 %2</translation>
     <message>
         <location filename="../importtablelogdialog.ui" line="13"/>
         <source>Data Import Log</source>
-        <translation>Log di importazione dei dati</translation>
+        <translation>Journal d&apos;import de données</translation>
     </message>
     <message>
         <location filename="../importtablelogdialog.ui" line="22"/>
@@ -1011,9 +1000,9 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Verdana&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ci sono stati errori nell&apos;importazione. Controlla il log degli errori. I dati nel database non sono completi.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Perform commit anyway?&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(Si=commit, No=rollback)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Des problèmes d&apos;imports sont survenus. Vérifiez le journal des erreurs ci-dessous. Les données de la base de données ne sont pas complètes.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Effectuer la validation malgré tout ?&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(Oui=Valider, Non=Restaurer)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -1021,67 +1010,67 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="179"/>
         <source>&amp;New...</source>
-        <translation>&amp;Nuovo...</translation>
+        <translation>&amp;Nouveau...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="180"/>
         <source>Ctrl+N</source>
-        <translation></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="184"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Apri...</translation>
+        <translation>&amp;Ouvrir...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="185"/>
         <source>Ctrl+O</source>
-        <translation></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="188"/>
         <source>&amp;Recent Databases</source>
-        <translation>Database &amp;Recenti</translation>
+        <translation>&amp;Base de données récente</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="192"/>
         <source>&amp;Preferences...</source>
-        <translation>&amp;Opzioni...</translation>
+        <translation>&amp;Préférences...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="195"/>
         <source>E&amp;xit</source>
-        <translation>E&amp;sci</translation>
+        <translation>&amp;Quitter</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="196"/>
         <source>Ctrl+Q</source>
-        <translation></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="199"/>
         <source>&amp;About...</source>
-        <translation>&amp;About...</translation>
+        <translation>Â &amp;propos...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="202"/>
         <source>About &amp;Qt...</source>
-        <translation>About &amp;Qt...</translation>
+        <translation>Â propos de &amp;Qt...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="205"/>
         <source>&amp;Help Content...</source>
-        <translation>Indice &amp;Aiuto...</translation>
+        <translation>Sommaire de l&apos;&amp;aide...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="206"/>
         <source>F1</source>
-        <translation></translation>
+        <translation>F1</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="209"/>
         <source>&amp;SQL Editor</source>
-        <translation>Editor &amp;SQL</translation>
+        <translation>Editeur &amp;SQL</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="210"/>
@@ -1091,7 +1080,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="214"/>
         <source>Object &amp;Browser</source>
-        <translation>&amp;Browser degli oggetti</translation>
+        <translation>Navigateur d&apos;&amp;objet</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="215"/>
@@ -1101,7 +1090,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="219"/>
         <source>&amp;Build Query...</source>
-        <translation>&amp;Crea Query...</translation>
+        <translation>Constructeur de &amp;Requète...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="220"/>
@@ -1111,17 +1100,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="223"/>
         <source>&amp;Export Schema...</source>
-        <translation>&amp;Esporta Schema...</translation>
+        <translation>&amp;Exporter le Schéma...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="226"/>
         <source>&amp;Dump Database...</source>
-        <translation>&amp;Dump Database...</translation>
+        <translation>&amp;Fichier de sauvegarde de la base de donnée...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="231"/>
         <source>&amp;Create Table...</source>
-        <translation>&amp;Crea Tabella...</translation>
+        <translation>&amp;Créer une table...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="232"/>
@@ -1131,12 +1120,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="235"/>
         <source>&amp;Drop Table</source>
-        <translation>&amp;Cancella Tabella</translation>
+        <translation>&amp;Supprimer la table</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="238"/>
         <source>&amp;Alter Table...</source>
-        <translation>&amp;Modifica Tabella...</translation>
+        <translation>&amp;Modifier la table...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="239"/>
@@ -1146,7 +1135,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="249"/>
         <source>Create &amp;View...</source>
-        <translation>Crea &amp;Vista...</translation>
+        <translation>Créer une &amp;vue...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="250"/>
@@ -1156,142 +1145,142 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../litemanwindow.cpp" line="253"/>
         <source>&amp;Drop View</source>
-        <translation>&amp;Cancella Vista</translation>
+        <translation>&amp;Supprimer la vue</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="256"/>
         <source>&amp;Alter View...</source>
-        <translation>&amp;Modifica Vista...</translation>
+        <translation>&amp;Modifier la vue...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="260"/>
         <source>&amp;Create Index...</source>
-        <translation>&amp;Crea Indice...</translation>
+        <translation>&amp;Créer un index...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="263"/>
         <source>&amp;Drop Index</source>
-        <translation>Ca&amp;ncella Indice</translation>
+        <translation>&amp;Supprimer l&apos;index</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="266"/>
         <source>D&amp;escribe Table</source>
-        <translation>D&amp;escrivi Tabella</translation>
+        <translation>D&amp;écrire la table</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="273"/>
         <source>&amp;Create Trigger...</source>
-        <translation>C&amp;rea Trigger...</translation>
+        <translation>&amp;Créer un déclencheur...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="276"/>
         <source>&amp;Alter Trigger...</source>
-        <translation>M&amp;odifica Trigger...</translation>
+        <translation>&amp;Modifier le déclencheur...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="279"/>
         <source>&amp;Drop Trigger</source>
-        <translation>Cance&amp;lla Trigger</translation>
+        <translation>&amp;Supprimer le déclencheur</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="282"/>
         <source>D&amp;escribe Trigger</source>
-        <translation>D&amp;escrivi Trigger</translation>
+        <translation>D&amp;écrire le déclencheur</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="285"/>
         <source>D&amp;escribe View</source>
-        <translation>D&amp;escrivi Vista</translation>
+        <translation>D&amp;écrire la vue</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="288"/>
         <source>D&amp;escribe Index</source>
-        <translation>D&amp;escrivi Indice</translation>
+        <translation>D&amp;écrire l&apos;index</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="291"/>
         <source>&amp;Reindex</source>
-        <translation>&amp;Reindicizza</translation>
+        <translation>&amp;Réindexer</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="294"/>
         <source>&amp;Analyze Statistics...</source>
-        <translation>&amp;Analizza Statistiche...</translation>
+        <translation>&amp;Analyse des statistiques...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="297"/>
         <source>&amp;Vacuum...</source>
-        <translation>&amp;Vacuum...</translation>
+        <translation>&amp;Optimiser...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="300"/>
         <source>A&amp;ttach Database...</source>
-        <translation>A&amp;ttacca Database...</translation>
+        <translation>&amp;Joindre une base de données...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="303"/>
         <source>&amp;Detach Database</source>
-        <translation>&amp;Stacca Database</translation>
+        <translation>&amp;Séparer une base de données</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="306"/>
         <source>&amp;Refresh Object Tree</source>
-        <translation>&amp;Rileggi l&apos;Albero degli Oggetti</translation>
+        <translation>&amp;Rafraîchir l&apos;abre d&apos;objets</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="309"/>
         <source>&amp;Constraint Triggers...</source>
-        <translation>&amp;Costruizione Triggers...</translation>
+        <translation>&amp;Déclencheurs de contraintes...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="315"/>
         <source>&amp;File</source>
-        <translation>&amp;File</translation>
+        <translation>&amp;Fichier</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="324"/>
         <source>&amp;Context</source>
-        <translation>&amp;Contesto</translation>
+        <translation>&amp;Contexte</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="327"/>
         <source>&amp;Database</source>
-        <translation>&amp;Database</translation>
+        <translation>&amp;Base de données</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="339"/>
         <source>&amp;System</source>
-        <translation>&amp;Sistema</translation>
+        <translation>&amp;Système</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="345"/>
         <source>&amp;Help</source>
-        <translation>&amp;Aiuto</translation>
+        <translation>&amp;Aide</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="441"/>
         <source>New Database</source>
-        <translation>Nuovo Database</translation>
+        <translation>Nouvelle base de données</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="923"/>
         <source>SQLite database (*)</source>
-        <translation>SQLite database (*)</translation>
+        <translation>Base de données SQLite (*)</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="461"/>
         <source>Open Database</source>
-        <translation>Apri Database</translation>
+        <translation>Ouvrir base de données</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="941"/>
         <source>Unable to open or create file %1. It is probably not a database</source>
-        <translation>Non posso aprire o creare il file %1. Probabilmente non è un database</translation>
+        <translation>Impossible d&apos;ouvrir ou de créer le fichier %1. Ce n&apos;est probablement pas une base de données</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="519"/>
         <source>About</source>
-        <translation>About</translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="522"/>
@@ -1299,193 +1288,139 @@ p, li { white-space: pre-wrap; }
 
 Version %1
 (c) 2007 Petr Vanek</source>
-        <translation>Sqliteman - SQLite databases made easy
-
+        <translation>Sqliteman - SQLite à la portée de tous
 Version %1
 (c) 2007 Petr Vanek</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="565"/>
         <source>No SQL statement</source>
-        <translation>No Dichiarazione SQL</translation>
+        <translation>Aucune instruction SQL</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="565"/>
         <source>You are trying to run an undefined SQL query. Hint: select your query in the editor</source>
-        <translation>Si sta provando ad avviare un query SQL non definita. Selezionane una nell&apos;editor</translation>
+        <translation>Vous essayez d&apos;executer une requête SQL indéfinie. Astuce: choisissez votre requête dans l&apos;éditeur</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="580"/>
         <source>Duration: %1 seconds</source>
-        <translation>Durata: %1 secondi</translation>
+        <translation>Durée: %1 secondes</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="584"/>
         <source>Query Error: %1
 
 %2</source>
-        <translation>Errore nella Query: %1
-
-%2</translation>
-    </message>
-    <message>
-        <location filename="../litemanwindow.cpp" line="532"/>
-        <source>Query OK
-Row(s) returned: %1
-
-%2</source>
-        <translation type="obsolete">Query OK
-Record Trovati: %1
+        <translation>Erreur de la requête: %1
 
 %2</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="598"/>
         <source>Export Schema</source>
-        <translation>Esporta Schema</translation>
+        <translation>Exporter le schema</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="608"/>
         <source>SQL File (*.sql)</source>
-        <translation>SQL File (*.sql)</translation>
+        <translation>Fichier SQL (*.sql)</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="608"/>
         <source>Export Database</source>
-        <translation>Esporta Database</translation>
-    </message>
-    <message>
-        <location filename="../litemanwindow.cpp" line="549"/>
-        <source>The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program.</source>
-        <translation type="obsolete">Errore nell&apos;avvio del processo. Potrebbe non trovare il programma o avere insufficienti permessi per invocarlo.</translation>
-    </message>
-    <message>
-        <location filename="../litemanwindow.cpp" line="552"/>
-        <source>The process crashed some time after starting successfully.</source>
-        <translation type="obsolete">Il processo è andato in crash poco tempo dopo essere partito.</translation>
-    </message>
-    <message>
-        <location filename="../litemanwindow.cpp" line="555"/>
-        <source>An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel.</source>
-        <translation type="obsolete">Si è verificato un errore tentando di scrivere sul processo. Ad esempio, il processo può non essere avviato, o può aver chiuso il suo canale di input.</translation>
-    </message>
-    <message>
-        <location filename="../litemanwindow.cpp" line="558"/>
-        <source>An error occurred when attempting to read from the process. For example, the process may not be running.</source>
-        <translation type="obsolete">Si è verificato un errore tentando di leggere dal processo. Ad esempio, il rpovesso potrebbe non essere avviato.</translation>
-    </message>
-    <message>
-        <location filename="../litemanwindow.cpp" line="561"/>
-        <source>An unknown error occurred.</source>
-        <translation type="obsolete">Si è verificato un errore sconosciuto.</translation>
-    </message>
-    <message>
-        <location filename="../litemanwindow.cpp" line="563"/>
-        <source>Error creating the dump. Reason: %1</source>
-        <translation type="obsolete">Errore creando il dump. Motivo: %1</translation>
+        <translation>Exporter la base de données</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="623"/>
         <source>Dump written into: %1</source>
-        <translation>Dump scritto in: %1</translation>
+        <translation>Sauvegarde écrite dans: %1</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="713"/>
         <source>Are you sure that you wish to drop the table &quot;%1&quot;?</source>
-        <translation>Sei sicuro di voler cancellare la tabella &quot;%1&quot;?</translation>
+        <translation>Êtes vous sûr de vouloir supprimer la table &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="750"/>
         <source>Are you sure that you wish to drop the view &quot;%1&quot;?</source>
-        <translation>Sei sicuro di voler cancellare la vista &quot;%1&quot;?</translation>
+        <translation>Êtes vous sur de vouloir supprimer la vue &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="779"/>
         <source>Are you sure that you wish to drop the index &quot;%1&quot;?</source>
-        <translation>Sei sicuro di voler cancellare l&apos;indice &quot;%1&quot;?</translation>
-    </message>
-    <message>
-        <location filename="../litemanwindow.cpp" line="844"/>
-        <source>Query Error: %1</source>
-        <translation type="obsolete">Errore nella query: %1</translation>
-    </message>
-    <message>
-        <location filename="../litemanwindow.cpp" line="846"/>
-        <source>Query OK
-Row(s) returned: %1</source>
-        <translation type="obsolete">Query OK
-Record Trovati: %1</translation>
+        <translation>Êtes vous sur de vouloir supprimer l&apos;index &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="928"/>
         <source>Attach Database</source>
-        <translation>Attacca Database</translation>
+        <translation>Atacher une base de données</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="929"/>
         <source>Enter a Schema Alias:</source>
-        <translation>Inserisci uno Schema Alias:</translation>
+        <translation>Entrez un alias de schema:</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="992"/>
         <source>Are you sure that you wish to drop the trigger &quot;%1&quot;?</source>
-        <translation>Sei sicuro di voler cancellare il trigger &quot;%1&quot;?</translation>
+        <translation>Êtes vous sur de vouloir supprimer le déclencheur &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="618"/>
         <source>Error creating the dump. Reason: %1
 %2</source>
-        <translation>Errore creando il dump. Motivo: %1
+        <translation>Erreur lors de la création de la sauvegarde. Raison: %1
 %2</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="625"/>
         <source>An error occured in the dump: %1</source>
-        <translation>E&apos; avvenuto un errore nel dump: %1</translation>
+        <translation>Une erreur est survenue pendant la sauvegarde: %1</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="897"/>
         <source>Describe %1</source>
-        <translation>Descrizione %1</translation>
+        <translation>Décrire %1</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="72"/>
         <source>Sqlite3 executable &apos;%1&apos; is not found in your path. Some features will be disabled.</source>
-        <translation>L&apos;eseguibile si Sqlite3 &apos;%1&apos; non è stato trovato nel suo percorsco. Alcune funzioni possono essere disabilitate.</translation>
+        <translation>L&apos;executable SQLite3 &quot;%1&quot; n&apos;est pas accessible. Certaines fonctionnalitées seront désactivées.</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="81"/>
         <source>Sqliteman is using Qt %1. Some features will be disabled.</source>
-        <translation>Sqliteman usa le Qt %1. Alcune funzioni saranno disabilitate.</translation>
+        <translation>Sqliteman utilise Qt %1. Certaines fonctionnalitées seront désactivées.</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="242"/>
         <source>&amp;Rename Table...</source>
-        <translation>&amp;Rinomina la tabella...</translation>
+        <translation>&amp;Renommer la table...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="245"/>
         <source>&amp;Populate Table...</source>
-        <translation>&amp;Popola la tabella...</translation>
+        <translation>&amp;Peupler la table...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="269"/>
         <source>&amp;Import Table Data...</source>
-        <translation>&amp;Importa i dati nella Tabella...</translation>
+        <translation>&amp;Importer les données de la table...</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="590"/>
         <source>Query OK
 Row(s) returned: %1 %2
 %3</source>
-        <translation>Query OK
-Record Trovati: %1 %2
+        <translation>Requête OK
+Ligne(s) retournée(s): %1 %2
 %3</translation>
     </message>
     <message>
         <location filename="../litemanwindow.cpp" line="664"/>
         <source>New table name:</source>
-        <translation>Nuovo nome della tabella:</translation>
+        <translation>Nom de la nouvelle table:</translation>
     </message>
 </context>
 <context>
@@ -1493,37 +1428,37 @@ Record Trovati: %1 %2
     <message>
         <location filename="../multieditdialog.cpp" line="87"/>
         <source>Open File</source>
-        <translation>Apri File</translation>
+        <translation>Ouvrir un fichier</translation>
     </message>
     <message>
         <location filename="../multieditdialog.cpp" line="89"/>
         <source>All Files (* *.*)</source>
-        <translation>Tutti i File (* *.*)</translation>
+        <translation>Tous les fichiers (* *.*)</translation>
     </message>
     <message>
         <location filename="../multieditdialog.cpp" line="101"/>
         <source>BLOB Save Error</source>
-        <translation>Errore nel salvataggio di un valore BLOB</translation>
+        <translation>Erreur de sauvegarde de BLOB</translation>
     </message>
     <message>
         <location filename="../multieditdialog.cpp" line="96"/>
         <source>Cannot open file %1 for writting</source>
-        <translation>Non Posso aprire il file %1 in scrittura</translation>
+        <translation>Impossible d&apos;ouvrir le fichier %1 en écriture</translation>
     </message>
     <message>
         <location filename="../multieditdialog.cpp" line="102"/>
         <source>Cannot write into file %1</source>
-        <translation>Non posso scrivere nel file %1</translation>
+        <translation>Impossible d&apos;écrire dans le fichier %1</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="13"/>
         <source>Multiline Editor</source>
-        <translation>Multiline Editor</translation>
+        <translation>Editeur multilignes</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="23"/>
         <source>&amp;Text</source>
-        <translation>&amp;Text</translation>
+        <translation>&amp;Texte</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="33"/>
@@ -1533,42 +1468,42 @@ Record Trovati: %1 %2
     <message>
         <location filename="../multieditdialog.ui" line="39"/>
         <source>Select File for BLOB:</source>
-        <translation>Seleziona il file per il campo BLOB:</translation>
+        <translation>Selectionnez un fichier pour BLOB:</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="51"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Apri...</translation>
+        <translation>&amp;Ouvrir...</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="124"/>
         <source>Save content of the current BLOB into chosen file</source>
-        <translation>Salva il contenuto del campo BLOB corrente nel file selezionato</translation>
+        <translation>Sauver le contenu du BLOB courrant dans le fichier choisi</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="127"/>
         <source>&amp;Save...</source>
-        <translation>&amp;Salva...</translation>
+        <translation>&amp;Enregistrer...</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="135"/>
         <source>&amp;Date to String</source>
-        <translation>&amp;Data in Stringa</translation>
+        <translation>&amp;Date vers chaine</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="141"/>
         <source>&amp;Date:</source>
-        <translation>&amp;Data:</translation>
+        <translation>&amp;Date:</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="158"/>
         <source>&amp;String Format:</source>
-        <translation>Formato &amp;Stringa:</translation>
+        <translation>Format de &amp;chaine:</translation>
     </message>
     <message>
         <location filename="../multieditdialog.ui" line="198"/>
         <source>Insert &amp;NULL</source>
-        <translation>Inserisci &amp;NULL</translation>
+        <translation>Insertion de &amp;NULL</translation>
     </message>
 </context>
 <context>
@@ -1576,32 +1511,32 @@ Record Trovati: %1 %2
     <message>
         <location filename="../populatorcolumnwidget.ui" line="31"/>
         <source>Autonumber</source>
-        <translation>Numerazione Automatica</translation>
+        <translation>Nombre automatique</translation>
     </message>
     <message>
         <location filename="../populatorcolumnwidget.ui" line="36"/>
         <source>Random Number</source>
-        <translation>Numerazione Casuale</translation>
+        <translation>Nombre aléatoire</translation>
     </message>
     <message>
         <location filename="../populatorcolumnwidget.ui" line="41"/>
         <source>Random Text</source>
-        <translation>Testo Casuale</translation>
+        <translation>Texte aléatoire</translation>
     </message>
     <message>
         <location filename="../populatorcolumnwidget.ui" line="46"/>
         <source>Prefixed Text</source>
-        <translation>Testo preassegnato</translation>
+        <translation>Texte préfixé</translation>
     </message>
     <message>
         <location filename="../populatorcolumnwidget.ui" line="51"/>
         <source>Static Value</source>
-        <translation>Valore Statico</translation>
+        <translation>Valeur statique</translation>
     </message>
     <message>
         <location filename="../populatorcolumnwidget.ui" line="56"/>
         <source>Ignore Column</source>
-        <translation>Ignora Colonna</translation>
+        <translation>Ignorer la colonne</translation>
     </message>
 </context>
 <context>
@@ -1609,77 +1544,77 @@ Record Trovati: %1 %2
     <message>
         <location filename="../populatordialog.cpp" line="97"/>
         <source>Cannot get statistics for table.</source>
-        <translation>Non posso ottenere statistiche per la tabella.</translation>
+        <translation>Impossible d&apos;obtenir les statistiques pour cette table.</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="146"/>
         <source>Begin transaction failed.</source>
-        <translation>Inizio della transazione fallita.</translation>
+        <translation>Début de transaction échoué.</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="178"/>
         <source>Data inserted.</source>
-        <translation>Dati inseriti.</translation>
+        <translation>Données inserées.</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="181"/>
         <source>Transaction commit failed.</source>
-        <translation>Commit della transazione fallito.</translation>
+        <translation>Validation de transaction échouée.</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="184"/>
         <source>It&apos;s done. Check messages above.</source>
-        <translation>E&apos; fatto. Controlla il messaggio.</translation>
+        <translation>Effectué. Vérifiez les messages ci-dessus.</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="187"/>
         <source>Row(s) inserted: %1</source>
-        <translation>Righe inserite: %1</translation>
+        <translation>Ligne(s) inserée: %1</translation>
     </message>
     <message>
         <location filename="../populatordialog.cpp" line="199"/>
         <source>Cannot get MAX() for column: %1</source>
-        <translation>Non posso ottenere MAX() per la colonna: %1</translation>
+        <translation>Impossible d&apos;obtenir le MAX() pour la colonne: %1</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="13"/>
         <source>Populate Table</source>
-        <translation>Popola Tabella</translation>
+        <translation>Population de la Table</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="46"/>
         <source>Number of &amp;Rows to Populate:</source>
-        <translation>Numero di &amp;Righe da Popolare:</translation>
+        <translation>Nombre de &amp;lignes à peupler:</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="65"/>
         <source>Column &amp;Settings</source>
-        <translation>Impo&amp;stazioni Colonna</translation>
+        <translation>&amp;Paramètres de la colonne</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="90"/>
         <source>Column</source>
-        <translation>Colonna</translation>
+        <translation>Colonne</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="95"/>
         <source>Type</source>
-        <translation>Tipo</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="100"/>
         <source>Configure</source>
-        <translation>Configurazione</translation>
+        <translation>Configurer</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="124"/>
         <source>&amp;Populate</source>
-        <translation>&amp;Popola</translation>
+        <translation>&amp;Peupler</translation>
     </message>
     <message>
         <location filename="../populatordialog.ui" line="131"/>
         <source>Continue on &amp;Error</source>
-        <translation>Continua se incontri un &amp;Errore</translation>
+        <translation>Continuez lors d&apos;&amp;erreurs</translation>
     </message>
 </context>
 <context>
@@ -1687,167 +1622,17 @@ Record Trovati: %1 %2
     <message>
         <location filename="../preferencesdialog.cpp" line="106"/>
         <source>From Locales</source>
-        <translation>Localizazione</translation>
+        <translation>Depuis les locales</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.cpp" line="112"/>
         <source>System Predefined</source>
-        <translation>Sistema Predefinito</translation>
+        <translation>Prédéfini par le système</translation>
     </message>
     <message>
         <location filename="../preferencesdialog.ui" line="13"/>
         <source>Preferences</source>
-        <translation>Preferenze</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="31"/>
-        <source>&amp;Look and Feel</source>
-        <translation type="obsolete">&amp;Look and Feel</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="72"/>
-        <source>&amp;Recently Used Databases:</source>
-        <translation type="obsolete">Database &amp;Recenti:</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="82"/>
-        <source>Count of the items in the Recent menu</source>
-        <translation type="obsolete">Conteggio degli items nel menu recente</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="97"/>
-        <source>These features require application restart</source>
-        <translation type="obsolete">Questa features richiede il riavvio dell&apos;applicazione</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="121"/>
-        <source>Select the application look/GUI theme</source>
-        <translation type="obsolete">Seleziona il look/GUI theme dell&apos;applicazione</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="128"/>
-        <source>GUI &amp;Language:</source>
-        <translation type="obsolete">GUI &amp;language:</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="138"/>
-        <source>Select the application interface language</source>
-        <translation type="obsolete">Seleziona il lingiaggio dell&apos;interfaccia applicazione</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="145"/>
-        <source>GUI &amp;Style:</source>
-        <translation type="obsolete">GUI &amp;Style:</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="180"/>
-        <source>&amp;Data Display</source>
-        <translation type="obsolete">Mostra &amp;Dati</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="186"/>
-        <source>NULL handling</source>
-        <translation type="obsolete">NULL handling</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="210"/>
-        <source>Highlight the NULL values in the data result table</source>
-        <translation type="obsolete">Evidenzia i valori NULL nella tabella dei risultati</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="213"/>
-        <source>&amp;Use NULL highlighting</source>
-        <translation type="obsolete">&amp;Usa NULL evidenziati</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="220"/>
-        <source>Background color of the NULL value cell</source>
-        <translation type="obsolete">Colore di sfondo nelle celle NULL</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="223"/>
-        <source>B&amp;ackground</source>
-        <translation type="obsolete">S&amp;fondo</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="230"/>
-        <source>&amp;NULL alias:</source>
-        <translation type="obsolete">&amp;NULL alias:</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="240"/>
-        <source>Text to be used as a NULL mark</source>
-        <translation type="obsolete">Testo da usare per marcare i NULL</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="243"/>
-        <source>{null}</source>
-        <translation type="obsolete">{null}</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="253"/>
-        <source>BLOB handling</source>
-        <translation type="obsolete">Trattamento dei BLOB</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="277"/>
-        <source>Highlight the BLOB values in the data result table</source>
-        <translation type="obsolete">Evidenzia i valori BLOB nella tabella dei risultati</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="280"/>
-        <source>&amp;Use BLOB highlighting</source>
-        <translation type="obsolete">&amp;Usa l&apos;evidenziazione dei BLOB</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="287"/>
-        <source>Background color of the BLOB value cell</source>
-        <translation type="obsolete">Colore di sfondo delle celle con valore BLOB</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="290"/>
-        <source>Ba&amp;ckground</source>
-        <translation type="obsolete">Sf&amp;ondo</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="297"/>
-        <source>&amp;BLOB alias:</source>
-        <translation type="obsolete">&amp;BLOB alias:</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="307"/>
-        <source>Text to be used as a BLOB mark</source>
-        <translation type="obsolete">Testo da usare per marcare le celle BLOB</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="310"/>
-        <source>{blob}</source>
-        <translation type="obsolete">{blob}</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="349"/>
-        <source>&amp;SQL Editor</source>
-        <translation type="obsolete">&amp;SQL Editor</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="355"/>
-        <source>&amp;Font:</source>
-        <translation type="obsolete">&amp;Font:</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="334"/>
-        <source>Use Maximum Text Width Mark:</source>
-        <translation type="obsolete">Marca usando testo con massima grandezza:</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="385"/>
-        <source>Use &amp;Active Line Highlighting:</source>
-        <translation type="obsolete">Usa linea &amp;Attiva evidenziata:</translation>
-    </message>
-    <message>
-        <location filename="../preferencesdialog.ui" line="392"/>
-        <source>Color...</source>
-        <translation type="obsolete">Colore...</translation>
+        <translation>Préférences</translation>
     </message>
 </context>
 <context>
@@ -1855,37 +1640,37 @@ Record Trovati: %1 %2
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="22"/>
         <source>NULL handling</source>
-        <translation>trattamento dei NULL</translation>
+        <translation>Gestion des NULL</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="34"/>
         <source>Highlight the NULL values in the data result table</source>
-        <translation>Evidenzia i valori NULL nella tabella dei risultati</translation>
+        <translation>Surligner les valeurs NULL dans les tables de données </translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="37"/>
         <source>&amp;Use NULL highlighting</source>
-        <translation>&amp;Usa NULL evidenziati</translation>
+        <translation>&amp;Utiliser le surlignage des NULL</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="44"/>
         <source>Background color of the NULL value cell</source>
-        <translation>Colore di sfondo nelle celle NULL</translation>
+        <translation>Couleur de fond des cellules de NULL</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="47"/>
         <source>B&amp;ackground</source>
-        <translation>S&amp;fondo</translation>
+        <translation>&amp;Couleur de fond</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="54"/>
         <source>&amp;NULL alias:</source>
-        <translation>&amp;NULL alias:</translation>
+        <translation>Alias &amp;NULL:</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="64"/>
         <source>Text to be used as a NULL mark</source>
-        <translation>Testo da usare per marcare i NULL</translation>
+        <translation>Texte à utiliser en tant que marque NULL</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="67"/>
@@ -1895,37 +1680,37 @@ Record Trovati: %1 %2
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="77"/>
         <source>BLOB handling</source>
-        <translation>Trattamento dei BLOB</translation>
+        <translation>Gestion des BLOB</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="89"/>
         <source>Highlight the BLOB values in the data result table</source>
-        <translation>Evidenzia i valori BLOB nella tabella dei risultati</translation>
+        <translation>Surligner les valeurs BLOB dans les tables de données</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="92"/>
         <source>&amp;Use BLOB highlighting</source>
-        <translation>&amp;Usa l&apos;evidenziazione dei BLOB</translation>
+        <translation>&amp;Utiliser le surlignage des BLOB</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="99"/>
         <source>Background color of the BLOB value cell</source>
-        <translation>Colore di sfondo delle celle con valore BLOB</translation>
+        <translation>Couleur de fond des cellules de BLOB</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="102"/>
         <source>Ba&amp;ckground</source>
-        <translation>Sf&amp;ondo</translation>
+        <translation>&amp;Couleur de fond</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="109"/>
         <source>&amp;BLOB alias:</source>
-        <translation>&amp;BLOB alias:</translation>
+        <translation>Alias &amp;NULL:</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="116"/>
         <source>Text to be used as a BLOB mark</source>
-        <translation>Testo da usare per marcare le celle BLOB</translation>
+        <translation>Texte à utiliser en tant que marque BLOB</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="119"/>
@@ -1935,12 +1720,12 @@ Record Trovati: %1 %2
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="129"/>
         <source>Limit Text Length Display</source>
-        <translation>Limite della lunghezza del testo da visualizzare</translation>
+        <translation>Limiter la longueur des textes affichés</translation>
     </message>
     <message>
         <location filename="../prefsdatadisplaywidget.ui" line="155"/>
         <source>Data Display</source>
-        <translation>Dati da visualizzare</translation>
+        <translation>Affichage</translation>
     </message>
 </context>
 <context>
@@ -1948,52 +1733,52 @@ Record Trovati: %1 %2
     <message>
         <location filename="../prefslnfwidget.ui" line="22"/>
         <source>These features require application restart</source>
-        <translation>Questa features richiede il riavvio dell&apos;applicazione</translation>
+        <translation>Ces fonctionnalités requièrent le redémarrage de l&apos;application</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="34"/>
         <source>Select the application look/GUI theme</source>
-        <translation>Seleziona il look/GUI theme dell&apos;applicazione</translation>
+        <translation>Sélectionner l&apos;apparence de l&apos;interface</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="41"/>
         <source>GUI &amp;Language:</source>
-        <translation>&amp;Linguaggio della GUI:</translation>
+        <translation>&amp;Langue de l&apos;interface:</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="51"/>
         <source>Select the application interface language</source>
-        <translation>Seleziona il lingiaggio dell&apos;interfaccia applicazione</translation>
+        <translation>Choisir la langue de l&apos;interface</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="58"/>
         <source>GUI &amp;Style:</source>
-        <translation>&amp;Stile della GUI:</translation>
+        <translation>&amp;Style de l&apos;interface:</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="79"/>
         <source>&amp;Recently Used Databases:</source>
-        <translation>Database &amp;Recenti:</translation>
+        <translation>&amp;Base de données récentes:</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="89"/>
         <source>Count of the items in the Recent menu</source>
-        <translation>Conteggio degli items nel menu recente</translation>
+        <translation>Nombre d&apos;éléments récents dans le menu</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="123"/>
         <source>Look and Feel</source>
-        <translation>Look and Feel</translation>
+        <translation>Apparence</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="130"/>
         <source>Remember the last used database for next application start</source>
-        <translation>Ricorda l&apos;ultimo database usato per il prossimo avvio dell&apos;applicazione</translation>
+        <translation>Se souvenir de la dernière base de données utilisée pour le prochain démarrage</translation>
     </message>
     <message>
         <location filename="../prefslnfwidget.ui" line="133"/>
         <source>Ope&amp;n Last Database on Start</source>
-        <translation>A&amp;pri l&apos;ultimo Database in Avvio</translation>
+        <translation>&amp;Ouvrir la dernière base de données au démarrage</translation>
     </message>
 </context>
 <context>
@@ -2001,77 +1786,77 @@ Record Trovati: %1 %2
     <message>
         <location filename="../prefssqleditorwidget.ui" line="28"/>
         <source>SQL Editor</source>
-        <translation>SQL Editor</translation>
+        <translation>Editeur SQL</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="43"/>
         <source>&amp;Font:</source>
-        <translation>&amp;Font:</translation>
+        <translation>&amp;Police:</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="71"/>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="83"/>
         <source>Use &amp;Active Line Highlighting:</source>
-        <translation>Usa linea &amp;Attiva evidenziata:</translation>
+        <translation>Utiliser le surlignage &amp;actif de ligne:</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="90"/>
         <source>Color...</source>
-        <translation>Colore...</translation>
+        <translation>Couleur...</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="97"/>
         <source>Use &amp;Maximum Text Width Mark:</source>
-        <translation>Usa &amp;Massima lunghezza del testo:</translation>
+        <translation>Utiliser une taille de texte &amp;maximum:</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="117"/>
         <source>Use &amp;Code Completion With Length:</source>
-        <translation>Usa &amp;Code Completion con Lunghezza:</translation>
+        <translation>Utiliser la completion de &amp;code de longueur:</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="134"/>
         <source>Use Editor &amp;Shortcuts:</source>
-        <translation>Usa &amp;Scorciatoie dell&apos;Editor:</translation>
+        <translation>Utiliser les &amp;raccourcis de l&apos;éditeur:</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="141"/>
         <source>&amp;Define...</source>
-        <translation>&amp;Definisci...</translation>
+        <translation>&amp;Définir....</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="148"/>
         <source>Syntax Colors</source>
-        <translation>Syntax Colors</translation>
+        <translation>Couleur de Syntaxe</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="167"/>
         <source>Default...</source>
-        <translation>Default...</translation>
+        <translation>Par défaut...</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="174"/>
         <source>Keywords...</source>
-        <translation>Parole Chiave...</translation>
+        <translation>Mots-clés...</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="181"/>
         <source>Numbers...</source>
-        <translation>Numeri...</translation>
+        <translation>Nombres...</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="188"/>
         <source>Strings...</source>
-        <translation>Stringhe...</translation>
+        <translation>Chaînes....</translation>
     </message>
     <message>
         <location filename="../prefssqleditorwidget.ui" line="195"/>
         <source>Comments...</source>
-        <translation>Commenti...</translation>
+        <translation>Commentaires...</translation>
     </message>
 </context>
 <context>
@@ -2079,12 +1864,12 @@ Record Trovati: %1 %2
     <message>
         <location filename="../queryeditordialog.cpp" line="75"/>
         <source>Create View</source>
-        <translation>Crea Vista</translation>
+        <translation>Créer une vue</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="77"/>
         <source>Build Query</source>
-        <translation>Costruisci Query</translation>
+        <translation>Construuire une requête</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="173"/>
@@ -2094,47 +1879,47 @@ Record Trovati: %1 %2
     <message>
         <location filename="../queryeditordialog.cpp" line="174"/>
         <source>Cancel</source>
-        <translation>Cancella</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="179"/>
         <source>View name: </source>
-        <translation>Noome Vista:</translation>
+        <translation>Nom de la vue:</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="182"/>
         <source>Table to Query: </source>
-        <translation>Tabelle in Query:</translation>
+        <translation>Table à interroger:</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="187"/>
         <source>Match all of the following terms</source>
-        <translation>Trova tutti i termini seguenti</translation>
+        <translation>Correspondre sur base de tous les termes suivants</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="188"/>
         <source>Match any of the following terms</source>
-        <translation>Trova alcuni dei seguenti termini</translation>
+        <translation>Correspondre sur base d&apos;un des termes suivants</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="192"/>
         <source>More</source>
-        <translation>Di più</translation>
+        <translation>Plus</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="193"/>
         <source>Less</source>
-        <translation>Di meno</translation>
+        <translation>Moins</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="216"/>
         <source>Fields</source>
-        <translation>Campi</translation>
+        <translation>Champs</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="233"/>
         <source>Terms</source>
-        <translation>Termini</translation>
+        <translation>Termes</translation>
     </message>
 </context>
 <context>
@@ -2142,7 +1927,7 @@ Record Trovati: %1 %2
     <message>
         <location filename="../schemabrowser.ui" line="13"/>
         <source>Form</source>
-        <translation>Maschera</translation>
+        <translation>Formulaire</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="29"/>
@@ -2152,37 +1937,37 @@ Record Trovati: %1 %2
     <message>
         <location filename="../schemabrowser.ui" line="45"/>
         <source>&amp;Pragmas</source>
-        <translation></translation>
+        <translation>&amp;Pragmas</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="57"/>
         <source>Detail</source>
-        <translation>Dettagli</translation>
+        <translation>Détail</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="79"/>
         <source>Value:</source>
-        <translation>Valore:</translation>
+        <translation>Valeur:</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="86"/>
         <source>Pragma:</source>
-        <translation></translation>
+        <translation>Pragma:</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="103"/>
         <source>Change &amp;Value...</source>
-        <translation>Cambia &amp;Valore...</translation>
+        <translation>Changer la &amp;valeur...</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="126"/>
         <source>Name</source>
-        <translation>Nome</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../schemabrowser.ui" line="131"/>
         <source>Value</source>
-        <translation>Valore</translation>
+        <translation>Valeur</translation>
     </message>
 </context>
 <context>
@@ -2190,87 +1975,87 @@ Record Trovati: %1 %2
     <message>
         <location filename="../shortcuteditordialog.cpp" line="71"/>
         <source>Shortcut Error</source>
-        <translation>Errore nella scorciatoia</translation>
+        <translation>Editeur de raccouris</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="61"/>
         <source>The value you entered as a key (%1) is not unique. Enter another one, please.</source>
-        <translation>Il valore della chiave immessa (%1) non è unico. Inseriscine un altro, grazie.</translation>
+        <translation>La valeur entrée comme une clé (%1) n&apos;est pas unique. Veuillez en entrez une autre.</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="72"/>
         <source>Some of key values are empty. These items will be lost. Do you want to return to the shortcut editor to fix it?</source>
-        <translation>Alcuni valori kyave sono vuoti. Questo record verrà perso. Vuoi ritornare all&apos;editor delle scorciatoie per correggerlo?</translation>
+        <translation>Certaines valeurs de clés sont vides. Ces éléments vont être perdus. Voulez-vous retourner à l&apos;éditeur de raccouris pour corriger ?</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="86"/>
         <source>Save Shortcuts</source>
-        <translation>Salva scorciatoie</translation>
+        <translation>Sauver les raccourcis</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="121"/>
         <source>Sqliteman Shortcuts XML (*.xml);;All Files (*)</source>
-        <translation>Scorciatoie Sqliteman XML (*.xml);;All Files (*)</translation>
+        <translation>XML de Raccourcis Sqliteman (*.xml);;Tous les Fichiers (*)</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="94"/>
         <source>Export Error</source>
-        <translation>Errore in esportazione</translation>
+        <translation>Erreur d&apos;exportation</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="94"/>
         <source>Cannot open file %1 for writting.</source>
-        <translation>Non posso aprire il file %1 in scrittura.</translation>
+        <translation>Impossible d&apos;ouvrir le fichier %1 en écriture.</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="120"/>
         <source>Load Shortcuts</source>
-        <translation>Carico le scorciatoie</translation>
+        <translation>Raccourcis de chargement</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="128"/>
         <source>Load Error</source>
-        <translation>Errore nel caricamento</translation>
+        <translation>Erreur de chargement</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.cpp" line="128"/>
         <source>Cannot open file %1 for reading.</source>
-        <translation>Non posso aprire il file %1 per la lettura.</translation>
+        <translation>Impossible d&apos;ouvrir le fichier %1 en lecture.</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="13"/>
         <source>Editor Shortcuts</source>
-        <translation>Editor delle Scorciatoie</translation>
+        <translation>Editeur de raccourcis</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="25"/>
         <source>Define Editor Shortcuts</source>
-        <translation>Definizione Editor delle scorciatoie</translation>
+        <translation>Définir l&apos;éditeur de raccourcis</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="37"/>
         <source>&amp;Import...</source>
-        <translation>&amp;Importazione...</translation>
+        <translation>&amp;Importer....</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="57"/>
         <source>&amp;Add</source>
-        <translation>&amp;Aggiungi</translation>
+        <translation>&amp;Ajouter</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="64"/>
         <source>&amp;Remove</source>
-        <translation>&amp;Rimuovi</translation>
+        <translation>&amp;Supprimer</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="81"/>
         <source>R&amp;emove All</source>
-        <translation>R&amp;imuovi Tutto</translation>
+        <translation>Supprim&amp;er tout</translation>
     </message>
     <message>
         <location filename="../shortcuteditordialog.ui" line="88"/>
         <source>E&amp;xport...</source>
-        <translation>E&amp;sporta...</translation>
+        <translation>E&amp;xporter...</translation>
     </message>
 </context>
 <context>
@@ -2278,12 +2063,12 @@ Record Trovati: %1 %2
     <message>
         <location filename="../shortcutmodel.cpp" line="88"/>
         <source>Shortcut</source>
-        <translation>Scorciatoia</translation>
+        <translation>Raccourcis</translation>
     </message>
     <message>
         <location filename="../shortcutmodel.cpp" line="88"/>
         <source>Expanded Text</source>
-        <translation>Testo espanso</translation>
+        <translation>Texte étendu</translation>
     </message>
 </context>
 <context>
@@ -2291,17 +2076,17 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqldelegate.cpp" line="92"/>
         <source>Multiline texts can be edited with the enhanced editor only (Ctrl+Shift+E)</source>
-        <translation>I testi multilinea posso essere editati solo con un editor avanzato (Ctrl+Shift+E)</translation>
+        <translation>Les textes multilignes peuvent uniquement être édités avec l&apos;éditeur amélioré (Ctrl+Shift+E)</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="30"/>
         <source>Edit data here</source>
-        <translation>Edita il dato qui</translation>
+        <translation>Editer les données ici</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="37"/>
         <source>Set value to the NULL</source>
-        <translation>Imposta il valore a NULL</translation>
+        <translation>Inserer une valeur NULL</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="40"/>
@@ -2316,7 +2101,7 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqldelegateui.ui" line="50"/>
         <source>Open multiline editor</source>
-        <translation>Apri l&apos;editor multilinea</translation>
+        <translation>Ouvrir l&apos;éditeur multilignes</translation>
     </message>
     <message>
         <location filename="../sqldelegateui.ui" line="53"/>
@@ -2334,67 +2119,67 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqleditor.cpp" line="38"/>
         <source>Col: %1 Row: %2/%3</source>
-        <translation>Col: %1 Row: %2/%3</translation>
+        <translation>Col: %1 Ligne: %2/%3</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="319"/>
         <source>Open SQL Script</source>
-        <translation>Apri Script SQL</translation>
+        <translation>Ouvrir le script SQL</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="395"/>
         <source>SQL file (*.sql);;All Files (*)</source>
-        <translation>SQL file (*.sql);;Tutti i Files (*)</translation>
+        <translation>Fichier SQL (*.sql);;Tous les fichiers (*)</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="319"/>
         <source>Cannot open file %1</source>
-        <translation>Non posso aprire il file %1</translation>
+        <translation>Impossible d&apos;ouvrir %1</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="410"/>
         <source>Save SQL Script</source>
-        <translation>Salva Script SQL</translation>
+        <translation>Enregistrer le script SQL</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="410"/>
         <source>Cannot write into file %1</source>
-        <translation>Non posso scrivere nel file %1</translation>
+        <translation>Impossible d&apos;écrire dans le fichier %1</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="424"/>
         <source>New File</source>
-        <translation>Nuovo File</translation>
+        <translation>Nouveau fichier</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="425"/>
         <source>All you changes will be lost. Are you sure?</source>
-        <translation>Tutti i tuoi cambiamenti andranno persi. Sei sicuro?</translation>
+        <translation>Tous vos changements vont être perdu. Êtes vous sur?</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="438"/>
         <source>Closing SQL Editor</source>
-        <translation>Chiudi l&apos;Editor SQL</translation>
+        <translation>Fermer l&apos;éditeur SQL</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="439"/>
         <source>Document has been changed. Do you want do save its content?</source>
-        <translation>Il documento è cambiato. Vuoi salvare i cambiamenti?</translation>
+        <translation>Le document à été changé. Voulez-vous sauver sont contenu ?</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="13"/>
         <source>SqlEditor</source>
-        <translation>SqlEditor</translation>
+        <translation>EditeurSQL</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="156"/>
         <source>&amp;Run SQL</source>
-        <translation>&amp;Avvia SQL</translation>
+        <translation>&amp;Executer le SQL</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="159"/>
         <source>Run SQL (F9)</source>
-        <translation>Avvia SQL (F9)</translation>
+        <translation>Executer le SQL (F9)</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="162"/>
@@ -2404,12 +2189,12 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqleditor.ui" line="167"/>
         <source>Run &amp;Explain</source>
-        <translation>Avvia &amp;Passo Passo</translation>
+        <translation>Executer &amp;Explication</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="170"/>
         <source>Run Explain (F6)</source>
-        <translation>Avvia Passo Passo (F6)</translation>
+        <translation>Executer Explication (F6)</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="173"/>
@@ -2419,7 +2204,7 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqleditor.ui" line="178"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Apri...</translation>
+        <translation>&amp;Ouvrir...</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="181"/>
@@ -2429,12 +2214,12 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqleditor.ui" line="186"/>
         <source>&amp;Save</source>
-        <translation>&amp;Salva</translation>
+        <translation>&amp;Enregistrer</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="189"/>
         <source>Save (Ctrl+S)</source>
-        <translation>Salva (Ctrl+S)</translation>
+        <translation>Enregistrer (Ctrl+S)</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="192"/>
@@ -2444,7 +2229,7 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqleditor.ui" line="197"/>
         <source>&amp;New</source>
-        <translation>&amp;Nuovo</translation>
+        <translation>&amp;Nouveau</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="200"/>
@@ -2454,62 +2239,62 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqleditor.ui" line="205"/>
         <source>Save &amp;As...</source>
-        <translation>Salva &amp;Con Nome...</translation>
+        <translation>Enregistrer &amp;sous...</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="210"/>
         <source>Create View</source>
-        <translation>Crea Vista</translation>
+        <translation>Créer une vue</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="213"/>
         <source>Create view from the current select statement</source>
-        <translation>Crea Vista dalla corrente select</translation>
+        <translation>Créer une vue avec l&apos;instruction de séléction actuelle</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="325"/>
         <source>Opening: %1</source>
-        <translation>Apertura: %1</translation>
+        <translation>Ouverture: %1</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="325"/>
         <source>Abort</source>
-        <translation>Abortisci</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="351"/>
         <source>Formatting the text. Please wait.</source>
-        <translation>Sto formattando il testo. Aspetta.</translation>
+        <translation>Formattage du texte. Veuillez patienter.</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="508"/>
         <source>Unexpected File Change</source>
-        <translation>Cambiamento file inaspettato</translation>
+        <translation>Modification de fichier inattendue</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="510"/>
         <source>Your currently edited file has been changed outside this application. Do you want to reload it?</source>
-        <translation>Il file che stai editando è cambiato al di fuori di questa applicazione. Vuoi che lo ricarichi?</translation>
+        <translation>Votre fichier en cours d&apos;édition a été modifié en dehors de cette application. Voulez-vous recharger?</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="86"/>
         <source>Search:</source>
-        <translation>Ricerca:</translation>
+        <translation>Rechercher:</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="79"/>
         <source>Case Sensitive</source>
-        <translation>Case Sensitive</translation>
+        <translation>Sensible à la casse</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="69"/>
         <source>Whole Words</source>
-        <translation>Whole Words</translation>
+        <translation>Mots entiers</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="93"/>
         <source>Search previous</source>
-        <translation>Ricerca Prima</translation>
+        <translation>Rechercher précédent</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="96"/>
@@ -2519,7 +2304,7 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqleditor.ui" line="59"/>
         <source>Search Next</source>
-        <translation>Rocerca Dopo</translation>
+        <translation>Rechercher suivant</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="62"/>
@@ -2529,12 +2314,12 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqleditor.ui" line="221"/>
         <source>Search</source>
-        <translation>Ricerca</translation>
+        <translation>Rechercher</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="224"/>
         <source>Search in the SQL file (Ctrl+F)</source>
-        <translation>Cerca nel file SQL (Crtl+F)</translation>
+        <translation>Rechercher dans le fichier SQL (Ctrl+F)</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="227"/>
@@ -2544,56 +2329,56 @@ Record Trovati: %1 %2
     <message>
         <location filename="../sqleditor.cpp" line="222"/>
         <source>Executing all statements</source>
-        <translation>Sto eseguendo tutti i comandi</translation>
+        <translation>Execution de toutes les instructions</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="223"/>
         <source>Cancel</source>
-        <translation>Cancella</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="235"/>
         <source>Script started</source>
-        <translation>Script avviato</translation>
+        <translation>Script démarré</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="261"/>
         <source>Error: %1.</source>
-        <translation>Errore: %1.</translation>
+        <translation>Erreur: %1.</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="232"/>
         <source>Run as Script</source>
-        <translation>Avvia come Script</translation>
+        <translation>Executer un script</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="265"/>
         <source>This script contains the following error:
 %1
 At line: %2</source>
-        <translation>Questo script contiene l&apos;errore sottoindicato:
+        <translation>Ce script contient les erreurs suivantes:
 %1
-Alla linea: %2</translation>
+à la ligne: %2</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="275"/>
         <source>No error</source>
-        <translation>Nessun errore</translation>
+        <translation>Aucune erreur</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="284"/>
         <source>Script finished</source>
-        <translation>Script terminato</translation>
+        <translation>Script terminé</translation>
     </message>
     <message>
         <location filename="../sqleditor.cpp" line="528"/>
         <source>Script was cancelled by user</source>
-        <translation>Lo Script sarà cancellato dall&apos;utente</translation>
+        <translation>Le Script à été annulé par l&apos;utilisateur</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="235"/>
         <source>Run multiple SQL statements from current cursor position in one batch (F5)</source>
-        <translation>Avvia Comandi SQL Multipli dalla posizione corrente del cursore nel batch (F5)</translation>
+        <translation>Executer plusieurs instructions SQL en lot à partir de la position actuelle du curseur (F5)</translation>
     </message>
     <message>
         <location filename="../sqleditor.ui" line="238"/>
@@ -2606,17 +2391,17 @@ Alla linea: %2</translation>
     <message>
         <location filename="../sqlitemview.cpp" line="72"/>
         <source>%1 of %2</source>
-        <translation>%1 di %2</translation>
+        <translation>%1 sur %2</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="13"/>
         <source>Form</source>
-        <translation>Maschera</translation>
+        <translation>Formulaire</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="45"/>
         <source>Move to the first record</source>
-        <translation>Vai al primo record</translation>
+        <translation>Se déplacer vers le premier enregistrement</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="48"/>
@@ -2626,7 +2411,7 @@ Alla linea: %2</translation>
     <message>
         <location filename="../sqlitemview.ui" line="55"/>
         <source>Move to the previous record</source>
-        <translation>Vai al record Precedente</translation>
+        <translation>Se déplacer vers l&apos;enregistrement précédent</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="58"/>
@@ -2636,7 +2421,7 @@ Alla linea: %2</translation>
     <message>
         <location filename="../sqlitemview.ui" line="65"/>
         <source>Move to the next record</source>
-        <translation>Vai al record successivo</translation>
+        <translation>Se déplacer vers l&apos;enregistrement suivant</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="68"/>
@@ -2646,7 +2431,7 @@ Alla linea: %2</translation>
     <message>
         <location filename="../sqlitemview.ui" line="75"/>
         <source>Move to the last record</source>
-        <translation>Vai all&apos;ultimo record</translation>
+        <translation>Se déplacer vers le dernier enregistrement</translation>
     </message>
     <message>
         <location filename="../sqlitemview.ui" line="78"/>
@@ -2659,12 +2444,12 @@ Alla linea: %2</translation>
     <message>
         <location filename="../sqlmodels.cpp" line="171"/>
         <source>NULL value</source>
-        <translation>Valore NULL</translation>
+        <translation>Valeur NULL</translation>
     </message>
     <message>
         <location filename="../sqlmodels.cpp" line="181"/>
         <source>BLOB value</source>
-        <translation>Valore BLOB</translation>
+        <translation>Valeur BLOB</translation>
     </message>
 </context>
 <context>
@@ -2672,12 +2457,12 @@ Alla linea: %2</translation>
     <message>
         <location filename="../sqlmodels.cpp" line="45"/>
         <source>NULL value</source>
-        <translation>Valore NULL</translation>
+        <translation>Valeur NULL</translation>
     </message>
     <message>
         <location filename="../sqlmodels.cpp" line="60"/>
         <source>BLOB value</source>
-        <translation>Valore BLOB</translation>
+        <translation>Valeur BLOB</translation>
     </message>
 </context>
 <context>
@@ -2685,27 +2470,27 @@ Alla linea: %2</translation>
     <message>
         <location filename="../sqliteprocess.cpp" line="44"/>
         <source>The process failed to start. Either the invoked program is missing, or you may have insufficient permissions to invoke the program.</source>
-        <translation>Errore nell&apos;avvio del processo. Potrebbe non trovare il programma o avere insufficienti permessi per invocarlo.</translation>
+        <translation>Le procéssus n&apos;a pas réussi à démarrer. Soit le logiciel invoqué est manquant, soit vous ne possédez pas suffisamment de droit pour executer le programme.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="47"/>
         <source>The process crashed some time after starting successfully.</source>
-        <translation>Il processo è andato in crash poco tempo dopo essere partito.</translation>
+        <translation>Le processus s&apos;est arrêté brutalement après avoir démarré.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="50"/>
         <source>An error occurred when attempting to write to the process. For example, the process may not be running, or it may have closed its input channel.</source>
-        <translation>Si è verificato un errore tentando di scrivere sul processo. Ad esempio, il processo può non essere avviato, o può aver chiuso il suo canale di input.</translation>
+        <translation>Une erreur est survenue lors de la tentative d&apos;écriture dans le procéssus. Le procéssus pourrait, par exemple, ne pas être en cours d&apos;exécution, ou il pourrait avoir fermé sont canal d&apos;entré.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="53"/>
         <source>An error occurred when attempting to read from the process. For example, the process may not be running.</source>
-        <translation>Si è verificato un errore tentando di leggere dal processo. Ad esempio, il rpovesso potrebbe non essere avviato.</translation>
+        <translation>Une erreur est survenue lors de la tentative de lecture du processus. Le procéssus pourrait, par exemple, ne pas être en cours d&apos;exécution.</translation>
     </message>
     <message>
         <location filename="../sqliteprocess.cpp" line="56"/>
         <source>An unknown error occurred.</source>
-        <translation>Si è verificato un errore sconosciuto.</translation>
+        <translation>Une erreur inconue est survenue.</translation>
     </message>
 </context>
 <context>
@@ -2713,12 +2498,12 @@ Alla linea: %2</translation>
     <message>
         <location filename="../tableeditordialog.ui" line="13"/>
         <source>Create Table</source>
-        <translation>Crea Tabella</translation>
+        <translation>Créer une Table</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="201"/>
         <source>C&amp;reate</source>
-        <translation>C&amp;rea</translation>
+        <translation>C&amp;réer</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="42"/>
@@ -2728,57 +2513,57 @@ Alla linea: %2</translation>
     <message>
         <location filename="../tableeditordialog.ui" line="54"/>
         <source>&amp;Database:</source>
-        <translation>&amp;Database:</translation>
+        <translation>&amp;Base de données:</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="67"/>
         <source>Table &amp;Name:</source>
-        <translation>&amp;Nome Tabella:</translation>
+        <translation>&amp;Nom de la table:</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="80"/>
         <source>Co&amp;lumns</source>
-        <translation>Co&amp;lonne</translation>
+        <translation>Co&amp;lonnes</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="102"/>
         <source>Name</source>
-        <translation>Nome</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="107"/>
         <source>Type</source>
-        <translation>Tipo</translation>
+        <translation>Type</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="112"/>
         <source>Not Null</source>
-        <translation>Non Nullo</translation>
+        <translation>Non NULL</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="117"/>
         <source>Default</source>
-        <translation>Default</translation>
+        <translation>Défaut</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="125"/>
         <source>&amp;Add</source>
-        <translation>&amp;Aggiungi</translation>
+        <translation>&amp;Ajouter</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="132"/>
         <source>&amp;Remove</source>
-        <translation>&amp;Rimuovi</translation>
+        <translation>&amp;Supprimer</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="155"/>
         <source>If you need to use an advanced options&lt;br&gt;go to the &quot;&lt;b&gt;Advanced (SQL)&lt;/b&gt;&quot; tab.</source>
-        <translation>Se hai bisogo di opzioni avanzate&lt;br&gt;vai alla voce &quot;&lt;b&gt;Opzioni Avanzate(SQL)&lt;/b&gt;&quot;.</translation>
+        <translation>Si vous avez besoins d&apos;option avancées&lt;br&gt;allez dans l&apos;onglet &quot;&lt;b&gt;Avancé (SQL)&lt;b/&gt;&quot;.</translation>
     </message>
     <message>
         <location filename="../tableeditordialog.ui" line="169"/>
         <source>Ad&amp;vanced (SQL)</source>
-        <translation>Opzioni A&amp;vanzate (SQL)</translation>
+        <translation>A&amp;vancé (SQL)</translation>
     </message>
 </context>
 <context>
@@ -2786,42 +2571,42 @@ Alla linea: %2</translation>
     <message>
         <location filename="../tabletree.cpp" line="17"/>
         <source>Database</source>
-        <translation>Database</translation>
+        <translation>Base de données</translation>
     </message>
     <message>
         <location filename="../tabletree.cpp" line="18"/>
         <source>Tables</source>
-        <translation>Tabelle</translation>
+        <translation>Tables</translation>
     </message>
     <message>
         <location filename="../tabletree.cpp" line="19"/>
         <source>Indexes</source>
-        <translation>Indici</translation>
+        <translation>Indexes</translation>
     </message>
     <message>
         <location filename="../tabletree.cpp" line="20"/>
         <source>System Indexes</source>
-        <translation>Indici di Sistema</translation>
+        <translation>Indexes Système</translation>
     </message>
     <message>
         <location filename="../tabletree.cpp" line="21"/>
         <source>Views</source>
-        <translation>Viste</translation>
+        <translation>Vues</translation>
     </message>
     <message>
         <location filename="../tabletree.cpp" line="22"/>
         <source>Triggers</source>
-        <translation>Triggers</translation>
+        <translation>Déclencheurs</translation>
     </message>
     <message>
         <location filename="../tabletree.cpp" line="23"/>
         <source>System Catalogue</source>
-        <translation>Catalogo di Sistema</translation>
+        <translation>Catalogue système</translation>
     </message>
     <message>
         <location filename="../tabletree.cpp" line="24"/>
         <source>Columns</source>
-        <translation>Colonne</translation>
+        <translation>Colonnes</translation>
     </message>
 </context>
 <context>
@@ -2829,32 +2614,32 @@ Alla linea: %2</translation>
     <message>
         <location filename="../queryeditordialog.cpp" line="41"/>
         <source>Contains</source>
-        <translation>Contenuto</translation>
+        <translation>Contient</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="41"/>
         <source>Doesn&apos;t contain</source>
-        <translation>Nessun contenuto</translation>
+        <translation>Ne contient pas</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="41"/>
         <source>Equals</source>
-        <translation>Uguale</translation>
+        <translation>Egal</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="42"/>
         <source>Not equals</source>
-        <translation>Non uguali</translation>
+        <translation>N&apos;est pas égal</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="42"/>
         <source>Bigger than</source>
-        <translation>Più grande</translation>
+        <translation>Plus grand que</translation>
     </message>
     <message>
         <location filename="../queryeditordialog.cpp" line="42"/>
         <source>Smaller than</source>
-        <translation>Più piccolo</translation>
+        <translation>Plus petit que</translation>
     </message>
 </context>
 <context>
@@ -2862,27 +2647,27 @@ Alla linea: %2</translation>
     <message>
         <location filename="../vacuumdialog.ui" line="67"/>
         <source>Vacuum Database</source>
-        <translation></translation>
+        <translation>Optimiser la base de données</translation>
     </message>
     <message>
         <location filename="../vacuumdialog.ui" line="25"/>
         <source>Vacuum the Selected Objects</source>
-        <translation>Vacuum sugli oggetti selezionati</translation>
+        <translation>Optimiser les objets sélectionnés</translation>
     </message>
     <message>
         <location filename="../vacuumdialog.ui" line="44"/>
         <source>&amp;Vacuum</source>
-        <translation>&amp;Vacuum</translation>
+        <translation>&amp;Optimiser</translation>
     </message>
     <message>
         <location filename="../vacuumdialog.ui" line="79"/>
         <source>Vacuum &amp;All</source>
-        <translation>Vacuum su tutto</translation>
+        <translation>Optimiser &amp;tout</translation>
     </message>
     <message>
         <location filename="../vacuumdialog.ui" line="99"/>
         <source>Strip unused space from the database.</source>
-        <translation>Togli lo spazio inutilizzato dal database.</translation>
+        <translation>Compacté l&apos;espace inutilisé de la base de données.</translation>
     </message>
 </context>
 </TS>
