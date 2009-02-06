@@ -64,6 +64,9 @@ class Preferences : public QObject
 		int GUIstyle() { return m_GUIstyle; };
 		void setGUIstyle(int v) { m_GUIstyle = v; };
 
+		QFont GUIfont() { return m_GUIfont; };
+		void setGUIfont(const QFont & v) { m_GUIfont = v; };
+
 		bool cropColumns() { return m_cropColumns; };
 		void setCropColumns(bool v) { m_cropColumns = v; };
 
@@ -162,6 +165,7 @@ class Preferences : public QObject
 		QString m_lastDB;
 		int m_GUItranslator;
 		int m_GUIstyle;
+		QFont m_GUIfont;
 		bool m_cropColumns;
 		QFont m_sqlFont;
 		int m_sqlFontSize;

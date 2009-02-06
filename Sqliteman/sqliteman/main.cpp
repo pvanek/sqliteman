@@ -207,6 +207,9 @@ int main(int argc, char ** argv)
 
 	app.setWindowIcon(Utils::getIcon("sqliteman.png"));
 
+	if (QApplication::font() != Preferences::instance()->GUIfont())
+		app.setFont(Preferences::instance()->GUIfont());
+
 	QTranslator translator;
 	translator.load(Utils::getTranslator(cli.localeCode()));
 	app.installTranslator(&translator);

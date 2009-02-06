@@ -17,6 +17,9 @@ Preferences* Preferences::_instance = 0;
 Preferences::Preferences(QObject *parent)
  : QObject(parent)
 {
+	QFont f(QApplication::font());
+// 	f.setPointSize(sqlFontSize());
+
 	QSettings s("yarpen.cz", "sqliteman");
 	m_checkQtVersion = s.value("checkQtVersion", true).toBool();
 	//
@@ -32,9 +35,9 @@ Preferences::Preferences(QObject *parent)
 	m_lastDB = s.value("lastDatabase", QString()).toString();
 	m_GUItranslator = s.value("prefs/languageComboBox", 0).toInt();
 	m_GUIstyle = s.value("prefs/styleComboBox", 0).toInt();
+	m_GUIfont = s.value("prefs/applicationFont", f).value<QFont>();
 	m_cropColumns = s.value("prefs/cropColumnsCheckBox", false).toBool();
-	QFont f(QApplication::font());
-// 	f.setPointSize(sqlFontSize());
+
 	m_sqlFont = s.value("prefs/sqleditor/font", f).value<QFont>();
 	m_sqlFontSize = s.value("prefs/sqleditor/fontSize", f.pointSize()).toInt();
 	m_activeHighlighting = s.value("prefs/sqleditor/useActiveHighlightCheckBox", true).toBool();
@@ -77,6 +80,7 @@ Preferences::~Preferences()
 	// lnf
 	settings.setValue("prefs/languageComboBox", m_GUItranslator);
 	settings.setValue("prefs/styleComboBox", m_GUIstyle);
+	settings.setValue("prefs/applicationFont", m_GUIfont);
 	settings.setValue("prefs/recentlyUsedSpinBox", m_recentlyUsedCount);
 	settings.setValue("prefs/openLastDB", m_openLastDB);
 	settings.setValue("prefs/openLastSqlFile", m_openLastSqlFile);

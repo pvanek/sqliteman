@@ -189,6 +189,9 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	sl.sort();
 	m_prefsLNF->styleComboBox->addItems(sl);
 	m_prefsLNF->styleComboBox->setCurrentIndex(prefs->GUIstyle());
+
+	m_prefsLNF->fontComboBox->setCurrentFont(prefs->GUIfont());
+	m_prefsLNF->fontSpinBox->setValue(prefs->GUIfont().pointSize());
 	m_prefsLNF->recentlyUsedSpinBox->setValue(prefs->recentlyUsedCount());
 	m_prefsLNF->openLastDBCheckBox->setChecked(prefs->openLastDB());
 	m_prefsLNF->openLastSqlFileCheckBox->setChecked(prefs->openLastSqlFile());
@@ -229,6 +232,9 @@ bool PreferencesDialog::saveSettings()
 	Preferences * prefs = Preferences::instance();
 	prefs->setGUItranslator(m_prefsLNF->languageComboBox->currentIndex());
 	prefs->setGUIstyle(m_prefsLNF->styleComboBox->currentIndex());
+	QFont guiFont(m_prefsLNF->fontComboBox->currentFont());
+	guiFont.setPointSize(m_prefsLNF->fontSpinBox->value());
+	prefs->setGUIfont(guiFont);
 	prefs->setRecentlyUsedCount(m_prefsLNF->recentlyUsedSpinBox->value());
 	prefs->setOpenLastDB(m_prefsLNF->openLastDBCheckBox->isChecked());
 	prefs->setOpenLastSqlFile(m_prefsLNF->openLastSqlFileCheckBox->isChecked());
