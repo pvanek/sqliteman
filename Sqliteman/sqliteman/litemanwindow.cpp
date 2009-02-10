@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QFile>
 #include <QDir>
+#include <QProcess>
+#include <QtDebug>
 
 #include "litemanwindow.h"
 #include "preferences.h"
@@ -53,8 +55,6 @@ for which a new license (GPL+exception) is in place.
 #include "utils.h"
 #include "driver/qsql_sqlite.h"
 
-#include <QProcess>
-#include <QtDebug>
 
 
 LiteManWindow::LiteManWindow(const QString & fileToOpen)

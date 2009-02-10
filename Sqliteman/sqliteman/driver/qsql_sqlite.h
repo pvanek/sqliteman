@@ -47,7 +47,10 @@ struct sqlite3;
 
 QT_BEGIN_HEADER
 
+#ifdef QT_BEGIN_NAMESPACE
 QT_BEGIN_NAMESPACE
+#endif
+
 class QSQLiteDriverPrivate;
 class QSQLiteResultPrivate;
 class QSQLiteDriver;
@@ -107,7 +110,9 @@ private:
     QSQLiteDriverPrivate* d;
 };
 
+#ifdef QT_END_NAMESPACE
 QT_END_NAMESPACE
+#endif
 
 QT_END_HEADER
 

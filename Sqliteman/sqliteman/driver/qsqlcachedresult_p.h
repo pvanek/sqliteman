@@ -51,7 +51,9 @@
 
 #include "QtSql/qsqlresult.h"
 
+#ifdef QT_BEGIN_NAMESPACE
 QT_BEGIN_NAMESPACE
+#endif
 
 class QVariant;
 template <typename T> class QVector;
@@ -90,6 +92,9 @@ private:
     QSqlCachedResultPrivate *d;
 };
 
+#ifdef QT_END_NAMESPACE
 QT_END_NAMESPACE
+#endif
 
 #endif // QSQLCACHEDRESULT_P_H
+
