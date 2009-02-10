@@ -1,5 +1,8 @@
 /*
-gcc -lz -lm -fPIC -shared compress.c -o libsqlitecompress.so
+A dummy extension for testing.
+Sample usage: select helloWorld() from foo;
+
+Petr Vanek <petr@scribus.info>
 */
 
 #if !defined(SQLITE_CORE) || defined(SQLITE_ENABLE_COMPRESS)
@@ -28,25 +31,7 @@ static void helloWorld(
 */
 
 int sqlite3helloWorldInit(sqlite3 *db){
-  static const struct {
-     char *zName;
-     signed char nArg;
-     int argType;           /* 1: 0, 2: 1, 3: 2,...  N:  N-1. */
-     int eTextRep;          /* 1: UTF-16.  0: UTF-8 */
-     void (*xFunc)(sqlite3_context*,int,sqlite3_value **);
-  } aFuncs[] = {
-    { "helloWorld",         1, 0, SQLITE_UTF8,    helloWorld },
-  };
-
-  int i;
-  for(i=0; i<sizeof(aFuncs)/sizeof(aFuncs[0]); i++){
-    void *pArg;
-    int argType = aFuncs[i].argType;
-    pArg = (void*)(int)argType;
-    sqlite3_create_function(db, aFuncs[i].zName, aFuncs[i].nArg,
-        aFuncs[i].eTextRep, pArg, aFuncs[i].xFunc, 0, 0);
-  }
-
+  sqlite3_create_function(db, "helloWorld", -1, SQLITE_UTF8,  0, helloWorld, 0, 0);
   return 0;
 }
 
