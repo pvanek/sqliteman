@@ -8,7 +8,7 @@ ENDIF(WANT_INTERNAL_QSCINTILLA)
 # build extensions if there is sqlite3 lib present
 ADD_SUBDIRECTORY(sqlite)
 # IF (SQLITE_FOUND)
-	ADD_SUBDIRECTORY(extensions)
+    ADD_SUBDIRECTORY(extensions)
 # ENDIF (SQLITE_FOUND)
 
 
@@ -53,6 +53,7 @@ SET( SQLITEMAN_SRC
     utils.cpp
     sqlparser/tosqlparse.h
     sqlparser/tosqlparse.cpp
+    driver/qsql_sqlite.cpp
 )
 
 # compiled in icons for windows
@@ -105,6 +106,7 @@ SET( SQLITEMAN_MOC
     tableeditordialog.h
     tabletree.h
     vacuumdialog.h
+    driver/qsql_sqlite.h
 )
 
 SET( SQLITEMAN_UI
@@ -154,6 +156,7 @@ QT4_WRAP_CPP( SQLITEMAN_MOC_SRC ${SQLITEMAN_MOC} )
 
 INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR} )
 INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR}/sqliteman )
+INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR}/sqliteman/driver )
 # due the "out of base directory" build. E.g. SQLITEMAN_SVN_DIR/mybuild etc.
 INCLUDE_DIRECTORIES( . )
 # qscintilla2
@@ -167,6 +170,7 @@ ELSE (WANT_INTERNAL_QSCINTILLA)
 ENDIF (WANT_INTERNAL_QSCINTILLA)
 
 INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/sqliteman/sqlite )
+INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/sqliteman/driver )
 
 
 IF (MSVC)

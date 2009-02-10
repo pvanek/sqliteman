@@ -1,20 +1,23 @@
-Sqliteman Copyright 2001-2007 Petr Vanek. Some parts of this software
+Sqliteman Copyright 2007-2009 Petr Vanek. Some parts of this software
 are based on Igor Khanin's LiteMan. See Sqliteman license (GPLv2) below.
 
 Icons used in this application are licensed under LGPL. See its
 directory for credits.
 
-Source code in the sqlplarser directory has been taken from TOra,
+Source code in the 'sqlplarser' directory has been taken from TOra,
 Toolkit For Oracle (http://tora.sf.net). TOra is released under
 the same license.
 
-Source code in sqlite directory contains Sqlite3 code under Public
+Source code in 'sqlite' directory contains Sqlite3 code under Public
 Domain. See its homepage at http://sqlite.org and/or dedicated
 README file.
 
-Source code in extension directory contains 3rd party sqlite3
+Source code in 'extension' directory contains 3rd party sqlite3
 extensions provided as is. See its dedicated README file.
 
+Source code in 'driver' directory contains Qt4 Sqlite3 driver
+taken from Opensource Edition of this library. See its dedicated
+README file.
 
 *******************************************************************
 License:

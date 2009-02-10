@@ -1,0 +1,7 @@
+This directory contains 3rd party Sqlite3 driver.
+This code is taken from Nokia Qt4 Opensource edition.
+
+This driver is used internally in Sqliteman due limitations of Nokia's distributed
+binaries for MS Windows and Mac OS X -- its drivers are compiled with less features
+of Sqlite3 than it's required for this software.
+

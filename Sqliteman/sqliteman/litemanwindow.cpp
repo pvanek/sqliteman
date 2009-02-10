@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "sqliteprocess.h"
 #include "populatordialog.h"
 #include "utils.h"
+#include "driver/qsql_sqlite.h"
 
 #include <QProcess>
 #include <QtDebug>
@@ -493,7 +494,8 @@ void LiteManWindow::openDatabase(const QString & fileName)
 		db.close();
 		QSqlDatabase::removeDatabase(SESSION_NAME);
 	}
-	db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
+// 	db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
+	db = QSqlDatabase::addDatabase(new QSQLiteDriver(this), SESSION_NAME);
 	db.setDatabaseName(fileName);
 
 	QString msg = tr("Unable to open or create file %1. It is probably not a database").arg(QFileInfo(fileName).fileName());

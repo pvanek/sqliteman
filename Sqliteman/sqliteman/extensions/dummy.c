@@ -17,7 +17,7 @@ static void helloWorld(
   int argc,
   sqlite3_value **argv
 ){
-    sqlite3_result_blob(context, "Hello World", -1, SQLITE_STATIC);
+    sqlite3_result_text(context, "Hello World", -1, SQLITE_STATIC);
 }
 
 
