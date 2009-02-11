@@ -290,41 +290,44 @@ QString Database::pragma(const QString & name)
 
 sqlite3 * Database::sqlite3handle()
 {
-    QVariant v = QSqlDatabase::database(SESSION_NAME).driver()->handle();
-    if (!v.isValid())
-    {
-        exception(tr("DB driver is not valid"));
-        return 0;
-    }
-    if (qstrcmp(v.typeName(), "sqlite3*") != 0)
-    {
-        exception(tr("DB type name does not equal sqlite3"));
-        return 0;
-    }
+	QVariant v = QSqlDatabase::database(SESSION_NAME).driver()->handle();
+	if (!v.isValid())
+	{
+		exception(tr("DB driver is not valid"));
+		return 0;
+	}
+	if (qstrcmp(v.typeName(), "sqlite3*") != 0)
+	{
+		exception(tr("DB type name does not equal sqlite3"));
+		return 0;
+	}
 
-    sqlite3 *handle = *static_cast<sqlite3 **>(v.data());
-    if (handle == 0)
-        exception(tr("DB handler is not valid"));
+	sqlite3 *handle = *static_cast<sqlite3 **>(v.data());
+	if (handle == 0)
+		exception(tr("DB handler is not valid"));
 
-    return handle;
+	return handle;
 }
 
 bool Database::setEnableExtensions(bool enable)
 {
-    sqlite3 * handle = Database::sqlite3handle();
-    if (handle && sqlite3_enable_load_extension(handle, enable ? 1 : 0) != SQLITE_OK)
-    {
-        exception(tr("Failed to %1 extension loading").arg(enable?tr("enable"):tr("disable")));
-        return false;
-    }
-    return true;
+	sqlite3 * handle = Database::sqlite3handle();
+	if (handle && sqlite3_enable_load_extension(handle, enable ? 1 : 0) != SQLITE_OK)
+	{
+		if (enable)
+			exception(tr("Failed to enable extension loading"));
+		else
+			exception(tr("Failed to disable extension loading"));
+		return false;
+	}
+	return true;
 }
 
 QStringList Database::loadExtension(const QStringList & list)
 {
-    sqlite3 * handle = Database::sqlite3handle();
-    if (!handle)
-        return QStringList();
+	sqlite3 * handle = Database::sqlite3handle();
+	if (!handle)
+		return QStringList();
 
 	QStringList retval;
 
@@ -340,8 +343,8 @@ QStringList Database::loadExtension(const QStringList & list)
 			exception(tr("Error loading exception\n%1\n%2").arg(f).arg(QString::fromLocal8Bit(zErrMsg)));
 			sqlite3_free(zErrMsg);
 		}
-        else
-            retval.append(f);
+		else
+			retval.append(f);
 	}
 	return retval;
 }
