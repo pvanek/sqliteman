@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui_prefssqleditorwidget.h"
 #include "ui_prefsextensionwidget.h"
 
-class QStringListModel;
+class ExtensionModel;
 
 
 class PrefsDataDisplayWidget : public QWidget, public Ui::PrefsDataDisplayWidget
@@ -48,7 +48,7 @@ class PrefsExtensionWidget : public QWidget, public Ui::PrefsExtensionWidget
         QStringList extensions();
         void setExtensions(const QStringList & v);
     private:
-        QStringListModel * m_ext;
+        ExtensionModel * m_ext;
     private slots:
         void allowExtensionsBox_clicked(bool);
         void addExtensionButton_clicked();

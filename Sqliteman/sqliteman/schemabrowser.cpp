@@ -9,11 +9,17 @@ for which a new license (GPL+exception) is in place.
 
 #include "schemabrowser.h"
 #include "database.h"
+#include "extensionmodel.h"
+
 
 SchemaBrowser::SchemaBrowser(QWidget * parent, Qt::WindowFlags f)
 	: QWidget(parent, f)
 {
 	setupUi(this);
+
+	m_extensionModel = new ExtensionModel(this);
+	extensionTableView->setModel(m_extensionModel);
+
 #ifndef ENABLE_EXTENSIONS
 	schemaTabWidget->setTabEnabled(2, false);
 #endif
@@ -88,25 +94,16 @@ void SchemaBrowser::setPragmaButton_clicked()
 
 void SchemaBrowser::appendExtensions(const QStringList & list, bool switchToTab)
 {
-    QString s;
-    foreach (s, list)
-    {
-        m_extensions.removeAll(s);
-        m_extensions.append(s);
-    }
+	QStringList l(m_extensionModel->extensions());
+	QString s;
+	foreach (s, list)
+	{
+		l.removeAll(s);
+		l.append(s);
+	}
+	m_extensionModel->setExtensions(l);
+	extensionTableView->resizeColumnsToContents();
 
-    extensionTreeWidget->clear();
-    QFileInfo f;
-    foreach (s, m_extensions)
-    {
-        f.setFile(s);
-        QTreeWidgetItem * item = new QTreeWidgetItem(extensionTreeWidget);
-        item->setText(0, f.fileName());
-        item->setText(1, f.filePath());
-    }
-
-    extensionTreeWidget->resizeColumnToContents(0);
-    extensionTreeWidget->resizeColumnToContents(1);
-    if (switchToTab)
-        schemaTabWidget->setCurrentIndex(2);
+	if (switchToTab)
+		schemaTabWidget->setCurrentIndex(2);
 }

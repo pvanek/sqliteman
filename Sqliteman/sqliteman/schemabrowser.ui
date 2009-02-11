@@ -36,7 +36,13 @@
         <number>6</number>
        </property>
        <item row="0" column="0" >
-        <widget class="TableTree" name="tableTree" />
+        <widget class="TableTree" name="tableTree" >
+         <column>
+          <property name="text" >
+           <string>Database</string>
+          </property>
+         </column>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -135,26 +141,19 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
+     <widget class="QWidget" name="extensionTab" >
       <attribute name="title" >
        <string>E&amp;xtensions</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout" >
        <item row="0" column="0" >
-        <widget class="QTreeWidget" name="extensionTreeWidget" >
+        <widget class="QTableView" name="extensionTableView" >
          <property name="alternatingRowColors" >
           <bool>true</bool>
          </property>
-         <column>
-          <property name="text" >
-           <string>Extension</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Path</string>
-          </property>
-         </column>
+         <property name="selectionBehavior" >
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
         </widget>
        </item>
       </layout>

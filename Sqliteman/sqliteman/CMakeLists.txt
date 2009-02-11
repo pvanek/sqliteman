@@ -26,6 +26,7 @@ SET( SQLITEMAN_SRC
     database.cpp
     dataexportdialog.cpp
     dataviewer.cpp
+    extensionmodel.cpp
     helpbrowser.cpp
     importtabledialog.cpp
     importtablelogdialog.cpp
@@ -88,6 +89,7 @@ SET( SQLITEMAN_MOC
     createviewdialog.h
     dataexportdialog.h
     dataviewer.h
+    extensionmodel.h
     helpbrowser.h
     importtabledialog.h
     importtablelogdialog.h
@@ -137,7 +139,7 @@ SET( SQLITEMAN_UI
     populatordialog.ui
     preferencesdialog.ui
     prefsdatadisplaywidget.ui
-	prefsextensionwidget.ui
+    prefsextensionwidget.ui
     prefslnfwidget.ui
     prefssqleditorwidget.ui
     queryeditordialog.ui

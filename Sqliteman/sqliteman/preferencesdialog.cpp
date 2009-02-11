@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 #include <QStyleFactory>
 #include <QSettings>
 #include <QColorDialog>
-#include <QStringListModel>
 #include <QFileDialog>
 #include <qscilexersql.h>
 
@@ -17,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "preferences.h"
 #include "shortcuteditordialog.h"
 #include "utils.h"
+#include "extensionmodel.h"
 
 
 PrefsDataDisplayWidget::PrefsDataDisplayWidget(QWidget * parent)
@@ -49,73 +49,77 @@ PrefsSQLEditorWidget::PrefsSQLEditorWidget(QWidget * parent)
 			"      like '%foo%';\n");
 }
 
+
 PrefsExtensionWidget::PrefsExtensionWidget(QWidget * parent)
 	: QWidget(parent)
 {
 	setupUi(this);
 
-    m_ext = new QStringListModel(this);
-    listView->setModel(m_ext);
+	m_ext = new ExtensionModel(this);
+	tableView->setModel(m_ext);
 
-    connect(allowExtensionsBox, SIGNAL(clicked(bool)),
-             this, SLOT(allowExtensionsBox_clicked(bool)));
-    connect(addExtensionButton, SIGNAL(clicked()),
-             this, SLOT(addExtensionButton_clicked()));
-    connect(removeExtensionButton, SIGNAL(clicked()),
-             this, SLOT(removeExtensionButton_clicked()));
+	connect(allowExtensionsBox, SIGNAL(clicked(bool)),
+			 this, SLOT(allowExtensionsBox_clicked(bool)));
+	connect(addExtensionButton, SIGNAL(clicked()),
+			 this, SLOT(addExtensionButton_clicked()));
+	connect(removeExtensionButton, SIGNAL(clicked()),
+			 this, SLOT(removeExtensionButton_clicked()));
 }
 
 QStringList PrefsExtensionWidget::extensions()
 {
-    return m_ext->stringList();
+	return m_ext->extensions();
 }
 
 void PrefsExtensionWidget::setExtensions(const QStringList & v)
 {
-    m_ext->setStringList(v);
+	m_ext->setExtensions(v);
+	tableView->resizeColumnsToContents();
 }
 
 void PrefsExtensionWidget::allowExtensionsBox_clicked(bool checked)
 {
-    groupBox->setEnabled(checked);
+	groupBox->setEnabled(checked);
 }
 
 void PrefsExtensionWidget::addExtensionButton_clicked()
 {
-    QString mask(tr("Sqlite3 extensions "));
+	QString mask(tr("Sqlite3 extensions "));
 #ifdef Q_WS_WIN
-    mask += "(*.dll)";
+	mask += "(*.dll)";
 #else
-    mask += "(*.so)";
+	mask += "(*.so)";
 #endif
 
-    QStringList files = QFileDialog::getOpenFileNames(
-                        this,
-                        tr("Select one or more Sqlite3 extensions to load"),
-                        QDir::currentPath(),
-                        mask);
-    if (files.count() == 0)
-        return;
+	QStringList files = QFileDialog::getOpenFileNames(
+						this,
+						tr("Select one or more Sqlite3 extensions to load"),
+						QDir::currentPath(),
+						mask);
+	if (files.count() == 0)
+		return;
 
-    QStringList l = m_ext->stringList();
-    // avoid duplications
-    foreach(QString newItem, files)
-    {
-        l.removeAll(newItem);
-        l.append(newItem);
-    }
-    m_ext->setStringList(l);
+	QStringList l(m_ext->extensions());
+	// avoid duplications
+	foreach(QString newItem, files)
+	{
+		l.removeAll(newItem);
+		l.append(newItem);
+	}
+	m_ext->setExtensions(l);
+	tableView->resizeColumnsToContents();
 }
 
 void PrefsExtensionWidget::removeExtensionButton_clicked()
 {
-    if (!listView->currentIndex().isValid())
-        return;
+	if (!tableView->currentIndex().isValid())
+		return;
 
-    QStringList l = m_ext->stringList();
-    int row = listView->currentIndex().row();
-    l.removeAt(row);
-    m_ext->setStringList(l);
+	QStringList l(m_ext->extensions());
+	int row = tableView->currentIndex().row();
+	l.removeAt(row);
+	m_ext->setExtensions(l);
+	tableView->resizeColumnsToContents();
 }
 
 
@@ -228,8 +232,8 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	m_syCommentColor = prefs->syCommentColor();
 	resetEditorPreview();
 
-    m_prefsExtension->allowExtensionsBox->setChecked(prefs->allowExtensionLoading());
-    m_prefsExtension->setExtensions(prefs->extensionList());
+	m_prefsExtension->allowExtensionsBox->setChecked(prefs->allowExtensionLoading());
+	m_prefsExtension->setExtensions(prefs->extensionList());
 }
 
 bool PreferencesDialog::saveSettings()
@@ -267,9 +271,9 @@ bool PreferencesDialog::saveSettings()
 	prefs->setSyNumberColor(m_syNumberColor);
 	prefs->setSyStringColor(m_syStringColor);
 	prefs->setSyCommentColor(m_syCommentColor);
-    // extensions
-    prefs->setAllowExtensionLoading(m_prefsExtension->allowExtensionsBox->isChecked());
-    prefs->setExtensionList(m_prefsExtension->extensions());
+	// extensions
+	prefs->setAllowExtensionLoading(m_prefsExtension->allowExtensionsBox->isChecked());
+	prefs->setExtensionList(m_prefsExtension->extensions());
 
 	return true;
 }
@@ -312,8 +316,8 @@ void PreferencesDialog::restoreDefaults()
 
 	resetEditorPreview();
 
-    // extensions
-    m_prefsExtension->allowExtensionsBox->setChecked(true);
+	// extensions
+	m_prefsExtension->allowExtensionsBox->setChecked(true);
 }
 
 void PreferencesDialog::blobBgButton_clicked()

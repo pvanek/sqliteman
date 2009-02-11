@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_schemabrowser.h"
 
+class ExtensionModel;
+
 
 /*! \brief A "toolbox" widget containing DB objects and more useful info.
 It contains a DB object tree and PRAGMAs list now.
@@ -24,15 +26,14 @@ class SchemaBrowser : public QWidget, public Ui::SchemaBrowser
 
 		//! \brief Clear and reset the pragma values.
 		void buildPragmasTree();
-        /*! \brief Append all loaded extensions to display
-        \param list a filenames to append
-        \param switchToTab bool, true when the schemaTabWidget have to be set to Extension tab.
-        */
-        void appendExtensions(const QStringList & list, bool switchToTab = false);
+		/*! \brief Append all loaded extensions to display
+		\param list a filenames to append
+		\param switchToTab bool, true when the schemaTabWidget have to be set to Extension tab.
+		*/
+		void appendExtensions(const QStringList & list, bool switchToTab = false);
 
 	private:
-        //! Already loaded extensions
-        QStringList m_extensions;
+		ExtensionModel * m_extensionModel;
 
 		/*! \brief Add a pragma into the list (QTableWidget).
 		Query the DB for its value and store it in the widget.
