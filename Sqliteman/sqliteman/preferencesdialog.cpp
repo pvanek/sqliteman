@@ -133,6 +133,9 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 	stackedWidget->addWidget(m_prefsData);
 	stackedWidget->addWidget(m_prefsSQL);
 	stackedWidget->addWidget(m_prefsExtension);
+#ifndef ENABLE_EXTENSIONS
+	m_prefsExtension->setDisabled(true);
+#endif
 	stackedWidget->setCurrentIndex(0);
 
 	listWidget->addItem(new QListWidgetItem(Utils::getIcon("preferences-desktop-display.png"),
@@ -141,8 +144,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent)
 						m_prefsData->titleLabel->text(), listWidget));
 	listWidget->addItem(new QListWidgetItem(Utils::getIcon("kate.png"),
 						m_prefsSQL->titleLabel->text(), listWidget));
+#ifdef ENABLE_EXTENSIONS
 	listWidget->addItem(new QListWidgetItem(Utils::getIcon("extensions.png"),
 						m_prefsExtension->titleLabel->text(), listWidget));
+#endif
 	listWidget->setCurrentRow(0);
 
 	connect(m_prefsData->nullBgButton, SIGNAL(clicked()),

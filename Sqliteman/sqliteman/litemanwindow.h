@@ -79,8 +79,10 @@ class LiteManWindow : public QMainWindow
 		*/
 		void openDatabase(const QString & fileName);
 
-        //! \brief Setup loading extensions actions and environment depending on prefs.
-        void handleExtensions(bool enable);
+#ifdef ENABLE_EXTENSIONS
+		//! \brief Setup loading extensions actions and environment depending on prefs.
+		void handleExtensions(bool enable);
+#endif
 
 	protected:
 		/*! \brief This method handles closing of the main window by saving the window's state and accepting
@@ -217,7 +219,9 @@ class LiteManWindow : public QMainWindow
 		QAction * vacuumAct;
 		QAction * attachAct;
 		QAction * detachAct;
+#ifdef ENABLE_EXTENSIONS
 		QAction * loadExtensionAct;
+#endif
 		QAction * refreshTreeAct;
 
 		QAction * consTriggAct;

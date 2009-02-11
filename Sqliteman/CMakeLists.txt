@@ -31,14 +31,29 @@ SET (EXE_NAME "sqliteman")
 
 MESSAGE(STATUS "Sqliteman ${VERSION} will be installed into ${CMAKE_INSTALL_PREFIX}")
 
+
+# extensions are switched off in some cases later
+SET (ENABLE_EXTENSIONS 1)
+
 # set platform dependent stuff - e.g. sqlite3 binary name
 # NOTE: it's built with RESOURCES on Windows 
 IF (WIN32)
     SET (SQLITE_BIN "sqlite3.exe")
     SET (WANT_RESOURCES 1)
+    SET (ENABLE_EXTENSIONS 0)
+    IF (not WANT_INTERNAL_SQLDRIVER)
+        SET (WANT_INTERNAL_SQLDRIVER 1)
+    ENDIF (not WANT_INTERNAL_SQLDRIVER)
 ELSE (WIN32)
     SET (SQLITE_BIN "sqlite3")
 ENDIF (WIN32)
+
+IF (APPLE)
+    SET (ENABLE_EXTENSIONS 0)
+    IF (not WANT_INTERNAL_SQLDRIVER)
+        SET (WANT_INTERNAL_SQLDRIVER 1)
+    ENDIF (not WANT_INTERNAL_SQLDRIVER)
+ENDIF (APPLE)
 
 # set paths to install
 IF (WANT_RESOURCES)
@@ -63,10 +78,31 @@ IF (WANT_RESOURCES)
     ADD_DEFINITIONS("-DWANT_RESOURCES")
 ENDIF (WANT_RESOURCES)
 
+IF (WANT_INTERNAL_SQLDRIVER)
+    MESSAGE(STATUS "Sqliteman will be built with internal Sqlite driver.")
+    ADD_DEFINITIONS("-DINTERNAL_SQLDRIVER")
+    SET (ENABLE_EXTENSIONS 1)
+ELSE (WANT_INTERNAL_SQLDRIVER)
+    MESSAGE(STATUS "Sqliteman will be built with standard Qt4 Sqlite driver.")
+ENDIF (WANT_INTERNAL_SQLDRIVER)
+
+IF (DISABLE_SQLITE_EXTENSIONS)
+    SET (ENABLE_EXTENSIONS 0)
+ENDIF (DISABLE_SQLITE_EXTENSIONS)
+IF (FORCE_SQLITE_EXTENSIONS)
+    SET (ENABLE_EXTENSIONS 1)
+ENDIF (FORCE_SQLITE_EXTENSIONS)
+IF (ENABLE_EXTENSIONS)
+    MESSAGE(STATUS "Sqliteman will be built with extension support.")
+    ADD_DEFINITIONS("-DENABLE_EXTENSIONS")
+ELSE (ENABLE_EXTENSIONS)
+    MESSAGE(STATUS "Sqliteman will be built without extension support.")
+ENDIF (ENABLE_EXTENSIONS)
+
 
 #uninstall
 CONFIGURE_FILE(
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
     IMMEDIATE @ONLY)
 

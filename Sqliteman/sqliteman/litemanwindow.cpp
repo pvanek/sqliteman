@@ -53,7 +53,10 @@ for which a new license (GPL+exception) is in place.
 #include "sqliteprocess.h"
 #include "populatordialog.h"
 #include "utils.h"
+
+#ifdef INTERNAL_SQLDRIVER
 #include "driver/qsql_sqlite.h"
+#endif
 
 
 
@@ -315,8 +318,10 @@ void LiteManWindow::initActions()
 	detachAct = new QAction(tr("&Detach Database"), this);
 	connect(detachAct, SIGNAL(triggered()), this, SLOT(detachDatabase()));
 
+#ifdef ENABLE_EXTENSIONS
 	loadExtensionAct = new QAction(tr("&Load Extensions..."), this);
 	connect(loadExtensionAct, SIGNAL(triggered()), this, SLOT(loadExtension()));
+#endif
 
 	refreshTreeAct = new QAction(tr("&Refresh Object Tree"), this);
 	connect(refreshTreeAct, SIGNAL(triggered()), schemaBrowser->tableTree, SLOT(buildTree()));
@@ -356,8 +361,10 @@ void LiteManWindow::initMenus()
 	adminMenu->addAction(vacuumAct);
 	adminMenu->addSeparator();
 	adminMenu->addAction(attachAct);
+#ifdef ENABLE_EXTENSIONS
 	adminMenu->addSeparator();
 	adminMenu->addAction(loadExtensionAct);
+#endif
 
 	QMenu * helpMenu = menuBar()->addMenu(tr("&Help"));
 	helpMenu->addAction(helpAct);
@@ -494,8 +501,12 @@ void LiteManWindow::openDatabase(const QString & fileName)
 		db.close();
 		QSqlDatabase::removeDatabase(SESSION_NAME);
 	}
-// 	db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
+#ifdef INTERNAL_SQLDRIVER
 	db = QSqlDatabase::addDatabase(new QSQLiteDriver(this), SESSION_NAME);
+#else
+	db = QSqlDatabase::addDatabase("QSQLITE", SESSION_NAME);
+#endif
+
 	db.setDatabaseName(fileName);
 
 	QString msg = tr("Unable to open or create file %1. It is probably not a database").arg(QFileInfo(fileName).fileName());
@@ -534,16 +545,18 @@ void LiteManWindow::openDatabase(const QString & fileName)
 			ver = "n/a";
 		m_sqliteVersionLabel->setText("Sqlite: " + ver);
 
-        // load startup exceptions
-        bool loadE = Preferences::instance()->allowExtensionLoading();
-        handleExtensions(loadE);
-        if (loadE && Preferences::instance()->extensionList().count() != 0)
-        {
-            schemaBrowser->appendExtensions(
-                    Database::loadExtension(Preferences::instance()->extensionList())
-                    );
-            statusBar()->showMessage(tr("Startup extensions loaded successfully"));
-        }
+#ifdef ENABLE_EXTENSIONS
+		// load startup exceptions
+		bool loadE = Preferences::instance()->allowExtensionLoading();
+		handleExtensions(loadE);
+		if (loadE && Preferences::instance()->extensionList().count() != 0)
+		{
+			schemaBrowser->appendExtensions(
+					Database::loadExtension(Preferences::instance()->extensionList())
+					);
+			statusBar()->showMessage(tr("Startup extensions loaded successfully"));
+		}
+#endif
 
 		attachedDb.clear();
 		attachedDb["main"] = SESSION_NAME;
@@ -571,13 +584,15 @@ void LiteManWindow::openDatabase(const QString & fileName)
 	dataViewer->setEnabled(isOpened);
 }
 
+#ifdef ENABLE_EXTENSIONS
 void LiteManWindow::handleExtensions(bool enable)
 {
-    QString e(enable ? tr("enabled") : tr("disabled"));
-    loadExtensionAct->setEnabled(enable);
-    if (Database::setEnableExtensions(enable))
-        statusBar()->showMessage(tr("Extensions loading is %1").arg(e));
+	QString e(enable ? tr("enabled") : tr("disabled"));
+	loadExtensionAct->setEnabled(enable);
+	if (Database::setEnableExtensions(enable))
+		statusBar()->showMessage(tr("Extensions loading is %1").arg(e));
 }
+#endif
 
 void LiteManWindow::openRecent()
 {
@@ -661,8 +676,8 @@ void LiteManWindow::execSql(QString query)
 		QString cached;
 		if (model->canFetchMore())
 			cached = DataViewer::canFetchMore();
-        else
-            cached = "";
+		else
+			cached = "";
 		dataViewer->setStatusText(tr("Query OK\nRow(s) returned: %1 %2\n%3").arg(model->rowCount()).arg(cached).arg(query));
 		if (Utils::updateObjectTree(query))
 			schemaBrowser->tableTree->buildTree();
@@ -1051,9 +1066,9 @@ void LiteManWindow::loadExtension()
 						QDir::currentPath(),
 						mask);
 	if (files.count() == 0)
-        return;
+		return;
 
-    schemaBrowser->appendExtensions(Database::loadExtension(files), true);
+	schemaBrowser->appendExtensions(Database::loadExtension(files), true);
 }
 
 void LiteManWindow::createTrigger()
@@ -1122,8 +1137,10 @@ void LiteManWindow::preferences()
 	PreferencesDialog prefs(this);
 	if (prefs.exec())
 		if (prefs.saveSettings())
-        {
+		{
 			emit prefsChanged();
-            handleExtensions(Preferences::instance()->allowExtensionLoading());
-        }
+#ifdef ENABLE_EXTENSIONS
+			handleExtensions(Preferences::instance()->allowExtensionLoading());
+#endif
+		}
 }

@@ -19,9 +19,9 @@ Qmake project is used only for translations.
 
 MS Windows:
 
- - Full Qt4.2 (4.3 suggested) or later properly installed on path
+ - Full Qt4.3 or later properly installed on path
  - building procedure (in the Sqliteman root directory):
-1) cmake
+1) cmake (see Cmake options below)
 2) make
 
 see available cmake options below.
@@ -52,6 +52,16 @@ Available options for cmake (cmake options .):
 -DWANT_INTERNAL_QSCINTILLA=1
     Set this one if you don't have Qscintilla2 libraries and header files
     installed. It will use included source codes.
+-DWANT_INTERNAL_SQLDRIVER=1
+    Set this one to 1 if you want to use internal built-in SQLITE3 Qt4 driver.
+    It's automatically set in MS Windows and Mac OS X environments because
+    Qt4 is distributed with limited sqlite library compiled in standard driver.
+    This option is handled automatically by default depending on OS, etc.
+-DFORCE_SQLITE_EXTENSIONS=1
+    Set this one if you really want to use Sqlite extensions. This behaviour
+    is handled automatically depending on OS, Qt version etc.
+    Use it very carefully.
+-DDISABLE_SQLITE_EXTENSIONS=1
 
 
 Hints for cmake:

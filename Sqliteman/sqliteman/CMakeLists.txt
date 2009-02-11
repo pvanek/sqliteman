@@ -53,8 +53,13 @@ SET( SQLITEMAN_SRC
     utils.cpp
     sqlparser/tosqlparse.h
     sqlparser/tosqlparse.cpp
-    driver/qsql_sqlite.cpp
 )
+IF (WANT_INTERNAL_SQLDRIVER)
+    SET (SQLITEMAN_SRC
+        ${SQLITEMAN_SRC}
+        driver/qsql_sqlite.cpp
+    )
+ENDIF (WANT_INTERNAL_SQLDRIVER)
 
 # compiled in icons for windows
 IF (WIN32)
@@ -106,8 +111,14 @@ SET( SQLITEMAN_MOC
     tableeditordialog.h
     tabletree.h
     vacuumdialog.h
-    driver/qsql_sqlite.h
 )
+IF (WANT_INTERNAL_SQLDRIVER)
+    SET (SQLITEMAN_MOC
+        ${SQLITEMAN_MOC}
+        driver/qsql_sqlite.h
+    )
+ENDIF (WANT_INTERNAL_SQLDRIVER)
+
 
 SET( SQLITEMAN_UI
     analyzedialog.ui
@@ -156,7 +167,6 @@ QT4_WRAP_CPP( SQLITEMAN_MOC_SRC ${SQLITEMAN_MOC} )
 
 INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR} )
 INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR}/sqliteman )
-INCLUDE_DIRECTORIES( ${CMAKE_BINARY_DIR}/sqliteman/driver )
 # due the "out of base directory" build. E.g. SQLITEMAN_SVN_DIR/mybuild etc.
 INCLUDE_DIRECTORIES( . )
 # qscintilla2
@@ -170,7 +180,10 @@ ELSE (WANT_INTERNAL_QSCINTILLA)
 ENDIF (WANT_INTERNAL_QSCINTILLA)
 
 INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/sqliteman/sqlite )
-INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/sqliteman/driver )
+
+IF (WANT_INTERNAL_SQLDRIVER)
+    INCLUDE_DIRECTORIES( ${CMAKE_SOURCE_DIR}/sqliteman/driver )
+ENDIF (WANT_INTERNAL_SQLDRIVER)
 
 
 IF (MSVC)

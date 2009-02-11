@@ -14,6 +14,9 @@ SchemaBrowser::SchemaBrowser(QWidget * parent, Qt::WindowFlags f)
 	: QWidget(parent, f)
 {
 	setupUi(this);
+#ifndef ENABLE_EXTENSIONS
+	schemaTabWidget->setTabEnabled(2, false);
+#endif
 
 // 	connect(pragmaTable, SIGNAL(currentCellChanged(int, int, int, int)),
 // 			this, SLOT(pragmaTable_currentCellChanged(int, int, int, int)));
