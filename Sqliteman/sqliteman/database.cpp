@@ -330,16 +330,14 @@ QStringList Database::loadExtension(const QStringList & list)
 
 	foreach(QString f, list)
 	{
-		const char *zFile, *zProc;
+		const char *zProc = 0;
 		char *zErrMsg = 0;
 		int rc;
-		zFile = f.toUtf8().data();
-		zProc = 0;
-// 		open_db(p);
-		rc = sqlite3_load_extension(handle, zFile, zProc, &zErrMsg);
+
+		rc = sqlite3_load_extension(handle, f.toUtf8().data(), zProc, &zErrMsg);
 		if (rc != SQLITE_OK)
 		{
-			exception(tr("Error loading exception (%1):\n(%2)").arg(f).arg(zErrMsg));
+			exception(tr("Error loading exception\n%1\n%2").arg(f).arg(QString::fromLocal8Bit(zErrMsg)));
 			sqlite3_free(zErrMsg);
 		}
         else
