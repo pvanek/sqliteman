@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "database.h"
 #include "preferences.h"
+#include "shell.h"
 
 
 void Database::exception(const QString & message)
@@ -224,6 +225,43 @@ bool Database::exportSql(const QString & fileName)
 		stream << query.value(0).toString() << ";\n";
 	
 	file.close();
+	return true;
+}
+
+// TODO/FIXME: it definitelly requires worker thread - to unfreeze GUI
+bool Database::dumpDatabase(const QString & fileName)
+{
+	char * fname = fileName.toUtf8().data();
+	FILE * f = fopen(fname, "w");
+	
+	if (f == NULL)
+	{
+		exception(tr("Unable to open file %1 for writing.").arg(fileName));
+		return false;
+	}
+
+	struct callback_data p;
+
+	sqlite3 * h = Database::sqlite3handle();
+	Q_ASSERT_X(h!=0, "Database::dumpDatabase", "sqlite3handle is missing");
+	p.db = h;
+	p.mode = MODE_Insert;
+	p.out = f;
+	p.writableSchema = 0;
+	sqlite3_exec(p.db, "PRAGMA writable_schema=ON", 0, 0, 0);
+	fprintf(p.out, "BEGIN TRANSACTION;\n");
+	run_schema_dump_query(&p,
+        "SELECT name, type, sql FROM sqlite_master "
+        "WHERE sql NOT NULL AND type=='table'", 0
+	);
+	run_table_dump_query(p.out, p.db,
+        "SELECT sql FROM sqlite_master "
+        "WHERE sql NOT NULL AND type IN ('index','trigger','view')"
+	);
+	fprintf(p.out, "COMMIT;\n");
+	sqlite3_exec(p.db, "PRAGMA writable_schema=OFF", 0, 0, 0);
+
+	fclose(f);
 	return true;
 }
 

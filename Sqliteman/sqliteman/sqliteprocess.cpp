@@ -1,3 +1,5 @@
+#if 0
+// SqliteProcess is not required now
 /*
 For general Sqliteman copyright and licensing information please refer
 to the COPYING file provided with the program. Following this notice may exist
@@ -61,3 +63,5 @@ void SqliteProcess::start(const QStringList & commands, const QStringList & opti
 	m_stderr = QString(p.readAllStandardError());
 	m_stdout = QString(p.readAllStandardOutput());
 }
+
+#endif

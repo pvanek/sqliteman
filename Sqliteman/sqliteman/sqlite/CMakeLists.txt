@@ -4,8 +4,9 @@
 
 
 SET(SQLITE_LIB_SOURCES
-sqlite3.h
+# sqlite3.h
 sqlite3.c
+shell.c
 )
 
 SET(SQLITE_LIB "sqlite_lib")

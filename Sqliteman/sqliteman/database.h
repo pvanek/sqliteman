@@ -148,6 +148,8 @@ class Database
 		*/
 		static bool exportSql(const QString & fileName);
 
+		static bool dumpDatabase(const QString & fileName);
+
 		static QString describeObject(const QString & name, const QString & schema = "main");
 
 		/*! \brief BLOB X'foo' notation. See sqlite3 internals as a reference.

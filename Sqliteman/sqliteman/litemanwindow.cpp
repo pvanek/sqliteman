@@ -64,11 +64,11 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 	: QMainWindow(),
 	m_mainDbPath(""),
 	m_appName("Sqliteman"),
-	m_sqliteBinAvailable(true),
+// 	m_sqliteBinAvailable(true),
 	helpBrowser(0)
 {
 	// test for sqlite3 binary
-	qDebug() << "Checking for " << SQLITE_BINARY << ":";
+/*	qDebug() << "Checking for " << SQLITE_BINARY << ":";
 	if (QProcess::execute(SQLITE_BINARY, QStringList() << "-version") != 0)
 	{
 		m_sqliteBinAvailable = false;
@@ -76,7 +76,7 @@ LiteManWindow::LiteManWindow(const QString & fileToOpen)
 							 tr("Sqlite3 executable '%1' is not found in your path. Some features will be disabled.")
 									 .arg(SQLITE_BINARY));
 		qDebug() << "Sqlite3 executable '%1' is not found in your path. Some features will be disabled.";
-	}
+	}*/
 	qDebug() << "Checking for Qt version: " << qVersion();
 #if QT_VERSION < 0x040300
 	if (Preferences::instance()->checkQtVersion())
@@ -240,7 +240,7 @@ void LiteManWindow::initActions()
 
 	dumpDatabaseAct = new QAction(tr("&Dump Database..."), this);
 	connect(dumpDatabaseAct, SIGNAL(triggered()), this, SLOT(dumpDatabase()));
-	dumpDatabaseAct->setEnabled(m_sqliteBinAvailable);
+// 	dumpDatabaseAct->setEnabled(m_sqliteBinAvailable);
 
 	createTableAct = new QAction(Utils::getIcon("table.png"),
 								 tr("&Create Table..."), this);
@@ -686,7 +686,9 @@ void LiteManWindow::execSql(QString query)
 
 void LiteManWindow::exportSchema()
 {
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Export Schema"), QDir::currentPath(), tr("SQL File (*.sql)"));
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Export Schema"),
+                                                     QDir::currentPath(),
+                                                     tr("SQL File (*.sql)"));
 
 	if (fileName.isNull())
 		return;
@@ -696,24 +698,16 @@ void LiteManWindow::exportSchema()
 
 void LiteManWindow::dumpDatabase()
 {
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Export Database"), QDir::currentPath(), tr("SQL File (*.sql)"));
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Export Database"),
+                                                     QDir::currentPath(),
+                                                     tr("SQL File (*.sql)"));
 
 	if (fileName.isNull())
 		return;
 
-	SqliteProcess dump(this);
-	dump.setStandardOutputFile(fileName);
-	dump.start(QStringList() << ".dump");
-	if (!dump.success())
-		QMessageBox::warning(this, m_appName, "<qt>" + tr("Error creating the dump. Reason: %1\n%2")
-				.arg(dump.errorMessage()).arg(dump.allStderr()) + "</qt>");
-	else
+	if (Database::dumpDatabase(fileName))
 	{
-		QString e(dump.allStderr());
-		if (e.isEmpty())
-			QMessageBox::warning(this, m_appName, tr("Dump written into: %1").arg(fileName));
-		else
-			QMessageBox::warning(this, m_appName, tr("An error occured in the dump: %1").arg(e));
+		QMessageBox::information(this, m_appName, tr("Dump written into: %1").arg(fileName));
 	}
 }
 
