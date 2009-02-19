@@ -10,7 +10,7 @@ log, log10, power, sign, sqrt, square, ceil, floor, pi.
 String: replicate, charindex, leftstr, rightstr,reverse, proper, 
 padl, padr, padc, strfilter.
 
-Aggregate: stdev, variance, mode, median, lower_quartile,
+Aggregate: samplestdev, stdev, variance, mode, median, lower_quartile,
 upper_quartile.
 
 Instructions:
@@ -1151,7 +1151,7 @@ struct ModeCtx {
 };
 
 /*
-** called for each value received during a calculation of stdev or variance
+** called for each value received during a calculation of samplestde, stdev or variance
 */
 static void varianceStep(sqlite3_context *context, int argc, sqlite3_value **argv){
   StdevCtx *p;
@@ -1368,13 +1368,27 @@ static void upper_quartileFinalize(sqlite3_context *context){
 }
 
 /*
+** Returns the sample stdev value
+** See http://en.wikipedia.org/wiki/Stdev
+*/
+static void samplestdevFinalize(sqlite3_context *context){
+  StdevCtx *p;
+  p = sqlite3_aggregate_context(context, 0);
+  if( p && p->cnt>1 ){
+    sqlite3_result_double(context, sqrt(p->rS/(p->cnt-1)));
+  }else{
+    sqlite3_result_double(context, 0.0);
+  }
+}
+
+/*
 ** Returns the stdev value
 */
 static void stdevFinalize(sqlite3_context *context){
   StdevCtx *p;
   p = sqlite3_aggregate_context(context, 0);
-  if( p && p->cnt>1 ){
-    sqlite3_result_double(context, sqrt(p->rS/(p->cnt-1)));
+  if( p && p->cnt>0 ){
+    sqlite3_result_double(context, sqrt(p->rS/p->cnt));
   }else{
     sqlite3_result_double(context, 0.0);
   }
@@ -1542,6 +1556,7 @@ int sqlite3FunctionsInit(sqlite3 *db){
     void (*xStep)(sqlite3_context*,int,sqlite3_value**);
     void (*xFinalize)(sqlite3_context*);
   } aAggs[] = {
+    { "samplestdev",      1, 0, 0, varianceStep, samplestdevFinalize  },
     { "stdev",            1, 0, 0, varianceStep, stdevFinalize  },
     { "variance",         1, 0, 0, varianceStep, varianceFinalize  },
     { "mode",             1, 0, 0, modeStep,     modeFinalize  },

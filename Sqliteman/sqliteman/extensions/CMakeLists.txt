@@ -1,36 +1,99 @@
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/sqliteman/sqlite) #${SQLITE_INCLUDE_DIR} )
 
+# sample dummy extension on all platforms
+SET (EXT_DUMMY "sqlitedummy")
+ADD_LIBRARY(${EXT_DUMMY} MODULE dummy.c)
+INSTALL(TARGETS ${EXT_DUMMY} LIBRARY DESTINATION lib/sqliteman)
+
 IF (UNIX)
-SET(EXT_COMPRESS "sqlitecompress")
-SET(EXT_FUNCTIONS "sqlitefunctions")
-SET(EXT_IPV4 "sqliteipv4")
-SET(EXT_MD5 "md5")
-SET(EXT_TABLEPOPULATION "tablepopulation")
+	SET(EXT_COMPRESS "sqlitecompress")
+	ADD_LIBRARY(${EXT_COMPRESS} MODULE compress.c)
+	INSTALL(TARGETS ${EXT_COMPRESS} LIBRARY DESTINATION lib/sqliteman)
 
-ADD_LIBRARY(${EXT_COMPRESS} MODULE compress.c)
-ADD_LIBRARY(${EXT_FUNCTIONS} MODULE functions.c)
-ADD_LIBRARY(${EXT_IPV4} MODULE ipv4-ext.c)
-ADD_LIBRARY(${EXT_MD5} MODULE md5.c)
-ADD_LIBRARY(${EXT_TABLEPOPULATION} MODULE tablefunc.c)
+	SET(EXT_FUNCTIONS "sqlitefunctions")
+	ADD_LIBRARY(${EXT_FUNCTIONS} MODULE functions.c)
+	INSTALL(TARGETS ${EXT_FUNCTIONS} LIBRARY DESTINATION lib/sqliteman)
 
+	SET(EXT_IPV4 "sqliteipv4")
+	ADD_LIBRARY(${EXT_IPV4} MODULE ipv4-ext.c)
+	INSTALL(TARGETS ${EXT_IPV4} LIBRARY DESTINATION lib/sqliteman)
 
-    INSTALL(TARGETS ${EXT_COMPRESS} ${EXT_FUNCTIONS} ${EXT_IPV4}
-                    ${EXT_MD5} ${EXT_TABLEPOPULATION}
-        LIBRARY DESTINATION lib/sqliteman)
+	SET(EXT_MD5 "sqlitemd5")
+	ADD_LIBRARY(${EXT_MD5} MODULE md5.c)
+	INSTALL(TARGETS ${EXT_MD5} LIBRARY DESTINATION lib/sqliteman)
+
+	SET(EXT_TABLEPOPULATION "sqlitetablepopulation")
+	ADD_LIBRARY(${EXT_TABLEPOPULATION} MODULE tablefunc.c)
+	INSTALL(TARGETS ${EXT_TABLEPOPULATION} LIBRARY DESTINATION lib/sqliteman)
+
+	# libuuid is mandatory! libuuid-devel on Suse
+	FIND_PATH(UUID_INCLUDE uuid.h
+		PATHS
+			${UUID_INC_PATH}
+			/usr/include/
+			/usr/include/uuid/
+	)
+	FIND_LIBRARY(UUID_LIBRARY
+		NAMES uuid libuuid
+		PATHS ${UUID_LIB_PATH} /usr/lib/
+	)
+	if (UUID_LIBRARY AND UUID_INCLUDE)
+		SET(EXT_UUID "sqliteuuid")
+		ADD_LIBRARY(${EXT_UUID} MODULE uuid.c)
+		INSTALL(TARGETS ${EXT_UUID} LIBRARY DESTINATION lib/sqliteman)
+	else (UUID_LIBRARY AND UUID_INCLUDE)
+		MESSAGE(" ")
+		MESSAGE(STATUS "UUID library is not found. SqliteUUID extension won't be built.")
+		MESSAGE(STATUS "You can specify its location with -DUUID_INC_PATH -DUUID_LIB_PATH")
+		MESSAGE(STATUS "or install it in standard locations. Current status:")
+		MESSAGE(STATUS "    includes: ${UUID_INCLUDE}")
+		MESSAGE(STATUS "         lib: ${UUID_LIBRARY}")
+		MESSAGE(" ")
+	endif (UUID_LIBRARY AND UUID_INCLUDE)
+
+	SET(EXT_VIRTUALTEXT "sqlitevirtualtext")
+	ADD_LIBRARY(${EXT_VIRTUALTEXT} MODULE virtualtext.c)
+	INSTALL(TARGETS ${EXT_VIRTUALTEXT} LIBRARY DESTINATION lib/sqliteman)
+
+	#####################################################################
+	# subdirectory extensions ###########################################
+
+	# libicu is mandatory! libicu-devel on sus
+	FIND_PATH(ICU_INCLUDE ustring.h
+		PATHS
+			${ICU_INC_PATH}
+			/usr/include/
+			/usr/include/unicode/
+	)
+	FIND_LIBRARY(ICU_LIBRARY
+		NAMES icudata
+		PATHS ${ICU_LIB_PATH} /usr/lib/
+	)
+	if (ICU_INCLUDE AND ICU_LIBRARY)
+		SET(EXT_ICU "sqliteicu")
+		ADD_LIBRARY(${EXT_ICU} MODULE icu/icu.c)
+		INSTALL(TARGETS ${EXT_ICU} LIBRARY DESTINATION lib/sqliteman)
+	else (ICU_INCLUDE AND ICU_LIBRARY)
+		MESSAGE(" ")
+		MESSAGE(STATUS "ICU library is not found. SqliteICU extension won't be built.")
+		MESSAGE(STATUS "You can specify its location with -DICU_INC_PATH -DICU_LIB_PATH")
+		MESSAGE(STATUS "or install it in standard locations. Current status:")
+		MESSAGE(STATUS "    includes: ${ICU_INCLUDE}")
+		MESSAGE(STATUS "         lib: ${ICU_LIBRARY}")
+		MESSAGE(" ")
+	endif (ICU_INCLUDE AND ICU_LIBRARY)
+
+	SET(EXT_RTREE "sqlitertree")
+	ADD_LIBRARY(${EXT_RTREE} MODULE rtree/rtree.c)
+	INSTALL(TARGETS ${EXT_RTREE} LIBRARY DESTINATION lib/sqliteman)
 
 ENDIF (UNIX)
 
 IF (WIN32)
     MESSAGE(STATUS) 
-    MESSAGE(STATUS "Sample sqlite extensions won't be built on MS Windows.")
+    MESSAGE(STATUS "Most of the sample sqlite extensions won't be built on MS Windows.")
     MESSAGE(STATUS "Volunteers to port it are welcomed")
     MESSAGE(STATUS)
 ENDIF (WIN32)
-
-
-# sample dummy extension on all platforms
-SET (EXT_DUMMY "dummy")
-ADD_LIBRARY(${EXT_DUMMY} MODULE dummy.c)
-INSTALL(TARGETS ${EXT_DUMMY} LIBRARY DESTINATION lib/sqliteman)
 
