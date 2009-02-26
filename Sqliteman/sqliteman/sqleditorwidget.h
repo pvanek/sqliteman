@@ -24,6 +24,13 @@ class SqlEditorWidget : public QsciScintilla/*QTextEdit*/
 	public:
 		SqlEditorWidget(QWidget * parent = 0);
 
+        /*! \brief Highlight all occurrences of string s.
+        Nothing is processed when s == m_searchText (cache).
+        */
+        void highlightAllOccurrences(const QString & s,
+                                      bool caseSensitive,
+                                      bool wholeWords);
+
 	public slots:
 		//! \brief Apply new preferences for editor.
 		void prefsChanged();
@@ -35,6 +42,11 @@ class SqlEditorWidget : public QsciScintilla/*QTextEdit*/
 		/*! \brief Store current line number to change
 		m_currentLineHandle in cursorPositionChanged() slot. */
 		int m_prevCurrentLine;
+
+        //! Previously searched string
+        QString m_searchText;
+        //! Highligh all occurrences of m_searchText QScintilla indicator
+        int m_searchIndicator;
 
 		void keyPressEvent(QKeyEvent * e);
 

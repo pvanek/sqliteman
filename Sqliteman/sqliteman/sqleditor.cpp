@@ -517,6 +517,8 @@ void SqlEditor::find(QString ttf, bool forward/*, bool backward*/)
 									ui.wholeWordsCheckBox->isChecked(),
 									true,
 									forward);
+    ui.sqlTextEdit->highlightAllOccurrences(ttf, ui.caseCheckBox->isChecked(),
+                                             ui.wholeWordsCheckBox->isChecked());
 	QPalette p = ui.searchEdit->palette();
 	p.setColor(QPalette::Active, QPalette::Base, found ? Qt::white : QColor(255, 102, 102));
 	ui.searchEdit->setPalette(p);
