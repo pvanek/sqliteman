@@ -881,10 +881,10 @@ void LiteManWindow::treeItemActivated(QTreeWidgetItem * item, int /*column*/)
 		|| item->type() == TableTree::SystemType)
 	{
 		dataViewer->freeResources();
-		if(item->type() == TableTree::ViewType || item->type() == TableTree::SystemType)
+		if (item->type() == TableTree::ViewType || item->type() == TableTree::SystemType)
 		{
 			SqlQueryModel * model = new SqlQueryModel(0);
-			model->setQuery(QString("select * from %1.%2").arg(item->text(1)).arg(item->text(0)), QSqlDatabase::database(SESSION_NAME));
+			model->setQuery(QString("select * from \"%1\".\"%2\"").arg(item->text(1)).arg(item->text(0)), QSqlDatabase::database(SESSION_NAME));
 			dataViewer->setTableModel(model, false);
 		}
 		else
