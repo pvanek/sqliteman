@@ -129,11 +129,12 @@ void LiteManWindow::closeEvent(QCloseEvent * e)
 		i.next();
 		QSqlDatabase::database(i.value()).rollback();
 		QSqlDatabase::database(i.value()).close();
+		QSqlDatabase::removeDatabase(i.value());
 	}
 
 	// It has to go after writeSettings()!
-	foreach (QWidget *widget, QApplication::topLevelWidgets())
-		widget->close();
+	//foreach (QWidget *widget, QApplication::topLevelWidgets())
+	//	widget->close();
 
 	e->accept();
 }
