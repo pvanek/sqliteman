@@ -14,6 +14,8 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QProgressDialog>
 #include <QTextCodec>
+#include <QCompleter>
+#include <QDirModel>
 #include <QSqlQueryModel>
 
 #include "dataviewer.h"
@@ -61,7 +63,11 @@ DataExportDialog::DataExportDialog(DataViewer * parent, const QString & tableNam
 	ui.clipboardButton->setChecked(prefs->exportDestination() == 1);
 	ui.headerCheckBox->setChecked(prefs->exportHeaders());
 
-	checkButtonStatus();
+	fileButton_toggled(prefs->exportDestination() == 0);
+
+    QCompleter *completer = new QCompleter(this);
+    completer->setModel(new QDirModel(completer));
+    ui.fileEdit->setCompleter(completer);
 
 	connect(ui.fileButton, SIGNAL(toggled(bool)),
 			this, SLOT(fileButton_toggled(bool)));
@@ -364,9 +370,13 @@ void DataExportDialog::searchButton_clicked()
 	if (curr == "py")
 		mask = tr("Python list (*.py)");
 
+    QString presetPath(ui.fileEdit->text());
+    if (presetPath.isEmpty())
+        presetPath = QDir::currentPath();
+
 	QString fileName = QFileDialog::getSaveFileName(this,
 			tr("Export to File"),
-			QDir::homePath(),
+			presetPath, //QDir::homePath(),
 			mask);
 	if (!fileName.isNull())
 		ui.fileEdit->setText(fileName);
