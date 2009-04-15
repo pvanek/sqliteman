@@ -215,8 +215,8 @@ bool DataExportDialog::exportCSV()
 
 bool DataExportDialog::exportHTML()
 {
-	out << "<html>" << endl() << "<header>" << endl();
-	out << "<title>Sqliteman export</title>" << endl() << "</header>" << endl();
+	out << "<html>" << endl() << "<head>" << endl();
+	out << "<title>Sqliteman export</title>" << endl() << "</head>" << endl();
 	out << "<body>" << endl() << "<table border=\"1\">" << endl();
 
 	if (header())
@@ -387,3 +387,4 @@ QString DataExportDialog::endl()
 			return LF;
 	}
 }
+
