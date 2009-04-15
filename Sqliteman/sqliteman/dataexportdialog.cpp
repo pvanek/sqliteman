@@ -225,7 +225,7 @@ bool DataExportDialog::exportHTML()
 	{
 		out << "<tr>";
 		for (int i = 0; i < m_header.size(); ++i)
-			out << "<th>" << m_header.at(i) << "</th>";
+			out << "<th>" << Qt::escape(m_header.at(i)) << "</th>";
 		out << "</tr>" << endl();
 	}
 
@@ -236,7 +236,7 @@ bool DataExportDialog::exportHTML()
 		out << "<tr>";
 		QSqlRecord r = m_data->record(i);
 		for (int j = 0; j < m_header.size(); ++j)
-			out << "<td>" << r.value(j).toString() << "</td>";
+			out << "<td>" << Qt::escape(r.value(j).toString()) << "</td>";
 		out << "</tr>" << endl();
 	}
 	out << "</table>" << endl() << "</body>" << endl() << "</html>";
@@ -258,7 +258,7 @@ bool DataExportDialog::exportExcelXML()
 	{
 		out << "<ss:Row ss:StyleID=\"1\">" << endl();
 		for (int i = 0; i < m_header.size(); ++i)
-			out << "<ss:Cell><ss:Data ss:Type=\"String\">" << m_header.at(i) << "</ss:Data></ss:Cell>" << endl();
+			out << "<ss:Cell><ss:Data ss:Type=\"String\">" << Qt::escape(m_header.at(i)) << "</ss:Data></ss:Cell>" << endl();
 		out << "</ss:Row>" << endl();
 	}
 
@@ -269,7 +269,7 @@ bool DataExportDialog::exportExcelXML()
 		out << "<ss:Row>" << endl();
 		QSqlRecord r = m_data->record(i);
 		for (int j = 0; j < m_header.size(); ++j)
-			out << "<ss:Cell><ss:Data ss:Type=\"String\">" << r.value(j).toString() << "</ss:Data></ss:Cell>" << endl();
+			out << "<ss:Cell><ss:Data ss:Type=\"String\">" << Qt::escape(r.value(j).toString()) << "</ss:Data></ss:Cell>" << endl();
 		out << "</ss:Row>" << endl();
 	}
 
