@@ -216,6 +216,8 @@ bool DataExportDialog::exportCSV()
 bool DataExportDialog::exportHTML()
 {
 	out << "<html>" << endl() << "<head>" << endl();
+    QString encStr("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=%1\">");
+    out << encStr.arg(ui.encodingBox->currentText()) << endl();
 	out << "<title>Sqliteman export</title>" << endl() << "</head>" << endl();
 	out << "<body>" << endl() << "<table border=\"1\">" << endl();
 
