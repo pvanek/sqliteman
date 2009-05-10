@@ -232,6 +232,11 @@ void LiteManWindow::initActions()
 	objectBrowserAct->setCheckable(true);
 	connect(objectBrowserAct, SIGNAL(triggered()), this, SLOT(handleObjectBrowser()));
 
+	dataViewerAct = new QAction(tr("Data Vie&wer"), this);
+	dataViewerAct->setShortcut(tr("Ctrl+D"));
+	dataViewerAct->setCheckable(true);
+	connect(dataViewerAct, SIGNAL(triggered()), this, SLOT(handleDataViewer()));
+
 	buildQueryAct = new QAction(tr("&Build Query..."), this);
 	buildQueryAct->setShortcut(tr("Ctrl+R"));
 	connect(buildQueryAct, SIGNAL(triggered()), this, SLOT(buildQuery()));
@@ -352,6 +357,7 @@ void LiteManWindow::initMenus()
 	databaseMenu->addAction(buildQueryAct);
 	databaseMenu->addAction(execSqlAct);
 	databaseMenu->addAction(objectBrowserAct);
+	databaseMenu->addAction(dataViewerAct);
 	databaseMenu->addSeparator();
 	databaseMenu->addAction(exportSchemaAct);
 	databaseMenu->addAction(dumpDatabaseAct);
@@ -427,12 +433,15 @@ void LiteManWindow::readSettings()
 
 	splitter->restoreState(splitterData);
 	splitterSql->restoreState(settings.value("sqleditor/splitter").toByteArray());
+
 	dataViewer->restoreSplitter(settings.value("dataviewer/splitter").toByteArray());
+	dataViewer->setVisible(settings.value("dataviewer/show", true).toBool());
+	dataViewerAct->setChecked(settings.value("dataviewer/show", true).toBool());
 
 	sqlEditor->setVisible(settings.value("sqleditor/show", true).toBool());
 	schemaBrowser->setVisible(settings.value("objectbrowser/show", true).toBool());
-	objectBrowserAct->setChecked(settings.value("objectbrowser/show", false).toBool());
-	execSqlAct->setChecked(settings.value("sqleditor/show", false).toBool());
+	objectBrowserAct->setChecked(settings.value("objectbrowser/show", true).toBool());
+	execSqlAct->setChecked(settings.value("sqleditor/show", true).toBool());
 
 	QString fn(settings.value("sqleditor/filename", QString()).toString());
 	if (!fn.isNull() && !fn.isEmpty() && Preferences::instance()->openLastSqlFile())
@@ -453,6 +462,7 @@ void LiteManWindow::writeSettings()
 	settings.setValue("sqleditor/show", sqlEditor->isVisible());
 	settings.setValue("sqleditor/splitter", splitterSql->saveState());
 	settings.setValue("sqleditor/filename", sqlEditor->fileName());
+	settings.setValue("dataviewer/show", dataViewer->isVisible());
 	settings.setValue("dataviewer/splitter", dataViewer->saveSplitter());
 	settings.setValue("recentDocs/files", recentDocs);
 	// last open database
@@ -644,6 +654,12 @@ void LiteManWindow::handleObjectBrowser()
 {
 	schemaBrowser->setVisible(!schemaBrowser->isVisible());
 	objectBrowserAct->setChecked(schemaBrowser->isVisible());
+}
+
+void LiteManWindow::handleDataViewer()
+{
+	dataViewer->setVisible(!dataViewer->isVisible());
+	dataViewerAct->setChecked(dataViewer->isVisible());
 }
 
 void LiteManWindow::execSql(QString query)

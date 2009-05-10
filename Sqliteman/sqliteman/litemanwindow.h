@@ -133,6 +133,7 @@ class LiteManWindow : public QMainWindow
 
 		void handleSqlEditor();
 		void handleObjectBrowser();
+		void handleDataViewer();
 
 		void analyzeDialog();
 		void vacuumDialog();
@@ -211,6 +212,7 @@ class LiteManWindow : public QMainWindow
 
 		QAction * execSqlAct;
 		QAction * objectBrowserAct;
+		QAction * dataViewerAct;
 		QAction * buildQueryAct;
 		QAction * exportSchemaAct;
 		QAction * dumpDatabaseAct;
