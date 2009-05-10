@@ -19,7 +19,7 @@ INSTALL(TARGETS ${EXT_DUMMY} LIBRARY DESTINATION ${EXTENSION_INSTALL})
 
 IF (UNIX)
 
-IF (APPLE)
+IF (MACOSX)
         MESSAGE(STATUS "")
         MESSAGE(STATUS "Extension VirtualText cannot be bult on MacOSX, volunteers to port welcomed.")
         MESSAGE(STATUS "")
@@ -70,7 +70,7 @@ ENDIF (MACOSX)
 		MESSAGE(" ")
 	endif (UUID_LIBRARY AND UUID_INCLUDE)
 
-IF (APPLE)
+IF (MACOSX)
 	MESSAGE(STATUS "")
 	MESSAGE(STATUS "Extension VirtualText cannot be bult on MacOSX, volunteers to port welcomed.")
 	MESSAGE(STATUS "")
