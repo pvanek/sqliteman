@@ -19,15 +19,15 @@ INSTALL(TARGETS ${EXT_DUMMY} LIBRARY DESTINATION ${EXTENSION_INSTALL})
 
 IF (UNIX)
 
-IF (MACOSX)
+IF (APPLE)
         MESSAGE(STATUS "")
         MESSAGE(STATUS "Extension VirtualText cannot be bult on MacOSX, volunteers to port welcomed.")
         MESSAGE(STATUS "")
-ELSE (MACOSX)
+ELSE (APPLE)
 	SET(EXT_COMPRESS "sqlitecompress")
 	ADD_LIBRARY(${EXT_COMPRESS} MODULE compress.c)
 	INSTALL(TARGETS ${EXT_COMPRESS} LIBRARY DESTINATION ${EXTENSION_INSTALL})
-ENDIF (MACOSX)
+ENDIF (APPLE)
 
 	SET(EXT_FUNCTIONS "sqlitefunctions")
 	ADD_LIBRARY(${EXT_FUNCTIONS} MODULE functions.c)
@@ -70,15 +70,15 @@ ENDIF (MACOSX)
 		MESSAGE(" ")
 	endif (UUID_LIBRARY AND UUID_INCLUDE)
 
-IF (MACOSX)
+IF (APPLE)
 	MESSAGE(STATUS "")
 	MESSAGE(STATUS "Extension VirtualText cannot be bult on MacOSX, volunteers to port welcomed.")
 	MESSAGE(STATUS "")
-ELSE (MACOSX)
+ELSE (APPLE)
 	SET(EXT_VIRTUALTEXT "sqlitevirtualtext")
 	ADD_LIBRARY(${EXT_VIRTUALTEXT} MODULE virtualtext.c)
 	INSTALL(TARGETS ${EXT_VIRTUALTEXT} LIBRARY DESTINATION ${EXTENSION_INSTALL})
-ENDIF (MACOSX)
+ENDIF (APPLE)
 
 	#####################################################################
 	# subdirectory extensions ###########################################
