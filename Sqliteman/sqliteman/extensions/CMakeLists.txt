@@ -21,7 +21,7 @@ IF (UNIX)
 
 IF (APPLE)
         MESSAGE(STATUS "")
-        MESSAGE(STATUS "Extension VirtualText cannot be bult on MacOSX, volunteers to port welcomed.")
+        MESSAGE(STATUS "Extension SqliteCompress cannot be bult on MacOSX, volunteers to port welcomed.")
         MESSAGE(STATUS "")
 ELSE (APPLE)
 	SET(EXT_COMPRESS "sqlitecompress")
