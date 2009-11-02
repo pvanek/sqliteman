@@ -29,7 +29,7 @@ class DataViewer : public QMainWindow
 		Q_OBJECT
 	public:
 		DataViewer(QWidget * parent = 0);
-		~DataViewer(){};
+		~DataViewer();
 
 		/*! \brief Set data model. See Qt model/view documentation.
 		\retval bool true when the model is set succesfully

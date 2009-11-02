@@ -32,7 +32,7 @@ class SqlEditor : public QMainWindow
 
 	public:
 		SqlEditor(QWidget * parent = 0);
-		~SqlEditor(){};
+		~SqlEditor();
 
 		void saveOnExit();
 

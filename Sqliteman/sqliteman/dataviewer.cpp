@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDateTime>
 #include <QHeaderView>
 #include <QResizeEvent>
+#include <QSettings>
 
 #include "dataviewer.h"
 #include "dataexportdialog.h"
@@ -28,6 +29,13 @@ DataViewer::DataViewer(QWidget * parent)
 	  dataResized(true)
 {
 	ui.setupUi(this);
+
+#ifdef Q_WS_MAC
+    ui.mainToolBar->setIconSize(QSize(16, 16));
+    ui.exportToolBar->setIconSize(QSize(16, 16));
+    ui.snapshotToolBar->setIconSize(QSize(16, 16));
+#endif
+
 	handleBlobPreview(false);
 
 	ui.splitter->setCollapsible(0, false);
@@ -48,6 +56,9 @@ DataViewer::DataViewer(QWidget * parent)
 	// workaround for Ctrl+C
 	DataViewerTools::KeyPressEater *keyPressEater = new DataViewerTools::KeyPressEater(this);
 	ui.tableView->installEventFilter(keyPressEater);
+
+	QSettings settings("yarpen.cz", "sqliteman");
+	restoreState(settings.value("dataviewer/state").toByteArray());
 
 	connect(ui.actionNew_Row, SIGNAL(triggered()),
 			this, SLOT(addRow()));
@@ -76,6 +87,12 @@ DataViewer::DataViewer(QWidget * parent)
 			this, SLOT(tableView_dataResized(int, int, int)));
 	connect(ui.tableView->verticalHeader(), SIGNAL(sectionResized(int, int, int)),
 			this, SLOT(tableView_dataResized(int, int, int)));
+}
+
+DataViewer::~DataViewer()
+{
+	QSettings settings("yarpen.cz", "sqliteman");
+    settings.setValue("dataviewer/state", saveState());
 }
 
 bool DataViewer::setTableModel(QAbstractItemModel * model, bool showButtons)

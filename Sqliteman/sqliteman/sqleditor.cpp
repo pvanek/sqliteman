@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QShortcut>
+#include <QSettings>
 
 #include <qscilexer.h>
 
@@ -30,6 +31,12 @@ SqlEditor::SqlEditor(QWidget * parent)
    	  m_fileWatcher(0)
 {
 	ui.setupUi(this);
+
+#ifdef Q_WS_MAC
+    ui.toolBar->setIconSize(QSize(16, 16));
+#endif
+
+
 	m_fileName = QString();
 
 	//m_fileWatcher = new QFileSystemWatcher(this);
@@ -73,6 +80,9 @@ SqlEditor::SqlEditor(QWidget * parent)
     QShortcut * alternativeSQLRun = new QShortcut(this);
     alternativeSQLRun->setKey(Qt::CTRL + Qt::Key_Return);
 
+	QSettings settings("yarpen.cz", "sqliteman");
+	restoreState(settings.value("sqleditor/state").toByteArray());
+
 	connect(ui.action_Run_SQL, SIGNAL(triggered()),
 			this, SLOT(action_Run_SQL_triggered()));
     // alternative run action for Ctrl+Enter
@@ -106,6 +116,12 @@ SqlEditor::SqlEditor(QWidget * parent)
 	connect(ui.previousToolButton, SIGNAL(clicked()), this, SLOT(findPrevious()));
 	connect(ui.nextToolButton, SIGNAL(clicked()), this, SLOT(findNext()));
 	connect(ui.searchEdit, SIGNAL(returnPressed()), this, SLOT(findNext()));
+}
+
+SqlEditor::~SqlEditor()
+{
+	QSettings settings("yarpen.cz", "sqliteman");
+    settings.setValue("sqleditor/state", saveState());
 }
 
 void SqlEditor::setStatusMessage(const QString & message)

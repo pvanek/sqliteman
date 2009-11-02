@@ -257,7 +257,7 @@ void LiteManWindow::initActions()
 	connect(dropTableAct, SIGNAL(triggered()), this, SLOT(dropTable()));
 
 	alterTableAct = new QAction(tr("&Alter Table..."), this);
-	alterTableAct->setShortcut(tr("Ctrl+A"));
+	alterTableAct->setShortcut(tr("Ctrl+L"));
 	connect(alterTableAct, SIGNAL(triggered()), this, SLOT(alterTable()));
 
 	renameTableAct = new QAction(tr("&Rename Table..."), this);

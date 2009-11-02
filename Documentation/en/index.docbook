@@ -568,7 +568,7 @@ the alternative access to this menu by the right mouse button
 
   <varlistentry>
     <term><menuchoice>
-    <shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
+    <shortcut><keycombo action="simul">&Ctrl;<keycap>L</keycap></keycombo></shortcut>
     <guimenu>Context</guimenu><guimenuitem>Alter Table...</guimenuitem></menuchoice></term>
     <listitem><para><action>Raise a dialog for table changing.
       <link linkend="alterTable">See full Alter Table documentation</link></action></para></listitem>
