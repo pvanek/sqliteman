@@ -104,13 +104,13 @@ DatabaseTableField TableEditorDialog::getColumn(int row)
 	}
 
 	QString type;
-	if (ui.columnTable->cellWidget(row, 1) == 0)
-		type = ui.columnTable->item(row, 1)->text();
-	else
-	{
-		QComboBox * typeBox = qobject_cast<QComboBox *>(ui.columnTable->cellWidget(row, 1));
-		type = typeBox->currentText();
-	}
+	QComboBox * typeBox = qobject_cast<QComboBox *>(ui.columnTable->cellWidget(row, 1));
+    if (typeBox)
+        type = typeBox->currentText();
+    else
+        type = ui.columnTable->item(row, 1)->text();
+
+	//}
 	bool nn = qobject_cast<QCheckBox*>(ui.columnTable->cellWidget(row, 2))->checkState() == Qt::Checked;
 
 	// For user convinence reasons, the type "INTEGER PRIMARY KEY" is presented to the user
