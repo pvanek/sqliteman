@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>DataViewer</class>
- <widget class="QMainWindow" name="DataViewer" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="DataViewer">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,102 +10,90 @@
     <height>607</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>100</height>
+   </size>
+  </property>
+  <property name="windowTitle">
    <string>Data Viewer</string>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <layout class="QGridLayout" >
-    <property name="margin" >
-     <number>9</number>
-    </property>
-    <property name="spacing" >
-     <number>6</number>
-    </property>
-    <item row="0" column="0" >
-     <widget class="QSplitter" name="splitter" >
-      <property name="orientation" >
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout">
+    <item row="0" column="0">
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
-      <property name="childrenCollapsible" >
+      <property name="childrenCollapsible">
        <bool>false</bool>
       </property>
-      <widget class="QSplitter" name="splitterBlob" >
-       <property name="orientation" >
+      <widget class="QSplitter" name="splitterBlob">
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="childrenCollapsible" >
+       <property name="childrenCollapsible">
         <bool>false</bool>
        </property>
-       <widget class="QTabWidget" name="tabWidget" >
-        <property name="currentIndex" >
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="tab" >
-         <attribute name="title" >
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
           <string>Full View</string>
          </attribute>
-         <layout class="QGridLayout" >
-          <property name="margin" >
-           <number>9</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item row="0" column="0" >
-           <widget class="QTableView" name="tableView" >
-            <property name="alternatingRowColors" >
+         <layout class="QGridLayout">
+          <item row="0" column="0">
+           <widget class="QTableView" name="tableView">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="alternatingRowColors">
              <bool>true</bool>
             </property>
-            <property name="selectionMode" >
+            <property name="selectionMode">
              <enum>QAbstractItemView::ContiguousSelection</enum>
             </property>
-            <property name="verticalScrollMode" >
+            <property name="verticalScrollMode">
              <enum>QAbstractItemView::ScrollPerPixel</enum>
             </property>
-            <property name="horizontalScrollMode" >
+            <property name="horizontalScrollMode">
              <enum>QAbstractItemView::ScrollPerPixel</enum>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab_2" >
-         <attribute name="title" >
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
           <string>Item View</string>
          </attribute>
-         <layout class="QGridLayout" >
-          <property name="margin" >
-           <number>9</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item row="1" column="0" >
-           <widget class="SqlItemView" native="1" name="itemView" />
+         <layout class="QGridLayout">
+          <item row="1" column="0">
+           <widget class="SqlItemView" name="itemView" native="true"/>
           </item>
-          <item row="0" column="0" >
-           <widget class="QLabel" name="label" >
-            <property name="text" >
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
              <string>Item View is read only now.</string>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab_3" >
-         <attribute name="title" >
+        <widget class="QWidget" name="tab_3">
+         <attribute name="title">
           <string>Script Output</string>
          </attribute>
-         <layout class="QGridLayout" >
-          <property name="margin" >
-           <number>9</number>
-          </property>
-          <property name="spacing" >
-           <number>6</number>
-          </property>
-          <item row="0" column="0" >
-           <widget class="SqlEditorWidget" name="scriptEdit" >
-            <property name="readOnly" >
+         <layout class="QGridLayout">
+          <item row="0" column="0">
+           <widget class="SqlEditorWidget" name="scriptEdit">
+            <property name="readOnly">
              <bool>false</bool>
             </property>
            </widget>
@@ -112,25 +101,25 @@
          </layout>
         </widget>
        </widget>
-       <widget class="QGroupBox" name="blobPreviewBox" >
-        <property name="title" >
+       <widget class="QGroupBox" name="blobPreviewBox">
+        <property name="title">
          <string>BLOB Preview</string>
         </property>
-        <layout class="QGridLayout" >
-         <property name="margin" >
-          <number>9</number>
-         </property>
-         <property name="spacing" >
-          <number>6</number>
-         </property>
-         <item row="0" column="0" >
-          <widget class="BlobPreviewWidget" native="1" name="blobPreview" />
+        <layout class="QGridLayout">
+         <item row="0" column="0">
+          <widget class="BlobPreviewWidget" name="blobPreview" native="true"/>
          </item>
         </layout>
        </widget>
       </widget>
-      <widget class="QTextEdit" name="statusText" >
-       <property name="readOnly" >
+      <widget class="QTextEdit" name="statusText">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="readOnly">
         <bool>true</bool>
        </property>
       </widget>
@@ -138,112 +127,112 @@
     </item>
    </layout>
   </widget>
-  <widget class="QToolBar" name="mainToolBar" >
-   <property name="toolTip" >
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="toolTip">
     <string>Open a new standalone window with current results</string>
    </property>
-   <property name="orientation" >
+   <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
-   <attribute name="toolBarArea" >
+   <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
-   <attribute name="toolBarBreak" >
+   <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionNew_Row" />
-   <addaction name="actionRemove_Row" />
-   <addaction name="actionTruncate_Table" />
-   <addaction name="separator" />
-   <addaction name="actionCommit" />
-   <addaction name="actionRollback" />
+   <addaction name="actionNew_Row"/>
+   <addaction name="actionRemove_Row"/>
+   <addaction name="actionTruncate_Table"/>
+   <addaction name="separator"/>
+   <addaction name="actionCommit"/>
+   <addaction name="actionRollback"/>
   </widget>
-  <widget class="QToolBar" name="exportToolBar" >
-   <property name="windowTitle" >
+  <widget class="QToolBar" name="exportToolBar">
+   <property name="windowTitle">
     <string>toolBar_2</string>
    </property>
-   <property name="orientation" >
+   <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
-   <attribute name="toolBarArea" >
+   <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
-   <attribute name="toolBarBreak" >
+   <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionBLOB_Preview" />
-   <addaction name="actionExport_Data" />
-   <addaction name="actionClose" />
+   <addaction name="actionBLOB_Preview"/>
+   <addaction name="actionExport_Data"/>
+   <addaction name="actionClose"/>
   </widget>
-  <widget class="QToolBar" name="snapshotToolBar" >
-   <property name="windowTitle" >
+  <widget class="QToolBar" name="snapshotToolBar">
+   <property name="windowTitle">
     <string>toolBar_3</string>
    </property>
-   <property name="orientation" >
+   <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
-   <attribute name="toolBarArea" >
+   <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
-   <attribute name="toolBarBreak" >
+   <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionRipOut" />
+   <addaction name="actionRipOut"/>
   </widget>
-  <action name="actionNew_Row" >
-   <property name="text" >
+  <action name="actionNew_Row">
+   <property name="text">
     <string>New Row</string>
    </property>
   </action>
-  <action name="actionRemove_Row" >
-   <property name="text" >
+  <action name="actionRemove_Row">
+   <property name="text">
     <string>Remove Row</string>
    </property>
   </action>
-  <action name="actionTruncate_Table" >
-   <property name="text" >
+  <action name="actionTruncate_Table">
+   <property name="text">
     <string>Truncate Table</string>
    </property>
   </action>
-  <action name="actionExport_Data" >
-   <property name="text" >
+  <action name="actionExport_Data">
+   <property name="text">
     <string>Export Data</string>
    </property>
   </action>
-  <action name="actionCommit" >
-   <property name="text" >
+  <action name="actionCommit">
+   <property name="text">
     <string>Commit</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Commit the current transaction in the result table</string>
    </property>
   </action>
-  <action name="actionRollback" >
-   <property name="text" >
+  <action name="actionRollback">
+   <property name="text">
     <string>Rollback</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Rollback the current transaction in the result table</string>
    </property>
   </action>
-  <action name="actionRipOut" >
-   <property name="text" >
+  <action name="actionRipOut">
+   <property name="text">
     <string>Table Snapshot</string>
    </property>
   </action>
-  <action name="actionClose" >
-   <property name="text" >
+  <action name="actionClose">
+   <property name="text">
     <string>Close</string>
    </property>
-   <property name="visible" >
+   <property name="visible">
     <bool>false</bool>
    </property>
   </action>
-  <action name="actionBLOB_Preview" >
-   <property name="checkable" >
+  <action name="actionBLOB_Preview">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>BLOB Preview</string>
    </property>
   </action>
@@ -268,7 +257,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="icons/icons.qrc" />
+  <include location="icons/icons.qrc"/>
  </resources>
  <connections/>
 </ui>
