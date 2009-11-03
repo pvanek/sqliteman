@@ -161,6 +161,7 @@ void AlterTableDialog::createButton_clicked()
 	// drop columns first
 // 	if (m_dropColumns > 0)
 	{
+        FieldList oldColumns = Database::tableFields(m_table, m_schema);    
 		QStringList existingObjects = Database::getObjects().keys();
 		// indexes and triggers on the original table
 		QStringList originalSrc = originalSource();
@@ -174,10 +175,14 @@ void AlterTableDialog::createButton_clicked()
 
 		// create temporary table without selected columns
 		FieldList newColumns;
+        QStringList tmpSelectColumns;
 		for(int i = 0; i < m_protectedRows; ++i)
 		{
 			if (!qobject_cast<QCheckBox*>(ui.columnTable->cellWidget(i, 5))->isChecked())
+            {
 				newColumns.append(getColumn(i));
+                tmpSelectColumns.append(oldColumns[i].name);
+            }
 		}
 
 		if (!execSql(QString("ALTER TABLE \"%1\".\"%2\" RENAME TO \"%3\";")
@@ -211,8 +216,9 @@ void AlterTableDialog::createButton_clicked()
 		QString insSql(QString("INSERT INTO \"%1\".\"%2\" (\"%3\") SELECT \"%4\" FROM \"%5\";")
 								.arg(m_schema).arg(m_table)
 								.arg(tmpInsertColumns.join("\",\""))
-								.arg(tmpInsertColumns.join("\",\""))
+								.arg(tmpSelectColumns.join("\",\""))
 								.arg(tmpName));
+        //qDebug() << insSql;
 		if (!execSql(insSql, tr("Data Transfer"), tmpName))
 			return;
 		if (!execSql("COMMIT;", tr("Transaction Commit"), tmpName))
