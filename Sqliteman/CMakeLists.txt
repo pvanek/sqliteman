@@ -2,6 +2,10 @@
 # This is the base config/build file for Sqliteman
 # for more info about available options read: README
 #
+OPTION(WANT_DEBUG "Set the debug build and possible additional outputs" OFF)
+OPTION(WANT_INTERNAL_QSCINTILLA "Use internal/bundled QScintilla2 source" OFF)
+OPTION(WANT_BUNDLE "Enable Mac OS X bundle build" OFF)
+OPTION(WANT_BUNDLE_STANDALONE "Do not copy required libs and tools into bundle (WANT_BUNDLE)" ON)
 
 CMAKE_MINIMUM_REQUIRED( VERSION 2.6.0 )
 # sets for bleeding edge cmake
@@ -28,6 +32,9 @@ SET (VERSION_SUFFIX "svn")
 SET (VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}${VERSION_SUFFIX})
 
 SET (EXE_NAME "sqliteman")
+IF (WANT_BUNDLE)
+    SET (EXE_NAME "Sqliteman")
+ENDIF (WANT_BUNDLE)
 
 MESSAGE(STATUS "Sqliteman ${VERSION} will be installed into ${CMAKE_INSTALL_PREFIX}")
 
@@ -50,6 +57,10 @@ IF (APPLE)
     #SET (ENABLE_EXTENSIONS 0)
     SET (WANT_INTERNAL_SQLDRIVER 1)
 ENDIF (APPLE)
+
+IF (WANT_BUNDLE)
+    SET (WANT_RESOURCES 1)
+ENDIF (WANT_BUNDLE)
 
 # set paths to install
 IF (WANT_RESOURCES)
@@ -191,13 +202,15 @@ ADD_SUBDIRECTORY( sqliteman )
 IF (WIN32)
     MESSAGE(STATUS "Installation directories 'share' etc. aren't created in WIN32")
 ELSE (WIN32)
-    # install desktop
-    INSTALL(FILES
-        sqliteman.desktop
-        DESTINATION "share/applications"
-    )
-    INSTALL(FILES
-        sqliteman/icons/sqliteman.png
-        DESTINATION "share/icons"
-    )
+    IF (NOT WANT_BUNDLE)
+        # install desktop
+        INSTALL(FILES
+            sqliteman.desktop
+            DESTINATION "share/applications"
+        )
+        INSTALL(FILES
+            sqliteman/icons/sqliteman.png
+            DESTINATION "share/icons"
+        )
+    ENDIF (NOT WANT_BUNDLE)
 ENDIF (WIN32)
