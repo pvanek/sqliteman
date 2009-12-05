@@ -11,7 +11,7 @@ URL:          http://sqliteman.com
 License:      GPL
 Group:        Development/Databases
 Summary:      Lightweigth but powerfull Sqlite3 manager. Development snapshot.
-Version:      1.3.svn
+Version:      1.3svn
 Release:      %{builddate}
 Source:       %{name}-%{version}.tar.gz
 
@@ -79,6 +79,7 @@ cmake \
 %defattr(-,root,root)
 %{_bindir}
 %{_datadir}
+%{_libdir}
 
 
 %changelog -n sqliteman

@@ -44,6 +44,8 @@ DataExportDialog::DataExportDialog(DataViewer * parent, const QString & tableNam
 	formats[tr("MS Excel XML (XLS)")] = "xls";
 	formats[tr("SQL inserts")] = "sql";
 	formats[tr("Python List")] = "py";
+	formats[tr("Qore \"select\" hash")] = "qore_select";
+	formats[tr("Qore \"selectRows\" hash")] = "qore_selectRows";
 	ui.formatBox->addItems(formats.keys());
 	ui.formatBox->setCurrentIndex(prefs->exportFormat());
 
@@ -65,9 +67,9 @@ DataExportDialog::DataExportDialog(DataViewer * parent, const QString & tableNam
 
 	fileButton_toggled(prefs->exportDestination() == 0);
 
-    QCompleter *completer = new QCompleter(this);
-    completer->setModel(new QDirModel(completer));
-    ui.fileEdit->setCompleter(completer);
+	QCompleter *completer = new QCompleter(this);
+	completer->setModel(new QDirModel(completer));
+	ui.fileEdit->setCompleter(completer);
 
 	connect(ui.fileButton, SIGNAL(toggled(bool)),
 			this, SLOT(fileButton_toggled(bool)));
@@ -119,14 +121,20 @@ bool DataExportDialog::doExport()
 	bool res = openStream();
 	if (curr == "csv")
 		res &= exportCSV();
-	if (curr == "html")
+	else if (curr == "html")
 		res &= exportHTML();
-	if (curr == "xls")
+	else if (curr == "xls")
 		res &= exportExcelXML();
-	if (curr == "sql")
+	else if (curr == "sql")
 		res &= exportSql();
-	if (curr == "py")
+	else if (curr == "py")
 		res &= exportPython();
+	else if (curr == "qore_select")
+		res &= exportQoreSelect();
+	else if (curr == "qore_selectRows")
+		res &= exportQoreSelectRows();
+	else
+		Q_ASSERT_X(0, "unhandled export", "programmer's error. Fix it, man!");
 
 	if (res)
 		res &= closeStream();
@@ -222,8 +230,8 @@ bool DataExportDialog::exportCSV()
 bool DataExportDialog::exportHTML()
 {
 	out << "<html>" << endl() << "<head>" << endl();
-    QString encStr("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=%1\">");
-    out << encStr.arg(ui.encodingBox->currentText()) << endl();
+	QString encStr("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=%1\">");
+	out << encStr.arg(ui.encodingBox->currentText()) << endl();
 	out << "<title>Sqliteman export</title>" << endl() << "</head>" << endl();
 	out << "<body>" << endl() << "<table border=\"1\">" << endl();
 
@@ -322,7 +330,7 @@ bool DataExportDialog::exportPython()
 	{
 		if (!setProgress(i))
 			return false;
-		out << "    { ";
+		out << "	{ ";
 		QSqlRecord r = m_data->record(i);
 		for (int j = 0; j < m_header.size(); ++j)
 		{
@@ -335,6 +343,17 @@ bool DataExportDialog::exportPython()
 	}
 	out << "]" << endl();
 	return true;
+}
+
+bool DataExportDialog::exportQoreSelect()
+{
+qDebug("TODO/FIXME: implememt me");
+}
+
+bool DataExportDialog::exportQoreSelectRows()
+{
+qDebug("TODO/FIXME: implememt me");
+
 }
 
 void DataExportDialog::fileButton_toggled(bool state)
@@ -361,18 +380,26 @@ void DataExportDialog::searchButton_clicked()
 	QString curr(formats[ui.formatBox->currentText()]);
 	if (curr == "csv")
 		mask = tr("Comma Separated Value (*.csv)");
-	if (curr == "html")
+	else if (curr == "html")
 		mask = tr("HTML (*.html)");
-	if (curr == "xls")
+	else if (curr == "xls")
 		mask = tr("MS Excel XML (*.xml)");
-	if (curr == "sql")
+	else if (curr == "sql")
 		mask = tr("SQL inserts (*.sql)");
-	if (curr == "py")
+	else if (curr == "py")
 		mask = tr("Python list (*.py)");
+	else if (curr == "qore_select")
+		mask = tr("Qore select hash (*.q *.ql *.qc)");
+	else if (curr == "qore_selectRows")
+		mask = tr("Qore selectRows hash (*.q *.ql *.qc)");
+	else
+		Q_ASSERT_X(0, "unhandled export", "fix it!");
 
-    QString presetPath(ui.fileEdit->text());
-    if (presetPath.isEmpty())
-        presetPath = QDir::currentPath();
+	
+
+	QString presetPath(ui.fileEdit->text());
+	if (presetPath.isEmpty())
+		presetPath = QDir::currentPath();
 
 	QString fileName = QFileDialog::getSaveFileName(this,
 			tr("Export to File"),

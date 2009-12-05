@@ -52,6 +52,8 @@ class DataExportDialog : public QDialog
 		bool exportExcelXML();
 		bool exportSql();
 		bool exportPython();
+		bool exportQoreSelect();
+		bool exportQoreSelectRows();
 
 		bool openStream();
 		bool closeStream();
