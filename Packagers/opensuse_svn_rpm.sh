@@ -2,7 +2,7 @@
 # Create snapshot rpms
 
 BUILDDATE=`date +'%Y%m%d'`
-VERSION="1.3svn"
+VERSION="1.3"
 
 rm ../Sqliteman/CMakeCache.txt
 ./svn2dist ../Sqliteman ../Sqliteman/sqliteman --no-i18n -n sqliteman -v ${VERSION} --log ./svn2dist.log

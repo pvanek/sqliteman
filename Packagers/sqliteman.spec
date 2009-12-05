@@ -11,19 +11,20 @@ URL:          http://sqliteman.com
 License:      GPL
 Group:        Development/Databases
 Summary:      Lightweigth but powerfull Sqlite3 manager. Development snapshot.
-Version:      1.3svn
-Release:      %{builddate}
-Source:       %{name}-%{version}.tar.gz
+Version:      1.3
+Release:      20090512
+Source0:       %{name}-%{version}.tar.gz
+#Source1:      %{name}.desktop
 
 %if 0%{?suse_version}
-Requires:     libqt4 >= 4.3.0 libqt4-sql-sqlite >= 4.3.0 sqlite
-BuildRequires: libqt4-devel >= 4.3.0 libqt4-sql-sqlite cmake >= 2.6.0
+Requires:     libqt4 >= 4.2.0 libqt4-sql-sqlite >= 4.2.0 libicu libuuid1
+BuildRequires: libqt4-devel >= 4.2.0 libqt4-sql-sqlite cmake libicu-devel libuuid-devel update-desktop-files desktop-file-utils
 %endif
 
 #%if 0%{?fedora_version}
 %if %{_target_vendor} == redhat
-Requires:     qt4 >= 4.3.0 qt4-sqlite >= 4.3.0
-BuildRequires: qt4-devel >= 4.3.0 qt4-sqlite cmake 2.6.0 gcc-c++
+Requires:     qt4 >= 4.2.0 qt4-sqlite >= 4.2.0
+BuildRequires: qt4-devel >= 4.2.0 qt4-sqlite cmake >- 2.6.0 gcc-c++ update-desktop-files desktop-file-utils
 %endif
 
 
@@ -47,23 +48,23 @@ Authors:
 %build
 %if 0%{?suse_version}
 cmake \
-	-DCMAKE_C_FLAGS="%{optflags}" \
-	-DCMAKE_CXX_FLAGS="%{optflags}" \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-	-DWANT_INTERNAL_QSCINTILLA=1 \
-	%{_builddir}/%{name}-%{version}
+        -DCMAKE_C_FLAGS="%{optflags}" \
+        -DCMAKE_CXX_FLAGS="%{optflags}" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+        -DWANT_INTERNAL_QSCINTILLA=1 \
+        %{_builddir}/%{name}-%{version}
 %endif
 
 #%if 0%{?fedora_version}
 %if %{_target_vendor} == redhat
 cmake \
-	-DCMAKE_C_FLAGS="%{optflags}" \
-	-DCMAKE_CXX_FLAGS="%{optflags}" \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_INSTALL_PREFIX=%{buildroot}/usr \
-	-DWANT_INTERNAL_QSCINTILLA=1 \
-	%{_builddir}/%{name}-%{version}
+        -DCMAKE_C_FLAGS="%{optflags}" \
+        -DCMAKE_CXX_FLAGS="%{optflags}" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=%{buildroot}/usr \
+        -DWANT_INTERNAL_QSCINTILLA=1 \
+        %{_builddir}/%{name}-%{version}
 %endif
 
 %{__make} %{?jobs:-j%jobs}
@@ -72,6 +73,20 @@ cmake \
 %install
 %makeinstall
 
+
+%if 0%{?suse_version}  
+#desktop-file-install  %{SOURCE1} %{buildroot}/usr/share/applications/sqliteman.desktop \
+%suse_update_desktop_file %{buildroot}/usr/share/applications/sqliteman.desktop  Office Database \
+%endif
+
+%if 0%{?fedora_version} >= 5  
+ %{__install} -d -m0755 %{buildroot}%{_datadir}/applications/  
+     desktop-file-install --vendor %{desktop_vendor}    \  
+         --add-category X-Red-Hat-Base              \  
+         --dir %{buildroot}%{_datadir}/applications \  
+          %name.desktop
+%endif
+
 %clean
 %{__rm} -rf %{buildroot}
 
@@ -79,7 +94,8 @@ cmake \
 %defattr(-,root,root)
 %{_bindir}
 %{_datadir}
-%{_libdir}
+%{_libdir}/sqliteman/
+%{_libdir}/sqliteman/*
 
 
 %changelog -n sqliteman
@@ -91,3 +107,5 @@ cmake \
 
 * Wed Feb 20 2007 - Petr Vanek <petr@scribus.info>
 - initial package
+
+  
