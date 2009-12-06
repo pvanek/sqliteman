@@ -347,7 +347,24 @@ bool DataExportDialog::exportPython()
 
 bool DataExportDialog::exportQoreSelect()
 {
-qDebug("TODO/FIXME: implememt me");
+    QString strTempl("\"%1\"");
+
+	out << "my $out = ();" << endl();
+
+    for (int i = 0; i < m_header.count(); ++i)
+    {
+        out << "$out." << m_header.at(i) << " = ";
+
+        for (int j = 0; j < m_data->rowCount(); ++j)
+        {
+    		QSqlRecord r = m_data->record(j);
+            out << strTempl.arg(r.value(i).toString());
+            if (j != m_data->rowCount() - 1)
+                out << ", ";
+        }
+        out << ";" << endl();
+    }
+    return true;
 }
 
 bool DataExportDialog::exportQoreSelectRows()
