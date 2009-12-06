@@ -369,8 +369,24 @@ bool DataExportDialog::exportQoreSelect()
 
 bool DataExportDialog::exportQoreSelectRows()
 {
-qDebug("TODO/FIXME: implememt me");
+	out << "my $out = " << endl();
 
+	for (int i = 0; i < m_data->rowCount(); ++i)
+	{
+		if (!setProgress(i))
+			return false;
+		out << "	(";
+		QSqlRecord r = m_data->record(i);
+		for (int j = 0; j < m_header.size(); ++j)
+		{
+			out << "\"" << m_header.at(j) << "\" : \"" << r.value(j).toString() << "\"";
+			if (j != (m_header.size() - 1))
+				out << ", ";
+		}
+		out << ") ," << endl();
+	}
+	out << "" << endl();
+	return true;
 }
 
 void DataExportDialog::fileButton_toggled(bool state)
