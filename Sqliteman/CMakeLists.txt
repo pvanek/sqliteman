@@ -221,13 +221,14 @@ IF (WIN32)
 ELSE (WIN32)
     IF (NOT WANT_BUNDLE)
         # install desktop
+        # TODO/FIXME: fix it for install
+        #INSTALL(FILES
+        #    sqliteman/icons/sqliteman.png
+        #    DESTINATION "share/icons"
+        #)
         INSTALL(FILES
             sqliteman.desktop
             DESTINATION "share/applications"
-        )
-        INSTALL(FILES
-            sqliteman/icons/sqliteman.png
-            DESTINATION "share/icons"
         )
     ENDIF (NOT WANT_BUNDLE)
 ENDIF (WIN32)

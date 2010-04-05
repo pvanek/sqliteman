@@ -70,15 +70,16 @@ ENDIF (APPLE)
 		MESSAGE(" ")
 	endif (UUID_LIBRARY AND UUID_INCLUDE)
 
-IF (APPLE)
-	MESSAGE(STATUS "")
-	MESSAGE(STATUS "Extension VirtualText cannot be bult on MacOSX, volunteers to port welcomed.")
-	MESSAGE(STATUS "")
-ELSE (APPLE)
-	SET(EXT_VIRTUALTEXT "sqlitevirtualtext")
-	ADD_LIBRARY(${EXT_VIRTUALTEXT} MODULE virtualtext.c)
-	INSTALL(TARGETS ${EXT_VIRTUALTEXT} LIBRARY DESTINATION ${EXTENSION_INSTALL})
-ENDIF (APPLE)
+# it's not post-build checkable in OBS. TODO/FIXME
+#IF (APPLE)
+#	MESSAGE(STATUS "")
+#	MESSAGE(STATUS "Extension VirtualText cannot be bult on MacOSX, volunteers to port welcomed.")
+#	MESSAGE(STATUS "")
+#ELSE (APPLE)
+#	SET(EXT_VIRTUALTEXT "sqlitevirtualtext")
+#	ADD_LIBRARY(${EXT_VIRTUALTEXT} MODULE virtualtext.c)
+#	INSTALL(TARGETS ${EXT_VIRTUALTEXT} LIBRARY DESTINATION ${EXTENSION_INSTALL})
+#ENDIF (APPLE)
 
 	#####################################################################
 	# subdirectory extensions ###########################################

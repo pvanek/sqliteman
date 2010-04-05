@@ -6,7 +6,7 @@ VERSION="1.3"
 
 rm ../Sqliteman/CMakeCache.txt
 ./svn2dist ../Sqliteman ../Sqliteman/sqliteman --no-i18n -n sqliteman -v ${VERSION} --log ./svn2dist.log
-cp sqliteman-${VERSION}.tar.gz /usr/src/packages/SOURCES
+cp sqliteman-${VERSION}.tar.* /usr/src/packages/SOURCES
 rpmbuild --define "builddate ${BUILDDATE}" -ba sqliteman.spec
 
 # clean

@@ -1,4 +1,4 @@
-ktop Entry]
+[Desktop Entry]
 Type=Application
 Name=Sqliteman
 GenericName=Sqlite admin tool
@@ -6,12 +6,10 @@ Comment=Administer and develop your Sqlite3 databases
 Icon=sqliteman
 Exec=sqliteman %f
 Terminal=false
-Categories=Office;Database;
+Categories=Development;Database;
 StartupNotify=true
 MimeType=application/x-sqlite3;
 
 # Translations
 GenericName[cs]=Sqlite administrace
-
-#X-SuSE-translate=true
 

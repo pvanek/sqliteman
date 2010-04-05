@@ -9,11 +9,11 @@
 Name:         sqliteman
 URL:          http://sqliteman.com
 License:      GPL
-Group:        Development/Databases
-Summary:      Lightweigth but powerfull Sqlite3 manager. Development snapshot.
+Group:        Productivity/Databases/Tools
+Summary:      Lightweigth but powerful Sqlite3 manager. Development snapshot
 Version:      1.3
-Release:      20090512
-Source0:       %{name}-%{version}.tar.gz
+Release:      20100404
+Source0:       %{name}-%{version}.tar.bz2
 #Source1:      %{name}.desktop
 
 %if 0%{?suse_version}
@@ -35,7 +35,7 @@ Warning: this is a bleeding edge development version. You
 can use stable 1.2 version if you observe any problems.
 The best developer's and/or admin's GUI tool for Sqlite3
 in the world. No joking here (or just a bit only) - it
-contains the most complette feature set of all tools available.
+contains the most complette feature set of all tools available
 
 
 Authors:
@@ -92,13 +92,20 @@ cmake \
 
 %files
 %defattr(-,root,root)
-%{_bindir}
-%{_datadir}
+%{_bindir}/*
+%{_prefix}/share/applications/*
+#%{_prefix}/share/icons/*
+%{_prefix}/share/sqliteman/
+%{_prefix}/share/sqliteman/*
 %{_libdir}/sqliteman/
 %{_libdir}/sqliteman/*
+/usr/share/man/man?/*.*  
 
 
 %changelog -n sqliteman
+* Sat Apr 04 2010 - Petr Vanek <petr@scribus.info>
+- fixed rpm group to fit opensuse categories
+
 * Tue Jun 12 2007 - Petr Vanek <petr@scribus.info>
 - merging FC and Suse specs into one. Opensuse Build service works
 
