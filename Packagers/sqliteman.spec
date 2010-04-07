@@ -12,7 +12,7 @@ License:      GPL
 Group:        Productivity/Databases/Tools
 Summary:      Lightweigth but powerful Sqlite3 manager. Development snapshot
 Version:      1.3
-Release:      20100404
+Release:      20100407
 Source0:       %{name}-%{version}.tar.bz2
 #Source1:      %{name}.desktop
 
@@ -76,7 +76,7 @@ cmake \
 
 %if 0%{?suse_version}  
 #desktop-file-install  %{SOURCE1} %{buildroot}/usr/share/applications/sqliteman.desktop \
-%suse_update_desktop_file %{buildroot}/usr/share/applications/sqliteman.desktop  Office Database \
+%suse_update_desktop_file %{buildroot}/usr/share/applications/sqliteman.desktop Development Database \
 %endif
 
 %if 0%{?fedora_version} >= 5  
@@ -94,12 +94,12 @@ cmake \
 %defattr(-,root,root)
 %{_bindir}/*
 %{_prefix}/share/applications/*
-#%{_prefix}/share/icons/*
+%{_prefix}/share/icons/*
 %{_prefix}/share/sqliteman/
 %{_prefix}/share/sqliteman/*
 %{_libdir}/sqliteman/
 %{_libdir}/sqliteman/*
-/usr/share/man/man?/*.*  
+/usr/share/man/man?/*.* 
 
 
 %changelog -n sqliteman
