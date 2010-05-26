@@ -12,19 +12,15 @@ License:      GPL
 Group:        Productivity/Databases/Tools
 Summary:      Lightweigth but powerful Sqlite3 manager. Development snapshot
 Version:      1.3
-Release:      20100407
+Release:      201000525
 Source0:       %{name}-%{version}.tar.bz2
-#Source1:      %{name}.desktop
 
 %if 0%{?suse_version}
-Requires:     libqt4 >= 4.2.0 libqt4-sql-sqlite >= 4.2.0 libicu libuuid1
-BuildRequires: libqt4-devel >= 4.2.0 libqt4-sql-sqlite cmake libicu-devel libuuid-devel update-desktop-files desktop-file-utils
+BuildRequires: libqt4-devel >= 4.2.0 libqt4-sql-sqlite libqscintilla-devel cmake libicu-devel libuuid-devel update-desktop-files desktop-file-utils
 %endif
 
-#%if 0%{?fedora_version}
-%if %{_target_vendor} == redhat
-Requires:     qt4 >= 4.2.0 qt4-sqlite >= 4.2.0
-BuildRequires: qt4-devel >= 4.2.0 qt4-sqlite cmake >- 2.6.0 gcc-c++ update-desktop-files desktop-file-utils
+%if 0%{?fedora_version}
+BuildRequires: qt4-devel >= 4.2.0 qt4-sqlite qscintilla-devel cmake >= 2.6.0 gcc-c++ desktop-file-utils
 %endif
 
 
@@ -52,18 +48,15 @@ cmake \
         -DCMAKE_CXX_FLAGS="%{optflags}" \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=%{_prefix} \
-        -DWANT_INTERNAL_QSCINTILLA=1 \
         %{_builddir}/%{name}-%{version}
 %endif
 
-#%if 0%{?fedora_version}
-%if %{_target_vendor} == redhat
+%if 0%{?fedora_version}
 cmake \
         -DCMAKE_C_FLAGS="%{optflags}" \
         -DCMAKE_CXX_FLAGS="%{optflags}" \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=%{buildroot}/usr \
-        -DWANT_INTERNAL_QSCINTILLA=1 \
         %{_builddir}/%{name}-%{version}
 %endif
 
@@ -75,16 +68,12 @@ cmake \
 
 
 %if 0%{?suse_version}  
-#desktop-file-install  %{SOURCE1} %{buildroot}/usr/share/applications/sqliteman.desktop \
-%suse_update_desktop_file %{buildroot}/usr/share/applications/sqliteman.desktop Development Database \
+%suse_update_desktop_file -G "Toolkit for Sqlite3 database" %{name} Office Database
 %endif
 
 %if 0%{?fedora_version} >= 5  
- %{__install} -d -m0755 %{buildroot}%{_datadir}/applications/  
-     desktop-file-install --vendor %{desktop_vendor}    \  
-         --add-category X-Red-Hat-Base              \  
-         --dir %{buildroot}%{_datadir}/applications \  
-          %name.desktop
+%{__install} -d -m0755 %{buildroot}%{_datadir}/applications/  
+desktop-file-install --vendor %{desktop_vendor} --add-category X-Red-Hat-Base --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/%name.desktop
 %endif
 
 %clean
@@ -95,16 +84,16 @@ cmake \
 %{_bindir}/*
 %{_prefix}/share/applications/*
 %{_prefix}/share/icons/*
-%{_prefix}/share/sqliteman/
 %{_prefix}/share/sqliteman/*
-%{_libdir}/sqliteman/
+%{_prefix}/share/sqliteman
 %{_libdir}/sqliteman/*
+%{_libdir}/sqliteman
 /usr/share/man/man?/*.* 
 
 
 %changelog -n sqliteman
 * Sat Apr 04 2010 - Petr Vanek <petr@scribus.info>
-- fixed rpm group to fit opensuse categories
+- fixed rpm group to fit opensuse categories. Version 1.3
 
 * Tue Jun 12 2007 - Petr Vanek <petr@scribus.info>
 - merging FC and Suse specs into one. Opensuse Build service works
