@@ -69,7 +69,7 @@ class ArgsParser
 with PreferencesDialog.
 */
 ArgsParser::ArgsParser(int c, char ** v)
-	: argc(c), argv(v), m_locale(""), m_file(0)
+	: argc(c), argv(v), m_locale(""), m_file(QString())
 {
 	QDir d(TRANSLATION_DIR, "*.qm");
 	int i = 1; // 0 is for system default

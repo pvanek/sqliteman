@@ -69,7 +69,7 @@ class Database
 		\param schema a name of the DB schema
 		\retval DbObjects a map with "object name"/"its parent"
 		*/
-		static DbObjects getObjects(const QString type = 0, const QString schema = "main");
+		static DbObjects getObjects(const QString type = QString(), const QString schema = "main");
 
 		/*! \brief Gather "SYS schema" objects.
 		\param schema a string with "attached db" name
