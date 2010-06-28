@@ -165,6 +165,7 @@
    </attribute>
    <addaction name="actionBLOB_Preview"/>
    <addaction name="actionExport_Data"/>
+   <addaction name="action_Goto_Line"/>
    <addaction name="actionClose"/>
   </widget>
   <widget class="QToolBar" name="snapshotToolBar">
@@ -237,6 +238,14 @@
    </property>
    <property name="text">
     <string>BLOB Preview</string>
+   </property>
+  </action>
+  <action name="action_Goto_Line">
+   <property name="text">
+    <string>&amp;Goto Record...</string>
+   </property>
+   <property name="toolTip">
+    <string>Go to line number</string>
    </property>
   </action>
  </widget>

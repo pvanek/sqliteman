@@ -109,6 +109,8 @@ class DataViewer : public QMainWindow
 		it's catched for sync itself and for BLOB preview as well.
 		*/
 		void itemView_indexChanged();
+
+		void gotoLine();
 };
 
 

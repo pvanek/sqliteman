@@ -37,6 +37,12 @@ class SqlTableModel : public QSqlTableModel
 		void setPendingTransaction(bool pending);
 		bool insertRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
 		bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
+		
+		/*! override parent to make public */
+		QModelIndex createIndex(int row, int column, void *ptr = 0) const
+		{
+			return QAbstractTableModel::createIndex(row, column, ptr);
+		}
 
 	private:
 		bool m_useNull;
@@ -69,6 +75,12 @@ class SqlQueryModel : public QSqlQueryModel
 		void setQuery ( const QSqlQuery & query );
 		void setQuery ( const QString & query, const QSqlDatabase & db = QSqlDatabase() );
 		bool pendingTransaction() { return false; };
+
+		/*! override parent to make public */
+		QModelIndex createIndex(int row, int column, void *ptr = 0) const
+		{
+			return QAbstractTableModel::createIndex(row, column, ptr);
+		}
 
 	private:
 		bool m_useNull;

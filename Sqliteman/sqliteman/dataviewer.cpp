@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QHeaderView>
 #include <QResizeEvent>
 #include <QSettings>
+#include <QInputDialog>
 
 #include "dataviewer.h"
 #include "dataexportdialog.h"
@@ -76,6 +77,8 @@ DataViewer::DataViewer(QWidget * parent)
 			this, SLOT(openStandaloneWindow()));
 	connect(ui.actionClose, SIGNAL(triggered()),
 			this, SLOT(close()));
+	connect(ui.action_Goto_Line, SIGNAL(triggered()),
+			this, SLOT(gotoLine()));
 	connect(keyPressEater, SIGNAL(copyRequest()),
 			this, SLOT(copyHandler()));
 // 	connect(parent, SIGNAL(prefsChanged()), ui.tableView, SLOT(repaint()));
@@ -437,6 +440,7 @@ void DataViewer::tabWidget_currentChanged(int ix)
 	if (ui.actionBLOB_Preview->isChecked())
 		ui.blobPreviewBox->setVisible(ix!=2);
 	ui.statusText->setVisible(ix != 2);
+	ui.action_Goto_Line->setEnabled(ix!=2);
 }
 
 void DataViewer::itemView_indexChanged()
@@ -464,6 +468,37 @@ void DataViewer::sqlScriptStart()
 const QString DataViewer::canFetchMore()
 {
 	return tr("(More rows can be fetched. Scroll the resultset for more rows and/or read the documentation.)");
+}
+
+void DataViewer::gotoLine()
+{
+	bool ok;
+	int row = QInputDialog::getInt(this, tr("Goto Line"), tr("Goto Line:"),
+								   ui.tableView->currentIndex().row(), // value
+								   1, // min
+								   ui.tableView->model()->rowCount(), // max (no fetchMore loop)
+								   1, // step
+								   &ok);
+	if (!ok)
+		return;
+
+	QModelIndex left;
+	SqlTableModel * model = qobject_cast<SqlTableModel *>(ui.tableView->model());
+	int column = ui.tableView->currentIndex().isValid() ? ui.tableView->currentIndex().column() : 0;
+	row -= 1;
+
+	if (model)
+		left = model->createIndex(row, column);
+	else
+	{
+		SqlQueryModel * model = qobject_cast<SqlQueryModel *>(ui.tableView->model());
+		if (model)
+			left = model->createIndex(row, column);
+	}
+
+	ui.tableView->selectionModel()->select(QItemSelection(left, left),
+										   QItemSelectionModel::ClearAndSelect);
+	ui.tableView->setCurrentIndex(left);
 }
 
 
