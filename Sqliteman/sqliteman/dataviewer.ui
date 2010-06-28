@@ -128,6 +128,9 @@
    </layout>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="windowTitle">
+    <string>DML Tools</string>
+   </property>
    <property name="toolTip">
     <string>Open a new standalone window with current results</string>
    </property>
@@ -149,7 +152,7 @@
   </widget>
   <widget class="QToolBar" name="exportToolBar">
    <property name="windowTitle">
-    <string>toolBar_2</string>
+    <string>Data Tools</string>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
@@ -166,7 +169,7 @@
   </widget>
   <widget class="QToolBar" name="snapshotToolBar">
    <property name="windowTitle">
-    <string>toolBar_3</string>
+    <string>Misc. Tools</string>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>

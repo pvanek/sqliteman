@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>SqlEditor</class>
- <widget class="QMainWindow" name="SqlEditor" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="SqlEditor">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,93 +10,93 @@
     <height>431</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>SqlEditor</string>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <layout class="QGridLayout" >
-    <property name="margin" >
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout">
+    <property name="margin">
      <number>9</number>
     </property>
-    <property name="spacing" >
+    <property name="spacing">
      <number>6</number>
     </property>
-    <item row="0" column="0" >
-     <layout class="QVBoxLayout" >
-      <property name="spacing" >
+    <item row="0" column="0">
+     <layout class="QVBoxLayout">
+      <property name="spacing">
        <number>1</number>
       </property>
-      <property name="margin" >
+      <property name="margin">
        <number>0</number>
       </property>
       <item>
-       <widget class="SqlEditorWidget" name="sqlTextEdit" />
+       <widget class="SqlEditorWidget" name="sqlTextEdit"/>
       </item>
       <item>
-       <widget class="QFrame" name="searchFrame" >
-        <property name="frameShape" >
+       <widget class="QFrame" name="searchFrame">
+        <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
-        <property name="frameShadow" >
+        <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QGridLayout" >
-         <property name="margin" >
+        <layout class="QGridLayout">
+         <property name="margin">
           <number>1</number>
          </property>
-         <property name="spacing" >
+         <property name="spacing">
           <number>3</number>
          </property>
-         <item row="0" column="3" >
-          <widget class="QToolButton" name="nextToolButton" >
-           <property name="toolTip" >
+         <item row="0" column="3">
+          <widget class="QToolButton" name="nextToolButton">
+           <property name="toolTip">
             <string>Search Next</string>
            </property>
-           <property name="shortcut" >
+           <property name="shortcut">
             <string>F3</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="6" >
-          <widget class="QCheckBox" name="wholeWordsCheckBox" >
-           <property name="text" >
+         <item row="0" column="6">
+          <widget class="QCheckBox" name="wholeWordsCheckBox">
+           <property name="text">
             <string>Whole Words</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" >
-          <widget class="QLineEdit" name="searchEdit" />
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="searchEdit"/>
          </item>
-         <item row="0" column="5" >
-          <widget class="QCheckBox" name="caseCheckBox" >
-           <property name="text" >
+         <item row="0" column="5">
+          <widget class="QCheckBox" name="caseCheckBox">
+           <property name="text">
             <string>Case Sensitive</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="0" >
-          <widget class="QLabel" name="label" >
-           <property name="text" >
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
             <string>Search:</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="2" >
-          <widget class="QToolButton" name="previousToolButton" >
-           <property name="toolTip" >
+         <item row="0" column="2">
+          <widget class="QToolButton" name="previousToolButton">
+           <property name="toolTip">
             <string>Search previous</string>
            </property>
-           <property name="shortcut" >
+           <property name="shortcut">
             <string>Shift+F3</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="7" >
+         <item row="0" column="7">
           <spacer>
-           <property name="orientation" >
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
              <height>20</height>
@@ -103,12 +104,12 @@
            </property>
           </spacer>
          </item>
-         <item row="0" column="4" >
+         <item row="0" column="4">
           <spacer>
-           <property name="orientation" >
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" stdset="0" >
+           <property name="sizeHint" stdset="0">
             <size>
              <width>40</width>
              <height>20</height>
@@ -123,114 +124,117 @@
     </item>
    </layout>
   </widget>
-  <widget class="QToolBar" name="toolBar" >
-   <property name="orientation" >
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>Editor Tools</string>
+   </property>
+   <property name="orientation">
     <enum>Qt::Horizontal</enum>
    </property>
-   <attribute name="toolBarArea" >
+   <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
-   <attribute name="toolBarBreak" >
+   <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="action_Run_SQL" />
-   <addaction name="actionRun_Explain" />
-   <addaction name="actionRun_as_Script" />
-   <addaction name="separator" />
-   <addaction name="actionCreateView" />
-   <addaction name="separator" />
-   <addaction name="action_New" />
-   <addaction name="action_Open" />
-   <addaction name="action_Save" />
-   <addaction name="actionSave_As" />
-   <addaction name="separator" />
-   <addaction name="actionSearch" />
+   <addaction name="action_Run_SQL"/>
+   <addaction name="actionRun_Explain"/>
+   <addaction name="actionRun_as_Script"/>
+   <addaction name="separator"/>
+   <addaction name="actionCreateView"/>
+   <addaction name="separator"/>
+   <addaction name="action_New"/>
+   <addaction name="action_Open"/>
+   <addaction name="action_Save"/>
+   <addaction name="actionSave_As"/>
+   <addaction name="separator"/>
+   <addaction name="actionSearch"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar" />
-  <action name="action_Run_SQL" >
-   <property name="text" >
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_Run_SQL">
+   <property name="text">
     <string>&amp;Run SQL</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Run SQL (F9)</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>F9</string>
    </property>
   </action>
-  <action name="actionRun_Explain" >
-   <property name="text" >
+  <action name="actionRun_Explain">
+   <property name="text">
     <string>Run &amp;Explain</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Run Explain (F6)</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>F6</string>
    </property>
   </action>
-  <action name="action_Open" >
-   <property name="text" >
+  <action name="action_Open">
+   <property name="text">
     <string>&amp;Open...</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="action_Save" >
-   <property name="text" >
+  <action name="action_Save">
+   <property name="text">
     <string>&amp;Save</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Save (Ctrl+S)</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="action_New" >
-   <property name="text" >
+  <action name="action_New">
+   <property name="text">
     <string>&amp;New</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="actionSave_As" >
-   <property name="text" >
+  <action name="actionSave_As">
+   <property name="text">
     <string>Save &amp;As...</string>
    </property>
   </action>
-  <action name="actionCreateView" >
-   <property name="text" >
+  <action name="actionCreateView">
+   <property name="text">
     <string>Create View</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Create view from the current select statement</string>
    </property>
   </action>
-  <action name="actionSearch" >
-   <property name="checkable" >
+  <action name="actionSearch">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>Search</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Search in the SQL file (Ctrl+F)</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>Ctrl+F</string>
    </property>
   </action>
-  <action name="actionRun_as_Script" >
-   <property name="text" >
+  <action name="actionRun_as_Script">
+   <property name="text">
     <string>Run as Script</string>
    </property>
-   <property name="toolTip" >
+   <property name="toolTip">
     <string>Run multiple SQL statements from current cursor position in one batch (F5)</string>
    </property>
-   <property name="shortcut" >
+   <property name="shortcut">
     <string>F5</string>
    </property>
   </action>
