@@ -9,13 +9,14 @@
         <file>database_rollback.png</file>
         <file>delete_table_row.png</file>
         <file>edit.png</file>
-	<file>extensions.png</file>
+        <file>extensions.png</file>
         <file>document-export.png</file>
         <file>document-new.png</file>
         <file>document-open.png</file>
         <file>document-save-as.png</file>
         <file>document-save.png</file>
         <file>go-next.png</file>
+        <file>go-next-use.png</file>
         <file>go-previous.png</file>
         <file>index.png</file>
         <file>insert_table_row.png</file>

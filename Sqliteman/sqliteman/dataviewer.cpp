@@ -50,6 +50,7 @@ DataViewer::DataViewer(QWidget * parent)
 	ui.actionBLOB_Preview->setIcon(Utils::getIcon("blob.png"));
 	ui.actionExport_Data->setIcon(Utils::getIcon("document-export.png"));
 	ui.actionClose->setIcon(Utils::getIcon("close.png"));
+	ui.action_Goto_Line->setIcon(Utils::getIcon("go-next-use.png"));
 
 	// custom delegate
 	ui.tableView->setItemDelegate(new SqlDelegate(this));
