@@ -27,6 +27,8 @@ T_NUMB: random number for column size
 T_TEXT: random text for column size
 T_PREF: prefixed text. See textPrefixedValues() for more info.
 T_STAT: static value. No computings, only user given string/number.
+T_DT_NOW: datetime now
+T_DT_RAND: random datetime
 T_IGNORE: nothing inserted. It's left for table default/null value.
 
 \author Petr Vanek <petr@scribus.ifno>
@@ -39,6 +41,7 @@ class PopulatorDialog : public QDialog, public Ui::PopulatorDialog
 		PopulatorDialog(QWidget * parent = 0, const QString & table = 0, const QString & schema = 0);
 		
 	private:
+
 		QString m_schema;
 		QString m_table;
 
@@ -51,6 +54,11 @@ class PopulatorDialog : public QDialog, public Ui::PopulatorDialog
 
 		//! Create PK values (max()+1)
 		QVariantList autoValues(Populator::PopColumn c);
+		/*! Create auto number from given min value.
+		    It can raise SQL erros if there is some constraint
+		    violated of course.
+		 */
+		QVariantList autoFromValues(Populator::PopColumn c);
 		//! Calculate pseudo-random numbers for given column
 		QVariantList numberValues(Populator::PopColumn c);
 		//! Create a text for given column
@@ -62,6 +70,9 @@ class PopulatorDialog : public QDialog, public Ui::PopulatorDialog
 		QVariantList textPrefixedValues(Populator::PopColumn c);
 		//! User given value only.
 		QVariantList staticValues(Populator::PopColumn c);
+		
+		//! Get dates dependently on c.action. T_DT_* are supported only.
+		QVariantList dateValues(Populator::PopColumn c);
 
 		/*! Performs select count from table to simulate
 		QSqlQuery::numRowsAffected() for execBatch() method (it returns

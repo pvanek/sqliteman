@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QHeaderView>
+#include <QDateTime>
+#include <QMessageBox>
 #include <math.h>
 
 #include "populatordialog.h"
@@ -42,7 +44,7 @@ PopulatorDialog::PopulatorDialog(QWidget * parent, const QString & table, const 
 		}
 		else
 			col.size = 10;
-		col.prefix = "";
+		col.userValue = "";
 
 		QTableWidgetItem * nameItem = new QTableWidgetItem(col.name);
 		QTableWidgetItem * typeItem = new QTableWidgetItem(col.type);
@@ -156,6 +158,9 @@ void PopulatorDialog::populateButton_clicked()
 			case Populator::T_AUTO:
 				query.addBindValue(autoValues(i));
 				break;
+			case Populator::T_AUTO_FROM:
+				query.addBindValue(autoFromValues(i));
+				break;
 			case Populator::T_NUMB:
 				query.addBindValue(numberValues(i));
 				break;
@@ -167,6 +172,14 @@ void PopulatorDialog::populateButton_clicked()
 				break;
 			case Populator::T_STAT:
 				query.addBindValue(staticValues(i));
+				break;
+			case Populator::T_DT_NOW:
+			case Populator::T_DT_NOW_UNIX:
+			case Populator::T_DT_NOW_JULIAN:
+			case Populator::T_DT_RAND:
+			case Populator::T_DT_RAND_UNIX:
+			case Populator::T_DT_RAND_JULIAN:
+				query.addBindValue(dateValues(i));
 				break;
 			case Populator::T_IGNORE:
 				break;
@@ -213,6 +226,18 @@ QVariantList PopulatorDialog::autoValues(Populator::PopColumn c)
 	return ret;
 }
 
+QVariantList PopulatorDialog::autoFromValues(Populator::PopColumn c)
+{
+	// TODO/FIXME: possible string to number conversion error
+	// It will need to change PopulatorColumnWidget behavior probably
+	int min = c.userValue.toInt();
+
+	QVariantList ret;
+	for (int i = 0; i < spinBox->value(); ++i)
+		ret.append(i + min + 1);
+	return ret;
+}
+
 QVariantList PopulatorDialog::numberValues(Populator::PopColumn c)
 {
 	QVariantList ret;
@@ -240,7 +265,7 @@ QVariantList PopulatorDialog::textPrefixedValues(Populator::PopColumn c)
 {
 	QVariantList ret;
 	for (int i = 0; i < spinBox->value(); ++i)
-		ret.append(c.prefix + QString("%1").arg(i+1));
+		ret.append(c.userValue + QString("%1").arg(i+1));
 	return ret;
 }
 
@@ -248,6 +273,63 @@ QVariantList PopulatorDialog::staticValues(Populator::PopColumn c)
 {
 	QVariantList ret;
 	for (int i = 0; i < spinBox->value(); ++i)
-		ret.append(c.prefix);
+		ret.append(c.userValue);
+	return ret;
+}
+
+// a helper function used only for PopulatorDialog::dateValues()
+float getJulianFromUnix( int unixSecs )
+{
+	return ( unixSecs / 86400.0 ) + 2440587;
+}
+
+QVariantList PopulatorDialog::dateValues(Populator::PopColumn c)
+{
+	QVariantList ret;
+
+	// prepare some variables to spped up things on the loop
+	// current time
+	QDateTime now(QDateTime::currentDateTime());
+	// timestamp of "now"
+	uint now_tstamp = now.toTime_t();
+	// pseudo random generator init
+	qsrand(now_tstamp);
+	
+	for (int i = 0; i < spinBox->value(); ++i)
+	{
+		switch (c.action)
+		{
+			case Populator::T_DT_NOW:
+				ret.append(now.toString("yyyy-MM-dd hh:mm:ss.z"));
+				break;
+			case Populator::T_DT_NOW_UNIX:
+				ret.append(now_tstamp);
+				break;
+			case Populator::T_DT_NOW_JULIAN:
+				ret.append(getJulianFromUnix(now_tstamp));
+				break;
+			case Populator::T_DT_RAND:
+			{
+				QDateTime dt;
+				dt.setTime_t( qrand() % now_tstamp );
+				ret.append(dt.toString("yyyy-MM-dd hh:mm:ss.z"));
+				break;
+			}
+			case Populator::T_DT_RAND_UNIX:
+				ret.append( qrand() % now_tstamp);
+				break;
+			case Populator::T_DT_RAND_JULIAN:
+			{
+				QDateTime dt;
+				dt.setTime_t( qrand() % now_tstamp );
+				ret.append(getJulianFromUnix(dt.toTime_t()));
+				break;
+			}
+			default:
+				QMessageBox::critical(this, "Critical error",
+								   QString("PopulatorDialog::dateValues unknown type %1").arg(c.userValue));
+		} // switch
+	} // for
+
 	return ret;
 }

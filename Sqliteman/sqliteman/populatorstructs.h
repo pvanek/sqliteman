@@ -14,10 +14,17 @@ namespace Populator
 	typedef enum
 	{
 		T_AUTO = 0,
+		T_AUTO_FROM,
 		T_NUMB,
 		T_TEXT,
 		T_PREF,
 		T_STAT,
+		T_DT_NOW,
+		T_DT_NOW_UNIX,
+		T_DT_NOW_JULIAN,
+		T_DT_RAND,
+		T_DT_RAND_UNIX,
+		T_DT_RAND_JULIAN,
 		T_IGNORE
 	} Action;
 	
@@ -34,8 +41,8 @@ namespace Populator
 		int action;
 		//! Regexped value of column size obtained from type. E.g. NUMBER(6)
 		int size;
-		//! Prefix for T_PREF
-		QString prefix;
+		//! Additional value for T_PREF and so on
+		QString userValue;
 	} PopColumn;
 
 }; // namespace

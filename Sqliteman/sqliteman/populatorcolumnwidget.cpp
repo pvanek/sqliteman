@@ -35,9 +35,10 @@ int PopulatorColumnWidget::defaultSuggestion()
 
 	if (t == "BLOB" || t == "CLOB" || t == "LOB")
 		return Populator::T_IGNORE;
-
-	if (t == "INTEGER" || t == "NUMBER")
+	else if (t == "INTEGER" || t == "NUMBER")
 		return Populator::T_NUMB;
+	else if (t == "DATE" || t == "TIME" || t == "DATETIME" || t == "TIMESTAMP")
+		return Populator::T_DT_RAND;
 	else
 		return Populator::T_TEXT;
 }
@@ -53,8 +54,6 @@ void PopulatorColumnWidget::actionCombo_currentIndexChanged(int ix)
 		case Populator::T_IGNORE:
 			enable = false;
 			break;
-		case Populator::T_PREF:
-		case Populator::T_STAT:
 		default:
 			break;
 	};
@@ -70,5 +69,5 @@ void PopulatorColumnWidget::actionCombo_currentIndexChanged(int ix)
 
 void PopulatorColumnWidget::specEdit_textChanged(const QString & t)
 {
-	m_column.prefix = t;
+	m_column.userValue = t;
 }

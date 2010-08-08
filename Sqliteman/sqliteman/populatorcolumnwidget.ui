@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>PopulatorColumnWidget</class>
- <widget class="QWidget" name="PopulatorColumnWidget" >
-  <property name="geometry" >
+ <widget class="QWidget" name="PopulatorColumnWidget">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,57 +10,92 @@
     <height>136</height>
    </rect>
   </property>
-  <layout class="QGridLayout" >
-   <property name="margin" >
+  <layout class="QGridLayout">
+   <property name="margin">
     <number>0</number>
    </property>
-   <property name="spacing" >
+   <property name="spacing">
     <number>0</number>
    </property>
-   <item row="0" column="0" >
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
+   <item row="0" column="0">
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>4</number>
      </property>
+     <property name="margin">
+      <number>0</number>
+     </property>
      <item>
-      <widget class="QComboBox" name="actionCombo" >
+      <widget class="QComboBox" name="actionCombo">
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Autonumber</string>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
+         <string>Autonumber From:</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Random Number</string>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
          <string>Random Text</string>
         </property>
        </item>
        <item>
-        <property name="text" >
-         <string>Prefixed Text</string>
+        <property name="text">
+         <string>Prefixed Text:</string>
         </property>
        </item>
        <item>
-        <property name="text" >
-         <string>Static Value</string>
+        <property name="text">
+         <string>Static Value:</string>
         </property>
        </item>
        <item>
-        <property name="text" >
+        <property name="text">
+         <string>Date as Text - Now</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Date Unix Epoch (integer) - Now</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Date Julian (real) - Now</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Date as Text - Random</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Date Unix Epoch (integer) - Random</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Date Julian (real) - Random</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Ignore Column</string>
         </property>
        </item>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="specEdit" />
+      <widget class="QLineEdit" name="specEdit"/>
      </item>
     </layout>
    </item>
