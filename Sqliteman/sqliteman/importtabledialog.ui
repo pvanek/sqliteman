@@ -1,145 +1,146 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ImportTableDialog</class>
- <widget class="QDialog" name="ImportTableDialog" >
-  <property name="geometry" >
+ <widget class="QDialog" name="ImportTableDialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>509</width>
-    <height>480</height>
+    <width>447</width>
+    <height>503</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Data Import</string>
   </property>
-  <layout class="QGridLayout" >
-   <property name="margin" >
+  <layout class="QGridLayout">
+   <property name="margin">
     <number>9</number>
    </property>
-   <property name="spacing" >
+   <property name="spacing">
     <number>6</number>
    </property>
-   <item row="1" column="0" >
-    <widget class="QLabel" name="label" >
-     <property name="text" >
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
       <string>&amp;Table to Import Into:</string>
      </property>
-     <property name="buddy" >
+     <property name="buddy">
       <cstring>tableComboBox</cstring>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
-    <widget class="QComboBox" name="tableComboBox" />
+   <item row="1" column="1">
+    <widget class="QComboBox" name="tableComboBox"/>
    </item>
-   <item row="2" column="0" >
-    <widget class="QLabel" name="label_2" >
-     <property name="text" >
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
       <string>&amp;File to Import:</string>
      </property>
-     <property name="buddy" >
+     <property name="buddy">
       <cstring>fileEdit</cstring>
      </property>
     </widget>
    </item>
-   <item row="2" column="1" >
-    <widget class="QLineEdit" name="fileEdit" />
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="fileEdit"/>
    </item>
-   <item row="2" column="2" >
-    <widget class="QPushButton" name="fileButton" >
-     <property name="text" >
+   <item row="2" column="2">
+    <widget class="QPushButton" name="fileButton">
+     <property name="text">
       <string>&amp;Search...</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="0" colspan="3" >
-    <widget class="QTabWidget" name="tabWidget" >
-     <property name="currentIndex" >
+   <item row="4" column="0" colspan="3">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="importTab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="importTab">
+      <attribute name="title">
        <string>Sqlite .import</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <property name="margin" >
+      <layout class="QGridLayout">
+       <property name="margin">
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="spacing">
         <number>6</number>
        </property>
-       <item row="0" column="0" >
-        <widget class="QGroupBox" name="groupBox" >
-         <property name="title" >
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
           <string>Column Separators</string>
          </property>
-         <layout class="QGridLayout" >
-          <property name="margin" >
+         <layout class="QGridLayout">
+          <property name="margin">
            <number>9</number>
           </property>
-          <property name="spacing" >
+          <property name="spacing">
            <number>6</number>
           </property>
-          <item row="0" column="0" >
-           <widget class="QRadioButton" name="pipeRadioButton" >
-            <property name="text" >
+          <item row="0" column="0">
+           <widget class="QRadioButton" name="pipeRadioButton">
+            <property name="text">
              <string>Pipe Symbol (Default)</string>
             </property>
-            <property name="checked" >
+            <property name="checked">
              <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item row="0" column="1" >
-           <widget class="QRadioButton" name="commaRadioButton" >
-            <property name="text" >
+          <item row="0" column="1">
+           <widget class="QRadioButton" name="commaRadioButton">
+            <property name="text">
              <string>Comma</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0" >
-           <widget class="QRadioButton" name="semicolonRadioButton" >
-            <property name="text" >
+          <item row="1" column="0">
+           <widget class="QRadioButton" name="semicolonRadioButton">
+            <property name="text">
              <string>Semicolon</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1" >
-           <widget class="QRadioButton" name="tabelatorRadioButton" >
-            <property name="text" >
+          <item row="1" column="1">
+           <widget class="QRadioButton" name="tabelatorRadioButton">
+            <property name="text">
              <string>Tabelator</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0" colspan="2" >
-           <layout class="QHBoxLayout" >
-            <property name="margin" >
-             <number>0</number>
-            </property>
-            <property name="spacing" >
+          <item row="2" column="0" colspan="2">
+           <layout class="QHBoxLayout">
+            <property name="spacing">
              <number>6</number>
             </property>
+            <property name="margin">
+             <number>0</number>
+            </property>
             <item>
-             <widget class="QRadioButton" name="customRadioButton" >
-              <property name="text" >
+             <widget class="QRadioButton" name="customRadioButton">
+              <property name="text">
                <string>Custom:</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="customEdit" />
+             <widget class="QLineEdit" name="customEdit"/>
             </item>
            </layout>
           </item>
          </layout>
         </widget>
        </item>
-       <item row="1" column="0" >
+       <item row="1" column="0">
         <spacer>
-         <property name="orientation" >
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>41</height>
@@ -149,23 +150,23 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="xmlImport" >
-      <attribute name="title" >
+     <widget class="QWidget" name="xmlImport">
+      <attribute name="title">
        <string>MS Excel XML</string>
       </attribute>
-      <layout class="QGridLayout" >
-       <property name="margin" >
+      <layout class="QGridLayout">
+       <property name="margin">
         <number>9</number>
        </property>
-       <property name="spacing" >
+       <property name="spacing">
         <number>6</number>
        </property>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="label_3" >
-         <property name="text" >
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
           <string>There are no options for this import type.</string>
          </property>
-         <property name="wordWrap" >
+         <property name="wordWrap">
           <bool>true</bool>
          </property>
         </widget>
@@ -174,21 +175,21 @@
      </widget>
     </widget>
    </item>
-   <item row="4" column="0" colspan="3" >
-    <widget class="QGroupBox" name="groupBox_2" >
-     <property name="title" >
+   <item row="5" column="0" colspan="3">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
       <string>Preview</string>
      </property>
-     <layout class="QGridLayout" >
-      <property name="margin" >
+     <layout class="QGridLayout">
+      <property name="margin">
        <number>9</number>
       </property>
-      <property name="spacing" >
+      <property name="spacing">
        <number>6</number>
       </property>
-      <item row="0" column="0" >
-       <widget class="QTableView" name="previewView" >
-        <property name="alternatingRowColors" >
+      <item row="0" column="0">
+       <widget class="QTableView" name="previewView">
+        <property name="alternatingRowColors">
          <bool>true</bool>
         </property>
        </widget>
@@ -196,28 +197,51 @@
      </layout>
     </widget>
    </item>
-   <item row="5" column="0" colspan="3" >
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
+   <item row="6" column="0" colspan="3">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
-   <item row="0" column="0" >
-    <widget class="QLabel" name="label_4" >
-     <property name="text" >
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
       <string>&amp;Schema to Import:</string>
      </property>
-     <property name="buddy" >
+     <property name="buddy">
       <cstring>schemaComboBox</cstring>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
-    <widget class="QComboBox" name="schemaComboBox" />
+   <item row="0" column="1">
+    <widget class="QComboBox" name="schemaComboBox"/>
+   </item>
+   <item row="3" column="1">
+    <widget class="QCheckBox" name="skipHeaderCheck">
+     <property name="toolTip">
+      <string>Switch it on if the header should not be imported</string>
+     </property>
+     <property name="text">
+      <string>Skip Header Lines:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QSpinBox" name="skipHeaderBox">
+     <property name="toolTip">
+      <string>How many lines is the header</string>
+     </property>
+     <property name="maximum">
+      <number>999999999</number>
+     </property>
+     <property name="value">
+      <number>1</number>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -229,11 +253,11 @@
    <receiver>ImportTableDialog</receiver>
    <slot>reject()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>295</x>
      <y>458</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
     </hint>

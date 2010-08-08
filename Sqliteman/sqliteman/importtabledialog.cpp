@@ -66,6 +66,10 @@ ImportTableDialog::ImportTableDialog(QWidget * parent, const QString & tableName
 			this, SLOT(createPreview(bool)));
 	connect(customEdit, SIGNAL(textChanged(QString)),
 			this, SLOT(customEdit_textChanged(QString)));
+	connect(skipHeaderCheck, SIGNAL(toggled(bool)),
+			this, SLOT(skipHeaderCheck_toggled(bool)));
+
+	skipHeaderCheck_toggled(false);
 }
 
 void ImportTableDialog::fileButton_clicked()
@@ -88,6 +92,8 @@ void ImportTableDialog::slotAccepted()
 
 	if (fileEdit->text().isEmpty())
 		return;
+	
+	int skipHeader = skipHeaderCheck->isChecked() ? skipHeaderBox->value() : 0;
 
 	switch (tabWidget->currentIndex())
 	{
@@ -99,11 +105,12 @@ void ImportTableDialog::slotAccepted()
 				return;
 			}
 			values = ImportTable::CSVModel(fileEdit->text(),
+										   skipHeader,
 										   sqliteSeparator(),
 										   this, 0).m_values;
 			break;
 		case 1:
-			values = ImportTable::XMLModel(fileEdit->text(), this, 0).m_values;
+			values = ImportTable::XMLModel(fileEdit->text(), skipHeader, this, 0).m_values;
 	}
 
 	// base import
@@ -189,10 +196,10 @@ void ImportTableDialog::createPreview(int)
 	switch (tabWidget->currentIndex())
 	{
 		case 0:
-			previewView->setModel(new ImportTable::CSVModel(fileEdit->text(), sqliteSeparator(), this, 3));
+			previewView->setModel(new ImportTable::CSVModel(fileEdit->text(), 0, sqliteSeparator(), this, 3));
 			break;
 		case 1:
-			previewView->setModel(new ImportTable::XMLModel(fileEdit->text(), this, 3));
+			previewView->setModel(new ImportTable::XMLModel(fileEdit->text(), 0, this, 3));
 			break;
 	}
 }
@@ -208,12 +215,18 @@ void ImportTableDialog::customEdit_textChanged(QString)
 		createPreview();
 }
 
+void ImportTableDialog::skipHeaderCheck_toggled(bool checked)
+{
+	skipHeaderBox->setEnabled(checked);
+}
+
 /*
 Models
  */
 ImportTable::BaseModel::BaseModel(QObject * parent)
 	: QAbstractTableModel(),
-	m_columns(0)
+	m_columns(0),
+	m_header(0)
 {
 	m_values.clear();
 }
@@ -254,7 +267,7 @@ QVariant ImportTable::BaseModel::headerData(int section, Qt::Orientation orienta
 	return QVariant();
 }
 
-ImportTable::CSVModel::CSVModel(QString fileName, QString separator, QObject * parent, int maxRows)
+ImportTable::CSVModel::CSVModel(QString fileName, int skipHeader, QString separator, QObject * parent, int maxRows)
 	: BaseModel(parent)
 {
 	QFile f(fileName);
@@ -268,9 +281,15 @@ ImportTable::CSVModel::CSVModel(QString fileName, QString separator, QObject * p
 	QTextStream in(&f);
 	int r = 0;
 	QStringList row;
+	int tmpSkipHeader = 0;
 	while (!in.atEnd())
 	{
 		row = in.readLine().split(separator);
+		if (tmpSkipHeader < skipHeader)
+		{
+			tmpSkipHeader++;
+			continue;
+		}
 		if (row.count() > m_columns)
 			m_columns = row.count();
 		m_values.append(row);
@@ -282,7 +301,7 @@ ImportTable::CSVModel::CSVModel(QString fileName, QString separator, QObject * p
 	f.close();
 }
 
-ImportTable::XMLModel::XMLModel(QString fileName, QObject * parent, int maxRows)
+ImportTable::XMLModel::XMLModel(QString fileName, int skipHeader, QObject * parent, int maxRows)
 	: BaseModel(parent)
 {
 #if QT_VERSION >= 0x040300
@@ -298,6 +317,7 @@ ImportTable::XMLModel::XMLModel(QString fileName, QObject * parent, int maxRows)
 	QStringList row;
 	bool isCell = false;
 	int r = 0;
+	int tmpSkipHeader = 0;
 
 	while (!xml.atEnd())
 	{
@@ -320,6 +340,11 @@ ImportTable::XMLModel::XMLModel(QString fileName, QObject * parent, int maxRows)
 				isCell = false;
 			if (xml.name() == "Row")
 			{
+				if (tmpSkipHeader < skipHeader)
+				{
+					tmpSkipHeader++;
+					continue;
+				}
 				m_values.append(row);
 				if (row.count() > m_columns)
 					m_columns = row.count();

@@ -42,7 +42,7 @@ class ImportTableDialog : public QDialog, public Ui::ImportTableDialog
 		void customEdit_textChanged(QString);
 		//
 		void setTablesForSchema(const QString & schema);
-
+		void skipHeaderCheck_toggled(bool checked);
 };
 
 //! \brief A helper classes used for data import.
@@ -73,6 +73,8 @@ namespace ImportTable
 			/*! \brief Internal structure of values.
 			It's filled by format parsers in inherited classes */
 			QList<QStringList> m_values;
+			
+			int m_header;
 	};
 
 
@@ -82,7 +84,7 @@ namespace ImportTable
 		Q_OBJECT
 
 		public:
-			CSVModel(QString fileName, QString separator, QObject * parent = 0, int maxRows = 0);
+			CSVModel(QString fileName, int skipHeader, QString separator, QObject * parent = 0, int maxRows = 0);
 	};
 
 	/*! \brief MS Excel XML importer
@@ -93,7 +95,7 @@ namespace ImportTable
 		Q_OBJECT
 
 		public:
-			XMLModel(QString fileName, QObject * parent = 0, int maxRows = 0);
+			XMLModel(QString fileName, int skipHeader, QObject * parent = 0, int maxRows = 0);
 	};
 
 };
