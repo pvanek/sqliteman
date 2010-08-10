@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "sqlmodels.h"
 #include "database.h"
 #include "preferences.h"
+#include "utils.h"
 
 
 SqlTableModel::SqlTableModel(QObject * parent, QSqlDatabase db)
@@ -96,6 +97,49 @@ bool SqlTableModel::setData ( const QModelIndex & index, const QVariant & value,
 	return QSqlTableModel::setData(index, value, role);
 }
 
+QVariant SqlTableModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+	if (orientation == Qt::Horizontal)
+	{
+		switch (role)
+		{
+			case (Qt::DecorationRole):
+				switch (m_header[section])
+				{
+					case (SqlTableModel::PK):
+						return Utils::getIcon("key.png");
+						break;
+					case (SqlTableModel::Auto):
+						return Utils::getIcon("index.png");
+						break;
+					case (SqlTableModel::Default):
+						return Utils::getIcon("column.png");
+						break;
+					default:
+						return 0;
+				}
+				break;
+			case (Qt::ToolTipRole):
+				switch (m_header[section])
+				{
+					case (SqlTableModel::PK):
+						return tr("Primary Key");
+						break;
+					case (SqlTableModel::Auto):
+						return tr("Autoincrement");
+						break;
+					case (SqlTableModel::Default):
+						return tr("Has default value");
+						break;
+					default:
+						return "";
+				}
+				break;
+		}
+	}
+	return QSqlTableModel::headerData(section, orientation, role);
+}
+
 void SqlTableModel::doPrimeInsert(int row, QSqlRecord & record)
 {
 	FieldList fl = Database::tableFields(tableName(), m_schema);
@@ -139,6 +183,35 @@ bool SqlTableModel::removeRows ( int row, int count, const QModelIndex & parent)
 		m_deleteCache.append(row+i);
 
 	return ret;
+}
+
+void SqlTableModel::setTable(const QString &tableName)
+{
+	m_header.clear();
+	QStringList indexes = Database::getSysIndexes(tableName, m_schema);
+	FieldList columns = Database::tableFields(tableName, m_schema);
+
+	foreach (DatabaseTableField c, columns)
+	{
+		// it's a little bit cryptic - docs are inconsistent here.
+		// Maybe it's enough to have INTEGER PRIMARY KEY to autoincrement
+		// as it's done in Qt4 driver and in various SWs,
+		// but maybe there is something with AUTOINCREMENT too. Dunno.
+		if (c.pk)
+		{
+			m_header[c.cid] = (c.type == "INTEGER") ? SqlTableModel::Auto : SqlTableModel::PK;
+			continue;
+		}
+		// show has default icon
+		if (!c.defval.isEmpty())
+		{
+			m_header[c.cid] = SqlTableModel::Default;
+			continue;
+		}
+		m_header[c.cid] = SqlTableModel::None;
+	}
+
+	QSqlTableModel::setTable(tableName);
 }
 
 void SqlTableModel::setPendingTransaction(bool pending)

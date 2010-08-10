@@ -6,13 +6,23 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QIcon>
+#include <QPixmapCache>
 
 #include "utils.h"
 
 
 QIcon Utils::getIcon(const QString & fileName)
 {
-	return QIcon(QString(ICON_DIR) + "/" + fileName);
+	QPixmap pm;
+
+	if (! QPixmapCache::find(fileName, &pm))
+	{
+		QPixmap npm(QString(ICON_DIR) + "/" + fileName);
+		QPixmapCache::insert(fileName, npm);
+		return npm;
+	}
+
+	return pm;
 }
 
 QPixmap Utils::getPixmap(const QString & fileName)

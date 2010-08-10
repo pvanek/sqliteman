@@ -38,6 +38,8 @@ class SqlTableModel : public QSqlTableModel
 		bool insertRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
 		bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
 		
+		void setTable ( const QString & tableName );
+		
 		/*! override parent to make public */
 		QModelIndex createIndex(int row, int column, void *ptr = 0) const
 		{
@@ -45,6 +47,14 @@ class SqlTableModel : public QSqlTableModel
 		}
 
 	private:
+
+		enum IndexType {
+			PK,
+			Auto,
+			Default,
+			None
+		};
+
 		bool m_useNull;
 		QColor m_nullColor;
 		QString m_nullText;
@@ -55,9 +65,14 @@ class SqlTableModel : public QSqlTableModel
 		QString m_schema;
 		QList<int> m_deleteCache;
 		bool m_cropColumns;
+		QMap<int,IndexType> m_header;
 
 		QVariant data(const QModelIndex & item, int role = Qt::DisplayRole) const;
 		bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
+
+		QVariant headerData(int section,
+							Qt::Orientation orientation,
+							int role = Qt::DisplayRole) const;
 
 	private slots:
 		//! \brief Called when is new row created in the view (not in the model).

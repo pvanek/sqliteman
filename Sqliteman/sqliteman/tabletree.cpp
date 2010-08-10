@@ -126,8 +126,10 @@ void TableTree::buildColumns(QTreeWidgetItem * columnsItem, const QString & sche
 // 	columnsItem->setText(1, schema);
 	for (int i = 0; i < values.size(); ++i)
 	{
-		QTreeWidgetItem *indexItem = new QTreeWidgetItem(columnsItem, ColumnType);
-		indexItem->setText(0, values.at(i).name);
+		QTreeWidgetItem *columnItem = new QTreeWidgetItem(columnsItem, ColumnType);
+		columnItem->setText(0, values.at(i).name);
+		if (values.at(i).pk)
+			columnItem->setIcon(0, Utils::getIcon("key.png"));
 // 		indexItem->setText(1, schema);
 	}
 }
