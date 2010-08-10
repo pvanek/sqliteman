@@ -2,10 +2,12 @@
 # This is the base config/build file for Sqliteman
 # for more info about available options read: README
 #
+OPTION(WANT_INTERNAL_SQLDRIVER "Use internal sqlite3 driver instead of system one. It enables more features (extensions, r-tree, etc.)" ON)
 OPTION(WANT_DEBUG "Set the debug build and possible additional outputs" OFF)
 OPTION(WANT_INTERNAL_QSCINTILLA "Use internal/bundled QScintilla2 source" OFF)
 OPTION(WANT_BUNDLE "Enable Mac OS X bundle build" OFF)
 OPTION(WANT_BUNDLE_STANDALONE "Do not copy required libs and tools into bundle (WANT_BUNDLE)" ON)
+
 
 CMAKE_MINIMUM_REQUIRED( VERSION 2.6.0 )
 # sets for bleeding edge cmake
