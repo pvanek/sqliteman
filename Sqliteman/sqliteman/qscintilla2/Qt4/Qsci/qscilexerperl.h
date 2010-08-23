@@ -1,29 +1,39 @@
 // This defines the interface to the QsciLexerPerl class.
 //
-// Copyright (c) 2007
-// 	Phil Thompson <phil@river-bank.demon.co.uk>
+// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
-// This copy of QScintilla is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2, or (at your option) any
-// later version.
+// This file may be used under the terms of the GNU General Public
+// License versions 2.0 or 3.0 as published by the Free Software
+// Foundation and appearing in the files LICENSE.GPL2 and LICENSE.GPL3
+// included in the packaging of this file.  Alternatively you may (at
+// your option) use any later version of the GNU General Public
+// License if such license has been publicly approved by Riverbank
+// Computing Limited (or its successors, if any) and the KDE Free Qt
+// Foundation. In addition, as a special exception, Riverbank gives you
+// certain additional rights. These rights are described in the Riverbank
+// GPL Exception version 1.1, which can be found in the file
+// GPL_EXCEPTION.txt in this package.
 // 
-// QScintilla is supplied in the hope that it will be useful, but WITHOUT ANY
-// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-// details.
+// Please review the following information to ensure GNU General
+// Public Licensing requirements will be met:
+// http://trolltech.com/products/qt/licenses/licensing/opensource/. If
+// you are unsure which license is appropriate for your use, please
+// review the following information:
+// http://trolltech.com/products/qt/licenses/licensing/licensingoverview
+// or contact the sales department at sales@riverbankcomputing.com.
 // 
-// You should have received a copy of the GNU General Public License along with
-// QScintilla; see the file LICENSE.  If not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
+// WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
 #ifndef QSCILEXERPERL_H
 #define QSCILEXERPERL_H
 
+#ifdef __APPLE__
 extern "C++" {
+#endif
 
 #include <qobject.h>
 
@@ -123,7 +133,16 @@ public:
         QuotedStringQW = 30,
 
         //! A verbatim POD.
-        PODVerbatim = 31
+        PODVerbatim = 31,
+
+        //! A Subroutine prototype.
+        SubroutinePrototype = 40,
+
+        //! A format identifier.
+        FormatIdentifier = 41,
+
+        //! A format body.
+        FormatBody = 42
     };
 
     //! Construct a QsciLexerPerl with parent \a parent.  \a parent is
@@ -139,6 +158,10 @@ public:
     //! Returns the name of the lexer.  Some lexers support a number of
     //! languages.
     const char *lexer() const;
+
+    //! \internal Returns the character sequences that can separate
+    //! auto-completion words.
+    QStringList autoCompletionWordSeparators() const;
 
     //! \internal Returns the style used for braces for brace matching.
     int braceStyle() const;
@@ -186,6 +209,26 @@ public:
     //! \sa setFoldCompact()
     bool foldCompact() const;
 
+    //! If \a fold is true then packages can be folded.  The default is true.
+    //!
+    //! \sa foldPackages()
+    void setFoldPackages(bool fold);
+
+    //! Returns true if packages can be folded.
+    //!
+    //! \sa setFoldPackages()
+    bool foldPackages() const;
+
+    //! If \a fold is true then POD blocks can be folded.  The default is true.
+    //!
+    //! \sa foldPODBlocks()
+    void setFoldPODBlocks(bool fold);
+
+    //! Returns true if POD blocks can be folded.
+    //!
+    //! \sa setFoldPODBlocks()
+    bool foldPODBlocks() const;
+
 public slots:
     //! If \a fold is true then multi-line comment blocks can be folded.
     //! The default is false.
@@ -215,14 +258,20 @@ protected:
 private:
     void setCommentProp();
     void setCompactProp();
+    void setPackagesProp();
+    void setPODBlocksProp();
 
     bool fold_comments;
     bool fold_compact;
+    bool fold_packages;
+    bool fold_pod_blocks;
 
     QsciLexerPerl(const QsciLexerPerl &);
     QsciLexerPerl &operator=(const QsciLexerPerl &);
 };
 
+#ifdef __APPLE__
 }
+#endif
 
 #endif

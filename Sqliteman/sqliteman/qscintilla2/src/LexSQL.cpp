@@ -25,7 +25,7 @@ using namespace Scintilla;
 #endif
 
 static inline bool IsAWordChar(int ch) {
-	return (ch < 0x80) && (isalnum(ch) || ch == '.' || ch == '_');
+	return (ch < 0x80) && (isalnum(ch) || ch == '_');
 }
 
 static inline bool IsAWordStart(int ch) {
@@ -61,7 +61,10 @@ static void ColouriseSQLDoc(unsigned int startPos, int length, int initStyle, Wo
 
 	StyleContext sc(startPos, length, initStyle, styler);
 
+	// property sql.backslash.escapes 
+	//	Enables backslash as an escape character in SQL. 
 	bool sqlBackslashEscapes = styler.GetPropertyInt("sql.backslash.escapes", 0) != 0;
+
 	bool sqlBackticksIdentifier = styler.GetPropertyInt("lexer.sql.backticks.identifier", 0) != 0;
 	int styleBeforeDCKeyword = SCE_SQL_DEFAULT;
 	for (; sc.More(); sc.Forward()) {

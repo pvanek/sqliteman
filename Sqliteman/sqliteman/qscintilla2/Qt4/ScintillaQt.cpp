@@ -1,24 +1,34 @@
 // The implementation of the Qt specific subclass of ScintillaBase.
 //
-// Copyright (c) 2007
-// 	Phil Thompson <phil@river-bank.demon.co.uk>
+// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
-// This copy of QScintilla is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2, or (at your option) any
-// later version.
+// This file may be used under the terms of the GNU General Public
+// License versions 2.0 or 3.0 as published by the Free Software
+// Foundation and appearing in the files LICENSE.GPL2 and LICENSE.GPL3
+// included in the packaging of this file.  Alternatively you may (at
+// your option) use any later version of the GNU General Public
+// License if such license has been publicly approved by Riverbank
+// Computing Limited (or its successors, if any) and the KDE Free Qt
+// Foundation. In addition, as a special exception, Riverbank gives you
+// certain additional rights. These rights are described in the Riverbank
+// GPL Exception version 1.1, which can be found in the file
+// GPL_EXCEPTION.txt in this package.
 // 
-// QScintilla is supplied in the hope that it will be useful, but WITHOUT ANY
-// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-// details.
+// Please review the following information to ensure GNU General
+// Public Licensing requirements will be met:
+// http://trolltech.com/products/qt/licenses/licensing/opensource/. If
+// you are unsure which license is appropriate for your use, please
+// review the following information:
+// http://trolltech.com/products/qt/licenses/licensing/licensingoverview
+// or contact the sales department at sales@riverbankcomputing.com.
 // 
-// You should have received a copy of the GNU General Public License along with
-// QScintilla; see the file LICENSE.  If not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
+// WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
+
+#include <string.h>
 
 #include <qapplication.h>
 #include <qevent.h>
@@ -37,6 +47,8 @@
 
 // We want to use the Scintilla notification names as Qt signal names.
 #undef  SCEN_CHANGE
+#undef  SCN_AUTOCCANCELLED
+#undef  SCN_AUTOCCHARDELETED
 #undef  SCN_AUTOCSELECTION
 #undef  SCN_CALLTIPCLICK
 #undef  SCN_CHARADDED
@@ -63,6 +75,8 @@
 enum
 {
     SCEN_CHANGE = 768,
+    SCN_AUTOCCANCELLED = 2025,
+    SCN_AUTOCCHARDELETED = 2026,
     SCN_AUTOCSELECTION = 2022,
     SCN_CALLTIPCLICK = 2021,
     SCN_CHARADDED = 2001,
@@ -127,26 +141,27 @@ void ScintillaQt::Finalise()
 // Start a drag.
 void ScintillaQt::StartDrag()
 {
-    QMimeData *mime = new QMimeData;
-    mime->setText(textRange(&drag));
+    inDragDrop = ddDragging;
 
-    QDrag *drag = new QDrag(qsb);
-    drag->setMimeData(mime);
+    QDrag *qdrag = new QDrag(qsb);
+    qdrag->setMimeData(qsb->toMimeData(textRange(&drag)));
 
-    Qt::DropActions actions = Qt::CopyAction;
-
-    if (!pdoc->IsReadOnly())
-        actions |= Qt::MoveAction;
-
-    Qt::DropAction action = drag->start(actions);
+# if QT_VERSION >= 0x040300
+    // The default action is to copy so that the cursor is correct when over
+    // another widget or application (when we have no control over it).  We
+    // make sure it is correct over ourself in the event handlers.
+    Qt::DropAction action = qdrag->exec(Qt::MoveAction | Qt::CopyAction, Qt::CopyAction);
+# else
+    Qt::DropAction action = qdrag->start(Qt::MoveAction);
+# endif
 
     // Remove the dragged text if it was a move to another widget or
     // application.
-    if (action == Qt::MoveAction && drag->target() != qsb)
+    if (action == Qt::MoveAction && qdrag->target() != qsb->viewport())
         ClearSelection();
 
-    inDragDrop = ddNone;
     SetDragPosition(-1);
+    inDragDrop = ddNone;
 }
 
 
@@ -272,6 +287,14 @@ void ScintillaQt::NotifyParent(SCNotification scn)
         emit qsb->SCN_CALLTIPCLICK(scn.position);
         break;
 
+    case SCN_AUTOCCANCELLED:
+        emit qsb->SCN_AUTOCCANCELLED();
+        break;
+
+    case SCN_AUTOCCHARDELETED:
+        emit qsb->SCN_AUTOCCHARDELETED();
+        break;
+
     case SCN_AUTOCSELECTION:
         emit qsb->SCN_AUTOCSELECTION(scn.text, scn.lParam);
         break;
@@ -309,7 +332,8 @@ void ScintillaQt::NotifyParent(SCNotification scn)
         break;
 
     case SCN_MACRORECORD:
-        emit qsb->SCN_MACRORECORD(scn.message, scn.wParam, scn.lParam);
+        emit qsb->SCN_MACRORECORD(scn.message, scn.wParam,
+                reinterpret_cast<void *>(scn.lParam));
         break;
 
     case SCN_MARGINCLICK:
@@ -317,10 +341,30 @@ void ScintillaQt::NotifyParent(SCNotification scn)
         break;
 
     case SCN_MODIFIED:
-        emit qsb->SCN_MODIFIED(scn.position, scn.modificationType, scn.text,
-                scn.length,scn.linesAdded, scn.line, scn.foldLevelNow,
-                scn.foldLevelPrev);
-        break;
+        {
+            char *text;
+
+            // Give some protection to the Python bindings.
+            if (scn.text && (scn.modificationType & (SC_MOD_INSERTTEXT|SC_MOD_DELETETEXT) != 0))
+            {
+                text = new char[scn.length + 1];
+                memcpy(text, scn.text, scn.length);
+                text[scn.length] = '\0';
+            }
+            else
+            {
+                text = 0;
+            }
+
+            emit qsb->SCN_MODIFIED(scn.position, scn.modificationType, text,
+                    scn.length, scn.linesAdded, scn.line, scn.foldLevelNow,
+                    scn.foldLevelPrev, scn.token, scn.annotationLinesAdded);
+
+            if (text)
+                delete[] text;
+
+            break;
+        }
 
     case SCN_MODIFYATTEMPTRO:
         emit qsb->SCN_MODIFYATTEMPTRO();
@@ -380,7 +424,8 @@ QString ScintillaQt::textRange(const SelectionText *text)
 // Copy the selected text to the clipboard.
 void ScintillaQt::CopyToClipboard(const SelectionText &selectedText)
 {
-    QApplication::clipboard()->setText(textRange(&selectedText));
+    QApplication::clipboard()->setMimeData(
+            qsb->toMimeData(textRange(&selectedText)));
 }
 
 
@@ -407,10 +452,12 @@ void ScintillaQt::Paste()
 // Paste text from either the clipboard or selection.
 void ScintillaQt::pasteFromClipboard(QClipboard::Mode mode)
 {
-    QString str = QApplication::clipboard()->text(mode);
+    const QMimeData *source = QApplication::clipboard()->mimeData(mode);
 
-    if (str.isEmpty())
+    if (!source || !qsb->canInsertFromMimeData(source))
         return;
+
+    QString str = qsb->fromMimeData(source);
 
     pdoc->BeginUndoAction();
 
@@ -489,7 +536,7 @@ void ScintillaQt::ClaimSelection()
             CopySelectionRange(&text);
 
             if (text.s)
-                cb->setText(text.s, QClipboard::Selection);
+                cb->setText(textRange(&text), QClipboard::Selection);
         }
 
         primarySelection = true;

@@ -1,29 +1,39 @@
 // This defines the interface to the QsciLexer class.
 //
-// Copyright (c) 2007
-// 	Phil Thompson <phil@river-bank.demon.co.uk>
+// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
-// This copy of QScintilla is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2, or (at your option) any
-// later version.
+// This file may be used under the terms of the GNU General Public
+// License versions 2.0 or 3.0 as published by the Free Software
+// Foundation and appearing in the files LICENSE.GPL2 and LICENSE.GPL3
+// included in the packaging of this file.  Alternatively you may (at
+// your option) use any later version of the GNU General Public
+// License if such license has been publicly approved by Riverbank
+// Computing Limited (or its successors, if any) and the KDE Free Qt
+// Foundation. In addition, as a special exception, Riverbank gives you
+// certain additional rights. These rights are described in the Riverbank
+// GPL Exception version 1.1, which can be found in the file
+// GPL_EXCEPTION.txt in this package.
 // 
-// QScintilla is supplied in the hope that it will be useful, but WITHOUT ANY
-// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-// details.
+// Please review the following information to ensure GNU General
+// Public Licensing requirements will be met:
+// http://trolltech.com/products/qt/licenses/licensing/opensource/. If
+// you are unsure which license is appropriate for your use, please
+// review the following information:
+// http://trolltech.com/products/qt/licenses/licensing/licensingoverview
+// or contact the sales department at sales@riverbankcomputing.com.
 // 
-// You should have received a copy of the GNU General Public License along with
-// QScintilla; see the file LICENSE.  If not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
+// WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
 #ifndef QSCILEXER_H
 #define QSCILEXER_H
 
+#ifdef __APPLE__
 extern "C++" {
+#endif
 
 #include <qcolor.h>
 #include <qfont.h>
@@ -36,28 +46,31 @@ extern "C++" {
 
 class QSettings;
 
-class QsciAPIs;
+class QsciAbstractAPIs;
+class QsciScintilla;
 
 
-//! \brief The QsciLexer class is an abstract class used as a base for specific
-//! existing Scintilla language lexers.
+//! \brief The QsciLexer class is an abstract class used as a base for language
+//! lexers.
 //!
-//! A Scintilla lexer scans the text breaking it up into separate language
-//! objects, e.g. keywords, strings, operators.  The lexer then uses a
-//! different style to draw each object.  A style is identified by a style
-//! number and has a number of attributes, including colour and font.  A
-//! specific language lexer will implement appropriate default styles which can
-//! be overriden by an application by further sub-classing the specific
-//! language lexer.
+//! A lexer scans the text breaking it up into separate language objects, e.g.
+//! keywords, strings, operators.  The lexer then uses a different style to
+//! draw each object.  A style is identified by a style number and has a number
+//! of attributes, including colour and font.  A specific language lexer will
+//! implement appropriate default styles which can be overriden by an
+//! application by further sub-classing the specific language lexer.
 //!
-//! A specific language lexer may provide one or more sets of words to be
-//! recognised as keywords.  Most lexers only provide one set, but some may
-//! support languages embedded in other languages and provide several sets.
+//! A lexer may provide one or more sets of words to be recognised as keywords.
+//! Most lexers only provide one set, but some may support languages embedded
+//! in other languages and provide several sets.
 //!
 //! QsciLexer provides convenience methods for saving and restoring user
-//! preferences for fonts and colours.  Note that QSciLexer is not a means to
-//! writing new lexers - you must do that by adding a new lexer to the
-//! underlying Scintilla code.
+//! preferences for fonts and colours.
+//!
+//! If you want to write a lexer for a new language then you can add it to the
+//! underlying Scintilla code and implement a corresponding QsciLexer sub-class
+//! to manage the different styles used.  Alternatively you can implement a
+//! sub-class of QsciLexerCustom.
 class QSCINTILLA_EXPORT QsciLexer : public QObject
 {
     Q_OBJECT
@@ -74,14 +87,23 @@ public:
     //! sub-class.
     virtual const char *language() const = 0;
 
-    //! Returns the name of the lexer.  Some lexers support a number of
-    //! languages.  It must be re-implemented by a sub-class.
-    virtual const char *lexer() const = 0;
+    //! Returns the name of the lexer.  If 0 is returned then the lexer's
+    //! numeric identifier is used.  The default implementation returns 0.
+    //!
+    //! \sa lexerId()
+    virtual const char *lexer() const;
+
+    //! Returns the identifier (i.e. a QsciScintillaBase::SCLEX_* value) of the
+    //! lexer.  This is only used if lexer() returns 0.  The default
+    //! implementation returns QsciScintillaBase::SCLEX_CONTAINER.
+    //!
+    //! \sa lexer()
+    virtual int lexerId() const;
 
     //! Returns the current API set or 0 if there isn't one.
     //!
     //! \sa setAPIs()
-    QsciAPIs *apis() const;
+    QsciAbstractAPIs *apis() const;
 
     //! \internal Returns the characters that can fill up auto-completion.
     virtual const char *autoCompletionFillups() const;
@@ -140,6 +162,9 @@ public:
     //! \sa defaultFont()
     virtual QFont font(int style) const;
 
+    //! \internal Returns the view used for indentation guides.
+    virtual int indentationGuideView() const;
+
     //! Returns the set of keywords for the keyword set \a set recognised
     //! by the lexer as a space separated string.  0 is returned if there
     //! is no such set.
@@ -189,11 +214,15 @@ public:
     //! Returns the default paper colour for style number \a style.
     virtual QColor defaultPaper(int style) const;
 
+    //! Returns the QsciScintilla instance that the lexer is currently attached
+    //! to or 0 if it is unattached.
+    QsciScintilla *editor() const {return attached_editor;}
+
     //! The current set of APIs is set to \a apis.  If \a apis is 0 then any
     //! existing APIs for this lexer are removed.
     //!
     //! \sa apis()
-    void setAPIs(QsciAPIs *apis);
+    void setAPIs(QsciAbstractAPIs *apis);
 
     //! The default text colour is set to \a c.
     //!
@@ -210,6 +239,9 @@ public:
     //! \sa defaultPaper(), paper()
     void setDefaultPaper(const QColor &c);
 
+    //! \internal Set the QsciScintilla instance that the lexer is attached to.
+    virtual void setEditor(QsciScintilla *editor);
+
     //! The colour, paper, font and end-of-line for each style number, and
     //! all lexer specific properties are read from the settings \a qs.
     //! \a prefix is prepended to the key of each entry.  true is returned
@@ -221,6 +253,10 @@ public:
     //! Causes all properties to be refreshed by emitting the
     //! propertyChanged() signal as required.
     virtual void refreshProperties();
+
+    //! Returns the number of style bits needed by the lexer.  Normally this
+    //! should only be re-implemented by custom lexers.
+    virtual int styleBitsNeeded() const;
 
     //! \internal Returns the string of characters that comprise a word.
     //! The default is 0 which implies the upper and lower case alphabetic
@@ -312,7 +348,8 @@ private:
     QFont defFont;
     QColor defColor;
     QColor defPaper;
-    QsciAPIs *apiSet;
+    QsciAbstractAPIs *apiSet;
+    QsciScintilla *attached_editor;
 
     void setStyleDefaults() const;
     StyleData &styleData(int style) const;
@@ -321,6 +358,8 @@ private:
     QsciLexer &operator=(const QsciLexer &);
 };
 
+#ifdef __APPLE__
 }
+#endif
 
 #endif

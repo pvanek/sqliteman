@@ -1,23 +1,31 @@
 // This module implements the "official" low-level API.
 //
-// Copyright (c) 2007
-// 	Phil Thompson <phil@river-bank.demon.co.uk>
+// Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of QScintilla.
 // 
-// This copy of QScintilla is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2, or (at your option) any
-// later version.
+// This file may be used under the terms of the GNU General Public
+// License versions 2.0 or 3.0 as published by the Free Software
+// Foundation and appearing in the files LICENSE.GPL2 and LICENSE.GPL3
+// included in the packaging of this file.  Alternatively you may (at
+// your option) use any later version of the GNU General Public
+// License if such license has been publicly approved by Riverbank
+// Computing Limited (or its successors, if any) and the KDE Free Qt
+// Foundation. In addition, as a special exception, Riverbank gives you
+// certain additional rights. These rights are described in the Riverbank
+// GPL Exception version 1.1, which can be found in the file
+// GPL_EXCEPTION.txt in this package.
 // 
-// QScintilla is supplied in the hope that it will be useful, but WITHOUT ANY
-// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
-// details.
+// Please review the following information to ensure GNU General
+// Public Licensing requirements will be met:
+// http://trolltech.com/products/qt/licenses/licensing/opensource/. If
+// you are unsure which license is appropriate for your use, please
+// review the following information:
+// http://trolltech.com/products/qt/licenses/licensing/licensingoverview
+// or contact the sales department at sales@riverbankcomputing.com.
 // 
-// You should have received a copy of the GNU General Public License along with
-// QScintilla; see the file LICENSE.  If not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
+// WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
 #include "Qsci/qsciscintillabase.h"
@@ -35,6 +43,7 @@
 #include <QFocusEvent>
 #include <QKeyEvent>
 #include <QList>
+#include <QMimeData>
 #include <QMouseEvent>
 #include <QPaintEvent>
 
@@ -90,6 +99,7 @@ QsciScintillaBase::QsciScintillaBase(QWidget *parent)
 
     viewport()->setBackgroundRole(QPalette::Base);
     viewport()->setMouseTracking(true);
+    viewport()->setAttribute(Qt::WA_NoSystemBackground);
 
     triple_click.setSingleShot(true);
 
@@ -140,8 +150,57 @@ long QsciScintillaBase::SendScintilla(unsigned int msg, unsigned long wParam,
 }
 
 
-// Send a message to the real Scintilla widget that needs a TextRange
-// structure.
+// Overloaded message send.
+long QsciScintillaBase::SendScintilla(unsigned int msg, unsigned long wParam,
+        void *lParam) const
+{
+    return sci->WndProc(msg, wParam, reinterpret_cast<sptr_t>(lParam));
+}
+
+
+// Overloaded message send.
+long QsciScintillaBase::SendScintilla(unsigned int msg, unsigned long wParam,
+        const char *lParam) const
+{
+    return sci->WndProc(msg, wParam, reinterpret_cast<sptr_t>(lParam));
+}
+
+
+// Overloaded message send.
+long QsciScintillaBase::SendScintilla(unsigned int msg,
+        const char *lParam) const
+{
+    return sci->WndProc(msg, static_cast<uptr_t>(0),
+            reinterpret_cast<sptr_t>(lParam));
+}
+
+
+// Overloaded message send.
+long QsciScintillaBase::SendScintilla(unsigned int msg, const char *wParam,
+        const char *lParam) const
+{
+    return sci->WndProc(msg, reinterpret_cast<uptr_t>(wParam),
+            reinterpret_cast<sptr_t>(lParam));
+}
+
+
+// Overloaded message send.
+long QsciScintillaBase::SendScintilla(unsigned int msg, long wParam) const
+{
+    return sci->WndProc(msg, static_cast<uptr_t>(wParam),
+            static_cast<sptr_t>(0));
+}
+
+
+// Overloaded message send.
+long QsciScintillaBase::SendScintilla(unsigned int msg, int wParam) const
+{
+    return sci->WndProc(msg, static_cast<uptr_t>(wParam),
+            static_cast<sptr_t>(0));
+}
+
+
+// Overloaded message send.
 long QsciScintillaBase::SendScintilla(unsigned int msg, long cpMin, long cpMax,
         char *lpstrText) const
 {
@@ -151,12 +210,31 @@ long QsciScintillaBase::SendScintilla(unsigned int msg, long cpMin, long cpMax,
     tr.chrg.cpMax = cpMax;
     tr.lpstrText = lpstrText;
 
-    return sci->WndProc(msg, 0, reinterpret_cast<long>(&tr));
+    return sci->WndProc(msg, static_cast<uptr_t>(0),
+            reinterpret_cast<sptr_t>(&tr));
 }
 
 
-// Send a message to the real Scintilla widget that needs a RangeToFormat
-// structure.
+// Overloaded message send.
+long QsciScintillaBase::SendScintilla(unsigned int msg, unsigned long wParam,
+        const QColor &col) const
+{
+    sptr_t lParam = (col.blue() << 16) | (col.green() << 8) | col.red();
+
+    return sci->WndProc(msg, wParam, lParam);
+}
+
+
+// Overloaded message send.
+long QsciScintillaBase::SendScintilla(unsigned int msg, const QColor &col) const
+{
+    uptr_t wParam = (col.blue() << 16) | (col.green() << 8) | col.red();
+
+    return sci->WndProc(msg, wParam, static_cast<sptr_t>(0));
+}
+
+
+// Overloaded message send.
 long QsciScintillaBase::SendScintilla(unsigned int msg, unsigned long wParam,
         QPainter *hdc, const QRect &rc, long cpMin, long cpMax) const
 {
@@ -172,26 +250,24 @@ long QsciScintillaBase::SendScintilla(unsigned int msg, unsigned long wParam,
     rf.chrg.cpMin = cpMin;
     rf.chrg.cpMax = cpMax;
 
-    return sci->WndProc(msg, wParam, reinterpret_cast<long>(&rf));
+    return sci->WndProc(msg, wParam, reinterpret_cast<sptr_t>(&rf));
 }
 
 
-// Send a message to the real Scintilla widget that needs a colour.
+// Overloaded message send.
 long QsciScintillaBase::SendScintilla(unsigned int msg, unsigned long wParam,
-        const QColor &col) const
+        const QPixmap &lParam) const
 {
-    long lParam = (col.blue() << 16) | (col.green() << 8) | col.red();
-
-    return sci->WndProc(msg, wParam, lParam);
+    return sci->WndProc(msg, wParam, reinterpret_cast<sptr_t>(&lParam));
 }
 
 
-// Send a message to the real Scintilla widget that needs a colour.
-long QsciScintillaBase::SendScintilla(unsigned int msg, const QColor &col) const
+// Send a message to the real Scintilla widget using the low level Scintilla
+// API that returns a pointer result.
+void *QsciScintillaBase::SendScintillaPtrResult(unsigned int msg) const
 {
-    unsigned long wParam = (col.blue() << 16) | (col.green() << 8) | col.red();
-
-    return sci->WndProc(msg, wParam, 0);
+    return reinterpret_cast<void *>(sci->WndProc(msg, static_cast<uptr_t>(0),
+            static_cast<sptr_t>(0)));
 }
 
 
@@ -329,7 +405,9 @@ void QsciScintillaBase::keyPressEvent(QKeyEvent *e)
         // Key_A etc.
         utf8 = e->text().toUtf8();
 
-        if (utf8.length() != 1)
+        if (utf8.length() == 0)
+            key = e->key();
+        else if (utf8.length() != 1)
             key = 0;
         else if ((key = utf8[0]) >= 0x80)
             key = 0;
@@ -522,13 +600,7 @@ void QsciScintillaBase::dragMoveEvent(QDragMoveEvent *e)
     sci->SetDragPosition(sci->PositionFromLocation(Point(e->pos().x(),
                     e->pos().y())));
 
-    if (sci->pdoc->IsReadOnly() || !e->mimeData()->hasText())
-    {
-        e->ignore();
-        return;
-    }
-
-    e->acceptProposedAction();
+    acceptAction(e);
 }
 
 
@@ -538,26 +610,68 @@ void QsciScintillaBase::dropEvent(QDropEvent *e)
     bool moving;
     const char *s;
 
-    if (sci->pdoc->IsReadOnly() || !e->mimeData()->hasText())
-    {
-        e->ignore();
+    acceptAction(e);
+
+    if (!e->isAccepted())
         return;
-    }
 
-    e->acceptProposedAction();
+    moving = (e->dropAction() == Qt::MoveAction);
 
-    moving = (e->dropAction() == Qt::MoveAction &&
-            (e->source() == this || e->source() == viewport()));
-
+    QString qs = fromMimeData(e->mimeData());
     QByteArray ba;
 
     if (sci->IsUnicodeMode())
-        ba = e->mimeData()->text().toUtf8();
+        ba = qs.toUtf8();
     else
-        ba = e->mimeData()->text().toLatin1();
+        ba = qs.toLatin1();
 
     s = ba.data();
 
     sci->DropAt(sci->posDrop, s, moving, false);
     sci->Redraw();
 }
+
+
+void QsciScintillaBase::acceptAction(QDropEvent *e)
+{
+    if (sci->pdoc->IsReadOnly() || !canInsertFromMimeData(e->mimeData()))
+    {
+        e->ignore();
+    }
+    else if ((e->source() == this || e->source() == viewport()) && (e->keyboardModifiers() & Qt::ControlModifier) == 0)
+    {
+        e->setDropAction(Qt::MoveAction);
+        e->accept();
+    }
+    else
+    {
+        e->acceptProposedAction();
+    }
+}
+
+
+
+// See if a MIME data object can be decoded.
+bool QsciScintillaBase::canInsertFromMimeData(const QMimeData *source) const
+{
+    return source->hasText() && !source->text().isEmpty();
+}
+
+
+// Create text from a MIME data object.
+QString QsciScintillaBase::fromMimeData(const QMimeData *source) const
+{
+    return source->text();
+}
+
+
+// Create a MIME data object for some text.
+QMimeData *QsciScintillaBase::toMimeData(const QString &text) const
+{
+    QMimeData *mime = new QMimeData;
+
+    mime->setText(text);
+
+    return mime;
+}
+
