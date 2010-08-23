@@ -19,7 +19,6 @@ class QLabel;
 class QProgressDialog;
 
 
-
 /*!
 \brief Execute Query dialog. Simple SQL editor.
 It allows simple editing capabilities for user. There is a simple
@@ -79,6 +78,9 @@ class SqlEditor : public QMainWindow
 		it will stop it. */
 		bool setProgress(int p);
 
+
+        void appendHistory(const QString & sql);
+
 		void showEvent(QShowEvent * event);
 		bool changedConfirm();
 		void saveFile();
@@ -113,6 +115,8 @@ class SqlEditor : public QMainWindow
 		void searchEdit_textChanged(const QString & text);
 		void findPrevious();
 		void findNext();
+
+        void actionShow_History_triggered();
 		//! \brief Watch file for changes from external apps
 		void externalFileChange(const QString & path);
 		//

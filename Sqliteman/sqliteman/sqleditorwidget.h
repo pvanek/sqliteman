@@ -37,11 +37,6 @@ class SqlEditorWidget : public QsciScintilla/*QTextEdit*/
 
 	private:
 		Preferences * m_prefs;
-		//! \brief A handler for current line highlighting
-		int m_currentLineHandle;
-		/*! \brief Store current line number to change
-		m_currentLineHandle in cursorPositionChanged() slot. */
-		int m_prevCurrentLine;
 
         //! Previously searched string
         QString m_searchText;
@@ -53,9 +48,11 @@ class SqlEditorWidget : public QsciScintilla/*QTextEdit*/
 	private slots:
 		//! \brief Change the line numbering scope.
 		void linesChanged();
+#if 0
 		/*! \brief Handle m_currentLineHandle handler to 
 		highlight current line. */
 		void cursorPositionChanged(int, int);
+#endif
 };
 
 #endif

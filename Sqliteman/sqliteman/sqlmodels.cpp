@@ -92,6 +92,9 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 
 bool SqlTableModel::setData ( const QModelIndex & index, const QVariant & value, int role)
 {
+    if (! index.isValid())
+        return false;
+
 	if (role == Qt::EditRole)
 		m_pending = true;
 	return QSqlTableModel::setData(index, value, role);

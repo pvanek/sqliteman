@@ -61,6 +61,9 @@ class DataViewer : public QMainWindow
 	private:
 		Ui::DataViewer ui;
 		bool dataResized;
+
+        QAction * actOpenEditor;
+        QAction * actInsertNull;
 		
 		void resizeViewToContents(QAbstractItemModel * model);
 		void resizeEvent(QResizeEvent * event);
@@ -111,6 +114,9 @@ class DataViewer : public QMainWindow
 		void itemView_indexChanged();
 
 		void gotoLine();
+
+        void actOpenEditor_triggered();
+        void actInsertNull_triggered();
 };
 
 

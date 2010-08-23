@@ -52,6 +52,13 @@ DataViewer::DataViewer(QWidget * parent)
 	ui.actionClose->setIcon(Utils::getIcon("close.png"));
 	ui.action_Goto_Line->setIcon(Utils::getIcon("go-next-use.png"));
 
+    actInsertNull = new QAction(Utils::getIcon("setnull.png"), tr("Insert NULL"), ui.tableView);
+    connect(actInsertNull, SIGNAL(triggered()), this, SLOT(actInsertNull_triggered()));
+    actOpenEditor = new QAction(Utils::getIcon("edit.png"), tr("Open Data Editor..."), ui.tableView);
+    connect(actOpenEditor, SIGNAL(triggered()), this, SLOT(actOpenEditor_triggered()));
+    ui.tableView->addAction(actInsertNull);
+    ui.tableView->addAction(actOpenEditor);
+
 	// custom delegate
 	ui.tableView->setItemDelegate(new SqlDelegate(this));
 
@@ -414,11 +421,17 @@ void DataViewer::handleBlobPreview(bool state)
 
 void DataViewer::tableView_selectionChanged(const QItemSelection &, const QItemSelection &)
 {
-	if (!ui.blobPreviewBox->isVisible())
-		return;
-	ui.blobPreview->setBlobData(ui.tableView->model()->data(ui.tableView->currentIndex(),
-															Qt::EditRole)
-							   );
+	SqlTableModel *tm = qobject_cast<SqlTableModel*>(ui.tableView->model());
+    bool enable = (tm != 0);
+    actInsertNull->setEnabled(enable);
+    actOpenEditor->setEnabled(enable);
+
+    if (ui.blobPreviewBox->isVisible())
+    {
+	    ui.blobPreview->setBlobData(ui.tableView->model()->data(ui.tableView->currentIndex(),
+		    													Qt::EditRole)
+			    				   );
+    }
 	
 }
 void DataViewer::tabWidget_currentChanged(int ix)
@@ -502,6 +515,15 @@ void DataViewer::gotoLine()
 	ui.tableView->setCurrentIndex(left);
 }
 
+void DataViewer::actOpenEditor_triggered()
+{
+    ui.tableView->edit(ui.tableView->currentIndex());
+}
+
+void DataViewer::actInsertNull_triggered()
+{
+    ui.tableView->model()->setData(ui.tableView->currentIndex(), QString(), Qt::EditRole); 
+}
 
 
 /* Tools *************************************************** */

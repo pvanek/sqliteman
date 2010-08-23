@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <qscilexersql.h>
 #include <qsciapis.h>
+#include <qsciabstractapis.h>
+#include <qscilexer.h>
 
 #include "sqleditorwidget.h"
 #include "preferences.h"
@@ -22,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include <QtDebug>
 SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	: QsciScintilla(parent),
-	  m_prevCurrentLine(0),
       m_searchText(""),
       m_searchIndicator(9) // see QsciScintilla docs
 {
@@ -40,13 +41,14 @@ SqlEditorWidget::SqlEditorWidget(QWidget * parent)
 	else
 	{
 		api->prepare();
-		lexer->setAPIs(api);
+        lexer->setAPIs(api);
 	}
 	setAutoCompletionSource(QsciScintilla::AcsAll);
 	setAutoCompletionCaseSensitivity(false);
 	setAutoCompletionReplaceWord(true);
 
-	m_currentLineHandle = markerDefine(QsciScintilla::Background);
+    setCaretLineVisible(m_prefs->activeHighlighting());
+    setCaretLineBackgroundColor(m_prefs->activeHighlightColor());
 	setUtf8(true);
 
 	setFolding(QsciScintilla::BoxedFoldStyle);
@@ -168,12 +170,11 @@ void SqlEditorWidget::linesChanged()
 	setMarginWidth(0, QString().fill('0', x));
 }
 
+#if 0
 void SqlEditorWidget::cursorPositionChanged(int line, int)
 {
-	markerDelete(m_prevCurrentLine, m_currentLineHandle);
-	markerAdd(line, m_currentLineHandle);
-	m_prevCurrentLine = line;
 }
+#endif
 
 void SqlEditorWidget::prefsChanged()
 {

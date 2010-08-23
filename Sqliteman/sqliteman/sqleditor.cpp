@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSqlError>
 #include <QShortcut>
 #include <QSettings>
+#include <QDateTime>
 
 #include <qscilexer.h>
 
@@ -82,6 +83,10 @@ SqlEditor::SqlEditor(QWidget * parent)
 
 	QSettings settings("yarpen.cz", "sqliteman");
 	restoreState(settings.value("sqleditor/state").toByteArray());
+
+    connect(ui.actionShow_History, SIGNAL(triggered()),
+            this, SLOT(actionShow_History_triggered()));
+    actionShow_History_triggered();
 
 	connect(ui.action_Run_SQL, SIGNAL(triggered()),
 			this, SLOT(action_Run_SQL_triggered()));
@@ -244,12 +249,17 @@ QString SqlEditor::prepareExec(toSQLParse::tokenizer &tokens, int line, int pos)
 
 void SqlEditor::action_Run_SQL_triggered()
 {
-	emit showSqlResult(query());
+    QString sql(query());
+	emit showSqlResult(sql);
+    appendHistory(sql);
 }
 
 void SqlEditor::actionRun_Explain_triggered()
 {
-	emit showSqlResult(QString("explain query plan %1").arg(query()));
+    QString s("explain query plan %1");
+    s = s.arg(query());
+	emit showSqlResult(s);
+    appendHistory(s);
 }
 
 void SqlEditor::actionRun_as_Script_triggered()
@@ -296,6 +306,7 @@ void SqlEditor::actionRun_as_Script_triggered()
 			sql = prepareExec(tokens, line, pos);
 			emit showSqlScriptResult(sql);
 			query.exec(sql);
+            appendHistory(sql);
 			if (query.lastError().isValid())
 			{
 				emit showSqlScriptResult("-- " + tr("Error: %1.").arg(query.lastError().text()));
@@ -412,6 +423,21 @@ bool SqlEditor::setProgress(int p)
 	progress->setValue(p);
 	qApp->processEvents();
 	return true;
+}
+
+void SqlEditor::appendHistory(const QString & sql)
+{
+    QStringList l;
+    l << sql << QDateTime::currentDateTime().toString();
+    QTreeWidgetItem * item = new QTreeWidgetItem(ui.historyTreeWidget, l);
+    ui.historyTreeWidget->addTopLevelItem(item);
+    if (ui.historyTreeWidget->topLevelItemCount() > 30)
+        delete ui.historyTreeWidget->takeTopLevelItem(0);
+}
+
+void SqlEditor::actionShow_History_triggered()
+{
+    ui.historyTreeWidget->setVisible(ui.actionShow_History->isChecked());
 }
 
 void SqlEditor::action_Save_triggered()
