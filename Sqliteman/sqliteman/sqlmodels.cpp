@@ -46,9 +46,17 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 		return QVariant(Qt::AlignTop);
 	}
 
-	// mark rows prepared for a deletion in this trasnaction
-	if (role == Qt::BackgroundColorRole && m_deleteCache.contains(item.row()))
-		return QVariant(Qt::red);
+	if (role == Qt::BackgroundColorRole)
+    {
+    	// mark rows prepared for a deletion in this trasnaction
+        if (m_deleteCache.contains(item.row()))
+            return QVariant(Qt::red);
+        for (int i = 0; i < columnCount(); ++i)
+        {
+            if (isDirty(index(item.row(), i)))
+                return QVariant(Qt::cyan);
+        }
+    }
 
 	// nulls
 	if (m_useNull && curr.isNull())
@@ -90,14 +98,18 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
 	return QSqlTableModel::data(item, role);
 }
 
-bool SqlTableModel::setData ( const QModelIndex & index, const QVariant & value, int role)
+bool SqlTableModel::setData ( const QModelIndex & ix, const QVariant & value, int role)
 {
-    if (! index.isValid())
+    if (! ix.isValid())
         return false;
 
 	if (role == Qt::EditRole)
 		m_pending = true;
-	return QSqlTableModel::setData(index, value, role);
+
+    int r = ix.row();
+	emit dataChanged( index(r, 0), index(r, columnCount()-1) );
+
+	return QSqlTableModel::setData(ix, value, role);
 }
 
 QVariant SqlTableModel::headerData(int section, Qt::Orientation orientation, int role) const

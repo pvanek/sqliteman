@@ -68,7 +68,7 @@ class SqlTableModel : public QSqlTableModel
 		QMap<int,IndexType> m_header;
 
 		QVariant data(const QModelIndex & item, int role = Qt::DisplayRole) const;
-		bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole);
+		bool setData(const QModelIndex & ix, const QVariant & value, int role = Qt::EditRole);
 
 		QVariant headerData(int section,
 							Qt::Orientation orientation,
