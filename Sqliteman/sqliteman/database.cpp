@@ -89,6 +89,15 @@ FieldList Database::tableFields(const QString & table, const QString & schema)
 		field.notnull = query.value(3).toBool();
 		field.defval = query.value(4).toString();
 		field.pk = query.value(5).toBool();
+		if (field.pk) {
+			field.type += " PRIMARY KEY";
+			// autoincrement keyword?
+			// adapted from http://stackoverflow.com/questions/16724409/how-to-programmatically-determine-whether-a-column-is-set-to-autoincrement-in-sq
+			QString autoincSql(QString("SELECT 1 FROM %1.sqlite_master WHERE lower(name) = \"%2\" AND sql LIKE '%\"%3\" %4 AUTOINCREMENT%';").arg(schema).arg(table).arg(field.name).arg(field.type));
+			QSqlQuery autoincQuery(autoincSql, QSqlDatabase::database(SESSION_NAME));
+			if (!autoincQuery.lastError().isValid() && autoincQuery.first())
+				field.type += " AUTOINCREMENT";
+		}
 		field.comment = "";
 		fields.append(field);
 	}
