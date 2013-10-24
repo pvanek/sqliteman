@@ -208,13 +208,9 @@ void SqlTableModel::setTable(const QString &tableName)
 
 	foreach (DatabaseTableField c, columns)
 	{
-		// it's a little bit cryptic - docs are inconsistent here.
-		// Maybe it's enough to have INTEGER PRIMARY KEY to autoincrement
-		// as it's done in Qt4 driver and in various SWs,
-		// but maybe there is something with AUTOINCREMENT too. Dunno.
 		if (c.pk)
 		{
-			m_header[c.cid] = (c.type == "INTEGER") ? SqlTableModel::Auto : SqlTableModel::PK;
+			m_header[c.cid] = (c.type == "INTEGER PRIMARY KEY AUTOINCREMENT") ? SqlTableModel::Auto : SqlTableModel::PK;
 			continue;
 		}
 		// show has default icon
