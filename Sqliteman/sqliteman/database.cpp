@@ -78,6 +78,39 @@ FieldList Database::tableFields(const QString & table, const QString & schema)
 		return fields;
 	}
 
+	// Build a query string to SELECT the CREATE statement from sqlite_master
+	QString createSQL(QString("SELECT sql FROM sqlite_master WHERE name=\"%1\";").arg(table)); 
+	// Run the query
+	SqlQuery createQuery(createSQL, QSqlDatabase::database(SESSION_NAME));
+	// Make sure the query ran successfully
+	if(createQuery.lastError().isValid()) {
+		exception(tr("Error grabbing CREATE statement: %1: %2.").arg(table).arg(createQuery.lastError().text()));
+	}
+	// Position the Query on the first (only) result
+	createQuery.first();
+	// Grab the complete CREATE statement
+	QString createStatement = createQuery.value(0).toString();
+	// Reduce the CREATE statement down to just the field info
+	createStatement.replace(QRegExp("CREATE TABLE .* \\((.*)\\).*"), "\\1");
+	// Make a list with all of the individual field statements
+	QStringList params = createStatement.split(QRegExp(","));
+	// Initialize ourselfs a Field Map -- keys and vals are QStrings
+	QHash<QString, QString> fieldMap;
+	// Hashify the params list
+	while(!params.isEmpty())
+	{
+		// e.g. "id INTEGER PRIMARY KEY"
+		QString parameter = params.takeFirst().trimmed();
+		// Tokenize the parameter
+		QStringList words = parameter.split(" ");
+		// Grab the field name
+		QString fieldName = words.takeFirst().remove('"');
+		// Grab the full field type
+		QString fieldType = words.join(" ");
+		// Populate the hash
+		fieldMap[fieldName] = fieldType;
+	}
+
 	while (query.next())
 	{
 		DatabaseTableField field;
