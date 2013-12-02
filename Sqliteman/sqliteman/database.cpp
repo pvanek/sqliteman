@@ -81,7 +81,7 @@ FieldList Database::tableFields(const QString & table, const QString & schema)
 	// Build a query string to SELECT the CREATE statement from sqlite_master
 	QString createSQL(QString("SELECT sql FROM sqlite_master WHERE name=\"%1\";").arg(table)); 
 	// Run the query
-	SqlQuery createQuery(createSQL, QSqlDatabase::database(SESSION_NAME));
+	QSqlQuery createQuery(createSQL, QSqlDatabase::database(SESSION_NAME));
 	// Make sure the query ran successfully
 	if(createQuery.lastError().isValid()) {
 		exception(tr("Error grabbing CREATE statement: %1: %2.").arg(table).arg(createQuery.lastError().text()));
