@@ -132,7 +132,7 @@ DatabaseTableField TableEditorDialog::getColumn(int row)
 
 	field.cid = 0;
 	field.name = nameItem->text();
-	field.type = type.toUpper();
+	field.type = type;
 	field.notnull = nn;
 	field.defval = (ui.columnTable->item(row, 3) == 0) ? "" : ui.columnTable->item(row, 3)->text();
 	field.pk = pk;
