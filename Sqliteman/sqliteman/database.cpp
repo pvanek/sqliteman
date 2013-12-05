@@ -116,7 +116,7 @@ FieldList Database::tableFields(const QString & table, const QString & schema)
 		DatabaseTableField field;
 		field.cid = query.value(0).toInt();
 		field.name = query.value(1).toString();
-		field.type = query.value(2).toString();
+		field.type = fieldMap[field.name];
 		if (field.type.isNull() || field.type.isEmpty())
 			field.type = "NULL";
 		field.notnull = query.value(3).toBool();
