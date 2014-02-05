@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStyleFactory>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QtDebug> //qDebug
 
 #include "litemanwindow.h"
 #include "preferences.h"
@@ -212,6 +213,8 @@ int main(int argc, char ** argv)
 
 	QTranslator translator;
 	translator.load(Utils::getTranslator(cli.localeCode()));
+
+    qDebug() << __FILE__ << __LINE__ << __func__ << QObject::tr("Locale:") << Utils::getTranslator(cli.localeCode()); //Debug.
 	app.installTranslator(&translator);
 
 	LiteManWindow * wnd = new LiteManWindow(cli.fileToOpen());

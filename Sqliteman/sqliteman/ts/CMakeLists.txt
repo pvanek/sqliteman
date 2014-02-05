@@ -11,6 +11,8 @@ INSTALL(FILES
     sqliteman_it.qm
     sqliteman_pl.qm
     sqliteman_ru.qm
+    sqliteman_zh_CN.qm
+    sqliteman_zh.qm
   DESTINATION ${TRANSLATION_DIR}
 )
 

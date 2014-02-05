@@ -8,5 +8,7 @@
         <file>sqliteman_it.qm</file>
         <file>sqliteman_pl.qm</file>
         <file>sqliteman_ru.qm</file>
+        <file>sqliteman_zh_CN.qm</file>
+        <file>sqliteman_zh.qm</file>
     </qresource>
 </RCC>
