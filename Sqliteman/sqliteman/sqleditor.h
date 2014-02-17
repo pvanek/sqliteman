@@ -33,7 +33,7 @@ class SqlEditor : public QMainWindow
 		SqlEditor(QWidget * parent = 0);
 		~SqlEditor();
 
-		void saveOnExit();
+		bool saveOnExit();
 
 		void setFileName(const QString & fname);
 		QString fileName() { return m_fileName; };

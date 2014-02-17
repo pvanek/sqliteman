@@ -113,7 +113,10 @@ LiteManWindow::~LiteManWindow()
 
 void LiteManWindow::closeEvent(QCloseEvent * e)
 {
-	sqlEditor->saveOnExit();
+	if (!sqlEditor->saveOnExit()) {
+		e->ignore ();
+	}
+	
 	writeSettings();
 
 	// check for uncommited transaction in the DB
