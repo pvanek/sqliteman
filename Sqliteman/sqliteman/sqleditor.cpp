@@ -507,20 +507,31 @@ bool SqlEditor::changedConfirm()
 	return true;
 }
 
-void SqlEditor::saveOnExit()
+bool SqlEditor::saveOnExit()
 {
-	if (!ui.sqlTextEdit->isModified())
-		return;
-	int ret = QMessageBox::question(this, tr("Closing SQL Editor"),
-				tr("Document has been changed. Do you want do save its content?"),
-				QMessageBox::Yes, QMessageBox::No);
+	if (!ui.sqlTextEdit->isModified()) {
+		return true;
+	}
 	
-	if (ret == QMessageBox::No)
-			return;
-	if (m_fileName.isNull())
+	const int ret = QMessageBox::question(this, tr("Closing SQL Editor"),
+						tr("Document has been changed. Do you want do save its content?"),
+						QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::No);
+	
+	if (ret == QMessageBox::No) {
+			return true;
+	}
+	
+	if (ret == QMessageBox::Cancel) {
+		return false;
+	}
+
+	if (m_fileName.isNull()) {
 		actionSave_As_triggered();
-	else
+	} else {
 		saveFile();
+	}
+	
+	return true;
 }
 
 void SqlEditor::sqlTextEdit_cursorPositionChanged(int line, int pos)
