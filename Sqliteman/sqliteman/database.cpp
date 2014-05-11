@@ -79,7 +79,8 @@ FieldList Database::tableFields(const QString & table, const QString & schema)
 	}
 
 	// Build a query string to SELECT the CREATE statement from sqlite_master
-	QString createSQL(QString("SELECT sql FROM sqlite_master WHERE name=\"%1\";").arg(table)); 
+    QString createSQL(QString("SELECT sql FROM %2 WHERE name=\"%1\";").arg(table).arg(getMaster(schema)));
+//    QString createSQL(QString("SELECT sql FROM sqlite_master WHERE name=\"%1\";").arg(table));
 	// Run the query
 	QSqlQuery createQuery(createSQL, QSqlDatabase::database(SESSION_NAME));
 	// Make sure the query ran successfully
@@ -126,7 +127,8 @@ FieldList Database::tableFields(const QString & table, const QString & schema)
 			field.type += " PRIMARY KEY";
 			// autoincrement keyword?
 			// adapted from http://stackoverflow.com/questions/16724409/how-to-programmatically-determine-whether-a-column-is-set-to-autoincrement-in-sq
-			QString autoincSql(QString("SELECT 1 FROM %1.sqlite_master WHERE lower(name) = \"%2\" AND sql LIKE '%\"%3\" %4 AUTOINCREMENT%';").arg(schema).arg(table).arg(field.name).arg(field.type));
+            QString autoincSql(QString("SELECT 1 FROM %1 WHERE lower(name) = \"%2\" AND sql LIKE '%\"%3\" %4 AUTOINCREMENT%';").arg(getMaster(schema)).arg(table).arg(field.name).arg(field.type));
+//            QString autoincSql(QString("SELECT 1 FROM %1.sqlite_master WHERE lower(name) = \"%2\" AND sql LIKE '%\"%3\" %4 AUTOINCREMENT%';").arg(schema).arg(table).arg(field.name).arg(field.type));
 			QSqlQuery autoincQuery(autoincSql, QSqlDatabase::database(SESSION_NAME));
 			if (!autoincQuery.lastError().isValid() && autoincQuery.first())
 				field.type += " AUTOINCREMENT";
@@ -146,7 +148,7 @@ QStringList Database::indexFields(const QString & index, const QString &schema)
 
 	if (query.lastError().isValid())
 	{
-		exception(tr("Error while getting the fileds of %1: %2.").arg(index).arg(query.lastError().text()));
+        exception(tr("Error while getting the fields of %1: %2.").arg(index).arg(query.lastError().text()));
 		return fields;
 	}
 
@@ -162,9 +164,11 @@ DbObjects Database::getObjects(const QString type, const QString schema)
 
 	QString sql;
 	if (type.isNull())
-		sql = QString("SELECT lower(name), lower(tbl_name) FROM \"%1\".sqlite_master;").arg(schema);
+        sql = QString("SELECT lower(name), lower(tbl_name) FROM %1;").arg(getMaster(schema));
+//    sql = QString("SELECT lower(name), lower(tbl_name) FROM \"%1\".sqlite_master;").arg(schema);
 	else
-		sql = QString("SELECT lower(name), lower(tbl_name) FROM \"%1\".sqlite_master WHERE type = '%2' and name not like 'sqlite_%';").arg(schema).arg(type);
+        sql = QString("SELECT lower(name), lower(tbl_name) FROM %1 WHERE type = '%2' and name not like 'sqlite_%';").arg(getMaster(schema)).arg(type);
+//    sql = QString("SELECT lower(name), lower(tbl_name) FROM \"%1\".sqlite_master WHERE type = '%2' and name not like 'sqlite_%';").arg(schema).arg(type);
 
 	QSqlQuery query(sql, QSqlDatabase::database(SESSION_NAME));
 	while(query.next())
@@ -202,8 +206,10 @@ DbObjects Database::getSysObjects(const QString & schema)
 {
 	DbObjects objs;
 
-	QSqlQuery query(QString("SELECT lower(name), lower(tbl_name) FROM \"%1\".sqlite_master WHERE type = 'table' and name like 'sqlite_%';").arg(schema),
+    QSqlQuery query(QString("SELECT lower(name), lower(tbl_name) FROM %1 WHERE type = 'table' and name like 'sqlite_%';").arg(getMaster(schema)),
 					QSqlDatabase::database(SESSION_NAME));
+//    QSqlQuery query(QString("SELECT lower(name), lower(tbl_name) FROM \"%1\".sqlite_master WHERE type = 'table' and name like 'sqlite_%';").arg(schema),
+//					QSqlDatabase::database(SESSION_NAME));
 
 	objs.insert("sqlite_master", "");
 	while(query.next())
@@ -310,8 +316,10 @@ bool Database::dumpDatabase(const QString & fileName)
 QString Database::describeObject(const QString & name,
 								 const QString & schema)
 {
-	QString sql("select sql from \"%1\".sqlite_master where lower(name) = \"%2\";");
-	QSqlQuery query(sql.arg(schema).arg(name), QSqlDatabase::database(SESSION_NAME));
+    QString sql("select sql from %1 where lower(name) = \"%2\";");
+    QSqlQuery query(sql.arg(getMaster(schema)).arg(name), QSqlDatabase::database(SESSION_NAME));
+//    QString sql("select sql from \"%1\".sqlite_master where lower(name) = \"%2\";");
+//	QSqlQuery query(sql.arg(schema).arg(name), QSqlDatabase::database(SESSION_NAME));
 	
 	if (query.lastError().isValid())
 	{
@@ -427,4 +435,10 @@ QStringList Database::loadExtension(const QStringList & list)
 			retval.append(f);
 	}
 	return retval;
+}
+
+QString Database::getMaster(const QString &schema)
+{
+    if (schema.compare(QString("temp"),Qt::CaseInsensitive)==0) return QString("sqlite_temp_master");
+    return QString("\"%1\".sqlite_master").arg(schema);
 }
