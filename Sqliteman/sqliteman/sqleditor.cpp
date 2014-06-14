@@ -514,7 +514,7 @@ bool SqlEditor::saveOnExit()
 	}
 	
 	const int ret = QMessageBox::question(this, tr("Closing SQL Editor"),
-						tr("Document has been changed. Do you want do save its content?"),
+						tr("Document has been changed. Do you want to save its content?"),
 						QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::No);
 	
 	if (ret == QMessageBox::No) {
