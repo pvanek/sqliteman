@@ -63,6 +63,13 @@ class Database
 				
 	public:
 		static DbAttach getDatabases();
+
+        /*! \brief Gets correct sqlite_master or sqlite_temp_master.
+        \param schema a name of the DB schema
+        \retval QString either schema.sqlite_master or sqlite_temp_master
+        */
+        static QString getMaster(const QString & schema);
+
 		/*! \brief Gather user objects from sqlite_master by type.
 		It skips the resrved names "sqlite_%". See getSysObjects().
 		\param type a "enum" 'table', 'view', index etc. If it's empty all objects are selected.
