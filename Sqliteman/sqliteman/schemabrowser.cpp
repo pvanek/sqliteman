@@ -57,6 +57,7 @@ void SchemaBrowser::buildPragmasTree()
 	addPragma("temp_store_directory");
 
 	pragmaTable_currentCellChanged(0, 0, 0, 0);
+	pragmaTable->setCurrentItem(pragmaTable->item(0, 0));
 	connect(pragmaTable, SIGNAL(currentCellChanged(int, int, int, int)),
 		    this, SLOT(pragmaTable_currentCellChanged(int, int, int, int)));
 }
