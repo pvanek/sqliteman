@@ -474,7 +474,7 @@
     <message>
         <location filename="../createviewdialog.ui" line="96"/>
         <source>&amp;Database:</source>
-        <translation>&amp;Datembank:</translation>
+        <translation>&amp;Datenbank:</translation>
     </message>
     <message>
         <location filename="../createviewdialog.ui" line="112"/>
