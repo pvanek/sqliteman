@@ -8,6 +8,7 @@ Exec=sqliteman %f
 Terminal=false
 StartupNotify=true
 MimeType=application/x-sqlite3;
+Categories=Database;Development;
 
 # Translations
 GenericName[cs]=Sqlite administrace
