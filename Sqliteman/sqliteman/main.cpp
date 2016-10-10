@@ -268,7 +268,7 @@ void defaultCrashHandler(int sig)
 		QString sigMsg(QString("\nSqliteman crashes due to Signal #%1\n\n\
 All database opened will be rollbacked and closed.\n\n\
 Collect last steps that forced this\n\
-situlation and report it as a bug, please.").arg(sig));
+situation and report it as a bug, please.").arg(sig));
 		cout << sigMsg << endl;
 		QMessageBox::critical(0, "Sqliteman", sigMsg);
 		alarm(300);
