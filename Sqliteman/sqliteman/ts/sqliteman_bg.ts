@@ -46,7 +46,7 @@
     </message>
     <message>
         <source>No</source>
-        <translation>Нет</translation>
+        <translation>Не</translation>
     </message>
     <message>
         <source>failed</source>
@@ -70,7 +70,7 @@
     </message>
     <message>
         <source>Begin Transaction</source>
-        <translation>Начало на транзакция</translation>
+        <translation>Започни транзакция</translation>
     </message>
     <message>
         <source>Data Transfer</source>
@@ -90,7 +90,7 @@
     </message>
     <message>
         <source>Alter Table Done</source>
-        <translation>Промяната на таблицата е завършено</translation>
+        <translation>Промяната на таблицата е завършена</translation>
     </message>
     <message>
         <source>Columns added successfully</source>
@@ -108,20 +108,12 @@
         <translation>Тригерът не е намерен в базата данни.</translation>
     </message>
     <message>
-        <source>Cannot drop trigger: %1.
-
-%2</source>
-        <translation>Не може да се премахне тригерът: %1.
-
-%2</translation>
+        <source>Cannot drop trigger: %1.%2</source>
+        <translation>Не може да се премахне тригерът: %1.%2</translation>
     </message>
     <message>
-        <source>Error while creating trigger: %2.
-
-%3</source>
-        <translation>Грешка при създаването на тригера: %2.
-
-%3</translation>
+        <source>Error while creating trigger: %2.%3</source>
+        <translation>Грешка при създаването на тригера: %2.%3</translation>
     </message>
     <message>
         <source>Trigger created successfully</source>
@@ -139,20 +131,12 @@
         <translation>Изгледът е успешно променен</translation>
     </message>
     <message>
-        <source>Error while altering view (drop phase): %1.
-
-%2</source>
-        <translation>Грешка при промяна на изгледа (фаза на отделянето): %1.
-
-%2</translation>
+        <source>Error while altering view (drop phase): %1.%2</source>
+        <translation>Грешка при промяна на изгледа (фаза на отделянето): %1.%2</translation>
     </message>
     <message>
-        <source>Error while altering view: %1.
-
-%2</source>
-        <translation>Грешка при промяна на изгледа: %1.
-
-%2</translation>
+        <source>Error while altering view: %1.%2</source>
+        <translation>Грешка при промяна на изгледа: %1.%2</translation>
     </message>
 </context>
 <context>
@@ -315,12 +299,8 @@
         <translation>Създай таблица</translation>
     </message>
     <message>
-        <source>Error while creating table: %1.
-
-%2</source>
-        <translation>Грешка при създанването на таблицата %1.
-
-%2</translation>
+        <source>Error while creating table: %1.%2</source>
+        <translation>Грешка при създанването на таблицата %1.%2</translation>
     </message>
     <message>
         <source>Table created successfully</source>
@@ -338,16 +318,12 @@
 <context>
     <name>CreateTriggerDialog</name>
     <message>
-        <source>Error while creating trigger: %2.
-
-%3</source>
-        <translation>Грешка при създаването на индекса: %2.
-
-%3</translation>
+        <source>Error while creating trigger: %2.%3</source>
+        <translation>Грешка при създаването на индекса: %2.%3</translation>
     </message>
     <message>
         <source>Trigger created successfully</source>
-        <translation>Тригерът е успешно създаден</translation>
+        <translation>Тригерът е създаден успешно</translation>
     </message>
     <message>
         <source>Create Trigger</source>
@@ -361,12 +337,8 @@
 <context>
     <name>CreateViewDialog</name>
     <message>
-        <source>Error while creating view: %2.
-
-%3</source>
-        <translation>Грешка при създаване на изгледа: %2
-
-%3</translation>
+        <source>Error while creating view: %2.%3</source>
+        <translation>Грешка при създаване на изгледа: %2%3</translation>
     </message>
     <message>
         <source>View created successfully</source>
@@ -512,7 +484,7 @@
     </message>
     <message>
         <source>Are you sure you want to remove all content from this table?</source>
-        <translation>Сигурни ли сте, че искате да премахнете цялото съдържание натази таблица?</translation>
+        <translation>Сигурни ли сте, че искате да премахнете цялото съдържание на тази таблица?</translation>
     </message>
     <message>
         <source>Export Error</source>
@@ -577,7 +549,7 @@ Cancel = skip this operation and stay in the current table</source>
 
 Помощ:
 Да=фиксирай
-Нет=върни назад
+Не=върни назад
 Отмяна=пропусни операцията и остани в сегашната таблица</translation>
     </message>
     <message>
@@ -842,10 +814,10 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Verdana&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;There have been import errors. Check the error log above. Data in the database are not complette.&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Perform commit anyway?&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Има грешки при импортирането. Проверете лог файла. Данните в базата данни не са пълни.&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Да се извърши ли запис въпреки това?&lt;/span&gt;&lt;/p&gt;
 
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(Yes=commit, No=rollback)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(Да=commit, Не=rollback)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -1053,21 +1025,14 @@ Version %1
         <translation>Няма SQL оператор</translation>
     </message>
     <message>
-        <source>Query Error: %1
-
-%2</source>
-        <translation>Грешка в заявката: %1
-
-%2</translation>
+        <source>Query Error: %1 %2</source>
+        <translation>Грешка в заявката: %1 %2</translation>
     </message>
     <message>
         <source>Query OK
-Row(s) returned: %1
-
-%2</source>
+Row(s) returned: %1 %2</source>
         <translation>Заявката е OK
-Получени редове: %1
-%2</translation>
+Получени редове: %1 %2</translation>
     </message>
     <message>
         <source>SQL File (*.sql)</source>
@@ -1083,7 +1048,7 @@ Row(s) returned: %1
     </message>
     <message>
         <source>Are you sure that you wish to drop the index &quot;%1&quot;?</source>
-        <translation>Вы уверены что хотите удалить индекс &quot;%1&quot;?</translation>
+        <translation>Сигурни ли сте, че искате да премахнете индекса &quot;%1&quot;?</translation>
     </message>
     <message>
         <source>Query Error: %1</source>
@@ -1109,8 +1074,7 @@ Row(s) returned: %1</source>
     </message>
     <message>
         <source>You are trying to run an undefined SQL query. Hint: select your query in the editor</source>
-        <translation>Опитвате се да изпълните неопределена  SQL заявка.
-Съвет: Изберете заявка в редактора</translation>
+        <translation>Опитвате се да изпълните неопределена SQL заявка. Съвет: Изберете заявка в редактора</translation>
     </message>
     <message>
         <source>&amp;Reindex</source>
@@ -1476,7 +1440,7 @@ Row(s) returned: %1 %2
     </message>
     <message>
         <source>Highlight the BLOB values in the data result table</source>
-        <translation>Оцветявай BLOB стойностите  в таблицата с резултати</translation>
+        <translation>Оцвети BLOB стойностите в таблицата с резултати</translation>
     </message>
     <message>
         <source>&amp;Use BLOB highlighting</source>
@@ -1618,7 +1582,7 @@ Row(s) returned: %1 %2
     </message>
     <message>
         <source>Remember the last used database for next application start</source>
-        <translation>Запомнить открытую базу</translation>
+        <translation>Заппомни последната използвана база данни за следващия старт на програмата</translation>
     </message>
     <message>
         <source>Ope&amp;n Last Database on Start</source>
@@ -2086,12 +2050,8 @@ Row(s) returned: %1 %2
         <translation>Изпълни като скрипт</translation>
     </message>
     <message>
-        <source>This script contains the following error:
-%1
-At line: %2</source>
-        <translation>Скриптът съдържа следната грешка:
-%1
-Ред: %2</translation>
+        <source>This script contains the following error: %1 At line: %2</source>
+        <translation>Скриптът съдържа следната грешка: %1 Ред: %2</translation>
     </message>
     <message>
         <source>No error</source>
