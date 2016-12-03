@@ -8,8 +8,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef INDEXDIALOG_H
 #define INDEXDIALOG_H
 
-#include <qwidget.h>
-
 #include "ui_createindexdialog.h"
 
 
@@ -27,7 +25,7 @@ class CreateIndexDialog : public QDialog
 		\param parent standard Qt parent
 		*/
 		CreateIndexDialog(const QString & tabName, const QString & schema, QWidget * parent = 0);
-		~CreateIndexDialog(){};
+		~CreateIndexDialog(){}
 
 		bool update;
 

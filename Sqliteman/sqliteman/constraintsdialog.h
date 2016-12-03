@@ -8,8 +8,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef CONSTRAINTSDIALOG_H
 #define CONSTRAINTSDIALOG_H
 
-#include <qdialog.h>
-
 #include "ui_constraintsdialog.h"
 
 
@@ -23,7 +21,7 @@ class ConstraintsDialog : public QDialog
 
 	public:
 		ConstraintsDialog(const QString & tabName, const QString & schema, QWidget * parent = 0);
-		~ConstraintsDialog(){};
+		~ConstraintsDialog(){}
 
 		bool update;
 

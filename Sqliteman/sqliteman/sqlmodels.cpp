@@ -50,11 +50,11 @@ QVariant SqlTableModel::data(const QModelIndex & item, int role) const
     {
     	// mark rows prepared for a deletion in this trasnaction
         if (m_deleteCache.contains(item.row()))
-            return QVariant(Qt::red);
+			return QVariant(QColor(Qt::red));
         for (int i = 0; i < columnCount(); ++i)
         {
             if (isDirty(index(item.row(), i)))
-                return QVariant(Qt::cyan);
+				return QVariant(QColor(Qt::cyan));
         }
     }
 

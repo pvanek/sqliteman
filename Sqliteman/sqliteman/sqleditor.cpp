@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSettings>
 #include <QDateTime>
 
-#include <qscilexer.h>
+#include <Qsci/qscilexer.h>
 
 #include "createviewdialog.h"
 #include "preferences.h"

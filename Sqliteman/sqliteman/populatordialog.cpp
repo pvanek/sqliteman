@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QHeaderView>
 #include <QDateTime>
 #include <QMessageBox>
-#include <math.h>
+#include <QtMath>
 
 #include "populatordialog.h"
 #include "populatorcolumnwidget.h"

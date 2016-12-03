@@ -50,7 +50,6 @@ This file is based on the TOra source code. http://tora.sf.net
 
 #include <list>
 #include <algorithm>
-// #include <qstring.h>
 #include <QString>
 
 // class toConnection;
