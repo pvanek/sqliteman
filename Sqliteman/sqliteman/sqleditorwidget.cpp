@@ -11,10 +11,10 @@ for which a new license (GPL+exception) is in place.
 #include <QAbstractItemView>
 #include <QStringListModel>
 
-#include <qscilexersql.h>
-#include <qsciapis.h>
-#include <qsciabstractapis.h>
-#include <qscilexer.h>
+#include <Qsci/qscilexersql.h>
+#include <Qsci/qsciapis.h>
+#include <Qsci/qsciabstractapis.h>
+#include <Qsci/qscilexer.h>
 
 #include "sqleditorwidget.h"
 #include "preferences.h"

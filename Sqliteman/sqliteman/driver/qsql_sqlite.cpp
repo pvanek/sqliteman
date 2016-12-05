@@ -41,15 +41,15 @@
 
 #include "qsql_sqlite.h"
 
-#include <qcoreapplication.h>
-#include <qvariant.h>
-#include <qsqlerror.h>
-#include <qsqlfield.h>
-#include <qsqlindex.h>
-#include <qsqlquery.h>
-#include <qstringlist.h>
-#include <qvector.h>
-#include <qdebug.h>
+#include <QCoreApplication>
+#include <QVariant>
+#include <QSqlError>
+#include <QSqlField>
+#include <QSqlIndex>
+#include <QSqlQuery>
+#include <QStringList>
+#include <QVector>
+#include <QDebug>
 
 #if defined Q_OS_WIN
 # include <qt_windows.h>
@@ -59,6 +59,8 @@
 
 #include <sqlite3.h>
 
+Q_DECLARE_OPAQUE_POINTER(sqlite3*)
+Q_DECLARE_OPAQUE_POINTER(sqlite3_stmt*)
 Q_DECLARE_METATYPE(sqlite3*)
 Q_DECLARE_METATYPE(sqlite3_stmt*)
 
@@ -294,16 +296,10 @@ QSQLiteResult::~QSQLiteResult()
     delete d;
 }
 
-void QSQLiteResult::virtual_hook(int id, void *data)
+void QSQLiteResult::detachFromResultSet()
 {
-    switch (id) {
-    case QSqlResult::DetachFromResultSet:
-        if (d->stmt)
-            sqlite3_reset(d->stmt);
-        break;
-    default:
-        QSqlCachedResult::virtual_hook(id, data);
-    }
+	if (d->stmt)
+		sqlite3_reset(d->stmt);
 }
 
 bool QSQLiteResult::reset(const QString &query)

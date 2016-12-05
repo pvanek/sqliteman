@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSettings>
 #include <QColorDialog>
 #include <QFileDialog>
-#include <qscilexersql.h>
+#include <Qsci/qscilexersql.h>
 
 #include "preferencesdialog.h"
 #include "preferences.h"

@@ -6,6 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QMouseEvent>
 #include <QApplication>
+#include <QDrag>
+#include <QMimeData>
 
 #include "database.h"
 #include "tabletree.h"

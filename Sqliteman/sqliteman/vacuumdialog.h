@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef VACUUMDIALOG_H
 #define VACUUMDIALOG_H
 
-#include <qdialog.h>
+#include <QDialog>
 
 #include "ui_vacuumdialog.h"
 

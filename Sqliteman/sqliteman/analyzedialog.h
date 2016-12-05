@@ -8,8 +8,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef ANALYZEDIALOG_H
 #define ANALYZEDIALOG_H
 
-#include <qdialog.h>
-
 #include "ui_analyzedialog.h"
 
 
@@ -23,7 +21,7 @@ class AnalyzeDialog : public QDialog
 
 	public:
 		AnalyzeDialog(QWidget * parent = 0);
-		~AnalyzeDialog(){};
+		~AnalyzeDialog(){}
 
 	private:
 		Ui::AnalyzeDialog ui;

@@ -8,8 +8,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef CREATETRIGGERDIALOG_H
 #define CREATETRIGGERDIALOG_H
 
-#include <qwidget.h>
-
 #include "ui_createtriggerdialog.h"
 
 
@@ -23,7 +21,7 @@ class CreateTriggerDialog : public QDialog
 	public:
 		CreateTriggerDialog(const QString & name, const QString & schema,
 							/*QTreeWidgetItem::ItemType*/ int itemType, QWidget * parent = 0);
-		~CreateTriggerDialog(){};
+		~CreateTriggerDialog(){}
 
 		bool update;
 

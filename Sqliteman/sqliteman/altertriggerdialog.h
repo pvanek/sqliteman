@@ -8,8 +8,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef ALTERTRIGGERDIALOG_H
 #define ALTERTRIGGERDIALOG_H
 
-#include <qwidget.h>
-
 #include "ui_createtriggerdialog.h"
 
 
@@ -22,7 +20,7 @@ class AlterTriggerDialog : public QDialog
 
 	public:
 		AlterTriggerDialog(const QString & name, const QString & schema, QWidget * parent = 0);
-		~AlterTriggerDialog(){};
+		~AlterTriggerDialog(){}
 
 // 		bool update;
 

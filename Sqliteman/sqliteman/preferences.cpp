@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QSettings>
 #include <QApplication>
-#include <qscilexersql.h>
+#include <Qsci/qscilexersql.h>
 
 #include "preferences.h"
 

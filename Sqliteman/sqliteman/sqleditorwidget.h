@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SQLEDITORWIDGET_H
 #define SQLEDITORWIDGET_H
 
-#include <qsciscintilla.h>
+#include <Qsci/qsciscintilla.h>
 
 class Preferences;
 

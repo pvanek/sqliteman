@@ -165,28 +165,10 @@ SET(CMAKE_C_FLAGS_RELEASE "-O2 ${CXX_WARNINGS}")
 
 
 SET (QT_MT_REQUIRED true)
-SET (QT_MIN_VERSION "4.4.0")
+SET (QT_MIN_VERSION "5.0.0")
 SET( QT_USE_QTSQL TRUE )
 SET( QT_USE_QTXML TRUE )
-FIND_PACKAGE( Qt4 REQUIRED )
-MESSAGE(STATUS Qt4 version: ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}.${QT_VERSION_PATCH})
-# suggest Qt upgrade
-# if (QT_VERSION_MINOR LESS 3)
-#     MESSAGE(STATUS "")
-#     MESSAGE(STATUS "__ BIG FAT WARNING! _______________________________")
-#     MESSAGE(STATUS "Your Qt version seems older than it should be.")
-#     MESSAGE(STATUS "Althought will be Sqliteman compilled successfully,")
-#     MESSAGE(STATUS "it will be limited in its features.")
-#     MESSAGE(STATUS "There are some important bugs in older Qt versions.")
-#     MESSAGE(STATUS "Please upgrade to the current Qt version.")
-#     MESSAGE(STATUS "___________________________________________________")
-#     MESSAGE(STATUS "")
-# endif (QT_VERSION_MINOR LESS 3)
-MESSAGE(STATUS Qt4 includes: ${QT_INCLUDES})
-MESSAGE(STATUS Qt4 libs: ${QT_LIBRARY_DIR})
-
-INCLUDE( ${QT_USE_FILE} )
-
+FIND_PACKAGE( Qt5 REQUIRED COMPONENTS Widgets Sql )
 
 IF (WANT_INTERNAL_QSCINTILLA)
     MESSAGE(STATUS "QSci: Building with internal copy of QScintilla.")

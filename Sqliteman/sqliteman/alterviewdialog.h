@@ -8,10 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef ALTERVIEWDIALOG_H
 #define ALTERVIEWDIALOG_H
 
-#include <qwidget.h>
-
 #include "ui_createviewdialog.h"
-
 
 /*! \brief GUI for view altering
 \author Petr Vanek <petr@scribus.info>
@@ -22,10 +19,10 @@ class AlterViewDialog : public QDialog
 
 	public:
 		AlterViewDialog(const QString & name, const QString & schema, QWidget * parent = 0);
-		~AlterViewDialog(){};
+		~AlterViewDialog(){}
 
 		bool update;
-		void setText(const QString & text) { ui.sqlEdit->setText(text); };
+		void setText(const QString & text) { ui.sqlEdit->setText(text); }
 
 	private:
 		Ui::CreateViewDialog ui;

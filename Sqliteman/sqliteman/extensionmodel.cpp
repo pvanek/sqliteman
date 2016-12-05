@@ -59,6 +59,7 @@ QVariant ExtensionModel::headerData(int section, Qt::Orientation orientation, in
 
 void ExtensionModel::setExtensions(const QStringList & l)
 {
+	beginResetModel();
 	m_values = l;
-	reset();
+	endResetModel();
 }
