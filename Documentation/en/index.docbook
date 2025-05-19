@@ -171,10 +171,7 @@ such this (<ulink url="http://www.kexi-project.org/">Kexi</ulink>,
 <title>&kmyapplication; Online</title>
 
 <itemizedlist>
-<listitem><para><ulink url="http://sqliteman.com/">Project Home page</ulink></para></listitem>
-<listitem><para><ulink url="http://sourceforge.net/project/showfiles.php?group_id=189610">Download new versions</ulink></para></listitem>
-<listitem><para><ulink url="http://sqliteman.com/bugtracker/">Report bugs and feature requests</ulink></para></listitem>
-<listitem><para><ulink url="https://sourceforge.net/projects/sqliteman/">Sourceforge.net Area</ulink></para></listitem>
+<listitem><para><ulink url="https://github.com/pvanek/sqliteman">Project Home page</ulink></para></listitem>
 </itemizedlist>
 
 </sect1>
@@ -1880,7 +1877,7 @@ application work. -->
   <para>How I can report a bug?</para>
   </question>
   <answer>
-  <para>Visit <ulink url="http://sqliteman.com/">&kmyapplication; home page</ulink>,
+  <para>Visit <ulink url="https://github.com/pvanek/sqliteman">&kmyapplication; home page</ulink>,
   register yourself in the bug tracker and report it.</para>
 </answer>
 </qandaentry>

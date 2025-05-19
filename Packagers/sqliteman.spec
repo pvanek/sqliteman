@@ -7,7 +7,7 @@
 #
 
 Name:         sqliteman
-URL:          http://sqliteman.com
+URL:          https://github.com/pvanek/sqliteman
 License:      GPL
 Group:        Productivity/Databases/Tools
 Summary:      Lightweigth but powerful Sqlite3 manager. Development snapshot
@@ -36,7 +36,7 @@ contains the most complette feature set of all tools available
 
 Authors:
 --------
-    Petr Vanek <petr@scribus.info>
+    Petr Vanek <petr@yarpen.cz>
 
 %prep
 %setup -q

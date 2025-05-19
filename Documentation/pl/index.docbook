@@ -170,10 +170,7 @@ to spróbuj innych narzędzi specjalnie do tego stworzonych:
 <title>&kmyapplication; w internecie</title>
 
 <itemizedlist>
-<listitem><para><ulink url="http://sqliteman.com/">Strona domowa projektu</ulink></para></listitem>
-<listitem><para><ulink url="http://sourceforge.net/project/showfiles.php?group_id=189610">Ściągnij najnowszą wersję</ulink></para></listitem>
-<listitem><para><ulink url="http://sqliteman.com/bugtracker/">Zgłoś błąd, usprawnienie lub pomysł</ulink></para></listitem>
-<listitem><para><ulink url="https://sourceforge.net/projects/sqliteman/">Strefa Sourceforge.net</ulink></para></listitem>
+<listitem><para><ulink url="https://github.com/pvanek/sqliteman">Strona domowa projektu</ulink></para></listitem>
 </itemizedlist>
 
 </sect1>
@@ -1875,7 +1872,7 @@ application work. -->
   <para>How I can report a bug?</para>
   </question>
   <answer>
-  <para>Visit <ulink url="http://sqliteman.com/">&kmyapplication; home page</ulink>,
+  <para>Visit <ulink url="https://github.com/pvanek/sqliteman">&kmyapplication; home page</ulink>,
   register yourself in the bug tracker and report it.</para>
 </answer>
 </qandaentry>
