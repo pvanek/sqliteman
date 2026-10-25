@@ -1,3 +1,13 @@
-Sqliteman-build/
-Sqliteman/CMakeLists.txt.user
+/build*/
+/out/
+CMakeUserPresets.json
+CMakeLists.txt.user
+compile_commands.json
+.cache/
 .directory
+*.user
+.vscode/
+.idea/
+
+# Rendered from src/app/icons/sqliteman.svg, by the docs build or generate.sh.
+docs/images/sqliteman.png

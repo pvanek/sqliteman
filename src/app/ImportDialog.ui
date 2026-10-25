@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ImportDialog</class>
+ <widget class="QDialog" name="ImportDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>760</width>
+    <height>620</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Import CSV</string>
+  </property>
+  <layout class="QVBoxLayout" name="dialogLayout">
+   <item>
+    <layout class="QFormLayout" name="fileLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="pathLabel">
+       <property name="text">
+        <string>&amp;File:</string>
+       </property>
+       <property name="buddy">
+        <cstring>path</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <layout class="QHBoxLayout" name="pathLayout">
+       <item>
+        <widget class="QLineEdit" name="path"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="browse">
+         <property name="text">
+          <string>&amp;Browse…</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="settingsLayout">
+     <item>
+      <widget class="QGroupBox" name="formatBox">
+       <property name="title">
+        <string>File format</string>
+       </property>
+       <layout class="QFormLayout" name="formatLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="delimiterLabel">
+          <property name="text">
+           <string>&amp;Delimiter:</string>
+          </property>
+          <property name="buddy">
+           <cstring>delimiter</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="delimiter"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="quoteLabel">
+          <property name="text">
+           <string>&amp;Quote:</string>
+          </property>
+          <property name="buddy">
+           <cstring>quote</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="quote">
+          <property name="text">
+           <string notr="true">"</string>
+          </property>
+          <property name="maxLength">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="encodingLabel">
+          <property name="text">
+           <string>&amp;Encoding:</string>
+          </property>
+          <property name="buddy">
+           <cstring>encoding</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="encoding">
+          <property name="editable">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="skipLabel">
+          <property name="text">
+           <string>&amp;Skip lines:</string>
+          </property>
+          <property name="buddy">
+           <cstring>skipLines</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QSpinBox" name="skipLines">
+          <property name="toolTip">
+           <string>Lines at the top of the file to leave out, like a title</string>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="nullLabel">
+          <property name="text">
+           <string>&amp;NULLs as:</string>
+          </property>
+          <property name="buddy">
+           <cstring>nullText</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="nullText">
+          <property name="toolTip">
+           <string>An unquoted field reading this is NULL; a quoted one never is</string>
+          </property>
+          <property name="placeholderText">
+           <string>an empty field</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="2">
+         <widget class="QCheckBox" name="header">
+          <property name="text">
+           <string>First line names the &amp;columns</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="targetBox">
+       <property name="title">
+        <string>Into</string>
+       </property>
+       <layout class="QFormLayout" name="targetLayout">
+        <item row="0" column="0" colspan="2">
+         <widget class="QRadioButton" name="existingTable">
+          <property name="text">
+           <string>An e&amp;xisting table</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QRadioButton" name="newTable">
+          <property name="text">
+           <string>A ne&amp;w table</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="schemaLabel">
+          <property name="text">
+           <string>Sc&amp;hema:</string>
+          </property>
+          <property name="buddy">
+           <cstring>schema</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="schema"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="tableLabel">
+          <property name="text">
+           <string>&amp;Table:</string>
+          </property>
+          <property name="buddy">
+           <cstring>table</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="table"/>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QCheckBox" name="truncate">
+          <property name="text">
+           <string>E&amp;mpty the table first</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="tabs">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="columnsTab">
+      <attribute name="title">
+       <string>Colu&amp;mns</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="columnsLayout">
+       <item>
+        <widget class="QTableWidget" name="columns">
+         <property name="selectionMode">
+          <enum>QAbstractItemView::NoSelection</enum>
+         </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>File column</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>First value</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Table column</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Type</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="previewTab">
+      <attribute name="title">
+       <string>&amp;Preview</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="previewLayout">
+       <item>
+        <widget class="QTableWidget" name="preview">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QProgressBar" name="progress">
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+     <property name="textVisible">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="status">
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttons">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>path</tabstop>
+  <tabstop>browse</tabstop>
+  <tabstop>delimiter</tabstop>
+  <tabstop>quote</tabstop>
+  <tabstop>encoding</tabstop>
+  <tabstop>skipLines</tabstop>
+  <tabstop>nullText</tabstop>
+  <tabstop>header</tabstop>
+  <tabstop>existingTable</tabstop>
+  <tabstop>newTable</tabstop>
+  <tabstop>schema</tabstop>
+  <tabstop>table</tabstop>
+  <tabstop>truncate</tabstop>
+  <tabstop>tabs</tabstop>
+  <tabstop>columns</tabstop>
+  <tabstop>preview</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

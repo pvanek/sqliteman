@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Sqliteman
+GenericName=SQLite Database Manager
+GenericName[cs]=Správce databází SQLite
+Comment=Create, browse, query and edit SQLite databases
+Comment[cs]=Vytvářejte, procházejte a upravujte databáze SQLite
+Exec=sqliteman %F
+Icon=cz.yarpen.sqliteman
+Terminal=false
+StartupNotify=true
+MimeType=application/vnd.sqlite3;application/x-sqlite3;
+Categories=Development;Database;Qt;
+Keywords=SQLite;SQL;database;sqlite3;

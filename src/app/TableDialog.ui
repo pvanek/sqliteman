@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TableDialog</class>
+ <widget class="QDialog" name="TableDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Table</string>
+  </property>
+  <layout class="QVBoxLayout" name="layout">
+   <item>
+    <layout class="QFormLayout" name="form">
+     <item row="0" column="0">
+      <widget class="QLabel" name="schemaLabel">
+       <property name="text">
+        <string>&amp;Database:</string>
+       </property>
+       <property name="buddy">
+        <cstring>schema</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="schema"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="nameLabel">
+       <property name="text">
+        <string>&amp;Name:</string>
+       </property>
+       <property name="buddy">
+        <cstring>name</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="name"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="options">
+     <item>
+      <widget class="QCheckBox" name="ifNotExists">
+       <property name="text">
+        <string>&amp;If not exists</string>
+       </property>
+       <property name="toolTip">
+        <string>Do nothing, rather than fail, when a table of that name is there</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="withoutRowid">
+       <property name="text">
+        <string>&amp;Without rowid</string>
+       </property>
+       <property name="toolTip">
+        <string>Store the rows in the order of the primary key, which the table must have</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="strict">
+       <property name="text">
+        <string>S&amp;trict</string>
+       </property>
+       <property name="toolTip">
+        <string>Every value must be of its column's type: INTEGER, REAL, TEXT, BLOB or ANY</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="optionsSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="tabs">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="columnsPage">
+      <attribute name="title">
+       <string>&amp;Columns</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="columnsLayout">
+       <item>
+        <widget class="QTableWidget" name="columns">
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+         </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="columnButtons">
+         <item>
+          <widget class="QPushButton" name="addColumn">
+           <property name="text">
+            <string>&amp;Add Column</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="removeColumn">
+           <property name="text">
+            <string>&amp;Remove</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="moveUp">
+           <property name="text">
+            <string>Move &amp;Up</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="moveDown">
+           <property name="text">
+            <string>Move Do&amp;wn</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="columnSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="constraintsPage">
+      <attribute name="title">
+       <string>C&amp;onstraints</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="constraintsLayout">
+       <item>
+        <widget class="QLabel" name="constraintsHint">
+         <property name="text">
+          <string>Constraints on more than one column, as SQL. Double-click one to edit it.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="constraints"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="constraintButtons">
+         <item>
+          <widget class="QPushButton" name="addUnique">
+           <property name="text">
+            <string>Add &amp;UNIQUE…</string>
+           </property>
+           <property name="toolTip">
+            <string>No two rows may have the same values in the columns chosen</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="addPrimaryKey">
+           <property name="text">
+            <string>Add &amp;PRIMARY KEY…</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="addOther">
+           <property name="text">
+            <string>Add &amp;Other…</string>
+           </property>
+           <property name="toolTip">
+            <string>A CHECK or FOREIGN KEY constraint, written as SQL</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="removeConstraint">
+           <property name="text">
+            <string>Re&amp;move</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="constraintSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="sqlPage">
+      <attribute name="title">
+       <string>&amp;SQL</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="sqlLayout">
+       <item>
+        <widget class="QCheckBox" name="handWritten">
+         <property name="text">
+          <string>&amp;Edit the SQL by hand</string>
+         </property>
+         <property name="toolTip">
+          <string>Run the statement as it is written here rather than as the other tabs make it</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="sqliteman::SqlEditor" name="sql" native="true"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="log">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>90</height>
+      </size>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttons">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Close|QDialogButtonBox::StandardButton::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>sqliteman::SqlEditor</class>
+   <extends>QWidget</extends>
+   <header>SqlEditor.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>schema</tabstop>
+  <tabstop>name</tabstop>
+  <tabstop>tabs</tabstop>
+  <tabstop>columns</tabstop>
+  <tabstop>addColumn</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

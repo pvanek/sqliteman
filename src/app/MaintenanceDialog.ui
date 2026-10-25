@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MaintenanceDialog</class>
+ <widget class="QDialog" name="MaintenanceDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>720</width>
+    <height>520</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Maintenance</string>
+  </property>
+  <layout class="QVBoxLayout" name="layout">
+   <item>
+    <layout class="QHBoxLayout" name="top">
+     <item>
+      <layout class="QVBoxLayout" name="tablesLayout">
+       <item>
+        <widget class="QLabel" name="tablesLabel">
+         <property name="text">
+          <string>&amp;Tables (none selected: all of them):</string>
+         </property>
+         <property name="buddy">
+          <cstring>tables</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="tables">
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="actions">
+       <item>
+        <widget class="QPushButton" name="analyze">
+         <property name="text">
+          <string>&amp;Analyze</string>
+         </property>
+         <property name="toolTip">
+          <string>Gather the statistics the query planner chooses indexes by</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="dropStatistics">
+         <property name="text">
+          <string>&amp;Drop Statistics</string>
+         </property>
+         <property name="toolTip">
+          <string>Forget what Analyze gathered</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="reindex">
+         <property name="text">
+          <string>&amp;Reindex</string>
+         </property>
+         <property name="toolTip">
+          <string>Build the indexes again from the rows</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="optimize">
+         <property name="text">
+          <string>&amp;Optimize</string>
+         </property>
+         <property name="toolTip">
+          <string>PRAGMA optimize: Analyze where SQLite thinks it is worth it</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="vacuum">
+         <property name="text">
+          <string>&amp;Vacuum</string>
+         </property>
+         <property name="toolTip">
+          <string>Rewrite the whole database file without its free pages</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="vacuumInto">
+         <property name="text">
+          <string>Vacuum &amp;Into…</string>
+         </property>
+         <property name="toolTip">
+          <string>Write a compact copy of the database to a new file, a backup</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="integrity">
+         <property name="text">
+          <string>&amp;Integrity Check</string>
+         </property>
+         <property name="toolTip">
+          <string>Look through the whole file for damage</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="foreignKeys">
+         <property name="text">
+          <string>&amp;Foreign Key Check</string>
+         </property>
+         <property name="toolTip">
+          <string>Rows that refer to rows that are not there</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="actionsSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="log">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttons">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Close</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

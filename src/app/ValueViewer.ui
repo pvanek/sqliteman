@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ValueViewer</class>
+ <widget class="QDialog" name="ValueViewer">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>760</width>
+    <height>540</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Value</string>
+  </property>
+  <layout class="QVBoxLayout" name="layout">
+   <item>
+    <layout class="QHBoxLayout" name="tools">
+     <item>
+      <widget class="QLabel" name="syntaxLabel">
+       <property name="text">
+        <string>&amp;Show as:</string>
+       </property>
+       <property name="buddy">
+        <cstring>syntax</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="syntax">
+       <property name="toolTip">
+        <string>How to read the value: what to highlight, and how to format it</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Plain text</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>JSON</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="format">
+       <property name="text">
+        <string>&amp;Format</string>
+       </property>
+       <property name="toolTip">
+        <string>One member or element a line, indented</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="wrap">
+       <property name="text">
+        <string>&amp;Wrap lines</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="toolsSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="type">
+       <property name="toolTip">
+        <string>The value's storage class, as typeof() names it</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="pages">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="textPage">
+      <attribute name="title">
+       <string>&amp;Text</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="textLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="sqliteman::ResultTextView" name="text" native="true"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="imagePage">
+      <attribute name="title">
+       <string>&amp;Image</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="imageLayout">
+       <item>
+        <widget class="QScrollArea" name="imageArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
+         <widget class="QLabel" name="image">
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="hexPage">
+      <attribute name="title">
+       <string>&amp;Hex</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="hexLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="sqliteman::ResultTextView" name="hex" native="true"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="footer">
+     <item>
+      <widget class="QCheckBox" name="null">
+       <property name="text">
+        <string>&amp;NULL</string>
+       </property>
+       <property name="toolTip">
+        <string>No value at all</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="load">
+       <property name="text">
+        <string>&amp;Load File…</string>
+       </property>
+       <property name="toolTip">
+        <string>Take a file's content as the value, as a blob</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="save">
+       <property name="text">
+        <string>Sa&amp;ve to File…</string>
+       </property>
+       <property name="toolTip">
+        <string>Write the value to a file as it is, a blob byte for byte</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="copy">
+       <property name="text">
+        <string>&amp;Copy</string>
+       </property>
+       <property name="toolTip">
+        <string>Copy the text as shown, formatted or not</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="status">
+       <property name="textFormat">
+        <enum>Qt::TextFormat::PlainText</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="footerSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttons">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::StandardButton::Close</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>sqliteman::ResultTextView</class>
+   <extends>QWidget</extends>
+   <header>ResultTextView.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>pages</tabstop>
+  <tabstop>syntax</tabstop>
+  <tabstop>format</tabstop>
+  <tabstop>wrap</tabstop>
+  <tabstop>null</tabstop>
+  <tabstop>load</tabstop>
+  <tabstop>save</tabstop>
+  <tabstop>copy</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
