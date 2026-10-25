@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QueryBuilderDialog</class>
+ <widget class="QDialog" name="QueryBuilderDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>760</width>
+    <height>620</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Build Query</string>
+  </property>
+  <layout class="QVBoxLayout" name="layout">
+   <item>
+    <layout class="QFormLayout" name="form">
+     <item row="0" column="0">
+      <widget class="QLabel" name="tableLabel">
+       <property name="text">
+        <string>&amp;Table:</string>
+       </property>
+       <property name="buddy">
+        <cstring>table</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="table"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="columnsBox">
+     <property name="title">
+      <string>Columns</string>
+     </property>
+     <layout class="QHBoxLayout" name="columnsLayout">
+      <item>
+       <widget class="QListWidget" name="available">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="moveLayout">
+        <item>
+         <widget class="QPushButton" name="addAll">
+          <property name="text">
+           <string>All &gt;&gt;</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="add">
+          <property name="text">
+           <string>&amp;Add &gt;</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="remove">
+          <property name="text">
+           <string>&lt; &amp;Remove</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeAll">
+          <property name="text">
+           <string>&lt;&lt; None</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="distinct">
+          <property name="text">
+           <string>&amp;Distinct</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="moveSpacer">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QListWidget" name="selected">
+        <property name="toolTip">
+         <string>None selected: every column</string>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="termsBox">
+     <property name="title">
+      <string>Where</string>
+     </property>
+     <layout class="QVBoxLayout" name="termsLayout">
+      <item>
+       <widget class="QTableWidget" name="terms">
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="termButtons">
+        <item>
+         <widget class="QPushButton" name="addTerm">
+          <property name="text">
+           <string>Add &amp;Condition</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeTerm">
+          <property name="text">
+           <string>Remove C&amp;ondition</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="matchAll">
+          <property name="text">
+           <string>Match a&amp;ll</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="matchAny">
+          <property name="text">
+           <string>Match an&amp;y</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="termSpacer">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="orderLayout">
+     <item>
+      <widget class="QLabel" name="orderLabel">
+       <property name="text">
+        <string>&amp;Order by:</string>
+       </property>
+       <property name="buddy">
+        <cstring>order</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="order"/>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="descending">
+       <property name="text">
+        <string>Desc&amp;ending</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="limitLabel">
+       <property name="text">
+        <string>L&amp;imit:</string>
+       </property>
+       <property name="buddy">
+        <cstring>limit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="limit">
+       <property name="specialValueText">
+        <string>none</string>
+       </property>
+       <property name="maximum">
+        <number>100000000</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="orderSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QPlainTextEdit" name="sql">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>110</height>
+      </size>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttons">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

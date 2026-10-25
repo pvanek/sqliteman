@@ -1,0 +1,142 @@
+# SPDX-FileCopyrightText: 2026 Petr Vanek
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Builds and tests every push and pull request: on Linux with the system's
+# Qt, QScintilla and SQLite, as a distribution builds it; on Linux, macOS and
+# Windows with an official Qt and the bundled QScintilla and SQLite, as a
+# build on a machine without them does. The manual is built too, the way the
+# website is.
+
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer push to the same branch makes the older run pointless.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # What a distribution builds: Fedora has a Qt, QScintilla and SQLite new
+  # enough, which Ubuntu's Qt 6.4 is not. Warnings are errors here, and the
+  # desktop and metainfo files are validated, as packagers' tools would.
+  system:
+    name: Linux, system libraries
+    runs-on: ubuntu-24.04
+    container: fedora:43
+    steps:
+      - name: Packages
+        run: |
+          dnf install -y --setopt=install_weak_deps=False \
+              cmake make gcc-c++ git \
+              qt6-qtbase-devel qt6-qttools-devel qscintilla-qt6-devel sqlite-devel \
+              desktop-file-utils appstream
+
+      - uses: actions/checkout@v7
+
+      - name: Configure
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+              -DSQLITEMAN_WERROR=ON -DSQLITEMAN_WITH_DOCS=OFF
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+  # Qt from qt.io and everything else built here: what a Windows or macOS
+  # build, or one on an older Linux, gets.
+  bundled:
+    name: ${{ matrix.name }}, bundled libraries
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux
+            os: ubuntu-24.04
+            werror: 'ON'
+          - name: macOS
+            os: macos-15
+            werror: 'OFF'
+          - name: Windows
+            os: windows-2022
+            werror: 'OFF'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # What Qt's Gui module wants to find on Linux, beyond Qt itself.
+      - name: Linux packages
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+              libgl-dev libegl-dev libxkbcommon-dev libfontconfig1-dev
+
+      - uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.3'
+          cache: true
+
+      # One configuration on every platform; Visual Studio's generator
+      # ignores the build type and takes --config and -C instead, hence both.
+      - name: Configure
+        run: >
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          -DSQLITEMAN_BUNDLED_QSCINTILLA=ON -DSQLITEMAN_BUNDLED_SQLITE=ON
+          -DSQLITEMAN_WERROR=${{ matrix.werror }} -DSQLITEMAN_WITH_DOCS=OFF
+
+      # One job at a time: --parallel without a number gives make -j with
+      # no limit, which starts every compile at once, and a macOS runner
+      # swaps itself to a standstill on QScintilla's.
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure
+
+      # On Windows a failing test's output can be missing from ctest's log,
+      # which then says nothing but "Failed". Each failed test is run again
+      # with Qt Test writing its report to a file, and the file is shown.
+      - name: Failed tests in full
+        if: failure()
+        shell: bash
+        run: |
+          for test in $(sed 's/^[0-9]*://' build/Testing/Temporary/LastTestsFailed*.log); do
+              exe=$(find build -type f \( -name "$test" -o -name "$test.exe" \) | head -n 1)
+              echo "::group::$test"
+              QT_QPA_PLATFORM=offscreen "$exe" -o "$RUNNER_TEMP/$test.txt,txt" || true
+              cat "$RUNNER_TEMP/$test.txt"
+              echo "::endgroup::"
+          done
+
+  # The website's build, on every change rather than only once it is on
+  # master: a broken link or reference fails here, before it is merged.
+  docs:
+    name: Manual
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: docs/requirements.txt
+
+      - name: Sphinx
+        run: pip install -r docs/requirements.txt furo==2025.12.19
+
+      - name: Icon
+        run: cp src/app/icons/sqliteman-128.png docs/images/sqliteman.png
+
+      - name: Build
+        run: sphinx-build -W -b html docs _site

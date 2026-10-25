@@ -1,0 +1,4 @@
+# What the manual's build needs, pinned so the website builds the same
+# way every time.
+sphinx==9.1.0
+myst-parser==5.1.0

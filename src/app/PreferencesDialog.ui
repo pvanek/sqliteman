@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PreferencesDialog</class>
+ <widget class="QDialog" name="PreferencesDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>620</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Preferences</string>
+  </property>
+  <layout class="QVBoxLayout" name="layout">
+   <item>
+    <widget class="QTabWidget" name="tabs">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="generalPage">
+      <attribute name="title">
+       <string>&amp;General</string>
+      </attribute>
+      <layout class="QFormLayout" name="generalLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="recentCountLabel">
+         <property name="text">
+          <string>&amp;Recent databases:</string>
+         </property>
+         <property name="buddy">
+          <cstring>recentCount</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="recentCount">
+         <property name="maximum">
+          <number>50</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QCheckBox" name="reopenDatabases">
+         <property name="text">
+          <string>Open the databases that were open at the last e&amp;xit</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="resultsPage">
+      <attribute name="title">
+       <string>&amp;Results</string>
+      </attribute>
+      <layout class="QFormLayout" name="resultsLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="nullTextLabel">
+         <property name="text">
+          <string>&amp;NULL shown as:</string>
+         </property>
+         <property name="buddy">
+          <cstring>nullText</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <layout class="QHBoxLayout" name="nullLayout">
+         <item>
+          <widget class="QLineEdit" name="nullText"/>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="highlightNull">
+           <property name="text">
+            <string>Background:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="nullColor">
+           <property name="toolTip">
+            <string>Click to choose; right-click for the default</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="blobTextLabel">
+         <property name="text">
+          <string>&amp;Blob shown as:</string>
+         </property>
+         <property name="buddy">
+          <cstring>blobText</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <layout class="QHBoxLayout" name="blobLayout">
+         <item>
+          <widget class="QLineEdit" name="blobText"/>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="highlightBlob">
+           <property name="text">
+            <string>Background:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="blobColor">
+           <property name="toolTip">
+            <string>Click to choose; right-click for the default</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="rowLimitLabel">
+         <property name="text">
+          <string>Row &amp;limit:</string>
+         </property>
+         <property name="buddy">
+          <cstring>rowLimit</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QSpinBox" name="rowLimit">
+         <property name="toolTip">
+          <string>A query stops reading after this many rows; an export reads them all</string>
+         </property>
+         <property name="minimum">
+          <number>100</number>
+         </property>
+         <property name="maximum">
+          <number>100000000</number>
+         </property>
+         <property name="singleStep">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="editorPage">
+      <attribute name="title">
+       <string>&amp;Editor</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="editorLayout">
+       <item>
+        <layout class="QFormLayout" name="editorForm">
+         <item row="0" column="0">
+          <widget class="QLabel" name="fontLabel">
+           <property name="text">
+            <string>&amp;Font:</string>
+           </property>
+           <property name="buddy">
+            <cstring>font</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="font">
+           <property name="toolTip">
+            <string>Click to choose; right-click for the system's fixed font</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="highlightCurrentLine">
+           <property name="text">
+            <string>Highlight the &amp;current line</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="widthMarkLabel">
+           <property name="text">
+            <string>&amp;Width mark at column:</string>
+           </property>
+           <property name="buddy">
+            <cstring>widthMark</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QSpinBox" name="widthMark">
+           <property name="specialValueText">
+            <string>none</string>
+           </property>
+           <property name="maximum">
+            <number>500</number>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <layout class="QHBoxLayout" name="completionLayout">
+           <item>
+            <widget class="QCheckBox" name="completion">
+             <property name="text">
+              <string>C&amp;omplete names while typing, after</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="completionChars">
+             <property name="suffix">
+              <string> letters</string>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>10</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="4" column="1">
+          <widget class="QCheckBox" name="useSnippets">
+           <property name="text">
+            <string>&amp;Templates: a word and Tab put in its text</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QTableWidget" name="snippets">
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="snippetButtons">
+         <item>
+          <widget class="QPushButton" name="addSnippet">
+           <property name="text">
+            <string>&amp;Add Template</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="removeSnippet">
+           <property name="text">
+            <string>Remo&amp;ve Template</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="snippetSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="databasePage">
+      <attribute name="title">
+       <string>&amp;Database</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="databaseLayout">
+       <item>
+        <layout class="QFormLayout" name="databaseForm">
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="foreignKeys">
+           <property name="text">
+            <string>Enforce &amp;foreign keys (PRAGMA foreign_keys)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="busyTimeoutLabel">
+           <property name="text">
+            <string>&amp;Wait for locks:</string>
+           </property>
+           <property name="buddy">
+            <cstring>busyTimeout</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="busyTimeout">
+           <property name="toolTip">
+            <string>How long a statement waits for another program to let go of the file</string>
+           </property>
+           <property name="suffix">
+            <string> ms</string>
+           </property>
+           <property name="maximum">
+            <number>600000</number>
+           </property>
+           <property name="singleStep">
+            <number>500</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QCheckBox" name="allowExtensions">
+           <property name="text">
+            <string>Allow loading &amp;extensions</string>
+           </property>
+           <property name="toolTip">
+            <string>An extension is a library that runs inside the program: load only those you trust</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QLabel" name="extensionsLabel">
+         <property name="text">
+          <string>Extensions loaded into every database opened:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="extensions"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="extensionButtons">
+         <item>
+          <widget class="QPushButton" name="addExtension">
+           <property name="text">
+            <string>Add E&amp;xtension…</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="removeExtension">
+           <property name="text">
+            <string>Remove Extensio&amp;n</string>
+           </property>
+           <property name="autoDefault">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="extensionSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttons">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok|QDialogButtonBox::StandardButton::RestoreDefaults</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,70 @@
+# SPDX-FileCopyrightText: 2026 Petr Vanek
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# The manual as a website on GitHub Pages, rebuilt whenever it changes on
+# main. The repository's Pages source has to be set to "GitHub Actions".
+
+name: Website
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'docs/**'
+      # The logo and the favicon come from the program's icons, the version
+      # from CMakeLists.txt.
+      - 'src/app/icons/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deployment at a time, and one that has started is not cut short.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: docs/requirements.txt
+
+      # The pinned Sphinx, and the theme the website has on top.
+      - name: Sphinx
+        run: pip install -r docs/requirements.txt furo==2025.12.19
+
+      # The icon the manual shows is not in the repository; the docs build in
+      # docs/CMakeLists.txt copies it the same way.
+      - name: Icon
+        run: cp src/app/icons/sqliteman-128.png docs/images/sqliteman.png
+
+      # -W: a warning, such as a link to a page that is not there, fails the
+      # build rather than ships.
+      - name: Build
+        run: sphinx-build -W -b html docs _site
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

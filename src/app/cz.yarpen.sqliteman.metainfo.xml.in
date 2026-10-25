@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: 2026 Petr Vanek -->
+<!-- SPDX-License-Identifier: CC0-1.0 -->
+<component type="desktop-application">
+  <id>cz.yarpen.sqliteman</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <name>Sqliteman</name>
+  <summary>Create, browse, query and edit SQLite databases</summary>
+  <developer id="cz.yarpen">
+    <name>Petr Vanek</name>
+  </developer>
+
+  <description>
+    <p>
+      A database manager for SQLite files. It works on its own thread, so a
+      long query never freezes the window, and it keeps the case of every
+      name and every clause of a table it changes.
+    </p>
+    <ul>
+      <li>An SQL editor with highlighting, completion and query plans</li>
+      <li>Tables and query results in grids that can be edited and exported</li>
+      <li>Creating and altering tables, indexes, views and triggers</li>
+      <li>CSV import, dumps, test data, pragmas and maintenance</li>
+      <li>Attached databases and loadable extensions</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">cz.yarpen.sqliteman.desktop</launchable>
+  <provides>
+    <binary>sqliteman</binary>
+  </provides>
+
+  <url type="homepage">https://github.com/pvanek/sqliteman</url>
+  <url type="bugtracker">https://github.com/pvanek/sqliteman/issues</url>
+  <url type="vcs-browser">https://github.com/pvanek/sqliteman</url>
+
+  <categories>
+    <category>Development</category>
+    <category>Database</category>
+  </categories>
+  <keywords>
+    <keyword>SQLite</keyword>
+    <keyword>SQL</keyword>
+    <keyword>database</keyword>
+  </keywords>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+  <content_rating type="oars-1.1"/>
+
+  <releases>
+    <release version="@PROJECT_VERSION@" date="@SQLITEMAN_RELEASE_DATE@"/>
+  </releases>
+</component>

@@ -1,0 +1,192 @@
+# SPDX-FileCopyrightText: 2026 Petr Vanek
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Packages for macOS, Windows and Flatpak, for every tag v<version>. Each job
+# runs the same script as a build by hand (see docs/development/packaging.md);
+# the last one collects the packages into a draft release, to be given its
+# notes and published by hand. A platform that fails to build does not hold
+# back the others: the draft gets what was built, and the run says what is
+# missing.
+
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  # A dry run from any branch: the packages are built and kept as the run's
+  # artifacts, and no release is made.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  version:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: version
+        # A tag that disagrees with CMakeLists.txt would ship packages named
+        # and labelled with the other version.
+        run: |
+          version=$(sed -n 's/^ *VERSION \([0-9.]*\)$/\1/p' CMakeLists.txt | head -n 1)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_REF_TYPE" = tag ] && [ "$GITHUB_REF_NAME" != "v$version" ]; then
+              echo "::error::Tag $GITHUB_REF_NAME, but CMakeLists.txt says $version"
+              exit 1
+          fi
+
+  macos:
+    needs: version
+    strategy:
+      fail-fast: false
+      matrix:
+        # Homebrew builds for the processor it runs on, so one runner each.
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x86_64
+    runs-on: ${{ matrix.runner }}
+    env:
+      # Secrets cannot be tested in "if:"; their presence can, through env.
+      MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # Without these secrets the bundle is signed ad hoc, as build.sh does
+      # on a Mac with no Developer ID.
+      - name: Developer ID and notary credentials
+        if: env.MACOS_CERTIFICATE != ''
+        env:
+          CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          NOTARY_APPLE_ID: ${{ secrets.MACOS_NOTARY_APPLE_ID }}
+          NOTARY_PASSWORD: ${{ secrets.MACOS_NOTARY_PASSWORD }}
+          NOTARY_TEAM_ID: ${{ secrets.MACOS_NOTARY_TEAM_ID }}
+        run: |
+          keychain="$RUNNER_TEMP/signing.keychain-db"
+          keychain_password=$(uuidgen)
+          echo "$MACOS_CERTIFICATE" | base64 --decode > "$RUNNER_TEMP/certificate.p12"
+          security create-keychain -p "$keychain_password" "$keychain"
+          security set-keychain-settings -lut 21600 "$keychain"
+          security unlock-keychain -p "$keychain_password" "$keychain"
+          security import "$RUNNER_TEMP/certificate.p12" -k "$keychain" \
+              -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -k "$keychain_password" "$keychain"
+          security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
+          rm "$RUNNER_TEMP/certificate.p12"
+          xcrun notarytool store-credentials sqliteman-notary --keychain "$keychain" \
+              --apple-id "$NOTARY_APPLE_ID" --team-id "$NOTARY_TEAM_ID" --password "$NOTARY_PASSWORD"
+          echo "SQLITEMAN_NOTARY_PROFILE=sqliteman-notary" >> "$GITHUB_ENV"
+
+      - name: Build
+        env:
+          SQLITEMAN_SIGN_IDENTITY: ${{ secrets.MACOS_SIGN_IDENTITY }}
+        run: tools/macos/build.sh
+
+      # Both processors make Sqliteman-<version>.dmg; the release needs both.
+      - name: Name the disk image after its processor
+        run: |
+          mkdir dist
+          mv "build-macos/Sqliteman-${{ needs.version.outputs.version }}.dmg" \
+              "dist/Sqliteman-${{ needs.version.outputs.version }}-macos-${{ matrix.arch }}.dmg"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-${{ matrix.arch }}
+          path: dist/*
+          if-no-files-found: error
+
+  windows:
+    needs: version
+    # Comes with Visual Studio 2022, Python, Git's tar and Inno Setup 6.
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.3'
+          arch: win64_msvc2022_64
+          cache: true
+
+      - name: Build
+        shell: pwsh
+        run: tools\windows\build.ps1 -QtDir $env:QT_ROOT_DIR
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: |
+            build-windows/Sqliteman-*-win64.zip
+            build-windows/Sqliteman-*-setup.exe
+          if-no-files-found: error
+
+  flatpak:
+    needs: version
+    runs-on: ubuntu-24.04
+    # flatpak-builder and the KDE SDK the manifest names, ready to use.
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v7
+      # Uploads the bundle as an artifact of the run itself.
+      - uses: flathub-infra/flatpak-github-actions/flatpak-builder@master
+        with:
+          manifest-path: tools/flatpak/cz.yarpen.sqliteman.yml
+          bundle: Sqliteman-${{ needs.version.outputs.version }}.flatpak
+          cache-key: flatpak-builder-${{ github.sha }}
+
+  release:
+    needs: [version, macos, windows, flatpak]
+    # Not only when every package built: a failed job would otherwise skip
+    # this one, and the packages that did build would never be released.
+    if: >-
+      !cancelled() && github.ref_type == 'tag' && needs.version.result == 'success'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Missing packages
+        env:
+          MACOS: ${{ needs.macos.result }}
+          WINDOWS: ${{ needs.windows.result }}
+          FLATPAK: ${{ needs.flatpak.result }}
+        run: |
+          for job in MACOS WINDOWS FLATPAK; do
+              if [ "${!job}" != success ]; then
+                  echo "::warning::$job: ${!job}; the release is without some of its packages"
+              fi
+          done
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Checksums
+        run: |
+          if [ -z "$(ls -A dist 2>/dev/null)" ]; then
+              echo "::error::No package was built"
+              exit 1
+          fi
+          cd dist && sha256sum * > SHA256SUMS
+
+      # A draft: its notes are written by hand before it is published. A
+      # release already made for the tag (by hand, or by an earlier run that
+      # is being re-run for the packages that failed) gets the packages added,
+      # replacing those of the same name.
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+              gh release upload "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --clobber
+          else
+              gh release create "$GITHUB_REF_NAME" dist/* \
+                  --repo "$GITHUB_REPOSITORY" --verify-tag --draft --generate-notes \
+                  --title "Sqliteman ${{ needs.version.outputs.version }}"
+          fi

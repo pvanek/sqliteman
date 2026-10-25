@@ -1,0 +1,75 @@
+# SPDX-FileCopyrightText: 2026 Petr Vanek
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Flatpak manifest. tools/flatpak/build.sh builds it from this checkout;
+# see docs/development/packaging.md.
+
+id: cz.yarpen.sqliteman
+runtime: org.kde.Platform
+runtime-version: '6.11'
+sdk: org.kde.Sdk
+command: sqliteman
+
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  # SQLite writes its journal and WAL files beside the database, which a
+  # file chosen through the portal would not allow; and scripts are opened
+  # and saved anywhere.
+  - --filesystem=home
+
+cleanup:
+  - /include
+  - /lib/cmake
+  - /lib/pkgconfig
+  - /lib/*.a
+  - /share/doc
+
+modules:
+  # Sphinx and the MyST parser, for the manual; removed once it is built.
+  - python3-docs.yaml
+
+  - name: sqliteman
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DSQLITEMAN_BUILD_TESTS=OFF
+      - -DSQLITEMAN_WITH_DOCS=ON
+      # QScintilla is not in the runtime, and its SQLite may lack column
+      # metadata. Both are built into the program from the archives below,
+      # as the build has no network to download them.
+      - -DSQLITEMAN_BUNDLED_SQLITE=ON
+      - -DSQLITEMAN_BUNDLED_QSCINTILLA=ON
+      - -DFETCHCONTENT_FULLY_DISCONNECTED=ON
+      - -DFETCHCONTENT_SOURCE_DIR_SQLITE_AMALGAMATION=/run/build/sqliteman/third-party/sqlite
+      - -DFETCHCONTENT_SOURCE_DIR_QSCINTILLA=/run/build/sqliteman/third-party/qscintilla
+    # Run between the build and the install, which then takes the help file
+    # along. Not part of "all": that would make every build wait for Sphinx.
+    build-commands:
+      - ninja docs-qch
+    sources:
+      # This checkout. A Flathub manifest takes a release tag instead:
+      #   type: git, url: https://github.com/pvanek/sqliteman.git, tag: v<version>
+      - type: dir
+        path: ../..
+        skip:
+          - .git
+          - .flatpak-builder
+          - build
+          - build-flatpak
+          - build-macos
+          - build-windows
+      # The versions pinned in cmake/SqlitemanSQLite.cmake and
+      # cmake/SqlitemanQScintilla.cmake; update them together. sqlite.org
+      # gives SHA3-256, flatpak-builder wants SHA-256 of the same file.
+      - type: archive
+        url: https://www.sqlite.org/2026/sqlite-amalgamation-3540100.zip
+        sha256: 0a9c8e34352dad46006aa82836d5383bff9dc6bc9ce5a60553c05aa30e6ad1f9
+        dest: third-party/sqlite
+      - type: archive
+        url: https://www.riverbankcomputing.com/static/Downloads/QScintilla/2.14.1/QScintilla_src-2.14.1.tar.gz
+        sha256: dfe13c6acc9d85dfcba76ccc8061e71a223957a6c02f3c343b30a9d43a4cdd4d
+        dest: third-party/qscintilla
