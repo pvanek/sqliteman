@@ -1,3 +1,8 @@
+# Project Status
+
+Please use [rparkins999/sqliteman](https://github.com/rparkins999/sqliteman).
+Richard Parkins is actively maintaining the live fork of this repository.
+
 # Sqliteman
 
 A developer's and administrator's tool for SQLite databases, built with Qt6.
